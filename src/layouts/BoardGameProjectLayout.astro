@@ -1,0 +1,355 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import ProjectGallery from '../components/project/ProjectGallery.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+
+const facts = [
+  ['Players', '2'],
+  ['Deck', '30 cards'],
+  ['Core', 'Plan / Position / Pressure'],
+  ['Factions', '5'],
+];
+
+const pillars = [
+  ['PLAN', 'Build the deck, manage ENE and decide which cards are worth committing now.'],
+  ['POSITION', 'Use the hex map, Structures and Strategic Points to create useful lines of reinforcement.'],
+  ['PRESSURE', 'Turn territory and credible threats into choices the opponent can no longer afford to ignore.'],
+];
+
+const factions = [
+  ['Nexus', 'Calculated PS control, stable networks and measured territorial advantage.', 'nexus'],
+  ['Exordium', 'Combined Infantry / Vehicle assault and sustained forward pressure.', 'exordium'],
+  ['Liberti', 'Numbers, proximity, attrition and aggressive movement toward the enemy rear.', 'liberti'],
+  ['Agathoi', 'Structures, resilience, recovery and defensive infrastructure.', 'agathoi'],
+  ['Fabeot', 'Economic manipulation, blocking, taxation, theft and conditional conversion.', 'fabeot'],
+];
+
+const sampleCards = [
+  {
+    src: '/assets/projects/arena-rubra-board-game/cards/varran.webp',
+    alt: 'Varran Exordium Commander sample card for Arena Rubra tabletop.',
+    label: 'Exordium / Commander',
+    name: 'Varran',
+  },
+  {
+    src: '/assets/projects/arena-rubra-board-game/cards/adepto-fabeot.webp',
+    alt: 'Adepto Fabeot light infantry sample card for Arena Rubra tabletop.',
+    label: 'Fabeot / Light Infantry',
+    name: 'Adepto Fabeot',
+  },
+  {
+    src: '/assets/projects/arena-rubra-board-game/cards/predone-liberto.webp',
+    alt: 'Predone Liberto heavy infantry sample card for Arena Rubra tabletop.',
+    label: 'Liberti / Heavy Infantry',
+    name: 'Predone Liberto',
+  },
+];
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.seoDescription ?? data.summary}
+  image={data.socialImage ?? data.cover}
+>
+  <div class="tabletop-page">
+    <section class="tabletop-hero">
+      <Container>
+        <a class="tabletop-back" href="/worlds/">← Worlds</a>
+
+        <div class="tabletop-hero__head">
+          <div class="tabletop-hero__copy">
+            <div class="tabletop-kicker">
+              <span>Tabletop project</span>
+              {data.status && <span>{data.status}</span>}
+            </div>
+            <h1>Arena Rubra</h1>
+            <p>{data.summary}</p>
+            <div class="tabletop-actions">
+              <a class="tabletop-action tabletop-action--primary" href="#tabletop-system">Explore the tabletop system ↓</a>
+              <a class="tabletop-action" href="/projects/arena-rubra-digital/">Digital project ↗</a>
+            </div>
+          </div>
+
+          <aside class="prototype-note" aria-label="Prototype status">
+            <span>Prototype status</span>
+            <strong>Concept visuals, real rules.</strong>
+            <p>The physical edition shown here has not yet been manufactured. Table images visualize the intended component system.</p>
+          </aside>
+        </div>
+
+        {data.heroImage && (
+          <figure class="tabletop-hero__media">
+            <img src={data.heroImage} alt={data.heroAlt ?? ''} width="1672" height="941" fetchpriority="high" />
+            <figcaption>Tabletop concept visualization — not a photograph of a manufactured prototype.</figcaption>
+          </figure>
+        )}
+
+        <div class="tabletop-facts" aria-label="Arena Rubra tabletop quick facts">
+          {facts.map(([label, value]) => (
+            <div>
+              <span>{label}</span>
+              <strong>{value}</strong>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section id="tabletop-system" class="tabletop-system">
+      <Container>
+        <div class="section-heading">
+          <span>Starter structure</span>
+          <h2>Three verbs organize the match.</h2>
+        </div>
+        <div class="pillar-grid">
+          {pillars.map(([title, body], index) => (
+            <article>
+              <span>0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="tabletop-story">
+      <Container>
+        <div class="tabletop-story__grid">
+          <aside class="tabletop-story__aside">
+            <span>Rule source</span>
+            <strong>Starter user edition</strong>
+            <p>This showcase follows the supplied Starter rulebook rather than older conversion notes. It describes the current two-player implementation without adding new rules.</p>
+          </aside>
+          <article class="tabletop-prose">
+            <slot />
+          </article>
+        </div>
+      </Container>
+    </section>
+
+    <section class="faction-section">
+      <Container>
+        <div class="section-heading section-heading--compact">
+          <span>Faction doctrines</span>
+          <h2>Five ways to read the same board.</h2>
+        </div>
+        <div class="faction-grid">
+          {factions.map(([name, body, tone]) => (
+            <article class:list={['faction-card', `faction-card--${tone}`]}>
+              <span>{name}</span>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="cards-section">
+      <Container>
+        <div class="cards-heading">
+          <div>
+            <span>Current card language</span>
+            <h2>Cards designed to become pieces on the battlefield.</h2>
+          </div>
+          <p>These samples are presentation material for the evolving tabletop edition. Artwork and structure are representative; values and wording may still change before a physical prototype is frozen.</p>
+        </div>
+        <div class="sample-cards">
+          {sampleCards.map((card) => (
+            <figure>
+              <div class="sample-card__frame">
+                <img src={card.src} alt={card.alt} width="760" height="1140" loading="lazy" decoding="async" />
+              </div>
+              <figcaption>
+                <span>{card.label}</span>
+                <strong>{card.name}</strong>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    {data.gallery.length > 0 && (
+      <section class="tabletop-gallery">
+        <Container>
+          <ProjectGallery items={data.gallery} />
+        </Container>
+      </section>
+    )}
+
+    <section class="prototype-section">
+      <Container>
+        <div class="prototype-grid">
+          <div>
+            <span>Where it is now</span>
+            <h2>Past the idea stage. Not yet a manufactured object.</h2>
+          </div>
+          <div class="prototype-copy">
+            <p>The tabletop branch already has a formal Starter ruleset, deck constraints, faction doctrines, combat procedures, victory conditions and an established visual direction.</p>
+            <p>The next physical milestones are practical rather than conceptual: component specification, printable prototypes, real-table usability tests, production tolerances and the final freeze of values that still move during balancing.</p>
+            <a href="/projects/arena-rubra-digital/">See the digital Arena Rubra project ↗</a>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    {data.endcapImage && (
+      <section class="tabletop-endcap">
+        <Container>
+          <figure>
+            <img src={data.endcapImage} alt={data.endcapAlt ?? ''} width="1000" height="1500" loading="lazy" decoding="async" />
+          </figure>
+        </Container>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .tabletop-page {
+    --tabletop-gold: #c89b58;
+    --tabletop-bronze: #8e5b34;
+    --tabletop-red: #9f382e;
+    --tabletop-line: rgba(200,155,88,0.22);
+    color: var(--color-text);
+    background: #070707;
+  }
+
+  .tabletop-hero {
+    padding-block: clamp(2rem,5vw,4.5rem) clamp(3rem,7vw,6rem);
+    border-bottom: 1px solid var(--tabletop-line);
+    background: #090806;
+  }
+
+  .tabletop-back {
+    display: inline-flex;
+    margin-bottom: clamp(2rem,4vw,3.5rem);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .tabletop-back:hover { color: var(--tabletop-gold); }
+
+  .tabletop-hero__head {
+    display: grid;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: clamp(2rem,5vw,3.5rem);
+  }
+  .tabletop-hero__copy { display: grid; gap: 1.25rem; max-width: 58rem; }
+  .tabletop-kicker { display: flex; flex-wrap: wrap; gap: .7rem 1.2rem; color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .tabletop-kicker span:last-child { color: #d77360; }
+  .tabletop-hero h1 { margin: 0; font-size: clamp(3.2rem,9vw,7.6rem); line-height: .87; letter-spacing: -.065em; }
+  .tabletop-hero__copy > p { max-width: 52rem; margin: 0; color: var(--color-text-muted); font-size: clamp(1.08rem,1rem + .45vw,1.4rem); line-height: 1.68; }
+  .tabletop-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+  .tabletop-action { padding: .82rem 1rem; border: 1px solid var(--tabletop-line); border-radius: var(--radius-sm); color: var(--color-text); font-family: var(--font-mono); font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-decoration: none; text-transform: uppercase; }
+  .tabletop-action:hover { border-color: var(--tabletop-gold); }
+  .tabletop-action--primary { border-color: var(--tabletop-gold); color: #090806; background: var(--tabletop-gold); }
+  .tabletop-action--primary:hover { background: #dfb774; }
+
+  .prototype-note { display: grid; gap: .7rem; max-width: 25rem; padding: 1.2rem; border: 1px solid var(--tabletop-line); background: #100d09; }
+  .prototype-note > span { color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .prototype-note strong { font-size: 1.15rem; }
+  .prototype-note p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.6; }
+
+  .tabletop-hero__media { overflow: hidden; margin: 0; border: 1px solid var(--tabletop-line); border-radius: var(--radius-lg); background: #020202; }
+  .tabletop-hero__media img { display: block; width: 100%; height: auto; }
+  .tabletop-hero__media figcaption { padding: .7rem .9rem; color: var(--color-text-subtle); border-top: 1px solid var(--tabletop-line); font-family: var(--font-mono); font-size: .68rem; letter-spacing: .03em; }
+
+  .tabletop-facts { display: grid; gap: 1px; margin-top: 1rem; border: 1px solid var(--tabletop-line); background: var(--tabletop-line); }
+  .tabletop-facts > div { display: grid; gap: .35rem; padding: 1rem; background: #0b0907; }
+  .tabletop-facts span { color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .66rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+  .tabletop-facts strong { color: #f4e7d3; font-size: 1rem; }
+
+  .tabletop-system, .faction-section, .cards-section, .prototype-section { padding-block: var(--section-space); }
+  .tabletop-system { border-bottom: 1px solid var(--tabletop-line); background: #0b0907; }
+  .section-heading { display: grid; gap: .7rem; max-width: 58rem; margin-bottom: 2rem; }
+  .section-heading > span, .cards-heading span, .prototype-grid > div > span { color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .section-heading h2, .cards-heading h2, .prototype-grid h2 { margin: 0; font-size: clamp(2.2rem,5vw,4.6rem); line-height: .98; letter-spacing: -.05em; }
+  .section-heading--compact h2 { max-width: 16ch; }
+
+  .pillar-grid { display: grid; gap: 1rem; }
+  .pillar-grid article { display: grid; gap: .8rem; padding: 1.2rem; border: 1px solid var(--tabletop-line); background: #0f0c09; }
+  .pillar-grid article > span { color: #6f5940; font-family: var(--font-mono); font-size: .7rem; font-weight: 800; }
+  .pillar-grid h3 { margin: 0; color: #f1d5a4; font-size: 1.1rem; letter-spacing: .08em; }
+  .pillar-grid p { margin: 0; color: var(--color-text-muted); line-height: 1.7; }
+
+  .tabletop-story { padding-block: var(--section-space); }
+  .tabletop-story__grid { display: grid; gap: 3rem; }
+  .tabletop-story__aside { display: grid; align-content: start; gap: .8rem; padding: 1.15rem; border: 1px solid var(--tabletop-line); background: #0d0b08; }
+  .tabletop-story__aside span { color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .tabletop-story__aside p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.65; }
+  :global(.tabletop-prose) { max-width: 53rem; }
+  :global(.tabletop-prose h2) { margin: 0 0 1.2rem; font-size: clamp(2rem,4vw,3.5rem); line-height: 1; letter-spacing: -.045em; }
+  :global(.tabletop-prose h2:not(:first-child)) { margin-top: 4.2rem; }
+  :global(.tabletop-prose p) { margin: 0 0 1.3rem; color: var(--color-text-muted); font-size: clamp(1rem,.96rem + .15vw,1.08rem); line-height: 1.82; }
+  :global(.tabletop-prose strong) { color: #f3ddbb; }
+
+  .faction-section { border-top: 1px solid var(--tabletop-line); border-bottom: 1px solid var(--tabletop-line); background: #080706; }
+  .faction-grid { display: grid; gap: .8rem; }
+  .faction-card { display: grid; gap: .7rem; padding: 1rem; border: 1px solid #2a2721; background: #0d0d0c; }
+  .faction-card > span { font-family: var(--font-mono); font-size: .75rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+  .faction-card p { margin: 0; color: var(--color-text-muted); line-height: 1.6; }
+  .faction-card--nexus { border-top-color: #385a7a; }
+  .faction-card--exordium { border-top-color: #9b3e34; }
+  .faction-card--liberti { border-top-color: #9b6a30; }
+  .faction-card--agathoi { border-top-color: #54744a; }
+  .faction-card--fabeot { border-top-color: #6d4b78; }
+
+  .cards-section { background: #0a0907; }
+  .cards-heading { display: grid; gap: 1.2rem; margin-bottom: 2rem; }
+  .cards-heading > div { display: grid; gap: .7rem; }
+  .cards-heading > p { max-width: 40rem; margin: 0; color: var(--color-text-muted); line-height: 1.7; }
+  .sample-cards { display: grid; gap: 1rem; }
+  .sample-cards figure { display: grid; gap: .75rem; margin: 0; min-width: 0; }
+  .sample-card__frame { display: grid; place-items: center; min-height: 0; padding: .5rem; border: 1px solid var(--tabletop-line); background: #050403; }
+  .sample-card__frame img { display: block; width: 100%; height: auto; max-height: 48rem; object-fit: contain; }
+  .sample-cards figcaption { display: grid; gap: .25rem; }
+  .sample-cards figcaption span { color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .66rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+  .sample-cards figcaption strong { font-size: 1rem; }
+
+  .tabletop-gallery { padding-block: var(--section-space); border-top: 1px solid var(--tabletop-line); background: #050504; }
+  .tabletop-gallery :global(.project-gallery__eyebrow) { color: var(--tabletop-gold); }
+  .tabletop-gallery :global(.gallery-card__open:hover) { border-color: var(--tabletop-gold); }
+
+  .prototype-section { border-top: 1px solid var(--tabletop-line); background: #0d0a08; }
+  .prototype-grid { display: grid; gap: 2rem; }
+  .prototype-grid > div:first-child { display: grid; gap: .8rem; }
+  .prototype-copy { display: grid; gap: 1rem; max-width: 46rem; }
+  .prototype-copy p { margin: 0; color: var(--color-text-muted); line-height: 1.78; }
+  .prototype-copy a { width: fit-content; color: #f1d5a4; font-family: var(--font-mono); font-size: .74rem; font-weight: 800; letter-spacing: .05em; text-decoration: none; text-transform: uppercase; }
+
+  .tabletop-endcap { padding-block: 0 var(--section-space); background: #0d0a08; }
+  .tabletop-endcap figure { overflow: hidden; width: min(54rem,100%); margin: 0 auto; border: 1px solid var(--tabletop-line); background: #020202; }
+  .tabletop-endcap img { display: block; width: 100%; height: auto; }
+
+  @media (min-width: 40rem) {
+    .tabletop-facts { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .pillar-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .faction-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .sample-cards { grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; }
+  }
+
+  @media (min-width: 60rem) {
+    .tabletop-hero__head { grid-template-columns: minmax(0,1fr) 24rem; gap: 4rem; }
+    .tabletop-facts { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .tabletop-story__grid { grid-template-columns: 18rem minmax(0,1fr); gap: clamp(3rem,7vw,6rem); align-items: start; }
+    .tabletop-story__aside { position: sticky; top: 6.5rem; }
+    .faction-grid { grid-template-columns: repeat(5,minmax(0,1fr)); }
+    .cards-heading { grid-template-columns: minmax(0,1fr) minmax(20rem,.7fr); align-items: end; gap: 3rem; }
+    .prototype-grid { grid-template-columns: minmax(0,1fr) minmax(24rem,.85fr); gap: 4rem; align-items: start; }
+  }
+</style>
