@@ -3,7 +3,7 @@ export const primaryNavigation = [
   { label: 'Projects', href: '/projects/' },
   { label: 'Web Apps', href: '/#web-apps' },
   { label: 'Tools', href: '/tools/' },
-  { label: 'Worlds', href: '/#worlds' },
+  { label: 'Worlds', href: '/worlds/' },
   { label: 'BiggityKot', href: '/#biggitykot' },
   { label: 'Manifesto', href: '/#manifesto' },
   { label: 'About', href: '/#about' },

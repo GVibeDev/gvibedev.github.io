@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
 import ToolProjectLayout from '../../layouts/ToolProjectLayout.astro';
+import EditorialProjectLayout from '../../layouts/EditorialProjectLayout.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -15,7 +16,11 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const Layout = project.data.kind === 'tool' ? ToolProjectLayout : ProjectLayout;
+const Layout = project.data.kind === 'tool'
+  ? ToolProjectLayout
+  : project.data.kind === 'world'
+    ? EditorialProjectLayout
+    : ProjectLayout;
 ---
 
 <Layout project={project}>

@@ -1,9 +1,7 @@
-# GVibeDev.cc V0.5 patch
+# GVibeDev.cc V0.6 patch
 
-Patch target: **GV-PORTFOLIO V0.4 — Rubra Packager Showcase + Generic Tool Setup Copy**.
+Patch target: **GV-PORTFOLIO V0.5a — Rubra Image Forge Showcase + YAML Frontmatter Hotfix**.
 
-This milestone publishes **Rubra Image Forge** as the third complete Tool showcase and freezes its public site status at **R3a v0.3.1 — Development Prototype**.
+This milestone introduces the first real **Worlds editorial template** and publishes **Unum Sunt — Radix Machinae** with its author-provided artwork and Italian/English PDF previews.
 
-No npm dependency is added.
-
-Apply the files over V0.4, preserve `package-lock.json` and `node_modules`, then follow `docs/V0.5-CHECKLIST.md`.
+No npm dependency is added. The two source PDFs are copied unchanged into the public site tree.

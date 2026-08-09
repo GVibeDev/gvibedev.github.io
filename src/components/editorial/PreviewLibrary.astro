@@ -1,0 +1,61 @@
+---
+interface DocumentItem {
+  language: string;
+  languageCode: string;
+  label: string;
+  file: string;
+  pages: number;
+  scope?: string;
+}
+interface Props { documents: DocumentItem[]; cover?: string; coverAlt?: string; }
+const { documents, cover, coverAlt = '' } = Astro.props;
+---
+
+<section class="preview-library" id="preview-library" aria-labelledby="preview-library-title">
+  <div class="preview-library__head">
+    <p>Read the preview</p>
+    <h2 id="preview-library-title">Two languages. One opening into the same world.</h2>
+    <p class="preview-library__intro">The public preview includes the prologue and the first two chapters. Open it in the browser or keep a local PDF copy.</p>
+  </div>
+
+  <div class="preview-library__body">
+    {cover && <img class="preview-library__cover" src={cover} alt={coverAlt} loading="lazy" decoding="async" />}
+    <div class="preview-library__cards">
+      {documents.map((doc) => (
+        <article lang={doc.languageCode}>
+          <div>
+            <span>{doc.language}</span>
+            <strong>{doc.label}</strong>
+            <p>{doc.scope ?? 'Public preview'} · {doc.pages} pages</p>
+          </div>
+          <div class="preview-library__actions">
+            <a href={doc.file} target="_blank" rel="noreferrer">Open PDF <span aria-hidden="true">↗</span></a>
+            <a href={doc.file} download>Download PDF <span aria-hidden="true">↓</span></a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .preview-library { display: grid; gap: clamp(2rem, 5vw, 4rem); padding-block: clamp(4rem, 8vw, 7rem); border-top: 1px solid var(--color-border); }
+  .preview-library__head { display: grid; gap: 1rem; max-width: 58rem; }
+  .preview-library__head > p:first-child { margin: 0; color: var(--editorial-accent); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  h2 { margin: 0; max-width: 17ch; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.4rem, 6vw, 5.2rem); font-weight: 500; line-height: .95; letter-spacing: -.04em; }
+  .preview-library__intro { max-width: 46rem; margin: 0; color: var(--color-text-muted); line-height: 1.75; }
+  .preview-library__body { display: grid; gap: 1rem; align-items: stretch; }
+  .preview-library__cover { display: none; width: 100%; height: 100%; max-height: 33rem; object-fit: contain; background: #050505; border: 1px solid var(--color-border); }
+  .preview-library__cards { display: grid; gap: 1rem; }
+  article { display: flex; min-height: 13rem; flex-direction: column; justify-content: space-between; gap: 2rem; padding: clamp(1.25rem, 3vw, 1.8rem); border: 1px solid color-mix(in srgb, var(--editorial-accent) 30%, var(--color-border)); border-radius: var(--radius-md); background: linear-gradient(160deg, color-mix(in srgb, var(--editorial-accent) 7%, transparent), var(--color-surface-1) 45%); }
+  article > div:first-child { display: grid; gap: .55rem; }
+  article span:first-child { color: var(--editorial-accent); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  article strong { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.55rem, 3vw, 2.1rem); font-weight: 500; }
+  article p { margin: 0; color: var(--color-text-muted); font-size: .9rem; }
+  .preview-library__actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+  .preview-library__actions a { padding: .68rem .8rem; border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); color: var(--color-text); font-family: var(--font-mono); font-size: .72rem; font-weight: 800; text-decoration: none; text-transform: uppercase; }
+  .preview-library__actions a:first-child { border-color: color-mix(in srgb, var(--editorial-accent) 55%, var(--color-border)); }
+  .preview-library__actions span { color: var(--editorial-accent); }
+  @media (min-width: 46rem) { .preview-library__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 72rem) { .preview-library__body { grid-template-columns: minmax(15rem, .55fr) minmax(0, 1.45fr); } .preview-library__cover { display: block; } }
+</style>

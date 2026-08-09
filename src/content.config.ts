@@ -52,6 +52,29 @@ const installGuideSchema = z.object({
   steps: z.array(installStepSchema).default([]),
 });
 
+const editorialDocumentSchema = z.object({
+  language: z.string(),
+  languageCode: z.string(),
+  label: z.string(),
+  file: z.string(),
+  pages: z.number().int().positive(),
+  scope: z.string().optional(),
+});
+
+const editorialSectionSchema = z.object({
+  eyebrow: z.string().optional(),
+  title: z.string(),
+  body: z.array(z.string()).default([]),
+  image: z.string().optional(),
+  imageAlt: z.string().optional(),
+  imagePosition: z.string().optional(),
+});
+
+const editorialQuoteSchema = z.object({
+  text: z.string(),
+  attribution: z.string().optional(),
+});
+
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/data/projects' }),
   schema: z.object({
@@ -87,6 +110,16 @@ const projects = defineCollection({
     requirements: z.array(toolRequirementSchema).default([]),
     setupCopy: setupCopySchema.optional(),
     installGuide: installGuideSchema.optional(),
+
+    // Editorial / world-specific metadata. Optional for non-world projects.
+    subtitle: z.string().optional(),
+    editorialCategory: z.string().optional(),
+    editorialAvailability: z.string().optional(),
+    accentColor: z.string().optional(),
+    themes: z.array(z.string()).default([]),
+    documents: z.array(editorialDocumentSchema).default([]),
+    editorialSections: z.array(editorialSectionSchema).default([]),
+    editorialQuote: editorialQuoteSchema.optional(),
   }),
 });
 

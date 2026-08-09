@@ -1,0 +1,19 @@
+---
+interface Props { image?: string; alt?: string; }
+const { image, alt = '' } = Astro.props;
+---
+
+{image && (
+  <section class="editorial-endcap" aria-label="Radix Machinae visual endnote">
+    <img src={image} alt={alt} loading="lazy" decoding="async" />
+    <div class="editorial-endcap__veil"></div>
+    <p>Roots become circuits. Systems become inheritance. The work continues.</p>
+  </section>
+)}
+
+<style>
+  .editorial-endcap { position: relative; min-height: min(78vh, 54rem); overflow: hidden; border-top: 1px solid var(--color-border); background: #020302; }
+  img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .editorial-endcap__veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,7,10,.05), rgba(5,7,10,.2) 55%, rgba(5,7,10,.85)); }
+  p { position: absolute; right: var(--page-gutter); bottom: clamp(1.5rem, 5vw, 4rem); left: var(--page-gutter); max-width: 38rem; margin: 0 auto; color: var(--color-text); font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.4rem, 3vw, 2.4rem); line-height: 1.25; text-align: center; }
+</style>
