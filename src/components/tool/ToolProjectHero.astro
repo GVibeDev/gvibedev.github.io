@@ -1,0 +1,150 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Tag from '../ui/Tag.astro';
+import ProjectActions from '../project/ProjectActions.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+---
+
+<section class="tool-hero">
+  <Container>
+    <a class="tool-hero__back" href="/tools/">← All tools</a>
+
+    <div class="tool-hero__intro">
+      <div class="tool-hero__eyebrow">
+        <span>Desktop Tool</span>
+        {data.status && <span class="tool-hero__status">{data.status}</span>}
+      </div>
+
+      <h1>{data.title}</h1>
+      <p class="tool-hero__summary">{data.summary}</p>
+
+      {data.tags.length > 0 && (
+        <div class="tool-hero__tags" aria-label="Tool tags">
+          {data.tags.map((tag) => <Tag tone="blue">{tag}</Tag>)}
+        </div>
+      )}
+
+      <ProjectActions links={data.links} />
+    </div>
+
+    {data.logo && (
+      <figure class="tool-hero__brand">
+        <img src={data.logo} alt={`${data.title} logo`} width="1357" height="371" fetchpriority="high" />
+      </figure>
+    )}
+
+    {data.heroImage && (
+      <figure class="tool-hero__media">
+        <img
+          src={data.heroImage}
+          alt={data.heroAlt ?? ''}
+          width="1640"
+          height="900"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
+  </Container>
+</section>
+
+<style>
+  .tool-hero {
+    padding-block: clamp(2rem, 5vw, 4.5rem) clamp(3rem, 7vw, 6rem);
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 82% 8%, color-mix(in srgb, var(--color-blue-bright) 11%, transparent), transparent 32%),
+      var(--color-bg);
+  }
+
+  .tool-hero__back {
+    display: inline-flex;
+    margin-bottom: clamp(2rem, 4vw, 3.4rem);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.055em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .tool-hero__back:hover { color: var(--color-blue-soft); }
+
+  .tool-hero__intro {
+    display: grid;
+    gap: 1.2rem;
+    max-width: 58rem;
+    margin-bottom: clamp(2rem, 5vw, 3.2rem);
+  }
+
+  .tool-hero__eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .tool-hero__status { color: var(--color-red-soft); }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3rem, 8vw, 6.8rem);
+    line-height: 0.9;
+    letter-spacing: -0.065em;
+  }
+
+  .tool-hero__summary {
+    max-width: 52rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.08rem, 1rem + 0.45vw, 1.4rem);
+    line-height: 1.65;
+  }
+
+  .tool-hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tool-hero__brand {
+    overflow: hidden;
+    margin: 0 0 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: #fff;
+  }
+
+  .tool-hero__brand img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .tool-hero__media {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-deep);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .tool-hero__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

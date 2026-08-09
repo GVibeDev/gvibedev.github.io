@@ -1,0 +1,26 @@
+GV-PORTFOLIO V0.3 — Tools Project Pages Foundation
+
+BASELINE REQUIRED:
+GV-PORTFOLIO V0.2a — Card Media Context + Fixed Crop
+
+1. Stop `npm run dev` if it is running.
+2. Make a backup or Git commit of the validated V0.2a folder.
+3. Copy the CONTENTS of this patch folder into the root of gvibedev.github.io.
+4. Allow overwrite of matching files.
+5. Do NOT delete node_modules.
+6. Do NOT delete package-lock.json.
+7. No new npm dependency is introduced by this patch.
+8. Run:
+
+   npm run dev
+
+9. Inspect:
+
+   http://localhost:4321/
+   http://localhost:4321/tools/
+   http://localhost:4321/projects/unum-sunt-sprite-studio/
+   http://localhost:4321/projects/arena-rubra-digital/
+
+10. Final gate:
+
+   npm run build

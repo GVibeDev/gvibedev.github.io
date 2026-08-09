@@ -17,6 +17,26 @@ const galleryItemSchema = z.object({
   caption: z.string().optional(),
 });
 
+const toolRequirementSchema = z.object({
+  label: z.string(),
+  detail: z.string(),
+  scope: z.enum(['core', 'generation']).default('core'),
+  required: z.boolean().default(true),
+});
+
+const installStepSchema = z.object({
+  title: z.string(),
+  body: z.string(),
+  code: z.string().optional(),
+});
+
+const installGuideSchema = z.object({
+  title: z.string(),
+  intro: z.string().optional(),
+  warning: z.string().optional(),
+  steps: z.array(installStepSchema).default([]),
+});
+
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/data/projects' }),
   schema: z.object({
@@ -45,6 +65,12 @@ const projects = defineCollection({
     endcapImage: z.string().optional(),
     endcapAlt: z.string().optional(),
     gallery: z.array(galleryItemSchema).default([]),
+
+    // Tool-specific public metadata. Optional for all non-tool projects.
+    toolCategory: z.string().optional(),
+    platforms: z.array(z.string()).default([]),
+    requirements: z.array(toolRequirementSchema).default([]),
+    installGuide: installGuideSchema.optional(),
   }),
 });
 

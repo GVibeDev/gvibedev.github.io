@@ -1,28 +1,14 @@
 # Changelog
 
-## 0.2.1 — Card Media Context + Fixed Project Card Crop
+## GV-PORTFOLIO V0.3 — Tools Project Pages Foundation
 
-- Separated project-card artwork from project-page hero artwork.
-- Added optional `cardImage`, `cardImageAlt`, and `cardImagePosition` fields to project data.
-- Fixed the card-media viewport at 4:3.
-- Fixed replaced-image sizing so intrinsic portrait ratios can no longer stretch cards.
-- Added a dedicated Arena Rubra card cover derived from the author-provided vertical banner.
-- Preserved the existing Arena Rubra hero and project-page media.
-
-## 0.2.0 — Project Page Foundation + Arena Rubra Showcase
-
-- Added project index and gated static detail route.
-- Added reusable project-page components.
-- Added complete Arena Rubra showcase with verified repository link and author-provided status.
-- Added optimized Arena Rubra screenshots and artwork.
-- Added progressive screenshot lightbox without framework/runtime dependency.
-- Updated project cards with internal detail-page CTA.
-- Changed header/navigation links from homepage-relative fragments to site-safe absolute paths.
-- Added project SEO/social metadata.
-- Added V0.2 scope and validation checklist.
-
-## 0.1.0 — Foundation & Home Shell
-
-- Initial Astro foundation.
-- Brand design system.
-- Responsive header, home hero, project cards and footer.
+- Added a dedicated Tools index at `/tools/`.
+- Added reusable tool-page layout and hero components without changing the Arena Rubra showcase layout.
+- Extended project content schema with tool category, platforms, requirements and an install guide.
+- Published the first complete tool showcase: Unum Sunt Sprite Studio.
+- Added nine optimized real development captures, Sprite Studio branding and a real exported sprite-sheet example.
+- Added dependency disclosure for the optional Local WAN / WanGP Bridge.
+- Documented the known-good isolated Python 3.11.14 environment and the earlier 3.13/3.14 NOT READY failure mode.
+- Added the validated PyTorch/CUDA package set and WanGP launch/check commands used by the development environment.
+- Kept repository and release actions absent because no public Sprite Studio repository/release exists yet.
+- Updated the global Tools navigation entry to `/tools/`.

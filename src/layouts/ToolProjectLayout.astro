@@ -1,0 +1,184 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import ToolProjectHero from '../components/tool/ToolProjectHero.astro';
+import ToolInstallGuide from '../components/tool/ToolInstallGuide.astro';
+import ProjectGallery from '../components/project/ProjectGallery.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.seoDescription ?? data.summary}
+  image={data.socialImage ?? data.cover}
+>
+  <ToolProjectHero project={project} />
+
+  <section class="tool-story">
+    <Container>
+      <div class="tool-story__grid">
+        <aside class="tool-story__aside">
+          <span>Tool profile</span>
+          {data.toolCategory && <strong>{data.toolCategory}</strong>}
+          {data.platforms.length > 0 && <p>{data.platforms.join(' · ')}</p>}
+          <p>
+            Development Preview. Public repository and release links will appear only when those packages are actually published.
+          </p>
+        </aside>
+
+        <article class="project-prose tool-prose">
+          <slot />
+        </article>
+      </div>
+    </Container>
+  </section>
+
+  {data.gallery.length > 0 && (
+    <section class="tool-gallery-shell">
+      <Container>
+        <ProjectGallery items={data.gallery} />
+      </Container>
+    </section>
+  )}
+
+  {(data.requirements.length > 0 || data.installGuide) && (
+    <section class="tool-setup-shell">
+      <Container>
+        <ToolInstallGuide
+          platforms={data.platforms}
+          category={data.toolCategory}
+          requirements={data.requirements}
+          guide={data.installGuide}
+        />
+      </Container>
+    </section>
+  )}
+
+  {data.endcapImage && (
+    <section class="tool-endcap" aria-label={`${data.title} output example`}>
+      <Container>
+        <div class="tool-endcap__heading">
+          <span>Output example</span>
+          <h2>From source motion to game-ready frames.</h2>
+        </div>
+        <figure>
+          <img
+            src={data.endcapImage}
+            alt={data.endcapAlt ?? ''}
+            width="512"
+            height="384"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </Container>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .tool-story,
+  .tool-setup-shell {
+    padding-block: var(--section-space);
+  }
+
+  .tool-story__grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .tool-story__aside {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    padding: 1.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-1);
+  }
+
+  .tool-story__aside > span,
+  .tool-endcap__heading > span {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .tool-story__aside strong { font-size: 1.05rem; }
+  .tool-story__aside p { margin: 0; color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+  :global(.tool-prose) { max-width: 53rem; }
+  :global(.tool-prose h2) {
+    margin: 0 0 1.2rem;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+  }
+  :global(.tool-prose h2:not(:first-child)) { margin-top: 4.5rem; }
+  :global(.tool-prose h3) {
+    margin: 2.4rem 0 0.65rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+  :global(.tool-prose p) {
+    margin: 0 0 1.3rem;
+    color: var(--color-text-muted);
+    font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem);
+    line-height: 1.8;
+  }
+  :global(.tool-prose strong) { color: var(--color-text); }
+  :global(.tool-prose ul) { display: grid; gap: 0.65rem; padding-left: 1.25rem; color: var(--color-text-muted); line-height: 1.65; }
+
+  .tool-gallery-shell,
+  .tool-setup-shell,
+  .tool-endcap {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-deep);
+  }
+
+  .tool-gallery-shell { padding-block: var(--section-space); }
+  .tool-setup-shell { background: var(--color-bg); }
+  .tool-endcap { padding-block: var(--section-space); }
+
+  .tool-endcap__heading { display: grid; gap: 0.6rem; margin-bottom: 2rem; }
+  .tool-endcap__heading h2 { max-width: 18ch; margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -0.045em; }
+
+  .tool-endcap figure {
+    display: grid;
+    place-items: center;
+    min-height: 24rem;
+    margin: 0;
+    padding: clamp(1rem, 4vw, 3rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%),
+      linear-gradient(45deg, #111 25%, #07090d 25%, #07090d 75%, #111 75%);
+    background-position: 0 0, 12px 12px;
+    background-size: 24px 24px;
+  }
+
+  .tool-endcap img { display: block; width: min(100%, 42rem); height: auto; image-rendering: pixelated; }
+
+  @media (min-width: 60rem) {
+    .tool-story__grid {
+      grid-template-columns: 17rem minmax(0, 1fr);
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: start;
+    }
+    .tool-story__aside { position: sticky; top: 6.5rem; }
+  }
+</style>

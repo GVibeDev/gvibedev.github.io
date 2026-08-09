@@ -1,14 +1,7 @@
-# GVibeDev.cc V0.2a patch
+# GVibeDev.cc V0.3 patch
 
-Small corrective patch over the validated V0.2 project-page foundation.
+Patch target: **validated GV-PORTFOLIO V0.2a**.
 
-The patch fixes a structural media issue in `ProjectCard`: portrait artwork could keep its intrinsic ratio and stretch a card vertically. Card media now owns a fixed 4:3 viewport and the image fills that viewport with `object-fit: cover`.
+This milestone creates the reusable public page system for desktop production tools and uses **Unum Sunt Sprite Studio** as the first validated showcase.
 
-It also introduces a clean data contract for context-specific artwork:
-
-- `cover`: generic/fallback project artwork;
-- `cardImage`: project-card artwork;
-- `heroImage`: project-page hero;
-- `socialImage`: Open Graph/social artwork.
-
-Arena Rubra is the first project to use this split, with a dedicated card cover derived from the author-provided vertical banner.
+Apply the files over V0.2a, preserve your locally generated `package-lock.json` and `node_modules`, then follow `docs/V0.3-CHECKLIST.md`.
