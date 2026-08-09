@@ -4,7 +4,7 @@ export const primaryNavigation = [
   { label: 'Web Apps', href: '/web-apps/' },
   { label: 'Tools', href: '/tools/' },
   { label: 'Worlds', href: '/worlds/' },
-  { label: 'BiggityKot', href: '/#biggitykot' },
+  { label: 'BiggityKot', href: '/biggitykot/' },
   { label: 'Manifesto', href: '/#manifesto' },
   { label: 'About', href: '/#about' },
 ] as const;

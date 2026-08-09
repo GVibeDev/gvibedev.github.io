@@ -1,0 +1,265 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import ProjectGallery from '../components/project/ProjectGallery.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.seoDescription ?? data.summary}
+  image={data.socialImage ?? data.cover}
+>
+  <div class="bk-project">
+    <section class="bk-hero">
+      <Container>
+        <a class="bk-back" href="/biggitykot/">← BiggityKot</a>
+
+        <div class="bk-hero__top">
+          <div class="bk-hero__copy">
+            <div class="bk-meta">
+              <span>BiggityKot / {data.kind === 'game' ? 'Game' : 'Project'}</span>
+              {data.status && <span>{data.status}</span>}
+            </div>
+            <h1>{data.title}</h1>
+            <p>{data.summary}</p>
+            <div class="bk-actions" aria-label="Project actions">
+              {data.downloadPath && (
+                <a class="bk-action bk-action--primary" href={data.downloadPath} download>
+                  {data.downloadLabel ?? 'Download build'} ↓
+                </a>
+              )}
+              <a class="bk-action" href={profileUrl} target="_blank" rel="noreferrer">
+                BiggityKot on GitHub ↗
+              </a>
+            </div>
+          </div>
+
+          {data.logo && (
+            <div class="bk-logo" aria-hidden="true">
+              <img src={data.logo} alt="" width="512" height="512" />
+            </div>
+          )}
+        </div>
+
+        {data.heroImage && (
+          <figure class="bk-hero__media">
+            <img src={data.heroImage} alt={data.heroAlt ?? ''} width="1600" height="900" fetchpriority="high" />
+          </figure>
+        )}
+      </Container>
+    </section>
+
+    <section class="bk-story">
+      <Container>
+        <div class="bk-story__grid">
+          <aside class="bk-build">
+            <span>Build snapshot</span>
+            <strong>{data.status ?? 'Prototype'}</strong>
+            <p>The downloadable archive is the author-provided build used as the source for this page.</p>
+            {data.buildSha256 && (
+              <details>
+                <summary>SHA-256</summary>
+                <code>{data.buildSha256}</code>
+              </details>
+            )}
+            <div class="bk-build__links">
+              {data.downloadPath && <a href={data.downloadPath} download>Download build ↓</a>}
+              <a href={profileUrl} target="_blank" rel="noreferrer">GitHub profile ↗</a>
+            </div>
+          </aside>
+
+          <article class="bk-prose">
+            <slot />
+          </article>
+        </div>
+      </Container>
+    </section>
+
+    {data.gallery.length > 0 && (
+      <section class="bk-gallery">
+        <Container>
+          <div class="bk-gallery__heading">
+            <span>Build material</span>
+            <h2>Inside 0.9A.</h2>
+          </div>
+          <ProjectGallery items={data.gallery} />
+        </Container>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .bk-project {
+    --bk-white: #ffffff;
+    --bk-muted: #b4b4b4;
+    --bk-dim: #747474;
+    --bk-line: #303030;
+    color: var(--bk-white);
+    background: #050505;
+  }
+
+  .bk-hero {
+    padding-block: clamp(2rem, 5vw, 4.5rem) clamp(3rem, 8vw, 6rem);
+    border-bottom: 1px solid var(--bk-line);
+    background:
+      repeating-linear-gradient(90deg, transparent 0 79px, rgba(255,255,255,0.018) 79px 80px),
+      #050505;
+  }
+
+  .bk-back {
+    display: inline-flex;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+    color: var(--bk-muted);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .bk-back:hover { color: var(--bk-white); }
+
+  .bk-hero__top {
+    display: grid;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .bk-hero__copy {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 57rem;
+  }
+
+  .bk-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.2rem;
+    color: var(--bk-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--bk-white);
+    font-size: clamp(3.2rem, 9vw, 7.6rem);
+    line-height: 0.87;
+    letter-spacing: -0.07em;
+  }
+
+  .bk-hero__copy > p {
+    max-width: 49rem;
+    margin: 0;
+    color: var(--bk-muted);
+    font-size: clamp(1.08rem, 1rem + 0.4vw, 1.36rem);
+    line-height: 1.7;
+  }
+
+  .bk-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .bk-action {
+    padding: 0.8rem 1rem;
+    border: 1px solid #666;
+    color: var(--bk-white);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.055em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .bk-action:hover { border-color: var(--bk-white); }
+  .bk-action--primary { border-color: var(--bk-white); background: var(--bk-white); color: #050505; }
+  .bk-action--primary:hover { background: #d8d8d8; }
+
+  .bk-logo {
+    width: min(12rem, 45vw);
+    padding: 1rem;
+    border: 1px solid var(--bk-line);
+    background: #000;
+  }
+
+  .bk-logo img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+
+  .bk-hero__media {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--bk-line);
+    background: #000;
+  }
+
+  .bk-hero__media img { display: block; width: 100%; height: auto; }
+
+  .bk-story { padding-block: var(--section-space); }
+  .bk-story__grid { display: grid; gap: 3rem; }
+
+  .bk-build {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+    padding: 1.15rem;
+    border: 1px solid var(--bk-line);
+    background: #0a0a0a;
+  }
+
+  .bk-build > span {
+    color: var(--bk-dim);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .bk-build strong { font-size: 1.08rem; }
+  .bk-build p { margin: 0; color: var(--bk-muted); font-size: 0.9rem; line-height: 1.65; }
+  .bk-build summary { cursor: pointer; color: var(--bk-muted); font-family: var(--font-mono); font-size: 0.74rem; }
+  .bk-build code { display: block; overflow-wrap: anywhere; margin-top: 0.6rem; color: #ddd; font-size: 0.68rem; line-height: 1.5; }
+  .bk-build__links { display: grid; gap: 0.55rem; padding-top: 0.6rem; border-top: 1px solid var(--bk-line); }
+  .bk-build__links a { color: var(--bk-white); font-family: var(--font-mono); font-size: 0.73rem; text-decoration: none; text-transform: uppercase; }
+
+  :global(.bk-prose) { max-width: 52rem; }
+  :global(.bk-prose h2) { margin: 0 0 1.2rem; color: #fff; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -0.045em; }
+  :global(.bk-prose h2:not(:first-child)) { margin-top: 4.5rem; }
+  :global(.bk-prose h3) { margin: 2.6rem 0 0.7rem; color: #fff; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  :global(.bk-prose p) { margin: 0 0 1.3rem; color: var(--bk-muted); font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem); line-height: 1.82; }
+  :global(.bk-prose strong) { color: #fff; }
+
+  .bk-gallery {
+    padding-block: var(--section-space);
+    border-top: 1px solid var(--bk-line);
+    background: #020202;
+  }
+
+  .bk-gallery__heading { display: grid; gap: 0.6rem; margin-bottom: 2rem; }
+  .bk-gallery__heading span { color: var(--bk-dim); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+  .bk-gallery__heading h2 { margin: 0; color: #fff; font-size: clamp(2.2rem, 5vw, 4.5rem); letter-spacing: -0.05em; }
+
+  @media (min-width: 60rem) {
+    .bk-hero__top { grid-template-columns: minmax(0, 1fr) auto; gap: 4rem; }
+    .bk-logo { width: 13rem; }
+    .bk-story__grid { grid-template-columns: 18rem minmax(0, 1fr); gap: clamp(3rem, 7vw, 6rem); align-items: start; }
+    .bk-build { position: sticky; top: 6.5rem; }
+  }
+</style>

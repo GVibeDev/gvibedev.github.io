@@ -1,5 +1,20 @@
 # Changelog
 
+## GV-PORTFOLIO V0.8 — BiggityKot Foundation + B&W Survivors 0.9A
+
+- Added the real `/biggitykot/` catalog route.
+- Updated global navigation so `BiggityKot` points to the dedicated channel.
+- Removed the personal name from public BiggityKot and B&W Survivors copy.
+- Linked the public BiggityKot GitHub profile at `https://github.com/pizza-990`.
+- Published the first complete B&W Survivors project page with a dedicated monochrome layout.
+- Froze the public project status as `0.9A — Active Prototype`.
+- Added a direct download of the exact author-provided 0.9A build archive.
+- Added the archive SHA-256 to the project page for snapshot verification.
+- Added project visuals derived only from sprites and icon assets contained in the supplied build.
+- Documented wave progression, bosses, loadouts, Weapon Tester, encyclopedia, character hats, IT/EN support, mobile controls and the LAN/local-server boundary.
+- Kept online runtime deployment out of V0.8; that remains a separately testable follow-up.
+- Added no npm dependency.
+
 ## GV-PORTFOLIO V0.7 — Web Apps Foundation + Arena Rubra Online Runtime
 
 - Added the real `/web-apps/` catalog route.

@@ -120,6 +120,12 @@ const projects = defineCollection({
     documents: z.array(editorialDocumentSchema).default([]),
     editorialSections: z.array(editorialSectionSchema).default([]),
     editorialQuote: editorialQuoteSchema.optional(),
+
+    // Creator/build metadata used by the BiggityKot channel and future external-owner projects.
+    creatorProfileUrl: z.string().url().optional(),
+    downloadPath: z.string().optional(),
+    downloadLabel: z.string().optional(),
+    buildSha256: z.string().optional(),
   }),
 });
 

@@ -1,0 +1,31 @@
+GV-PORTFOLIO V0.8 — BiggityKot Foundation + B&W Survivors 0.9A
+
+TARGET BASELINE
+GV-PORTFOLIO V0.7 — Web Apps Foundation + Arena Rubra Online Runtime
+
+WINDOWS / CMD
+1. Stop npm run dev.
+2. Commit or back up the current V0.7 repository.
+3. Copy the CONTENTS of this patch folder into the root of gvibedev.github.io.
+4. Allow matching files to be overwritten.
+5. Do NOT delete node_modules.
+6. Do NOT delete package-lock.json.
+7. No npm install is required.
+
+LOCAL VALIDATION
+npm run dev
+
+Check:
+- /
+- /biggitykot/
+- /projects/bw-survivors/
+- /downloads/biggitykot/black-white-survivors-0.9A-mobilemenusfit.zip
+- /web-apps/
+- /tools/
+- /worlds/
+
+Then:
+npm run build
+npm run preview
+
+Only after local validation: commit, push, and verify the GitHub Pages deployment.

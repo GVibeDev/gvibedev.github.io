@@ -1,11 +1,14 @@
-# GVibeDev.cc V0.7 site patch
+# GVibeDev.cc V0.8 patch
 
-Patch target: **GV-PORTFOLIO V0.6a — Worlds Editorial Foundation + Unum Sunt YAML Hotfix**.
+Patch target: **GV-PORTFOLIO V0.7 — Web Apps Foundation + Arena Rubra Online Runtime**.
 
-This milestone creates the real `/web-apps/` catalog and connects Arena Rubra to its separately deployed GitHub Pages runtime.
+This milestone creates the real **BiggityKot** channel and publishes **B&W Survivors 0.9A** from the supplied build archive.
 
-Apply this site patch only after the Arena Rubra Pages deployment has been enabled and verified at:
+Public identity rules frozen in this patch:
 
-`https://gvibedev.github.io/ArenaRubra/`
+- use **BiggityKot** as the public nickname;
+- do not publish the personal name previously present in placeholder copy;
+- link the channel to `https://github.com/pizza-990`;
+- keep B&W Survivors separate from GVibeDev-owned repository links unless a dedicated project repository is later confirmed.
 
-No npm dependency is added.
+The supplied B&W Survivors ZIP is copied unchanged into the public download tree. No npm dependency is added.
