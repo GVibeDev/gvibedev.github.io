@@ -1,0 +1,24 @@
+GV-PORTFOLIO V0.6a — Unum Sunt YAML Body Hotfix
+
+BASELINE REQUIRED:
+GV-PORTFOLIO V0.6 — Worlds Editorial Foundation + Unum Sunt: Radix Machinae
+
+1. Stop npm run dev.
+2. Copy the CONTENTS of this hotfix folder into the root of gvibedev.github.io.
+3. Allow overwrite of src/data/projects/unum-sunt.md.
+4. Do NOT delete node_modules or package-lock.json.
+5. Run:
+
+   npm run dev
+
+6. Open:
+
+   http://localhost:4321/worlds/
+   http://localhost:4321/projects/unum-sunt/
+
+7. Final gate:
+
+   npm run build
+
+CAUSE FIXED:
+YAML interpreted two editorial body items containing ': ' as mappings instead of strings. All editorial body entries now use folded block scalars (>-) so Astro receives strings as required by the content schema.

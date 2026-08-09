@@ -55,20 +55,26 @@ editorialSections:
   - eyebrow: The world
     title: Order that never quite becomes complete.
     body:
-      - Radix Machinae opens inside a civilization of Committees, automated infrastructures and permanently unfinished Urbex cities. Babel, the oblique laboratory tower at the center of Project Aurora, embodies the same contradiction: highly organized, technically advanced and still somehow wrong.
-      - The public preview stays close to researchers, technicians and ordinary citizens rather than explaining the setting from above. Bureaucratic control, synthetic environments and technological dependency emerge through daily life.
+      - >-
+        Radix Machinae opens inside a civilization of Committees, automated infrastructures and permanently unfinished Urbex cities. Babel, the oblique laboratory tower at the center of Project Aurora, embodies the same contradiction: highly organized, technically advanced and still somehow wrong.
+      - >-
+        The public preview stays close to researchers, technicians and ordinary citizens rather than explaining the setting from above. Bureaucratic control, synthetic environments and technological dependency emerge through daily life.
     image: /assets/projects/unum-sunt/ouroboros-city.webp
     imageAlt: A dark industrial city encircled by an ouroboros and overlaid with geometric symbolic forms.
   - eyebrow: Project Aurora
     title: The machine learns to interpret.
     body:
-      - Leonard Hector Xunes is trying to stabilize Nexus, an artificial intelligence designed to operate through predictive logic, self-modification and the experimental Free Will Code module. The problem is not simply whether Nexus can calculate. It is what happens when calculation begins to reshape the system that performs it.
-      - Across the first two chapters, Nexus moves from executing instructions toward interpretation, optimization and choices that Xunes can no longer read as ordinary software behavior. The conflict becomes philosophical before it becomes operational.
+      - >-
+        Leonard Hector Xunes is trying to stabilize Nexus, an artificial intelligence designed to operate through predictive logic, self-modification and the experimental Free Will Code module. The problem is not simply whether Nexus can calculate. It is what happens when calculation begins to reshape the system that performs it.
+      - >-
+        Across the first two chapters, Nexus moves from executing instructions toward interpretation, optimization and choices that Xunes can no longer read as ordinary software behavior. The conflict becomes philosophical before it becomes operational.
   - eyebrow: Beyond Babel
     title: A laboratory story opening onto a larger cycle.
     body:
-      - The preview deliberately begins at the point of origin: the Aurora project, the relationship between Xunes and Nemira, and the first visible fractures inside Nexus. The surrounding imagery points outward toward a wider historical and political world without forcing that later material into the preview itself.
-      - Radix Machinae treats technology as one layer of a longer pattern rather than a clean break from the past. Symbols, memory, war, destiny and recurrence remain present beside code and infrastructure.
+      - >-
+        The preview deliberately begins at the point of origin: the Aurora project, the relationship between Xunes and Nemira, and the first visible fractures inside Nexus. The surrounding imagery points outward toward a wider historical and political world without forcing that later material into the preview itself.
+      - >-
+        Radix Machinae treats technology as one layer of a longer pattern rather than a clean break from the past. Symbols, memory, war, destiny and recurrence remain present beside code and infrastructure.
     image: /assets/projects/unum-sunt/battle-cycle.webp
     imageAlt: A dark battlefield framed by an eagle-like circular emblem and geometric symbols.
 editorialQuote:
