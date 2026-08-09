@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1 — Card Media Context + Fixed Project Card Crop
+
+- Separated project-card artwork from project-page hero artwork.
+- Added optional `cardImage`, `cardImageAlt`, and `cardImagePosition` fields to project data.
+- Fixed the card-media viewport at 4:3.
+- Fixed replaced-image sizing so intrinsic portrait ratios can no longer stretch cards.
+- Added a dedicated Arena Rubra card cover derived from the author-provided vertical banner.
+- Preserved the existing Arena Rubra hero and project-page media.
+
 ## 0.2.0 — Project Page Foundation + Arena Rubra Showcase
 
 - Added project index and gated static detail route.

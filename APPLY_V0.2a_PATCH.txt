@@ -1,0 +1,24 @@
+GVibeDev.cc — V0.2a PATCH
+Card Media Context + Fixed Project Card Crop
+
+BASE REQUIRED
+GV-PORTFOLIO V0.2 — Project Page Foundation + Arena Rubra Showcase
+
+APPLY
+1. Stop `npm run dev` if it is running.
+2. Make a backup or Git commit of the current V0.2 folder.
+3. Copy the CONTENTS of this patch folder into the repository root.
+4. Allow overwrite of the three existing source files.
+5. Do NOT delete node_modules or package-lock.json.
+6. No dependency install is required; package.json is unchanged.
+7. Run:
+     npm run dev
+8. Validate homepage and /projects/ at desktop and mobile widths.
+9. Then run:
+     npm run build
+
+EXPECTED RESULT
+- Arena Rubra no longer stretches the Featured Projects row vertically.
+- Project-card media has a fixed 4:3 slot.
+- Arena Rubra uses a dedicated card-cover derivative rather than the page hero.
+- Hero/project-page artwork remains unchanged.

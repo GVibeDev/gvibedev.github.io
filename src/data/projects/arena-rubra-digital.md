@@ -15,6 +15,9 @@ tags:
 status: Demo — Work in Progress
 cover: /assets/projects/arena-rubra/hero-city.webp
 coverAlt: Arena Rubra city artwork with the project title over a dark monumental fortress.
+cardImage: /assets/projects/arena-rubra/card-cover.webp
+cardImageAlt: Arena Rubra title over a monumental ruined city, cropped for the project-card format.
+cardImagePosition: center
 links:
   repositoryUrl: https://github.com/GVibeDev/ArenaRubra
 pageReady: true
