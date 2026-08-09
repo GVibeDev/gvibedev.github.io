@@ -1,0 +1,45 @@
+:root {
+  /* Brand-derived core palette */
+  --color-bg: #05070a;
+  --color-bg-deep: #020305;
+  --color-surface-1: #0b111b;
+  --color-surface-2: #111927;
+  --color-surface-3: #172234;
+  --color-border: #243149;
+  --color-border-strong: #344866;
+
+  --color-text: #f4f1df;
+  --color-text-muted: #aab3c1;
+  --color-text-subtle: #768296;
+
+  --color-blue-deep: #002663;
+  --color-blue: #0051ce;
+  --color-blue-bright: #0050fa;
+  --color-blue-soft: #8fcaff;
+
+  --color-red-deep: #8f0000;
+  --color-red: #cc0101;
+  --color-red-bright: #ff3636;
+  --color-red-soft: #ff8989;
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --text-xs: clamp(0.72rem, 0.7rem + 0.1vw, 0.8rem);
+  --text-sm: clamp(0.88rem, 0.84rem + 0.14vw, 0.98rem);
+  --text-base: clamp(1rem, 0.96rem + 0.18vw, 1.1rem);
+  --text-lg: clamp(1.2rem, 1.08rem + 0.45vw, 1.48rem);
+  --text-xl: clamp(1.75rem, 1.4rem + 1.25vw, 2.55rem);
+  --text-2xl: clamp(2.35rem, 1.75rem + 2.3vw, 4.5rem);
+
+  --container-max: 77.5rem;
+  --page-gutter: clamp(1.25rem, 3vw, 2.5rem);
+  --section-space: clamp(4.5rem, 9vw, 8rem);
+
+  --radius-sm: 0.35rem;
+  --radius-md: 0.6rem;
+  --radius-lg: 0.85rem;
+
+  --shadow-lg: 0 24px 80px rgba(0, 0, 0, 0.42);
+  --motion-fast: 160ms;
+}

@@ -1,0 +1,68 @@
+---
+import Container from '../ui/Container.astro';
+---
+
+<section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
+  <Container class="manifesto__inner">
+    <p class="manifesto__code">// MANIFESTO_01</p>
+    <div class="manifesto__copy">
+      <h2 id="manifesto-title">AI is leverage, not autopilot.</h2>
+      <p>
+        The point is not to pretend that one prompt replaces a craft. The point is to use new tools to attempt more, learn faster, and keep the human work visible: choosing, correcting, testing, verifying and deciding what deserves to survive the next iteration.
+      </p>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .manifesto {
+    padding-block: clamp(4rem, 9vw, 8rem);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--color-red) 12%, transparent), transparent 32%),
+      radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--color-blue) 13%, transparent), transparent 38%),
+      var(--color-surface-1);
+  }
+
+  :global(.manifesto__inner) {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .manifesto__code {
+    margin: 0;
+    color: var(--color-red-bright);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+
+  .manifesto__copy {
+    max-width: 920px;
+  }
+
+  h2 {
+    margin: 0;
+    max-width: 13ch;
+    font-size: clamp(2.2rem, 6vw, 5.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+
+  .manifesto__copy p {
+    max-width: 68ch;
+    margin: 1.4rem 0 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1rem, 1.45vw, 1.18rem);
+    line-height: 1.75;
+  }
+
+  @media (min-width: 60rem) {
+    :global(.manifesto__inner) {
+      grid-template-columns: 0.35fr 1.65fr;
+      align-items: start;
+    }
+  }
+</style>

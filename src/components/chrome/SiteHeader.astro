@@ -1,0 +1,48 @@
+---
+import Container from '../ui/Container.astro';
+import MainNav from './MainNav.astro';
+import MobileNav from './MobileNav.astro';
+---
+
+<header class="site-header">
+  <Container class="site-header__inner">
+    <a class="brand" href="#top" aria-label="G Vibe Dev — Home">
+      <img src="/assets/brand/gvibe-wordmark.webp" alt="G Vibe Dev" width="1200" height="392" />
+    </a>
+    <MainNav />
+    <MobileNav />
+  </Container>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 82%, transparent);
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+    backdrop-filter: blur(14px);
+  }
+
+  :global(.site-header__inner) {
+    display: flex;
+    min-height: 72px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    width: clamp(8.8rem, 15vw, 11.5rem);
+    min-height: 44px;
+    text-decoration: none;
+  }
+
+  .brand img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

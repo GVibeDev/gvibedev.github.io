@@ -1,0 +1,61 @@
+---
+import { primaryNavigation } from '../../config/navigation';
+import { siteConfig } from '../../config/site';
+---
+
+<nav class="main-nav" aria-label="Primary navigation">
+  <ul>
+    {primaryNavigation.map((item) => (
+      <li><a href={item.href}>{item.label}</a></li>
+    ))}
+    <li>
+      <a class="main-nav__github" href={siteConfig.github} target="_blank" rel="noreferrer">
+        GitHub <span aria-hidden="true">↗</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  .main-nav {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.8rem, 1.3vw, 1.35rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 650;
+    letter-spacing: 0.035em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  a:hover,
+  a:focus-visible {
+    color: var(--color-text);
+  }
+
+  .main-nav__github {
+    color: var(--color-blue-soft);
+  }
+
+  .main-nav__github span {
+    color: var(--color-red-bright);
+  }
+
+  @media (min-width: 60rem) {
+    .main-nav {
+      display: block;
+    }
+  }
+</style>

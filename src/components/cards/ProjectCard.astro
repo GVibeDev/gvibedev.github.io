@@ -1,0 +1,194 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Tag from '../ui/Tag.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+const { data } = project;
+
+const kindLabels = {
+  'web-app': 'Web App',
+  tool: 'Tool',
+  world: 'World',
+  game: 'Game',
+  experiment: 'Experiment',
+} as const;
+
+const actions = [
+  data.links.launchUrl && { label: 'Launch App', href: data.links.launchUrl },
+  data.links.repositoryUrl && { label: 'Repository', href: data.links.repositoryUrl },
+  data.links.releaseUrl && { label: 'Release', href: data.links.releaseUrl },
+].filter(Boolean) as { label: string; href: string }[];
+---
+
+<article class:list={['project-card', featured && 'project-card--featured', data.owner === 'biggitykot' && 'project-card--biggitykot']}>
+  <div class="project-card__topline">
+    <span class="project-card__kind">{kindLabels[data.kind]}</span>
+    {data.status && <span class="project-card__status">{data.status}</span>}
+  </div>
+
+  <div class="project-card__body">
+    <h3>{data.title}</h3>
+    <p>{data.summary}</p>
+  </div>
+
+  {data.tags.length > 0 && (
+    <div class="project-card__tags" aria-label="Project tags">
+      {data.tags.map((tag) => <Tag tone={data.owner === 'biggitykot' ? 'default' : 'blue'}>{tag}</Tag>)}
+    </div>
+  )}
+
+  {actions.length > 0 && (
+    <div class="project-card__actions">
+      {actions.map((action) => (
+        <a href={action.href} target="_blank" rel="noreferrer">
+          {action.label} <span aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  )}
+</article>
+
+<style>
+  .project-card {
+    position: relative;
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    gap: 1.35rem;
+    overflow: hidden;
+    padding: clamp(1.2rem, 2vw, 1.55rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--color-blue) 5%, transparent), transparent 38%),
+      var(--color-surface-1);
+    transition:
+      transform var(--motion-fast) ease,
+      border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease;
+  }
+
+  .project-card::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: linear-gradient(var(--color-blue-bright), transparent 55%, var(--color-red-bright));
+    content: '';
+    opacity: 0.75;
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-border-strong);
+  }
+
+  .project-card--featured {
+    min-height: 300px;
+    padding: clamp(1.4rem, 2.8vw, 2rem);
+    background:
+      radial-gradient(circle at 90% 0%, color-mix(in srgb, var(--color-blue-bright) 15%, transparent), transparent 35%),
+      var(--color-surface-1);
+  }
+
+  .project-card--biggitykot {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.035), transparent 42%),
+      var(--color-surface-1);
+  }
+
+  .project-card--biggitykot::before {
+    background: linear-gradient(var(--color-text), transparent 60%);
+  }
+
+  .project-card__topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .project-card__kind {
+    color: var(--color-blue-soft);
+  }
+
+  .project-card--biggitykot .project-card__kind {
+    color: var(--color-text);
+  }
+
+  .project-card__status {
+    color: var(--color-red-soft);
+  }
+
+  .project-card__body {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  h3 {
+    margin: 0;
+    max-width: 18ch;
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .project-card--featured h3 {
+    font-size: clamp(1.55rem, 3vw, 2.35rem);
+  }
+
+  p {
+    margin: 0;
+    max-width: 46ch;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .project-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: auto;
+  }
+
+  .project-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .project-card__actions a {
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .project-card__actions span {
+    color: var(--color-red-bright);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card {
+      transition: none;
+    }
+
+    .project-card:hover {
+      transform: none;
+    }
+  }
+</style>

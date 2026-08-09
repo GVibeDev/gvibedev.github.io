@@ -1,0 +1,54 @@
+html {
+  background: var(--color-bg-deep);
+}
+
+body {
+  min-width: 20rem;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(0, 80, 250, 0.09), transparent 26rem),
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    var(--color-bg);
+  background-size: auto, 48px 48px, 48px 48px, auto;
+}
+
+main {
+  min-height: 70vh;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-blue-bright);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--color-blue-bright);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  background: var(--color-bg-deep);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}

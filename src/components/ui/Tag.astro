@@ -1,0 +1,36 @@
+---
+interface Props {
+  tone?: 'default' | 'blue' | 'red';
+}
+
+const { tone = 'default' } = Astro.props;
+---
+
+<span class:list={['tag', `tag--${tone}`]}><slot /></span>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0.2rem 0.48rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    background: var(--color-surface-1);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1;
+    letter-spacing: 0.04em;
+  }
+
+  .tag--blue {
+    border-color: color-mix(in srgb, var(--color-blue-bright) 45%, transparent);
+    color: var(--color-blue-soft);
+  }
+
+  .tag--red {
+    border-color: color-mix(in srgb, var(--color-red-bright) 45%, transparent);
+    color: var(--color-red-soft);
+  }
+</style>

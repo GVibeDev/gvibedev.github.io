@@ -1,0 +1,89 @@
+---
+import Button from '../ui/Button.astro';
+import Container from '../ui/Container.astro';
+import { siteConfig } from '../../config/site';
+---
+
+<section class="github-panel" aria-labelledby="github-title">
+  <Container class="github-panel__inner">
+    <div class="github-panel__copy">
+      <p class="github-panel__eyebrow">Open the workshop</p>
+      <h2 id="github-title">The repositories are part of the story.</h2>
+      <p>
+        Public code, experiments and project history live on GitHub. The portfolio is the map; the repositories are where the work can be inspected.
+      </p>
+      <Button href={siteConfig.github} external>Visit GitHub</Button>
+    </div>
+
+    <div class="github-panel__visual" aria-hidden="true">
+      <img src="/assets/illustrations/retro-computer.webp" alt="" width="782" height="662" loading="lazy" />
+    </div>
+  </Container>
+</section>
+
+<style>
+  .github-panel {
+    overflow: hidden;
+    padding-block: var(--section-space);
+    border-top: 1px solid var(--color-border);
+  }
+
+  :global(.github-panel__inner) {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  .github-panel__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    max-width: 15ch;
+    font-size: var(--text-2xl);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .github-panel__copy > p:not(.github-panel__eyebrow) {
+    max-width: 55ch;
+    margin: 1rem 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .github-panel__visual {
+    position: relative;
+    min-height: 280px;
+  }
+
+  .github-panel__visual::before {
+    position: absolute;
+    inset: 15% 10%;
+    border-radius: 999px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-blue-bright) 20%, transparent), transparent 68%);
+    content: '';
+    filter: blur(10px);
+  }
+
+  .github-panel__visual img {
+    position: relative;
+    display: block;
+    width: min(100%, 620px);
+    height: auto;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 60rem) {
+    :global(.github-panel__inner) {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+  }
+</style>

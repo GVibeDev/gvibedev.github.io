@@ -1,0 +1,99 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  external?: boolean;
+  ariaLabel?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  external = false,
+  ariaLabel,
+} = Astro.props;
+---
+
+<a
+  class:list={['button', `button--${variant}`]}
+  href={href}
+  aria-label={ariaLabel}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noreferrer' : undefined}
+>
+  <slot />
+  <span class="button__arrow" aria-hidden="true">{external ? '↗' : '→'}</span>
+</a>
+
+<style>
+  .button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      transform var(--motion-fast) ease,
+      border-color var(--motion-fast) ease,
+      background-color var(--motion-fast) ease,
+      color var(--motion-fast) ease;
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+  }
+
+  .button--primary {
+    color: var(--color-text);
+    background: var(--color-blue);
+    border-color: var(--color-blue-bright);
+  }
+
+  .button--primary:hover {
+    background: var(--color-blue-bright);
+  }
+
+  .button--secondary {
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    border-color: var(--color-border-strong);
+  }
+
+  .button--secondary:hover {
+    border-color: var(--color-blue-bright);
+  }
+
+  .button--ghost {
+    color: var(--color-text-muted);
+    background: transparent;
+    border-color: var(--color-border);
+  }
+
+  .button--ghost:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
+  }
+
+  .button__arrow {
+    color: var(--color-red-bright);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button {
+      transition: none;
+    }
+
+    .button:hover {
+      transform: none;
+    }
+  }
+</style>

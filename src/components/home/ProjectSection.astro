@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ProjectCard from '../cards/ProjectCard.astro';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  projects: CollectionEntry<'projects'>[];
+  variant?: 'default' | 'biggitykot';
+}
+
+const {
+  id,
+  eyebrow,
+  title,
+  description,
+  projects,
+  variant = 'default',
+} = Astro.props;
+---
+
+<section class:list={['project-section', variant === 'biggitykot' && 'project-section--biggitykot']} id={id}>
+  <Container>
+    <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+    <div class="project-section__grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </Container>
+</section>
+
+<style>
+  .project-section {
+    padding-block: var(--section-space);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .project-section--biggitykot {
+    background:
+      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+      var(--color-bg-deep);
+    background-size: 28px 28px;
+  }
+
+  .project-section__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 40rem) {
+    .project-section__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .project-section__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

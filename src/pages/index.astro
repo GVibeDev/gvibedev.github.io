@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import FeaturedProjects from '../components/home/FeaturedProjects.astro';
+import ProjectSection from '../components/home/ProjectSection.astro';
+import ManifestoStrip from '../components/home/ManifestoStrip.astro';
+import GitHubPanel from '../components/home/GitHubPanel.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+
+const featured = projects.filter((project) => project.data.featured);
+const webApps = projects.filter((project) => project.data.section === 'web-apps');
+const tools = projects.filter((project) => project.data.section === 'tools');
+const worlds = projects.filter((project) => project.data.section === 'worlds');
+const biggityKot = projects.filter((project) => project.data.section === 'biggitykot');
+---
+
+<BaseLayout>
+  <Hero />
+
+  <FeaturedProjects projects={featured} />
+
+  <ProjectSection
+    id="web-apps"
+    eyebrow="Run it"
+    title="Web Apps"
+    description="Playable and usable projects that belong on the web, not behind a brochure screenshot."
+    projects={webApps}
+  />
+
+  <ProjectSection
+    id="tools"
+    eyebrow="Make things"
+    title="Tools & Downloads"
+    description="Independent tools built to solve concrete production problems. Download links will point to GitHub Releases when their project pages are published."
+    projects={tools}
+  />
+
+  <ProjectSection
+    id="worlds"
+    eyebrow="Build worlds"
+    title="Worlds / Ongoing Projects"
+    description="Long-form projects where software, game design, writing and worldbuilding overlap."
+    projects={worlds}
+  />
+
+  <ProjectSection
+    id="biggitykot"
+    eyebrow="Side channel"
+    title="BiggityKot — projects by Giosuè"
+    description="A dedicated space for Giosuè's projects, with a slightly more playful black-and-white identity inside the wider GVibeDev system."
+    projects={biggityKot}
+    variant="biggitykot"
+  />
+
+  <ManifestoStrip />
+  <GitHubPanel />
+</BaseLayout>

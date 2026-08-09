@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ProjectCard from '../cards/ProjectCard.astro';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section class="featured" id="projects">
+  <Container>
+    <SectionHeading
+      eyebrow="Selected work"
+      title="Projects worth opening first."
+      description="A cross-section of the workshop: a playable system, a production tool, and an evolving narrative world."
+    />
+    <div class="featured__grid">
+      {projects.map((project) => <ProjectCard project={project} featured />)}
+    </div>
+  </Container>
+</section>
+
+<style>
+  .featured {
+    padding-block: var(--section-space);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .featured__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 48rem) {
+    .featured__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>
