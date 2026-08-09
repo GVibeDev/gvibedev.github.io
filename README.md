@@ -1,9 +1,9 @@
-# GVibeDev.cc V0.4 patch
+# GVibeDev.cc V0.5 patch
 
-Patch target: **GV-PORTFOLIO V0.3 — Tools Project Pages Foundation**.
+Patch target: **GV-PORTFOLIO V0.4 — Rubra Packager Showcase + Generic Tool Setup Copy**.
 
-This milestone publishes **Rubra Packager v0.5.0** as the second complete Tool showcase and generalizes the setup/dependency component so the same Tool page system can describe different runtimes without Sprite Studio-specific copy leaking into other projects.
+This milestone publishes **Rubra Image Forge** as the third complete Tool showcase and freezes its public site status at **R3a v0.3.1 — Development Prototype**.
 
 No npm dependency is added.
 
-Apply the files over V0.3, preserve `package-lock.json` and `node_modules`, then follow `docs/V0.4-CHECKLIST.md`.
+Apply the files over V0.4, preserve `package-lock.json` and `node_modules`, then follow `docs/V0.5-CHECKLIST.md`.
