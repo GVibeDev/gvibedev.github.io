@@ -18,7 +18,7 @@ const kindLabels = {
   experiment: 'Experiment',
 } as const;
 
-const actions = [
+const externalActions = [
   data.links.launchUrl && { label: 'Launch App', href: data.links.launchUrl },
   data.links.repositoryUrl && { label: 'Repository', href: data.links.repositoryUrl },
   data.links.releaseUrl && { label: 'Release', href: data.links.releaseUrl },
@@ -26,6 +26,22 @@ const actions = [
 ---
 
 <article class:list={['project-card', featured && 'project-card--featured', data.owner === 'biggitykot' && 'project-card--biggitykot']}>
+  {data.cover && (
+    data.pageReady ? (
+      <a
+        class="project-card__media"
+        href={`/projects/${data.slug}/`}
+        aria-label={`View ${data.title} project page`}
+      >
+        <img src={data.cover} alt={data.coverAlt ?? ''} width="1672" height="941" loading="lazy" decoding="async" />
+      </a>
+    ) : (
+      <div class="project-card__media project-card__media--static">
+        <img src={data.cover} alt={data.coverAlt ?? ''} width="1672" height="941" loading="lazy" decoding="async" />
+      </div>
+    )
+  )}
+
   <div class="project-card__topline">
     <span class="project-card__kind">{kindLabels[data.kind]}</span>
     {data.status && <span class="project-card__status">{data.status}</span>}
@@ -42,9 +58,14 @@ const actions = [
     </div>
   )}
 
-  {actions.length > 0 && (
+  {(data.pageReady || externalActions.length > 0) && (
     <div class="project-card__actions">
-      {actions.map((action) => (
+      {data.pageReady && (
+        <a class="project-card__internal" href={`/projects/${data.slug}/`}>
+          View project <span aria-hidden="true">→</span>
+        </a>
+      )}
+      {externalActions.map((action) => (
         <a href={action.href} target="_blank" rel="noreferrer">
           {action.label} <span aria-hidden="true">↗</span>
         </a>
@@ -76,6 +97,7 @@ const actions = [
   .project-card::before {
     position: absolute;
     inset: 0 auto 0 0;
+    z-index: 2;
     width: 2px;
     background: linear-gradient(var(--color-blue-bright), transparent 55%, var(--color-red-bright));
     content: '';
@@ -105,6 +127,32 @@ const actions = [
     background: linear-gradient(var(--color-text), transparent 60%);
   }
 
+  .project-card__media {
+    display: block;
+    overflow: hidden;
+    margin: calc(clamp(1.2rem, 2vw, 1.55rem) * -1);
+    margin-bottom: 0;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-deep);
+  }
+
+  .project-card--featured .project-card__media {
+    margin: calc(clamp(1.4rem, 2.8vw, 2rem) * -1);
+    margin-bottom: 0;
+  }
+
+  .project-card__media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 260ms ease;
+  }
+
+  a.project-card__media:hover img {
+    transform: scale(1.015);
+  }
+
   .project-card__topline {
     display: flex;
     align-items: center;
@@ -127,6 +175,7 @@ const actions = [
 
   .project-card__status {
     color: var(--color-red-soft);
+    text-align: right;
   }
 
   .project-card__body {
@@ -178,16 +227,25 @@ const actions = [
     letter-spacing: 0.06em;
   }
 
+  .project-card__actions .project-card__internal {
+    color: var(--color-blue-soft);
+  }
+
   .project-card__actions span {
     color: var(--color-red-bright);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .project-card {
+    .project-card,
+    .project-card__media img {
       transition: none;
     }
 
     .project-card:hover {
+      transform: none;
+    }
+
+    a.project-card__media:hover img {
       transform: none;
     }
   }

@@ -52,3 +52,20 @@ Project content remains data-driven through the `projects` content collection. F
 The portfolio repository should not absorb the source trees or release binaries of Arena Rubra, Arena Rubra Card Composer, Unum Sunt Sprite Studio, Rubra Composer, Rubra Image Forge or future standalone projects.
 
 The hub links outward to project repositories, GitHub Releases and independent Pages deployments when those URLs are explicitly approved.
+
+
+## V0.2 project-page layer
+
+`src/pages/projects/index.astro`
+: project index.
+
+`src/pages/projects/[slug].astro`
+: static route generator. Only content entries with `pageReady: true` produce a public detail page.
+
+`src/layouts/ProjectLayout.astro`
+: reusable project narrative + gallery shell.
+
+`src/components/project/`
+: page-specific hero, action and gallery components.
+
+Project content remains in `src/data/projects/`. Detail pages are enabled one at a time after their copy, links and media are verified.

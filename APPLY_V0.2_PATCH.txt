@@ -1,0 +1,19 @@
+GVibeDev.cc V0.2 patch over validated V0.1
+
+1. STOP `npm run dev` if it is running.
+2. Back up or commit your current validated V0.1 working tree.
+3. KEEP your existing package-lock.json.
+4. Copy every file/folder from this patch into the repository root and allow overwrite.
+5. Do NOT delete node_modules.
+6. From the repository root run:
+      npm install
+      npm run dev
+7. Open:
+      http://localhost:4321/
+      http://localhost:4321/projects/
+      http://localhost:4321/projects/arena-rubra-digital/
+8. When visual checks pass, run:
+      npm run build
+      npm run preview
+
+V0.2 introduces no new npm dependency.

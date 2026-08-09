@@ -10,6 +10,13 @@ const linksSchema = z
   })
   .default({});
 
+const galleryItemSchema = z.object({
+  src: z.string(),
+  thumb: z.string(),
+  alt: z.string(),
+  caption: z.string().optional(),
+});
+
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/data/projects' }),
   schema: z.object({
@@ -26,6 +33,15 @@ const projects = defineCollection({
     cover: z.string().optional(),
     coverAlt: z.string().optional(),
     links: linksSchema,
+    pageReady: z.boolean().default(false),
+    heroImage: z.string().optional(),
+    heroAlt: z.string().optional(),
+    logo: z.string().optional(),
+    socialImage: z.string().optional(),
+    seoDescription: z.string().optional(),
+    endcapImage: z.string().optional(),
+    endcapAlt: z.string().optional(),
+    gallery: z.array(galleryItemSchema).default([]),
   }),
 });
 

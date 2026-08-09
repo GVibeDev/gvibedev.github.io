@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import ProjectCard from '../../components/cards/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Games, tools, web apps, worlds and experiments from the GVibeDev independent digital workshop."
+>
+  <section class="projects-index">
+    <Container>
+      <div class="projects-index__hero">
+        <span>Workshop index</span>
+        <h1>Projects.</h1>
+        <p>
+          Working software, playable systems, production tools and long-form creative projects.
+          Individual showcase pages are published as their material is reviewed and prepared.
+        </p>
+      </div>
+
+      <div class="projects-index__grid">
+        {projects.map((project) => <ProjectCard project={project} featured={project.data.featured} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-index {
+    padding-block: clamp(3rem, 8vw, 7rem) var(--section-space);
+  }
+
+  .projects-index__hero {
+    display: grid;
+    gap: 1rem;
+    max-width: 56rem;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+
+  .projects-index__hero > span {
+    color: var(--color-red-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 0.86;
+    letter-spacing: -0.07em;
+  }
+
+  .projects-index__hero p {
+    max-width: 50rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.05rem, 1rem + 0.3vw, 1.3rem);
+    line-height: 1.7;
+  }
+
+  .projects-index__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 40rem) {
+    .projects-index__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 70rem) {
+    .projects-index__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

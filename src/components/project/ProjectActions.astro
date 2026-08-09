@@ -1,0 +1,71 @@
+---
+interface Props {
+  links: {
+    repositoryUrl?: string;
+    launchUrl?: string;
+    releaseUrl?: string;
+  };
+}
+
+const { links } = Astro.props;
+const actions = [
+  links.launchUrl && { label: 'Launch App', href: links.launchUrl, primary: true },
+  links.repositoryUrl && { label: 'View on GitHub', href: links.repositoryUrl, primary: !links.launchUrl },
+  links.releaseUrl && { label: 'Download release', href: links.releaseUrl, primary: false },
+].filter(Boolean) as { label: string; href: string; primary: boolean }[];
+---
+
+{actions.length > 0 && (
+  <div class="project-actions">
+    {actions.map((action) => (
+      <a
+        class:list={['project-action', action.primary && 'project-action--primary']}
+        href={action.href}
+        target="_blank"
+        rel="noreferrer"
+      >
+        {action.label} <span aria-hidden="true">↗</span>
+      </a>
+    ))}
+  </div>
+)}
+
+<style>
+  .project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .project-action {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.055em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .project-action--primary {
+    border-color: color-mix(in srgb, var(--color-blue-bright) 70%, var(--color-border));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-blue) 78%, #fff 6%), var(--color-blue-deep));
+  }
+
+  .project-action span {
+    color: var(--color-red-soft);
+  }
+
+  .project-action:hover {
+    border-color: var(--color-blue-soft);
+  }
+</style>

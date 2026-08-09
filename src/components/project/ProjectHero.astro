@@ -1,0 +1,192 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../ui/Container.astro';
+import Tag from '../ui/Tag.astro';
+import ProjectActions from './ProjectActions.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+
+const kindLabels = {
+  'web-app': 'Web App',
+  tool: 'Tool',
+  world: 'World',
+  game: 'Game',
+  experiment: 'Experiment',
+} as const;
+---
+
+<section class="project-hero">
+  <Container>
+    <a class="project-hero__back" href="/projects/">← All projects</a>
+
+    <div class="project-hero__intro">
+      <div class="project-hero__copy">
+        <div class="project-hero__eyebrow">
+          <span>{kindLabels[data.kind]}</span>
+          {data.status && <span class="project-hero__status">{data.status}</span>}
+        </div>
+
+        <h1>{data.title}</h1>
+        <p class="project-hero__summary">{data.summary}</p>
+
+        {data.tags.length > 0 && (
+          <div class="project-hero__tags" aria-label="Project tags">
+            {data.tags.map((tag) => <Tag tone="blue">{tag}</Tag>)}
+          </div>
+        )}
+
+        <ProjectActions links={data.links} />
+      </div>
+
+      {data.logo && (
+        <div class="project-hero__mark" aria-hidden="true">
+          <img src={data.logo} alt="" width="640" height="640" />
+        </div>
+      )}
+    </div>
+
+    {data.heroImage && (
+      <figure class="project-hero__media">
+        <img
+          src={data.heroImage}
+          alt={data.heroAlt ?? ''}
+          width="1672"
+          height="941"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
+  </Container>
+</section>
+
+<style>
+  .project-hero {
+    padding-block: clamp(2rem, 5vw, 4.5rem) clamp(3rem, 7vw, 6rem);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .project-hero__back {
+    display: inline-flex;
+    margin-bottom: clamp(2rem, 4vw, 3.4rem);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.055em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .project-hero__back:hover {
+    color: var(--color-blue-soft);
+  }
+
+  .project-hero__intro {
+    display: grid;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .project-hero__copy {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 52rem;
+  }
+
+  .project-hero__eyebrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .project-hero__status {
+    color: var(--color-red-soft);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.88;
+    letter-spacing: -0.065em;
+  }
+
+  .project-hero__summary {
+    max-width: 50rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.08rem, 1rem + 0.45vw, 1.4rem);
+    line-height: 1.65;
+  }
+
+  .project-hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .project-hero__mark {
+    justify-self: start;
+    width: min(10rem, 38vw);
+    padding: 0.45rem;
+    border: 1px solid var(--color-border);
+    border-radius: 1.2rem;
+    background: var(--color-bg-deep);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .project-hero__mark img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.9rem;
+  }
+
+  .project-hero__media {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-deep);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .project-hero__media::after {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255,255,255,0.045);
+    border-radius: inherit;
+    content: '';
+    pointer-events: none;
+  }
+
+  .project-hero__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (min-width: 60rem) {
+    .project-hero__intro {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4rem;
+    }
+
+    .project-hero__mark {
+      justify-self: end;
+      width: 11rem;
+    }
+  }
+</style>

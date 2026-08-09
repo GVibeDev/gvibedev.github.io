@@ -21,6 +21,7 @@ const { projects } = Astro.props;
     <div class="featured__grid">
       {projects.map((project) => <ProjectCard project={project} featured />)}
     </div>
+    <a class="featured__all" href="/projects/">Browse all projects →</a>
   </Container>
 </section>
 
@@ -33,6 +34,18 @@ const { projects } = Astro.props;
   .featured__grid {
     display: grid;
     gap: 1rem;
+  }
+
+  .featured__all {
+    display: inline-flex;
+    margin-top: 1.4rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
   }
 
   @media (min-width: 48rem) {
