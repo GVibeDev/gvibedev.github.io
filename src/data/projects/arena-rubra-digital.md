@@ -20,6 +20,7 @@ cardImageAlt: Arena Rubra title over a monumental ruined city, cropped for the p
 cardImagePosition: center
 links:
   repositoryUrl: https://github.com/GVibeDev/ArenaRubra
+  launchUrl: https://gvibedev.github.io/ArenaRubra/
 pageReady: true
 heroImage: /assets/projects/arena-rubra/hero-city.webp
 heroAlt: Arena Rubra key art showing a ruined monumental city under a stormy sky.
