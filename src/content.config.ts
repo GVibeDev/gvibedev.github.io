@@ -123,6 +123,8 @@ const projects = defineCollection({
 
     // Creator/build metadata used by the BiggityKot channel and future external-owner projects.
     creatorProfileUrl: z.string().url().optional(),
+    launchPath: z.string().optional(),
+    launchLabel: z.string().optional(),
     downloadPath: z.string().optional(),
     downloadLabel: z.string().optional(),
     buildSha256: z.string().optional(),

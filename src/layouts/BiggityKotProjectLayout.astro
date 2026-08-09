@@ -32,8 +32,13 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
             <h1>{data.title}</h1>
             <p>{data.summary}</p>
             <div class="bk-actions" aria-label="Project actions">
+              {data.launchPath && (
+                <a class="bk-action bk-action--primary" href={data.launchPath} target="_blank">
+                  {data.launchLabel ?? 'Play online'} ↗
+                </a>
+              )}
               {data.downloadPath && (
-                <a class="bk-action bk-action--primary" href={data.downloadPath} download>
+                <a class:list={["bk-action", !data.launchPath && "bk-action--primary"]} href={data.downloadPath} download>
                   {data.downloadLabel ?? 'Download build'} ↓
                 </a>
               )}
@@ -72,6 +77,7 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
               </details>
             )}
             <div class="bk-build__links">
+              {data.launchPath && <a href={data.launchPath} target="_blank">Play online ↗</a>}
               {data.downloadPath && <a href={data.downloadPath} download>Download build ↓</a>}
               <a href={profileUrl} target="_blank" rel="noreferrer">GitHub profile ↗</a>
             </div>

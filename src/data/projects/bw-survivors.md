@@ -26,6 +26,8 @@ logo: /assets/projects/bw-survivors/iconbig.png
 socialImage: /assets/projects/bw-survivors/og-bw-survivors.webp
 seoDescription: B&W Survivors is a BiggityKot browser survival prototype with wave progression, weapon loadouts, boss encounters, character hats, a Weapon Tester and mobile controls.
 creatorProfileUrl: https://github.com/pizza-990
+launchPath: /apps/bw-survivors/
+launchLabel: Play online
 downloadPath: /downloads/biggitykot/black-white-survivors-0.9A-mobilemenusfit.zip
 downloadLabel: Download 0.9A build
 buildSha256: 4c65e664a5a7f654be3e9b15c53f2e90d0b2076e8c396d55c547fa2387751489
@@ -88,4 +90,4 @@ The LAN side requires a local Node process: a static browser page cannot start t
 
 The downloadable ZIP on this page is the exact 0.9A archive supplied for the portfolio milestone. It is kept as a concrete snapshot rather than silently repackaging or rewriting the game.
 
-A separately hosted browser runtime can be added later, after the single-player static path has been isolated and tested as its own deployment target.
+The V0.8a milestone hosts the isolated **single-player browser runtime directly inside the GVibeDev site**. It does not require a separate BiggityKot repository. The downloadable 0.9A archive remains the complete local snapshot, including its Node-based LAN path.
