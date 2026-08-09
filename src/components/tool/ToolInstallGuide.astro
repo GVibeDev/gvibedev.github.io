@@ -12,31 +12,58 @@ interface InstallStep {
   code?: string;
 }
 
+interface SetupCopy {
+  heading?: string;
+  intro?: string;
+  coreLabel?: string;
+  coreTitle?: string;
+  secondaryLabel?: string;
+  secondaryTitle?: string;
+  publicPackage?: string;
+  platformLabel?: string;
+  secondaryRequiredLabel?: string;
+}
+
 interface Props {
   platforms: string[];
   category?: string;
   requirements: Requirement[];
+  setupCopy?: SetupCopy;
   guide?: {
     title: string;
+    eyebrow?: string;
     intro?: string;
+    warningTitle?: string;
     warning?: string;
+    footnote?: string;
     steps: InstallStep[];
   };
 }
 
-const { platforms, category, requirements, guide } = Astro.props;
+const { platforms, category, requirements, setupCopy, guide } = Astro.props;
 const coreRequirements = requirements.filter((item) => item.scope === 'core');
-const generationRequirements = requirements.filter((item) => item.scope === 'generation');
+const secondaryRequirements = requirements.filter((item) => item.scope === 'generation');
+
+const setupHeading = setupCopy?.heading ?? 'Know what the tool needs before you install it.';
+const setupIntro =
+  setupCopy?.intro ??
+  'Sprite Studio can be used as a production workflow, while local AI generation adds a separate WanGP runtime stack. The two layers are documented independently so the Python environment is not hidden behind a generic “install” button.';
+const coreLabel = setupCopy?.coreLabel ?? 'Core';
+const coreTitle = setupCopy?.coreTitle ?? 'Sprite Studio';
+const secondaryLabel = setupCopy?.secondaryLabel ?? 'Local generation';
+const secondaryTitle = setupCopy?.secondaryTitle ?? 'WanGP bridge';
+const publicPackage = setupCopy?.publicPackage ?? 'Not published yet';
+const platformLabel = setupCopy?.platformLabel ?? 'Platform';
+const secondaryRequiredLabel = setupCopy?.secondaryRequiredLabel ?? 'Required for generation';
+const guideEyebrow = guide?.eyebrow ?? 'Validated development setup';
+const warningTitle = guide?.warningTitle ?? 'Python version matters.';
 ---
 
 <section class="tool-setup" aria-labelledby="tool-setup-title">
   <div class="tool-setup__heading">
     <span>Setup / dependencies</span>
-    <h2 id="tool-setup-title">Know what the tool needs before you install it.</h2>
-    <p>
-      Sprite Studio can be used as a production workflow, while local AI generation adds a separate WanGP runtime stack.
-      The two layers are documented independently so the Python environment is not hidden behind a generic “install” button.
-    </p>
+    <h2 id="tool-setup-title">{setupHeading}</h2>
+    <p>{setupIntro}</p>
   </div>
 
   <div class="tool-setup__facts">
@@ -48,65 +75,69 @@ const generationRequirements = requirements.filter((item) => item.scope === 'gen
     )}
     {platforms.length > 0 && (
       <div>
-        <span>Platform</span>
+        <span>{platformLabel}</span>
         <strong>{platforms.join(' · ')}</strong>
       </div>
     )}
     <div>
       <span>Public package</span>
-      <strong>Not published yet</strong>
+      <strong>{publicPackage}</strong>
     </div>
   </div>
 
   <div class="tool-setup__requirements">
-    <section>
-      <div class="tool-setup__subheading">
-        <span>Core</span>
-        <h3>Sprite Studio</h3>
-      </div>
-      <div class="dependency-list">
-        {coreRequirements.map((item) => (
-          <article class="dependency-card">
-            <div>
-              <strong>{item.label}</strong>
-              <span>{item.required ? 'Required' : 'Optional'}</span>
-            </div>
-            <p>{item.detail}</p>
-          </article>
-        ))}
-      </div>
-    </section>
+    {coreRequirements.length > 0 && (
+      <section>
+        <div class="tool-setup__subheading">
+          <span>{coreLabel}</span>
+          <h3>{coreTitle}</h3>
+        </div>
+        <div class="dependency-list">
+          {coreRequirements.map((item) => (
+            <article class="dependency-card">
+              <div>
+                <strong>{item.label}</strong>
+                <span>{item.required ? 'Required' : 'Optional'}</span>
+              </div>
+              <p>{item.detail}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
 
-    <section>
-      <div class="tool-setup__subheading">
-        <span>Local generation</span>
-        <h3>WanGP bridge</h3>
-      </div>
-      <div class="dependency-list">
-        {generationRequirements.map((item) => (
-          <article class="dependency-card dependency-card--generation">
-            <div>
-              <strong>{item.label}</strong>
-              <span>{item.required ? 'Required for generation' : 'Optional'}</span>
-            </div>
-            <p>{item.detail}</p>
-          </article>
-        ))}
-      </div>
-    </section>
+    {secondaryRequirements.length > 0 && (
+      <section>
+        <div class="tool-setup__subheading">
+          <span>{secondaryLabel}</span>
+          <h3>{secondaryTitle}</h3>
+        </div>
+        <div class="dependency-list">
+          {secondaryRequirements.map((item) => (
+            <article class="dependency-card dependency-card--generation">
+              <div>
+                <strong>{item.label}</strong>
+                <span>{item.required ? secondaryRequiredLabel : 'Optional'}</span>
+              </div>
+              <p>{item.detail}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
   </div>
 
   {guide && (
     <div class="install-guide">
       <div class="install-guide__heading">
-        <span>Validated development setup</span>
+        <span>{guideEyebrow}</span>
         <h2>{guide.title}</h2>
         {guide.intro && <p>{guide.intro}</p>}
       </div>
 
       {guide.warning && (
-        <aside class="python-warning" aria-label="Python version warning">
-          <strong>Python version matters.</strong>
+        <aside class="setup-warning" aria-label={warningTitle}>
+          <strong>{warningTitle}</strong>
           <p>{guide.warning}</p>
         </aside>
       )}
@@ -125,9 +156,8 @@ const generationRequirements = requirements.filter((item) => item.scope === 'gen
       </ol>
 
       <p class="install-guide__footnote">
-        This is the configuration validated for the GVibeDev development machine. It documents a known-good environment,
-        not a claim that WanGP can only run with these exact versions. The final Sprite Studio installer/start command will
-        be added when the first public repository and release are published.
+        {guide.footnote ??
+          'This is the configuration validated for the GVibeDev development machine. It documents a known-good environment, not a claim that WanGP can only run with these exact versions. The final Sprite Studio installer/start command will be added when the first public repository and release are published.'}
       </p>
     </div>
   )}
@@ -254,7 +284,7 @@ const generationRequirements = requirements.filter((item) => item.scope === 'gen
     border-top: 1px solid var(--color-border);
   }
 
-  .python-warning {
+  .setup-warning {
     display: grid;
     gap: 0.5rem;
     padding: 1rem 1.1rem;
@@ -264,8 +294,8 @@ const generationRequirements = requirements.filter((item) => item.scope === 'gen
     background: color-mix(in srgb, var(--color-red-deep) 14%, var(--color-surface-1));
   }
 
-  .python-warning strong { color: var(--color-red-soft); }
-  .python-warning p { margin: 0; color: var(--color-text-muted); line-height: 1.65; }
+  .setup-warning strong { color: var(--color-red-soft); }
+  .setup-warning p { margin: 0; color: var(--color-text-muted); line-height: 1.65; }
 
   .install-steps {
     display: grid;

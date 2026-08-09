@@ -12,6 +12,11 @@ interface Props {
 
 const { project } = Astro.props;
 const { data } = project;
+
+const publicationNotes = [
+  data.links.repositoryUrl ? 'Public repository available.' : 'Public repository not published yet.',
+  data.links.releaseUrl ? 'Public release package linked.' : 'No public release package is linked yet.',
+];
 ---
 
 <BaseLayout
@@ -28,9 +33,7 @@ const { data } = project;
           <span>Tool profile</span>
           {data.toolCategory && <strong>{data.toolCategory}</strong>}
           {data.platforms.length > 0 && <p>{data.platforms.join(' · ')}</p>}
-          <p>
-            Development Preview. Public repository and release links will appear only when those packages are actually published.
-          </p>
+          <p>{publicationNotes.join(' ')}</p>
         </aside>
 
         <article class="project-prose tool-prose">
@@ -55,6 +58,7 @@ const { data } = project;
           platforms={data.platforms}
           category={data.toolCategory}
           requirements={data.requirements}
+          setupCopy={data.setupCopy}
           guide={data.installGuide}
         />
       </Container>

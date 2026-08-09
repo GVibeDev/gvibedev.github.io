@@ -24,6 +24,18 @@ const toolRequirementSchema = z.object({
   required: z.boolean().default(true),
 });
 
+const setupCopySchema = z.object({
+  heading: z.string().optional(),
+  intro: z.string().optional(),
+  coreLabel: z.string().optional(),
+  coreTitle: z.string().optional(),
+  secondaryLabel: z.string().optional(),
+  secondaryTitle: z.string().optional(),
+  publicPackage: z.string().optional(),
+  platformLabel: z.string().optional(),
+  secondaryRequiredLabel: z.string().optional(),
+});
+
 const installStepSchema = z.object({
   title: z.string(),
   body: z.string(),
@@ -32,8 +44,11 @@ const installStepSchema = z.object({
 
 const installGuideSchema = z.object({
   title: z.string(),
+  eyebrow: z.string().optional(),
   intro: z.string().optional(),
+  warningTitle: z.string().optional(),
   warning: z.string().optional(),
+  footnote: z.string().optional(),
   steps: z.array(installStepSchema).default([]),
 });
 
@@ -70,6 +85,7 @@ const projects = defineCollection({
     toolCategory: z.string().optional(),
     platforms: z.array(z.string()).default([]),
     requirements: z.array(toolRequirementSchema).default([]),
+    setupCopy: setupCopySchema.optional(),
     installGuide: installGuideSchema.optional(),
   }),
 });
