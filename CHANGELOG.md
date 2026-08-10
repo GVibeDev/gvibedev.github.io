@@ -1,5 +1,15 @@
 # Changelog
 
+## GV-PORTFOLIO V0.12 — Arena Rubra Shared Architecture + Digital Expansion
+
+- Expanded Arena Rubra Digital into a dedicated system / testing project page while preserving the existing visual identity, playable-app CTA and public repository link.
+- Added a dedicated `ArenaRubraDigitalLayout` with The Digital Arena, shared factions, Testing Lab, Digital vs Tabletop comparison, ecosystem navigation and current-build screenshot evidence.
+- Reused the shared Arena Rubra data module for canonical faction descriptions, core principles, testing summary and related-project navigation.
+- Updated the testing summary to the validated `1000+` total Arena Rubra match figure.
+- Added seven optimized screenshots from the current Arena Rubra digital build: match overview, tactical zoom, Control Center, Map Editor, guided tutorial, telemetry and Starter splash.
+- Applied Board Game polish: corrected the Fabeot faction image framing and simplified the `Designed by playing it` section by removing the oversized legacy statistic presentation and preventing layout overlap.
+- Preserved the Tabletop page structure, physical-prototype disclaimer, gallery, sample cards and existing factual tabletop content.
+
 ## GV-PORTFOLIO V0.11 — Unum Sunt Content Expansion v1.0
 
 - Expanded the Unum Sunt — Radix Machinae page from preview showcase to fuller editorial project page.

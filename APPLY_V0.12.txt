@@ -1,59 +1,40 @@
 GVibeDev.cc — V0.12 patch application notes
-=========================================
+===========================================
 
-Milestone:
-GV-PORTFOLIO V0.12 — Arena Rubra Shared Content Architecture + Tabletop Design / Playtest Expansion
+Target baseline:
+V0.11 validated + the already-applied Arena Rubra shared/tabletop expansion currently visible on the site.
 
-Apply from:
-Validated V0.11 baseline.
+Patch scope:
+1. Arena Rubra Tabletop polish
+   - Fabeot faction image framing fix.
+   - Testing section cleanup: removes the oversized legacy stat block, keeps the explanatory copy and prevents overlap.
+   - Shared testing summary updated to 1000+ total Arena Rubra matches.
 
-What this patch changes
------------------------
-1. Adds canonical reusable Arena Rubra data:
-   src/data/shared/arena-rubra.ts
+2. Arena Rubra Digital expansion
+   - Dedicated project layout.
+   - The Digital Arena systems overview.
+   - Shared five-faction content.
+   - Digital doctrine notes.
+   - Testing Lab + telemetry evidence.
+   - Digital/Tabletop comparison.
+   - Arena Rubra ecosystem links.
+   - Seven optimized current-build screenshots.
 
-2. Adds reusable Arena Rubra components:
-   src/components/arena-rubra/ArenaRubraFactionGrid.astro
-   src/components/arena-rubra/ArenaRubraEcosystemLinks.astro
+3. Shared architecture
+   - Updates `src/data/shared/arena-rubra.ts` as the canonical shared source.
 
-3. Expands the existing tabletop page without replacing its identity:
-   src/layouts/BoardGameProjectLayout.astro
-   src/data/projects/arena-rubra-board-game.md
+Application:
+- Stop `npm run dev`.
+- Back up or commit the current repository state.
+- Copy the CONTENTS of `gvibedev-v0.12` into the repository root and allow overwrite.
+- Do not delete `node_modules` or `package-lock.json`.
+- Restart with `npm run dev`.
 
-4. Adds optimized faction artwork and faction textures under:
-   public/assets/projects/arena-rubra/shared/
+Primary validation routes:
+- /projects/arena-rubra-board-game/
+- /projects/arena-rubra-digital/
+- /projects/arena-rubra-card-composer/
 
-No npm dependencies are added.
-No routes are changed.
-No existing tabletop hero, gallery, sample cards or prototype disclaimer are removed.
-
-IMPORTANT TEST-COUNT NOTE
--------------------------
-The supplied canonical website copy marks the exact “1,000+ matches” claim as pending verification.
-The supplied testing text supports “hundreds of full test matches”, large 100-match batches, broader testing approaching four figures, and thousands of regression checks.
-Therefore this patch intentionally uses the conservative verified wording and DOES NOT publish “1,000+”.
-
-Application
------------
-1. Stop `npm run dev`.
-2. Back up / commit the validated V0.11 baseline.
-3. Copy the CONTENTS of `gvibedev-v0.12-arena-shared-tabletop` into the repository root.
-4. Allow overwrite of the two existing tabletop files.
-5. Do not delete package-lock.json or node_modules.
-6. Run `VERIFY_V0.12.bat`.
-7. Run `npm run dev`.
-8. Test `/projects/arena-rubra-board-game/` on desktop and mobile widths.
-9. Run `npm run build` and `npm run preview`.
-
-Primary visual checks
----------------------
-- Existing hero and prototype disclaimer remain intact.
-- What Is Arena Rubra section is concise and readable.
-- Plan / Position / Pressure remains visible.
-- Match flow reads BUILD → DEPLOY → CONTEST → BREAK → PRESSURE → WIN.
-- Core mechanics grid is readable and does not feel like a rulebook dump.
-- All five faction sections show the correct image / texture identity.
-- Testing section says Hundreds+ rather than unverified 1,000+.
-- One System, Two Forms links Digital / Tabletop / Card Composer.
-- Existing sample cards and gallery still work.
-- Physical prototype remains explicitly described as not yet manufactured.
+Then run:
+- npm run build
+- npm run preview

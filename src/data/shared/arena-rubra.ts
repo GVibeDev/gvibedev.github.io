@@ -203,16 +203,16 @@ export const arenaRubraFactions = [
 ];
 
 export const arenaRubraTestingSummary = {
-  headline: 'Designed by playing it.',
-  stat: 'Hundreds+',
-  statLabel: 'full test matches',
+  headline: 'The match itself is evidence.',
+  stat: '1000+',
+  statLabel: 'test matches across Arena Rubra development',
   body:
-    'Arena Rubra has been developed through hundreds of full matches across multiple builds, with the broader development test volume approaching the four-figure range. Bot-vs-bot simulation, human-vs-AI play, telemetry and regression testing are used together to observe what the rules actually produce when strategies collide repeatedly.',
+    'Arena Rubra has not been balanced only on paper. Across development, more than one thousand matches have been used to observe how the rules behave when strategies collide repeatedly. Testing combines manual matches, player-versus-AI sessions, bot-versus-bot simulations, repeated faction matchups, reversed starting positions, telemetry inspection, runtime logs, targeted regression tests, balance experiments and doctrine-specific AI tests.',
   principle:
     'A rule can sound elegant and still produce bad games. Arena Rubra treats the match itself as evidence.',
   cycle: 'play → measure → diagnose → patch → retest',
   strapline:
-    'Hundreds of full test matches · Large 100-match balance batches · 5 asymmetric factions · Human + AI testing · Deterministic telemetry · Thousands of regression checks',
+    '1000+ total matches · Human + AI testing · Bot-vs-bot simulation · Reversed positions · Telemetry · Regression testing',
 };
 
 export const arenaRubraTestAreas = [

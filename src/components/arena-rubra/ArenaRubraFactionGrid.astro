@@ -5,7 +5,7 @@ import { arenaRubraFactions } from '../../data/shared/arena-rubra';
 <div class="arena-factions">
   {arenaRubraFactions.map((faction) => (
     <article
-      class="arena-faction"
+      class:list={['arena-faction', `arena-faction--${faction.id}`]}
       style={`--faction-accent:${faction.accent}; --faction-texture:url('${faction.texture}');`}
     >
       <div class="arena-faction__media">
@@ -65,8 +65,12 @@ import { arenaRubraFactions } from '../../data/shared/arena-rubra';
     pointer-events: none;
   }
   .arena-faction__media, .arena-faction__body { position: relative; z-index: 1; }
-  .arena-faction__media { min-height: 14rem; background: #030303; }
-  .arena-faction__media img { display: block; width: 100%; height: 100%; min-height: 14rem; object-fit: cover; }
+  .arena-faction__media { min-height: 14rem; overflow: hidden; background: #030303; }
+  .arena-faction__media img { display: block; width: 100%; height: 100%; min-height: 14rem; object-fit: cover; object-position: center; }
+
+  /* V0.12 polish: the supplied Fabeot portrait is framed higher than the other faction art. */
+  .arena-faction--fabeot .arena-faction__media img { object-position: center top; }
+
   .arena-faction__body { display: grid; gap: 1rem; padding: 1.25rem; }
   .arena-faction__heading { display: grid; gap: .65rem; }
   .arena-faction__heading > span { color: color-mix(in srgb, var(--faction-accent) 74%, white); font-family: var(--font-mono); font-size: .82rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
@@ -81,9 +85,31 @@ import { arenaRubraFactions } from '../../data/shared/arena-rubra';
   .arena-faction__lore { padding-top: .85rem; border-top: 1px solid color-mix(in srgb, var(--faction-accent) 24%, transparent); color: var(--color-text-subtle); font-size: .86rem; line-height: 1.62; }
   .arena-faction__plays { color: var(--color-text-muted); font-size: .9rem; line-height: 1.6; }
   .arena-faction__plays strong { color: var(--color-text); }
+
+  /* Board-game V0.12 polish: simplify the testing block and remove the oversized legacy statistic. */
+  :global(.tabletop-page .testing-stat) { display: none; }
+  :global(.tabletop-page .testing-hero) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    max-width: 64rem;
+    align-items: start;
+  }
+  :global(.tabletop-page .testing-copy) { max-width: 62rem; }
+  :global(.tabletop-page .testing-copy code) {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  :global(.tabletop-page .testing-strapline) {
+    max-width: 64rem;
+    line-height: 1.8;
+  }
+  /* The old status row still contains the pre-1000+ wording; hide it until status content is data-driven. */
+  :global(.tabletop-page .status-grid dl > div:nth-child(3)) { display: none; }
+
   @media (min-width: 48rem) {
     .arena-faction { grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.2fr); }
     .arena-faction:nth-child(even) { grid-template-columns: minmax(0, 1.2fr) minmax(15rem, .8fr); }
     .arena-faction:nth-child(even) .arena-faction__media { order: 2; }
+    .arena-faction--fabeot .arena-faction__media img { object-position: center 12%; }
   }
 </style>
