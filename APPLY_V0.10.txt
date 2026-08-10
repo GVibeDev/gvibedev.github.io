@@ -1,0 +1,19 @@
+GV-PORTFOLIO V0.10 — Arena Rubra Card Composer Showcase
+
+Target baseline: validated V0.9.
+
+1. Stop npm run dev.
+2. Commit or back up the current V0.9 state.
+3. Copy the CONTENTS of this patch folder into the repository root.
+4. Overwrite src/data/projects/arena-rubra-card-composer.md when prompted.
+5. Do not delete node_modules or package-lock.json.
+6. No npm install is required.
+7. Run npm run dev.
+8. Check:
+   - /web-apps/
+   - /projects/arena-rubra-card-composer/
+   - /projects/arena-rubra-board-game/
+9. Verify the GitHub repository action opens the supplied repository URL.
+10. Run npm run build and npm run preview.
+
+This milestone is showcase-only. It does not add a public Card Composer runtime or launch URL.
