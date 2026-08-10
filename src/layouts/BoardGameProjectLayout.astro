@@ -3,6 +3,16 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import ProjectGallery from '../components/project/ProjectGallery.astro';
+import ArenaRubraFactionGrid from '../components/arena-rubra/ArenaRubraFactionGrid.astro';
+import ArenaRubraEcosystemLinks from '../components/arena-rubra/ArenaRubraEcosystemLinks.astro';
+import {
+  arenaRubraUniverse,
+  arenaRubraCorePrinciples,
+  arenaRubraMatchFlow,
+  arenaRubraSystems,
+  arenaRubraTestingSummary,
+  arenaRubraTestAreas,
+} from '../data/shared/arena-rubra';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -16,20 +26,6 @@ const facts = [
   ['Deck', '30 cards'],
   ['Core', 'Plan / Position / Pressure'],
   ['Factions', '5'],
-];
-
-const pillars = [
-  ['PLAN', 'Build the deck, manage ENE and decide which cards are worth committing now.'],
-  ['POSITION', 'Use the hex map, Structures and Strategic Points to create useful lines of reinforcement.'],
-  ['PRESSURE', 'Turn territory and credible threats into choices the opponent can no longer afford to ignore.'],
-];
-
-const factions = [
-  ['Nexus', 'Calculated PS control, stable networks and measured territorial advantage.', 'nexus'],
-  ['Exordium', 'Combined Infantry / Vehicle assault and sustained forward pressure.', 'exordium'],
-  ['Liberti', 'Numbers, proximity, attrition and aggressive movement toward the enemy rear.', 'liberti'],
-  ['Agathoi', 'Structures, resilience, recovery and defensive infrastructure.', 'agathoi'],
-  ['Fabeot', 'Economic manipulation, blocking, taxation, theft and conditional conversion.', 'fabeot'],
 ];
 
 const sampleCards = [
@@ -52,6 +48,16 @@ const sampleCards = [
     name: 'Predone Liberto',
   },
 ];
+
+const developmentStatus = [
+  ['Status', 'Pre-production tabletop prototype'],
+  ['Ruleset', 'Starter rules substantially defined'],
+  ['Playtesting', 'Hundreds of full test matches'],
+  ['Factions', '5'],
+  ['Deck format', '30 cards'],
+  ['Physical prototype', 'Not yet manufactured'],
+  ['Current focus', 'Balance / usability / component specification'],
+];
 ---
 
 <BaseLayout
@@ -73,7 +79,7 @@ const sampleCards = [
             <h1>Arena Rubra</h1>
             <p>{data.summary}</p>
             <div class="tabletop-actions">
-              <a class="tabletop-action tabletop-action--primary" href="#tabletop-system">Explore the tabletop system ↓</a>
+              <a class="tabletop-action tabletop-action--primary" href="#what-is-arena-rubra">Explore the tabletop system ↓</a>
               <a class="tabletop-action" href="/projects/arena-rubra-digital/">Digital project ↗</a>
             </div>
           </div>
@@ -103,31 +109,83 @@ const sampleCards = [
       </Container>
     </section>
 
-    <section id="tabletop-system" class="tabletop-system">
+    <section id="what-is-arena-rubra" class="tabletop-intro section-block">
+      <Container>
+        <div class="intro-grid">
+          <div>
+            <span class="eyebrow">What is Arena Rubra?</span>
+            <h2>Cards do not replace the battlefield. They enter it.</h2>
+          </div>
+          <div class="intro-copy">
+            <p>{arenaRubraUniverse.positioning}</p>
+            <p>Two players lead asymmetric factions across a hexagonal map, deploy units and Structures, contest Strategic Points and convert territorial control into economic and strategic pressure.</p>
+            <p>The deck defines the available options, but positioning determines whether those options matter. A strong card played in the wrong place can accomplish very little. A modest unit holding the right hex can change the entire match.</p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="tabletop-system section-block">
       <Container>
         <div class="section-heading">
-          <span>Starter structure</span>
-          <h2>Three verbs organize the match.</h2>
+          <span>Plan / Position / Pressure</span>
+          <h2>Build the force. Shape the battlefield. Make control matter.</h2>
         </div>
         <div class="pillar-grid">
-          {pillars.map(([title, body], index) => (
+          {arenaRubraCorePrinciples.map((pillar, index) => (
             <article>
               <span>0{index + 1}</span>
-              <h3>{title}</h3>
-              <p>{body}</p>
+              <h3>{pillar.label}</h3>
+              <strong>{pillar.title}</strong>
+              <p>{pillar.body}</p>
             </article>
           ))}
         </div>
       </Container>
     </section>
 
-    <section class="tabletop-story">
+    <section class="match-flow section-block">
+      <Container>
+        <div class="section-heading section-heading--compact">
+          <span>How a match works</span>
+          <h2>Understand the loop in under a minute.</h2>
+        </div>
+        <div class="flow-grid">
+          {arenaRubraMatchFlow.map((item) => (
+            <article>
+              <span>{item.step}</span>
+              <h3>{item.label}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="systems-section section-block">
+      <Container>
+        <div class="section-heading">
+          <span>Core mechanics</span>
+          <h2>The system under the cards.</h2>
+        </div>
+        <div class="systems-grid">
+          {arenaRubraSystems.map((system) => (
+            <article>
+              <h3>{system.title}</h3>
+              <p>{system.body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="tabletop-story section-block">
       <Container>
         <div class="tabletop-story__grid">
           <aside class="tabletop-story__aside">
-            <span>Rule source</span>
-            <strong>Starter user edition</strong>
-            <p>This showcase follows the supplied Starter rulebook rather than older conversion notes. It describes the current two-player implementation without adding new rules.</p>
+            <span>Tabletop discipline</span>
+            <strong>Every state must remain visible.</strong>
+            <p>The tabletop branch cannot hide complexity inside code. Deployment, protection, position, economy and victory state must stay readable without invisible automation.</p>
           </aside>
           <article class="tabletop-prose">
             <slot />
@@ -136,16 +194,45 @@ const sampleCards = [
       </Container>
     </section>
 
-    <section class="faction-section">
+    <section class="faction-section section-block">
       <Container>
         <div class="section-heading section-heading--compact">
-          <span>Faction doctrines</span>
-          <h2>Five ways to read the same board.</h2>
+          <span>The five factions</span>
+          <h2>Five strategic philosophies reading the same board differently.</h2>
         </div>
-        <div class="faction-grid">
-          {factions.map(([name, body, tone]) => (
-            <article class:list={['faction-card', `faction-card--${tone}`]}>
-              <span>{name}</span>
+        <ArenaRubraFactionGrid />
+      </Container>
+    </section>
+
+    <section class="testing-section section-block">
+      <Container>
+        <div class="testing-hero">
+          <div class="testing-stat">
+            <strong>{arenaRubraTestingSummary.stat}</strong>
+            <span>{arenaRubraTestingSummary.statLabel}</span>
+          </div>
+          <div class="testing-copy">
+            <span class="eyebrow">Designed by playing it</span>
+            <h2>{arenaRubraTestingSummary.headline}</h2>
+            <p>{arenaRubraTestingSummary.body}</p>
+            <blockquote>{arenaRubraTestingSummary.principle}</blockquote>
+            <code>{arenaRubraTestingSummary.cycle}</code>
+          </div>
+        </div>
+        <p class="testing-strapline">{arenaRubraTestingSummary.strapline}</p>
+      </Container>
+    </section>
+
+    <section class="test-areas section-block">
+      <Container>
+        <div class="section-heading section-heading--compact">
+          <span>What we test</span>
+          <h2>Winning is only one signal.</h2>
+        </div>
+        <div class="test-grid">
+          {arenaRubraTestAreas.map(([title, body]) => (
+            <article>
+              <h3>{title}</h3>
               <p>{body}</p>
             </article>
           ))}
@@ -153,7 +240,23 @@ const sampleCards = [
       </Container>
     </section>
 
-    <section class="cards-section">
+    <section class="two-forms section-block">
+      <Container>
+        <div class="two-forms__grid">
+          <div>
+            <span class="eyebrow">One system, two forms</span>
+            <h2>Digital lab. Physical destination.</h2>
+          </div>
+          <div class="two-forms__copy">
+            <p>{arenaRubraUniverse.relationship}</p>
+            <p>The goal is not numerical identity between the two versions. The goal is preservation of the same strategic character while each medium is allowed to expose different strengths and different weaknesses.</p>
+          </div>
+        </div>
+        <ArenaRubraEcosystemLinks currentSlug="arena-rubra-board-game" />
+      </Container>
+    </section>
+
+    <section class="cards-section section-block">
       <Container>
         <div class="cards-heading">
           <div>
@@ -179,25 +282,29 @@ const sampleCards = [
     </section>
 
     {data.gallery.length > 0 && (
-      <section class="tabletop-gallery">
+      <section class="tabletop-gallery section-block">
         <Container>
           <ProjectGallery items={data.gallery} />
         </Container>
       </section>
     )}
 
-    <section class="prototype-section">
+    <section class="status-section section-block">
       <Container>
-        <div class="prototype-grid">
+        <div class="status-grid">
           <div>
-            <span>Where it is now</span>
+            <span class="eyebrow">Development status</span>
             <h2>Past the idea stage. Not yet a manufactured object.</h2>
+            <p>The physical prototype, production specifications, final component counts and manufacturing decisions remain future work. The project is currently focused on balance, usability and component specification.</p>
           </div>
-          <div class="prototype-copy">
-            <p>The tabletop branch already has a formal Starter ruleset, deck constraints, faction doctrines, combat procedures, victory conditions and an established visual direction.</p>
-            <p>The next physical milestones are practical rather than conceptual: component specification, printable prototypes, real-table usability tests, production tolerances and the final freeze of values that still move during balancing.</p>
-            <a href="/projects/arena-rubra-digital/">See the digital Arena Rubra project ↗</a>
-          </div>
+          <dl>
+            {developmentStatus.map(([label, value]) => (
+              <div>
+                <dt>{label}</dt>
+                <dd>{value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </Container>
     </section>
@@ -223,32 +330,11 @@ const sampleCards = [
     color: var(--color-text);
     background: #070707;
   }
-
-  .tabletop-hero {
-    padding-block: clamp(2rem,5vw,4.5rem) clamp(3rem,7vw,6rem);
-    border-bottom: 1px solid var(--tabletop-line);
-    background: #090806;
-  }
-
-  .tabletop-back {
-    display: inline-flex;
-    margin-bottom: clamp(2rem,4vw,3.5rem);
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: .72rem;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
+  .section-block { padding-block: var(--section-space); }
+  .tabletop-hero { padding-block: clamp(2rem,5vw,4.5rem) clamp(3rem,7vw,6rem); border-bottom: 1px solid var(--tabletop-line); background: #090806; }
+  .tabletop-back { display: inline-flex; margin-bottom: clamp(2rem,4vw,3.5rem); color: var(--color-text-muted); font-family: var(--font-mono); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
   .tabletop-back:hover { color: var(--tabletop-gold); }
-
-  .tabletop-hero__head {
-    display: grid;
-    gap: 2rem;
-    align-items: end;
-    margin-bottom: clamp(2rem,5vw,3.5rem);
-  }
+  .tabletop-hero__head { display: grid; gap: 2rem; align-items: end; margin-bottom: clamp(2rem,5vw,3.5rem); }
   .tabletop-hero__copy { display: grid; gap: 1.25rem; max-width: 58rem; }
   .tabletop-kicker { display: flex; flex-wrap: wrap; gap: .7rem 1.2rem; color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
   .tabletop-kicker span:last-child { color: #d77360; }
@@ -258,36 +344,51 @@ const sampleCards = [
   .tabletop-action { padding: .82rem 1rem; border: 1px solid var(--tabletop-line); border-radius: var(--radius-sm); color: var(--color-text); font-family: var(--font-mono); font-size: .72rem; font-weight: 800; letter-spacing: .05em; text-decoration: none; text-transform: uppercase; }
   .tabletop-action:hover { border-color: var(--tabletop-gold); }
   .tabletop-action--primary { border-color: var(--tabletop-gold); color: #090806; background: var(--tabletop-gold); }
-  .tabletop-action--primary:hover { background: #dfb774; }
-
   .prototype-note { display: grid; gap: .7rem; max-width: 25rem; padding: 1.2rem; border: 1px solid var(--tabletop-line); background: #100d09; }
-  .prototype-note > span { color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .prototype-note > span, .eyebrow, .section-heading > span, .cards-heading span { color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
   .prototype-note strong { font-size: 1.15rem; }
   .prototype-note p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.6; }
-
   .tabletop-hero__media { overflow: hidden; margin: 0; border: 1px solid var(--tabletop-line); border-radius: var(--radius-lg); background: #020202; }
   .tabletop-hero__media img { display: block; width: 100%; height: auto; }
   .tabletop-hero__media figcaption { padding: .7rem .9rem; color: var(--color-text-subtle); border-top: 1px solid var(--tabletop-line); font-family: var(--font-mono); font-size: .68rem; letter-spacing: .03em; }
-
   .tabletop-facts { display: grid; gap: 1px; margin-top: 1rem; border: 1px solid var(--tabletop-line); background: var(--tabletop-line); }
   .tabletop-facts > div { display: grid; gap: .35rem; padding: 1rem; background: #0b0907; }
   .tabletop-facts span { color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .66rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
   .tabletop-facts strong { color: #f4e7d3; font-size: 1rem; }
 
-  .tabletop-system, .faction-section, .cards-section, .prototype-section { padding-block: var(--section-space); }
+  .tabletop-intro { border-bottom: 1px solid var(--tabletop-line); background: #080706; }
+  .intro-grid, .two-forms__grid { display: grid; gap: 2rem; }
+  .intro-grid > div:first-child, .two-forms__grid > div:first-child { display: grid; align-content: start; gap: .8rem; }
+  .intro-grid h2, .two-forms h2, .testing-copy h2, .status-grid h2 { margin: 0; font-size: clamp(2.2rem,5vw,4.8rem); line-height: .98; letter-spacing: -.05em; }
+  .intro-copy, .two-forms__copy { display: grid; gap: 1rem; }
+  .intro-copy p, .two-forms__copy p, .status-grid > div > p { margin: 0; color: var(--color-text-muted); font-size: 1rem; line-height: 1.78; }
+  .intro-copy p:first-child { color: var(--color-text); font-size: 1.08rem; }
+
   .tabletop-system { border-bottom: 1px solid var(--tabletop-line); background: #0b0907; }
   .section-heading { display: grid; gap: .7rem; max-width: 58rem; margin-bottom: 2rem; }
-  .section-heading > span, .cards-heading span, .prototype-grid > div > span { color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-  .section-heading h2, .cards-heading h2, .prototype-grid h2 { margin: 0; font-size: clamp(2.2rem,5vw,4.6rem); line-height: .98; letter-spacing: -.05em; }
-  .section-heading--compact h2 { max-width: 16ch; }
-
+  .section-heading h2, .cards-heading h2 { margin: 0; font-size: clamp(2.2rem,5vw,4.6rem); line-height: .98; letter-spacing: -.05em; }
+  .section-heading--compact h2 { max-width: 17ch; }
   .pillar-grid { display: grid; gap: 1rem; }
-  .pillar-grid article { display: grid; gap: .8rem; padding: 1.2rem; border: 1px solid var(--tabletop-line); background: #0f0c09; }
+  .pillar-grid article { display: grid; gap: .75rem; padding: 1.2rem; border: 1px solid var(--tabletop-line); background: #0f0c09; }
   .pillar-grid article > span { color: #6f5940; font-family: var(--font-mono); font-size: .7rem; font-weight: 800; }
   .pillar-grid h3 { margin: 0; color: #f1d5a4; font-size: 1.1rem; letter-spacing: .08em; }
+  .pillar-grid strong { font-size: 1rem; }
   .pillar-grid p { margin: 0; color: var(--color-text-muted); line-height: 1.7; }
 
-  .tabletop-story { padding-block: var(--section-space); }
+  .match-flow { border-bottom: 1px solid var(--tabletop-line); background: #070707; }
+  .flow-grid { display: grid; gap: 1px; border: 1px solid var(--tabletop-line); background: var(--tabletop-line); }
+  .flow-grid article { display: grid; gap: .5rem; padding: 1rem; background: #0d0b08; }
+  .flow-grid article > span { color: #6f5940; font-family: var(--font-mono); font-size: .66rem; font-weight: 800; }
+  .flow-grid h3 { margin: 0; color: #f1d5a4; font-family: var(--font-mono); font-size: .82rem; letter-spacing: .08em; }
+  .flow-grid p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.55; }
+
+  .systems-section { border-bottom: 1px solid var(--tabletop-line); background: #0b0907; }
+  .systems-grid { display: grid; gap: .8rem; }
+  .systems-grid article { display: grid; gap: .65rem; padding: 1rem; border: 1px solid #2a2721; background: #0c0b09; }
+  .systems-grid h3, .test-grid h3 { margin: 0; color: #f1d5a4; font-size: 1rem; }
+  .systems-grid p, .test-grid p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.65; }
+
+  .tabletop-story { background: #070707; }
   .tabletop-story__grid { display: grid; gap: 3rem; }
   .tabletop-story__aside { display: grid; align-content: start; gap: .8rem; padding: 1.15rem; border: 1px solid var(--tabletop-line); background: #0d0b08; }
   .tabletop-story__aside span { color: var(--tabletop-gold); font-family: var(--font-mono); font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
@@ -299,15 +400,24 @@ const sampleCards = [
   :global(.tabletop-prose strong) { color: #f3ddbb; }
 
   .faction-section { border-top: 1px solid var(--tabletop-line); border-bottom: 1px solid var(--tabletop-line); background: #080706; }
-  .faction-grid { display: grid; gap: .8rem; }
-  .faction-card { display: grid; gap: .7rem; padding: 1rem; border: 1px solid #2a2721; background: #0d0d0c; }
-  .faction-card > span { font-family: var(--font-mono); font-size: .75rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
-  .faction-card p { margin: 0; color: var(--color-text-muted); line-height: 1.6; }
-  .faction-card--nexus { border-top-color: #385a7a; }
-  .faction-card--exordium { border-top-color: #9b3e34; }
-  .faction-card--liberti { border-top-color: #9b6a30; }
-  .faction-card--agathoi { border-top-color: #54744a; }
-  .faction-card--fabeot { border-top-color: #6d4b78; }
+
+  .testing-section { border-bottom: 1px solid var(--tabletop-line); background: #0d0a08; }
+  .testing-hero { display: grid; gap: 2rem; align-items: center; }
+  .testing-stat { display: grid; justify-items: start; gap: .2rem; }
+  .testing-stat strong { color: #f1d5a4; font-size: clamp(4.8rem,16vw,10rem); line-height: .78; letter-spacing: -.08em; }
+  .testing-stat span { color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .72rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+  .testing-copy { display: grid; gap: 1rem; }
+  .testing-copy p { margin: 0; color: var(--color-text-muted); line-height: 1.75; }
+  .testing-copy blockquote { margin: 0; padding-left: 1rem; border-left: 2px solid var(--tabletop-gold); color: var(--color-text); font-family: Georgia, 'Times New Roman', serif; font-size: 1.15rem; line-height: 1.6; }
+  .testing-copy code { width: fit-content; padding: .55rem .7rem; color: #f1d5a4; background: #090806; border: 1px solid var(--tabletop-line); font-family: var(--font-mono); font-size: .75rem; }
+  .testing-strapline { margin: 2rem 0 0; padding-top: 1rem; border-top: 1px solid var(--tabletop-line); color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .68rem; line-height: 1.7; letter-spacing: .04em; text-transform: uppercase; }
+
+  .test-areas { border-bottom: 1px solid var(--tabletop-line); background: #080706; }
+  .test-grid { display: grid; gap: .8rem; }
+  .test-grid article { display: grid; gap: .55rem; padding: 1rem; border: 1px solid #2a2721; background: #0d0d0c; }
+
+  .two-forms { border-bottom: 1px solid var(--tabletop-line); background: #0b0907; }
+  .two-forms__grid { margin-bottom: 2rem; }
 
   .cards-section { background: #0a0907; }
   .cards-heading { display: grid; gap: 1.2rem; margin-bottom: 2rem; }
@@ -321,16 +431,17 @@ const sampleCards = [
   .sample-cards figcaption span { color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .66rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
   .sample-cards figcaption strong { font-size: 1rem; }
 
-  .tabletop-gallery { padding-block: var(--section-space); border-top: 1px solid var(--tabletop-line); background: #050504; }
+  .tabletop-gallery { border-top: 1px solid var(--tabletop-line); background: #050504; }
   .tabletop-gallery :global(.project-gallery__eyebrow) { color: var(--tabletop-gold); }
   .tabletop-gallery :global(.gallery-card__open:hover) { border-color: var(--tabletop-gold); }
 
-  .prototype-section { border-top: 1px solid var(--tabletop-line); background: #0d0a08; }
-  .prototype-grid { display: grid; gap: 2rem; }
-  .prototype-grid > div:first-child { display: grid; gap: .8rem; }
-  .prototype-copy { display: grid; gap: 1rem; max-width: 46rem; }
-  .prototype-copy p { margin: 0; color: var(--color-text-muted); line-height: 1.78; }
-  .prototype-copy a { width: fit-content; color: #f1d5a4; font-family: var(--font-mono); font-size: .74rem; font-weight: 800; letter-spacing: .05em; text-decoration: none; text-transform: uppercase; }
+  .status-section { border-top: 1px solid var(--tabletop-line); background: #0d0a08; }
+  .status-grid { display: grid; gap: 2rem; }
+  .status-grid > div:first-child { display: grid; gap: .9rem; align-content: start; }
+  .status-grid dl { display: grid; gap: 1px; margin: 0; border: 1px solid var(--tabletop-line); background: var(--tabletop-line); }
+  .status-grid dl > div { display: grid; grid-template-columns: minmax(8rem,.65fr) minmax(0,1fr); gap: 1rem; padding: .85rem 1rem; background: #0b0907; }
+  .status-grid dt { color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .65rem; font-weight: 800; letter-spacing: .075em; text-transform: uppercase; }
+  .status-grid dd { margin: 0; color: var(--color-text); font-size: .9rem; }
 
   .tabletop-endcap { padding-block: 0 var(--section-space); background: #0d0a08; }
   .tabletop-endcap figure { overflow: hidden; width: min(54rem,100%); margin: 0 auto; border: 1px solid var(--tabletop-line); background: #020202; }
@@ -339,17 +450,21 @@ const sampleCards = [
   @media (min-width: 40rem) {
     .tabletop-facts { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .pillar-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
-    .faction-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .flow-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .systems-grid, .test-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
     .sample-cards { grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; }
   }
-
   @media (min-width: 60rem) {
     .tabletop-hero__head { grid-template-columns: minmax(0,1fr) 24rem; gap: 4rem; }
     .tabletop-facts { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .intro-grid, .two-forms__grid, .status-grid { grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 4rem; align-items: start; }
+    .flow-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+    .systems-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .systems-grid article:last-child { grid-column: span 2; }
     .tabletop-story__grid { grid-template-columns: 18rem minmax(0,1fr); gap: clamp(3rem,7vw,6rem); align-items: start; }
     .tabletop-story__aside { position: sticky; top: 6.5rem; }
-    .faction-grid { grid-template-columns: repeat(5,minmax(0,1fr)); }
+    .testing-hero { grid-template-columns: minmax(18rem,.65fr) minmax(0,1.35fr); gap: 4rem; }
+    .test-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
     .cards-heading { grid-template-columns: minmax(0,1fr) minmax(20rem,.7fr); align-items: end; gap: 3rem; }
-    .prototype-grid { grid-template-columns: minmax(0,1fr) minmax(24rem,.85fr); gap: 4rem; align-items: start; }
   }
 </style>

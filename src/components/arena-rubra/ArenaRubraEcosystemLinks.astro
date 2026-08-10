@@ -1,0 +1,36 @@
+---
+import { arenaRubraRelatedProjects } from '../../data/shared/arena-rubra';
+
+interface Props { currentSlug?: string; }
+const { currentSlug } = Astro.props;
+---
+
+<div class="arena-ecosystem" aria-label="Arena Rubra related projects">
+  {arenaRubraRelatedProjects.map((project) => (
+    currentSlug === project.slug ? (
+      <div class="arena-ecosystem__card arena-ecosystem__card--current" aria-current="page">
+        <span>{project.label} · Current</span>
+        <strong>{project.title}</strong>
+        <p>{project.body}</p>
+      </div>
+    ) : (
+      <a class="arena-ecosystem__card" href={project.href}>
+        <span>{project.label}</span>
+        <strong>{project.title}</strong>
+        <p>{project.body}</p>
+        <small>Explore →</small>
+      </a>
+    )
+  ))}
+</div>
+
+<style>
+  .arena-ecosystem { display: grid; gap: .8rem; }
+  .arena-ecosystem__card { display: grid; gap: .55rem; padding: 1rem; border: 1px solid var(--tabletop-line, var(--color-border)); color: var(--color-text); background: rgba(9,9,8,.72); text-decoration: none; }
+  a.arena-ecosystem__card:hover { border-color: var(--tabletop-gold, var(--color-blue-soft)); }
+  .arena-ecosystem__card--current { background: rgba(200,155,88,.08); }
+  .arena-ecosystem__card span, .arena-ecosystem__card small { color: var(--tabletop-gold, var(--color-blue-soft)); font-family: var(--font-mono); font-size: .65rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .arena-ecosystem__card strong { font-size: 1rem; }
+  .arena-ecosystem__card p { margin: 0; color: var(--color-text-muted); font-size: .86rem; line-height: 1.55; }
+  @media (min-width: 48rem) { .arena-ecosystem { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>

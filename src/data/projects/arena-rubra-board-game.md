@@ -76,50 +76,26 @@ gallery:
     caption: >-
       Agathoi translates resilience and infrastructure into a visibly different faction language.
 ---
-## A tabletop system built around three verbs
+## Where the system meets the table
 
-Arena Rubra uses the same **Plan / Position / Pressure** structure that organizes the Starter rules. Planning is the deck, the ENE economy and the choice of what to commit. Position is the hex map, deployment lines, structures and control of Strategic Points. Pressure is what happens when territory, economy or a threat forces the opponent to abandon the plan they wanted to play.
+Arena Rubra Tabletop is not treated as a printed screenshot of the browser game. The physical version imposes a stricter requirement: every important state must remain understandable without hidden automation. Deployment range, Strategic Point ownership, current protection, ENE, unit position and victory pressure all need a clear physical expression.
 
-The current tabletop edition is in **pre-production**. The rules, card structure and component language are substantially defined, but the physical prototype shown on this page has not yet been manufactured. The tabletop images are concept visualizations of the intended experience rather than photographs of a finished product.
-
-## The match at a glance
-
-The Starter game is designed for **two players**. Each player chooses one of five factions, selects a Commander and prepares a legal **30-card deck**. The current Starter map uses two opposing Headquarters and three Strategic Points, with a radius-6 hex battlefield establishing the space between them.
-
-Players begin with 3 ENE, a five-card opening hand and a separate Starter Reserve that keeps one light Infantry, one light Vehicle and one Structure available outside the deck. From the second personal turn onward, normal income starts from 3 ENE plus 1 ENE for each Strategic Point controlled, before faction doctrines and card effects are applied.
+That constraint is useful. A rule that works only because software silently tracks several exceptions may be acceptable in a digital prototype and still be a poor tabletop rule. The physical branch therefore acts as a clarity test for the strategic core.
 
 ## Position is also logistics
 
-Units do not simply appear anywhere on the map. Infantry, Vehicles and Commanders normally deploy next to the player's Headquarters or next to an allied Structure. That turns every Structure into a potential extension of the reinforcement network: advancing the infrastructure shortens the path to the front, but also gives the opponent a valuable target.
+Units normally enter through the Headquarters or allied Structures, so infrastructure changes the practical distance between the reserve and the front. Advancing a Structure can make reinforcement dramatically more efficient, but it also creates a target whose loss can reshape the whole line.
 
-Strategic Points change control immediately when their occupant changes. Their economic value is realized only if the point is still controlled when income is calculated, so taking a PS and actually holding it are deliberately different problems.
+Strategic Points matter for the same reason. They are not decorative objectives placed beside the real battle: they connect territory to ENE, deployment choices and long-term Pressure. Taking a Point and being able to keep using the space around it are deliberately different problems.
 
-## Combat is readable in layers
+## Combat must stay readable
 
-ATT determines the damage of an attack. DEF is a current shield rather than a subtraction value: if a target has DEF when one damage instance begins, that damage removes DEF only and any excess is lost. Once DEF is already at zero, later damage reaches HP. Direct-damage and “ignore DEF” effects are explicit exceptions rather than the default.
+The current ATT / DEF model is designed to remain legible at the table. ATT creates damage against HP. DEF is temporary protection rather than a subtraction formula, and explicit effects define when that protection is restored, reduced or bypassed.
 
-That produces a tabletop-friendly rhythm in which breaking protection and converting the opening into a second attack can matter more than simply stacking a single very large ATT value.
+The aim is not to remove tactical depth. It is to make the cause of an outcome visible enough that players can reconstruct what happened without asking a hidden engine to explain it.
 
-## Winning means converting the map
+## Current prototype boundary
 
-There are two main ways to finish the Starter game. A unit occupying the enemy Headquarters wins immediately if its player also controls at least one Strategic Point. The second route is Strategic Pressure: from the configured threshold onward, the player controlling more PS at the end of a round gains one permanent Pressure, and reaching five wins the game.
+The Starter rules, deck constraints, five faction identities, card language and core battlefield systems are substantially defined. The images on this page remain concept visualisations: a manufactured physical prototype, final component counts, production tolerances and final print specifications do not exist yet.
 
-If nobody has won by round 50, the rules compare Strategic Points, surviving units and finally unspent ENE before declaring a technical draw.
-
-## Five factions, one rules core
-
-The factions share the battlefield rules but ask the player to value different things. **Nexus** prefers calculated control of Strategic Points and stable networks. **Exordium** rewards coordinated Infantry and Vehicle assault. **Liberti** pushes numbers, proximity and attrition. **Agathoi** builds resilience through Structures, recovery and defensive infrastructure. **Fabeot** attacks the opponent's economy, hand and timing through taxation, blocking, theft and conditional conversion.
-
-The important difference is not merely color or illustration. Each faction changes what a good position looks like and therefore changes how the same map is read.
-
-## Cards are part of the board, not a layer above it
-
-A legal deck contains exactly 30 cards from one faction and exactly one selected Commander. Pivot, Commander and Elite cards are unique within the deck; most other cards can appear in up to two copies. Unit cards create persistent pieces on the battlefield, while Tactic cards resolve immediate interventions and are then discarded.
-
-The three sample cards shown on this page are current visual material for the tabletop presentation. Their artwork and component language are representative, while statistics and wording remain part of an actively iterated ruleset.
-
-## Current prototype status
-
-The objective of this milestone is not to present Arena Rubra as a manufactured board game. It is to make the tabletop project visible as a real design branch with a formal rulebook, established systems, faction identity, card language and a clear component direction.
-
-The physical prototype, production specifications, final component counts and manufacturing decisions remain future work. The digital Arena Rubra project continues in parallel and acts as a rapid environment for testing many of the same tactical ideas before they are frozen for the table.
+That distinction is intentional. The page describes a real design project without pretending that production work has already been completed.
