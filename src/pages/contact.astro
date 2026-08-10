@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+---
+
+<BaseLayout
+  title="Contact GVibeDev"
+  description="Projects, questions, strange ideas. Public contact channels for GVibeDev: GitHub and email."
+>
+  <div class="contact-page">
+    <section class="contact-hero">
+      <Container>
+        <div class="contact-hero__copy">
+          <span class="eyebrow">Contact</span>
+          <h1>Projects, questions, strange ideas.</h1>
+          <p class="lead">
+            GVibeDev is a personal project, not a company or a support desk. If you want to talk
+            about one of the projects, report an issue, discuss a collaboration or simply ask how
+            something was built, these are the best places to reach me.
+          </p>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block">
+      <Container>
+        <div class="contact-grid">
+          <article class="contact-card">
+            <span class="eyebrow">GitHub</span>
+            <h2>Repositories, code and issues</h2>
+            <p>
+              For repository-level discussion, code questions or issue reporting, GitHub is the most
+              direct and useful channel.
+            </p>
+            <a href="https://github.com/GVibeDev" class="button button--primary">github.com/GVibeDev</a>
+          </article>
+
+          <article class="contact-card">
+            <span class="eyebrow">Email</span>
+            <h2>General messages</h2>
+            <p>
+              For general contact, collaborations, editorial questions, press or broader project
+              conversations, email is the better option.
+            </p>
+            <a href="mailto:gvibedev@gmail.com" class="button button--primary">gvibedev@gmail.com</a>
+          </article>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block section-block--deep">
+      <Container>
+        <div class="usage-grid">
+          <article>
+            <span class="eyebrow">Project issue</span>
+            <h3>Prefer GitHub Issue</h3>
+            <p>
+              If the message concerns a specific bug, repository or implementation detail, open an
+              issue on the relevant project when possible.
+            </p>
+          </article>
+          <article>
+            <span class="eyebrow">General message</span>
+            <h3>Prefer email</h3>
+            <p>
+              If the topic is broader than one repository, email keeps the conversation simpler.
+            </p>
+          </article>
+          <article>
+            <span class="eyebrow">Code / repository question</span>
+            <h3>GitHub works best</h3>
+            <p>
+              Public technical questions are often better on GitHub because they remain attached to
+              the code and may help others later.
+            </p>
+          </article>
+          <article>
+            <span class="eyebrow">Collaboration / press / other</span>
+            <h3>Email</h3>
+            <p>
+              If the message is personal, editorial or exploratory, email is the more appropriate
+              channel.
+            </p>
+          </article>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block">
+      <Container>
+        <div class="contact-note">
+          <span class="eyebrow">Public contact only</span>
+          <h2>Low-pressure, direct and non-corporate.</h2>
+          <p>
+            No booking funnels, no fictional departments and no private phone numbers or addresses.
+            Just a small set of clear public channels.
+          </p>
+          <div class="note-actions">
+            <a href="mailto:gvibedev@gmail.com" class="button button--secondary">Send email</a>
+            <a href="/about/" class="button button--secondary">About GVibeDev</a>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-page { color: var(--color-text); background: var(--color-bg); }
+  .section-block { padding-block: var(--section-space); }
+  .section-block--deep { background: var(--color-bg-deep); border-block: 1px solid var(--color-border); }
+  .eyebrow {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  .contact-hero {
+    padding-block: clamp(2.2rem, 6vw, 5rem) clamp(3rem, 7vw, 5rem);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-deep);
+  }
+  .contact-hero__copy { display: grid; gap: 1rem; max-width: 54rem; }
+  .contact-hero h1, .contact-note h2 {
+    margin: 0;
+    font-size: clamp(2.4rem, 6vw, 5.4rem);
+    line-height: .95;
+    letter-spacing: -.055em;
+  }
+  .contact-note h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
+  .lead, .contact-card p, .usage-grid p, .contact-note p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+  .lead { color: var(--color-text); font-size: clamp(1.08rem, 1rem + .35vw, 1.3rem); }
+  .contact-grid, .usage-grid { display: grid; gap: 1rem; }
+  .contact-card, .usage-grid article, .contact-note {
+    display: grid;
+    gap: .9rem;
+    padding: 1.2rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+  }
+  .contact-card h2, .usage-grid h3 { margin: 0; color: var(--color-text); }
+  .contact-card h2 { font-size: 1.3rem; }
+  .usage-grid h3 { font-size: 1.08rem; }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-height: 2.8rem;
+    padding: .8rem 1.05rem;
+    border: 1px solid var(--color-border-strong);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    transition: transform .2s ease, border-color .2s ease, background-color .2s ease;
+  }
+  .button:hover { transform: translateY(-1px); }
+  .button--primary {
+    color: #08111e;
+    background: var(--color-blue-soft);
+    border-color: var(--color-blue-soft);
+  }
+  .button--secondary {
+    color: var(--color-text);
+    background: var(--color-surface-1);
+  }
+  .note-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .4rem; }
+
+  @media (min-width: 48rem) {
+    .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .usage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

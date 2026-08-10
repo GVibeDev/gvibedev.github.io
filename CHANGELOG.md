@@ -1,5 +1,14 @@
 # Changelog
 
+## GV-PORTFOLIO V0.13 — About + Contact + Manuale LLM
+
+- Added a full `/about/` page for GVibeDev as a personal workshop rather than a corporate or agency-style profile.
+- Added a full `/contact/` page with public GitHub and email contact channels.
+- Updated primary navigation so `About` now points to the real standalone page and added a `Contact` entry.
+- Added `Manuale LLM` as a public project page, linked to the repository `GVibeDev/Manuale_LLM`.
+- Introduced a concise public positioning for AI use on the site: tools, method and responsibility rather than automation hype.
+- Added dedicated public assets for the Manuale LLM project cover.
+
 ## GV-PORTFOLIO V0.12 — Arena Rubra Shared Architecture + Digital Expansion
 
 - Expanded Arena Rubra Digital into a dedicated system / testing project page while preserving the existing visual identity, playable-app CTA and public repository link.

@@ -1,0 +1,42 @@
+GVibeDev.cc — V0.13 patch application notes
+===========================================
+
+Target baseline:
+V0.12 validated.
+
+Patch scope:
+1. About
+   - Adds a real `/about/` page.
+   - Frames GVibeDev as a personal workshop.
+   - Adds a public section on AI, method and responsibility.
+   - Adds BiggityKot mention in the approved public form.
+   - Adds a Manuale LLM callout.
+
+2. Contact
+   - Adds a real `/contact/` page.
+   - Publishes GitHub and email contact channels.
+   - Uses `gvibedev@gmail.com` as the public email.
+
+3. Navigation
+   - `About` now points to `/about/`.
+   - Adds `Contact` in main navigation.
+
+4. Manuale LLM
+   - Adds a real public project entry and page.
+   - Adds cover / card / OG assets.
+
+Application:
+- Stop `npm run dev`.
+- Back up or commit the current repository state.
+- Copy the CONTENTS of `gvibedev-v0.13` into the repository root and allow overwrite.
+- Do not delete `node_modules` or `package-lock.json`.
+- Restart with `npm run dev`.
+
+Primary validation routes:
+- /about/
+- /contact/
+- /projects/manuale-llm/
+
+Then run:
+- npm run build
+- npm run preview
