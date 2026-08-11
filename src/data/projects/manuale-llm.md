@@ -3,7 +3,7 @@ title: Manuale LLM
 slug: manuale-llm
 summary: A writing and method project about structure, prompting discipline and human responsibility in practical work with language models.
 kind: experiment
-section: projects
+section: tools
 owner: gvibedev
 featured: false
 sortOrder: 95
