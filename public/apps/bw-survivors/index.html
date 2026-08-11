@@ -1,301 +1,288 @@
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Black / White Survivor 0.9A</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="icon.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="iconbig.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png" />
-  <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Black / White Survivor" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="online-runtime.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="noindex, nofollow" name="robots"/>
+<title>Black / White Survivor 0.9A</title>
+<link href="icon.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="iconbig.png" rel="icon" sizes="512x512" type="image/png"/>
+<link href="icon-180.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="manifest.webmanifest" rel="manifest"/>
+<meta content="#000000" name="theme-color"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="Black / White Survivor" name="apple-mobile-web-app-title"/>
+<link href="style.css" rel="stylesheet"/>
+<link href="online-runtime.css" rel="stylesheet"/>
 </head>
 <body>
-  <div id="app">
-    <header class="topbar">
-      <div>
-        <h1>BLACK / WHITE SURVIVOR</h1>
-        <p id="versionText">0.9A</p>
-      </div>
-      <div class="topbar-actions">
-        <label class="language-box">
-          <span data-i18n="label.language">LINGUA</span>
-          <select id="languageSelect" aria-label="Language">
-            <option value="it">IT</option>
-            <option value="en">EN</option>
-          </select>
-        </label>
-        <div class="wallet">
-          <span data-i18n="label.coins">COINS</span>
-          <strong id="coinText">0</strong>
-        </div>
-      </div>
-    </header>
-
-    <section id="screen-menu" class="screen active">
-      <div class="hero panel panel-glow">
-        <h2 data-i18n="menu.title">MENU</h2>
-        <p data-i18n="menu.subtitle">Avvia una run, prova le armi, sblocca equipaggiamento o gioca in LAN.</p>
-        <div class="menu-grid">
-          <button data-open="loadout" data-i18n="button.loadout">LOADOUT</button>
-          <button data-open="character" data-i18n="button.character">CHARACTER</button>
-          <button id="quickPlayBtn" data-i18n="button.playSolo">PLAY SOLO</button>
-          <button data-open="lan" data-i18n="button.lan">LAN CO-OP</button>
-          <button data-open="gacha" data-i18n="button.blackBox">BLACK BOX</button>
-          <button data-open="encyclopedia" data-i18n="button.encyclopedia">ENCYCLOPEDIA</button>
-          <button data-open="tester" data-i18n="button.weaponTester">WEAPON TESTER</button>
-          <div id="bossRushControls" class="dev-bossrush-controls hidden">
-            <select id="bossRushStartSelect"></select>
-            <button id="bossRushBtn" data-i18n="button.devBossRush">DEV: BOSS RUSH</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="screen-loadout" class="screen">
-      <div class="panel">
-        <div class="screen-head">
-          <h2 data-i18n="loadout.title">LOADOUT</h2>
-          <button class="small" data-open="menu" data-i18n="button.back">BACK</button>
-        </div>
-        <p data-i18n="loadout.desc">Scegli due armi. La primaria dà attributi al personaggio; la secondaria è solo da combattimento.</p>
-        <div class="loadout-grid">
-          <div class="slot-box">
-            <h3 data-i18n="loadout.primary">PRIMARY WEAPON</h3>
-            <select id="primarySelect"></select>
-            <div id="primaryCard" class="weapon-info"></div>
-          </div>
-          <div class="slot-box">
-            <h3 data-i18n="loadout.secondary">SECONDARY WEAPON</h3>
-            <select id="secondarySelect"></select>
-            <div id="secondaryCard" class="weapon-info"></div>
-          </div>
-        </div>
-        <button id="playFromLoadoutBtn" data-i18n="button.startRun">START RUN</button>
-      </div>
-    </section>
-
-    <section id="screen-character" class="screen">
-      <div class="panel">
-        <div class="screen-head">
-          <h2 data-i18n="character.title">CHARACTER</h2>
-          <button class="small" data-open="menu" data-i18n="button.back">BACK</button>
-        </div>
-        <p data-i18n="character.desc">Scegli il cappello del survivor.</p>
-        <div class="character-layout">
-          <div class="slot-box">
-            <h3 data-i18n="character.preview">PREVIEW</h3>
-            <div id="characterPreview" class="character-preview"></div>
-            <p id="characterHatName" class="small-text"></p>
-          </div>
-          <div class="slot-box">
-            <h3 data-i18n="character.hats">HATS</h3>
-            <div id="hatGrid" class="hat-grid"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="screen-lan" class="screen">
-      <div class="panel panel-glow">
-        <div class="screen-head">
-          <h2 data-i18n="lan.title">LAN CO-OP</h2>
-          <button class="small" data-open="menu" data-i18n="button.back">BACK</button>
-        </div>
-        <p data-i18n-html="lan.desc">L'host apre un server locale. Il guest entra con IP e porta dell'host. Per accendere il server dalla pagina, avvia <b>node launcher.js</b> oppure <b>START_LANB.bat</b>.</p>
-        <div class="lan-grid">
-          <div class="slot-box">
-            <h3 data-i18n="lan.hostServer">HOST SERVER</h3>
-            <label data-i18n="lan.hostPort">Porta host</label>
-            <input id="lanHostPortInput" maxlength="5" value="3000" />
-            <div class="menu-grid compact">
-              <button id="lanStartServerBtn" data-i18n="lan.startServer">START SERVER</button>
-              <button id="lanStopServerBtn" data-i18n="lan.stopServer">STOP SERVER</button>
-            </div>
-            <p id="lanServerStatus" class="small-text" data-i18n="lan.serverIdle">Server non acceso da questa pagina.</p>
-          </div>
-          <div class="slot-box">
-            <h3 data-i18n="lan.joinConnection">JOIN / CONNECTION</h3>
-            <p id="lanStatus" data-i18n="lan.notConnected">Non connesso.</p>
-            <label data-i18n="lan.playerName">Nome player</label>
-            <input id="lanNameInput" maxlength="14" value="Player" />
-            <label data-i18n="lan.hostIp">IP host</label>
-            <input id="lanGuestIpInput" maxlength="40" value="localhost" />
-            <label data-i18n="lan.port">Porta</label>
-            <input id="lanGuestPortInput" maxlength="5" value="3000" />
-            <div class="menu-grid compact">
-              <button id="lanConnectBtn" data-i18n="lan.connect">CONNECT</button>
-              <button id="lanDisconnectBtn" data-i18n="lan.disconnect">DISCONNECT</button>
-            </div>
-            <p class="small-text" data-i18n-html="lan.guestHint">Guest: inserisci un IP tipo <b>192.168.1.34</b> e la porta scelta dall'host.</p>
-          </div>
-          <div class="slot-box">
-            <h3 data-i18n="lan.loadout">LAN LOADOUT</h3>
-            <label data-i18n="lan.primary">Primary</label>
-            <select id="lanPrimarySelect"></select>
-            <label data-i18n="lan.secondary">Secondary</label>
-            <select id="lanSecondarySelect"></select>
-            <div class="menu-grid compact">
-              <button id="lanReadyBtn" data-i18n="lan.ready">READY</button>
-              <button id="lanStartBtn" data-i18n="lan.startHost">START HOST</button>
-            </div>
-            <p class="small-text" data-i18n="lan.maxPlayers">Il server accetta massimo 4 player. Il primo connesso diventa host.</p>
-          </div>
-        </div>
-        <div class="slot-box lobby-box">
-          <h3 data-i18n="lan.lobby">LOBBY</h3>
-          <div id="lanLobbyList" data-i18n="lan.emptyLobby">Vuota.</div>
-          <div id="lanMessage" class="small-text"></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="screen-gacha" class="screen">
-      <div class="panel">
-        <div class="screen-head">
-          <h2 data-i18n="blackbox.title">BLACK BOX</h2>
-          <button class="small" data-open="menu" data-i18n="button.back">BACK</button>
-        </div>
-        <p data-i18n-html="blackbox.desc">Costo: <b>100 coins</b> per pull. Guadagni coins sopravvivendo alle wave.</p>
-        <div class="menu-grid">
-          <button id="pullOneBtn" data-i18n="blackbox.pullOne">PULL x1</button>
-          <button id="pullTenBtn" data-i18n="blackbox.pullTen">PULL x10</button>
-          <button id="resetSaveBtn" data-i18n="blackbox.resetSave">RESET SAVE</button>
-        </div>
-        <div id="gachaResults" class="results"></div>
-      </div>
-    </section>
-
-    <section id="screen-encyclopedia" class="screen">
-      <div class="panel">
-        <div class="screen-head">
-          <h2 data-i18n="ency.title">ENCYCLOPEDIA</h2>
-          <button class="small" data-open="menu" data-i18n="button.back">BACK</button>
-        </div>
-        <p data-i18n-html="ency.desc">Armi, nemici e boss restano nascosti finché non li scopri.</p>
-        <h3 data-i18n="ency.weapons">WEAPONS</h3>
-        <div id="encyclopediaWeapons" class="wiki-list"></div>
-        <h3 data-i18n="ency.enemies">ENEMIES</h3>
-        <div id="encyclopediaEnemies" class="wiki-list"></div>
-        <h3 data-i18n="ency.bosses">BOSSES</h3>
-        <div id="encyclopediaBosses" class="wiki-list"></div>
-      </div>
-    </section>
-
-
-    <section id="screen-tester" class="screen">
-      <div class="panel panel-glow">
-        <div class="screen-head">
-          <h2 data-i18n="tester.title">WEAPON TESTER</h2>
-          <button class="small" data-open="menu" data-i18n="button.back">BACK</button>
-        </div>
-        <p data-i18n="tester.desc">Prova qualsiasi arma contro un dummy selezionato. Il tester non sblocca armi e non dà coins.</p>
-        <div class="loadout-grid">
-          <div class="slot-box">
-            <h3 data-i18n="tester.testWeapon">TEST WEAPON</h3>
-            <select id="testerWeaponSelect"></select>
-            <div id="testerWeaponCard" class="weapon-info"></div>
-            <h3 data-i18n="tester.dummyEnemy">DUMMY ENEMY</h3>
-            <select id="testerEnemySelect"></select>
-            <div id="testerEnemyCard" class="weapon-info"></div>
-            <button id="testerStartBtn" data-i18n="tester.startTest">START TEST</button>
-          </div>
-          <div class="slot-box">
-            <h3 data-i18n="tester.dummyRules">DUMMY RULES</h3>
-            <p data-i18n="tester.rules1">Il dummy usa sprite, dimensione e HP del nemico scelto, ma resta fermo e non attacca. Se muore o esce dall’arena, torna al punto iniziale.</p>
-            <p data-i18n-html="tester.rules2"><b>Comandi:</b> WASD / Frecce per muoverti, <b>1</b> per usare l'arma testata.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="screen-game" class="screen game-screen">
-      <div class="game-layout">
-        <canvas id="gameCanvas" width="1280" height="720"></canvas>
-        <div id="mobileControls" class="mobile-controls" aria-hidden="true">
-          <div id="mobileStick" class="mobile-stick">
-            <div id="mobileStickKnob" class="mobile-stick-knob"></div>
-          </div>
-          <div class="mobile-weapon-buttons">
-            <button type="button" data-mobile-weapon="0">1</button>
-            <button type="button" data-mobile-weapon="1">2</button>
-            <button type="button" data-mobile-weapon="2">3</button>
-            <button type="button" data-mobile-weapon="3">4</button>
-          </div>
-        </div>
-        <aside class="hud-panel">
-          <h2 data-i18n="hud.run">RUN</h2>
-          <div class="stat-line"><span>HP</span><strong id="hudHp">100</strong></div>
-          <div class="bar"><div id="hpBar"></div></div>
-          <div class="stat-line"><span>MANA</span><strong id="hudMana">60</strong></div>
-          <div class="bar"><div id="manaBar"></div></div>
-          <div class="stat-line"><span data-i18n="hud.time">TIME</span><strong id="hudTime">0:00</strong></div>
-          <div class="stat-line"><span data-i18n="hud.kills">KILLS</span><strong id="hudKills">0</strong></div>
-          <div class="stat-line hud-mobile-hidden"><span data-i18n="hud.runCoins">RUN COINS</span><strong id="hudRunCoins">0</strong></div>
-          <div class="stat-line hud-mobile-hidden"><span data-i18n="hud.runPoints">RUN POINTS</span><strong id="hudRunPoints">0</strong></div>
-          <div class="stat-line"><span data-i18n="hud.wave">WAVE</span><strong id="hudWave">1</strong></div>
-          <div class="stat-line"><span data-i18n="hud.active">ACTIVE</span><strong id="hudActive">-</strong></div>
-          <div class="stat-line hud-mobile-hidden"><span data-i18n="hud.primary">PRIMARY</span><strong id="hudPrimary">-</strong></div>
-          <div class="stat-line hud-mobile-hidden"><span data-i18n="hud.secondary">SECONDARY</span><strong id="hudSecondary">-</strong></div>
-          <div class="stat-line hud-mobile-hidden"><span data-i18n="hud.slots">SLOTS</span><strong id="hudSlots">2 / 4</strong></div>
-          <div id="testerLiveControls" class="tester-live-controls hidden">
-            <h3 data-i18n="hud.testerLive">TESTER LIVE</h3>
-            <label data-i18n="hud.weapon">Weapon</label>
-            <select id="liveTesterWeaponSelect"></select>
-            <label data-i18n="hud.dummy">Dummy</label>
-            <select id="liveTesterEnemySelect"></select>
-            <p class="small-text" data-i18n="hud.testerLiveHint">Puoi cambiare arma e dummy senza uscire dal test.</p>
-          </div>
-          <p class="help" data-i18n="hud.help">WASD / Frecce = movimento. Auto aim e auto shoot attivi. 1/2/3/4 = slot arma.</p>
-          <button id="endRunBtn" data-i18n="hud.quitRun">QUIT RUN</button>
-        </aside>
-      </div>
-    </section>
-
-
-    <div id="clearBanner" class="clear-banner hidden">
-      <div id="clearBannerText" class="clear-banner-text" data-i18n="banner.waveCleared">Wave Completata!</div>
-    </div>
-
-    <div id="waveShop" class="wave-shop hidden">
-      <div class="wave-shop-box">
-        <h2 id="waveShopTitle" data-i18n="shop.waveCleared">WAVE CLEARED</h2>
-        <div id="waveShopStats" class="wave-shop-stats"></div>
-        <div class="shop-grid">
-          <div class="slot-box">
-            <h3 data-i18n="shop.changeWeapons">CHANGE WEAPONS</h3>
-            <div id="shopLoadout"></div>
-            <button id="shopApplyLoadoutBtn" data-i18n="shop.applyWeapons">APPLY WEAPONS</button>
-            <p class="small-text" data-i18n="shop.changeWeaponsHint">Cambiare armi è gratis. Gli slot extra costano punti.</p>
-          </div>
-          <div class="slot-box">
-            <h3 data-i18n="shop.buyUpgrades">BUY UPGRADES</h3>
-            <div id="shopUpgrades"></div>
-            <h3 data-i18n="shop.extraSlotOffer">EXTRA SLOT OFFER</h3>
-            <div id="shopSlotOffer"></div>
-            <h3>BLACK BOX</h3>
-            <div id="shopBlackBox"></div>
-          </div>
-        </div>
-        <button id="shopContinueBtn" data-i18n="shop.continue">CONTINUE TO NEXT WAVE</button>
-      </div>
-    </div>
-
-    <div id="modal" class="modal hidden">
-      <div class="modal-box">
-        <h2 id="modalTitle" data-i18n="modal.runEnd">RUN END</h2>
-        <p id="modalText"></p>
-        <button id="modalOkBtn">OK</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="game.js"></script>
-  <script src="online-runtime.js"></script>
+<div id="app">
+<header class="topbar">
+<div>
+<h1>BLACK / WHITE SURVIVOR</h1>
+<p id="versionText">0.9A</p>
+</div>
+<div class="topbar-actions">
+<label class="language-box">
+<span data-i18n="label.language">LINGUA</span>
+<select aria-label="Language" id="languageSelect">
+<option value="it">IT</option>
+<option value="en">EN</option>
+</select>
+</label>
+<div class="wallet">
+<span data-i18n="label.coins">COINS</span>
+<strong id="coinText">0</strong>
+</div>
+</div>
+</header>
+<section class="screen active" id="screen-menu">
+<div class="hero panel panel-glow">
+<h2 data-i18n="menu.title">MENU</h2>
+<p data-i18n="menu.subtitle">Avvia una run, prova le armi, sblocca equipaggiamento o gioca in LAN.</p>
+<div class="menu-grid">
+<button data-i18n="button.loadout" data-open="loadout">LOADOUT</button>
+<button data-i18n="button.character" data-open="character">CHARACTER</button>
+<button data-i18n="button.playSolo" id="quickPlayBtn">PLAY SOLO</button>
+<button data-i18n="button.lan" data-open="lan">LAN CO-OP</button>
+<button data-i18n="button.blackBox" data-open="gacha">BLACK BOX</button>
+<button data-i18n="button.encyclopedia" data-open="encyclopedia">ENCYCLOPEDIA</button>
+<button data-i18n="button.weaponTester" data-open="tester">WEAPON TESTER</button>
+<div class="dev-bossrush-controls hidden" id="bossRushControls">
+<select id="bossRushStartSelect"></select>
+<button data-i18n="button.devBossRush" id="bossRushBtn">DEV: BOSS RUSH</button>
+</div>
+</div>
+</div>
+</section>
+<section class="screen" id="screen-loadout">
+<div class="panel">
+<div class="screen-head">
+<h2 data-i18n="loadout.title">LOADOUT</h2>
+<button class="small" data-i18n="button.back" data-open="menu">BACK</button>
+</div>
+<p data-i18n="loadout.desc">Scegli due armi. La primaria dà attributi al personaggio; la secondaria è solo da combattimento.</p>
+<div class="loadout-grid">
+<div class="slot-box">
+<h3 data-i18n="loadout.primary">PRIMARY WEAPON</h3>
+<select id="primarySelect"></select>
+<div class="weapon-info" id="primaryCard"></div>
+</div>
+<div class="slot-box">
+<h3 data-i18n="loadout.secondary">SECONDARY WEAPON</h3>
+<select id="secondarySelect"></select>
+<div class="weapon-info" id="secondaryCard"></div>
+</div>
+</div>
+<button data-i18n="button.startRun" id="playFromLoadoutBtn">START RUN</button>
+</div>
+</section>
+<section class="screen" id="screen-character">
+<div class="panel">
+<div class="screen-head">
+<h2 data-i18n="character.title">CHARACTER</h2>
+<button class="small" data-i18n="button.back" data-open="menu">BACK</button>
+</div>
+<p data-i18n="character.desc">Scegli il cappello del survivor.</p>
+<div class="character-layout">
+<div class="slot-box">
+<h3 data-i18n="character.preview">PREVIEW</h3>
+<div class="character-preview" id="characterPreview"></div>
+<p class="small-text" id="characterHatName"></p>
+</div>
+<div class="slot-box">
+<h3 data-i18n="character.hats">HATS</h3>
+<div class="hat-grid" id="hatGrid"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="screen" id="screen-lan">
+<div class="panel panel-glow">
+<div class="screen-head">
+<h2 data-i18n="lan.title">LAN CO-OP</h2>
+<button class="small" data-i18n="button.back" data-open="menu">BACK</button>
+</div>
+<p data-i18n-html="lan.desc">L'host apre un server locale. Il guest entra con IP e porta dell'host. Per accendere il server dalla pagina, avvia <b>node launcher.js</b> oppure <b>START_LANB.bat</b>.</p>
+<div class="lan-grid">
+<div class="slot-box">
+<h3 data-i18n="lan.hostServer">HOST SERVER</h3>
+<label data-i18n="lan.hostPort">Porta host</label>
+<input id="lanHostPortInput" maxlength="5" value="3000"/>
+<div class="menu-grid compact">
+<button data-i18n="lan.startServer" id="lanStartServerBtn">START SERVER</button>
+<button data-i18n="lan.stopServer" id="lanStopServerBtn">STOP SERVER</button>
+</div>
+<p class="small-text" data-i18n="lan.serverIdle" id="lanServerStatus">Server non acceso da questa pagina.</p>
+</div>
+<div class="slot-box">
+<h3 data-i18n="lan.joinConnection">JOIN / CONNECTION</h3>
+<p data-i18n="lan.notConnected" id="lanStatus">Non connesso.</p>
+<label data-i18n="lan.playerName">Nome player</label>
+<input id="lanNameInput" maxlength="14" value="Player"/>
+<label data-i18n="lan.hostIp">IP host</label>
+<input id="lanGuestIpInput" maxlength="40" value="localhost"/>
+<label data-i18n="lan.port">Porta</label>
+<input id="lanGuestPortInput" maxlength="5" value="3000"/>
+<div class="menu-grid compact">
+<button data-i18n="lan.connect" id="lanConnectBtn">CONNECT</button>
+<button data-i18n="lan.disconnect" id="lanDisconnectBtn">DISCONNECT</button>
+</div>
+<p class="small-text" data-i18n-html="lan.guestHint">Guest: inserisci un IP tipo <b>192.168.1.34</b> e la porta scelta dall'host.</p>
+</div>
+<div class="slot-box">
+<h3 data-i18n="lan.loadout">LAN LOADOUT</h3>
+<label data-i18n="lan.primary">Primary</label>
+<select id="lanPrimarySelect"></select>
+<label data-i18n="lan.secondary">Secondary</label>
+<select id="lanSecondarySelect"></select>
+<div class="menu-grid compact">
+<button data-i18n="lan.ready" id="lanReadyBtn">READY</button>
+<button data-i18n="lan.startHost" id="lanStartBtn">START HOST</button>
+</div>
+<p class="small-text" data-i18n="lan.maxPlayers">Il server accetta massimo 4 player. Il primo connesso diventa host.</p>
+</div>
+</div>
+<div class="slot-box lobby-box">
+<h3 data-i18n="lan.lobby">LOBBY</h3>
+<div data-i18n="lan.emptyLobby" id="lanLobbyList">Vuota.</div>
+<div class="small-text" id="lanMessage"></div>
+</div>
+</div>
+</section>
+<section class="screen" id="screen-gacha">
+<div class="panel">
+<div class="screen-head">
+<h2 data-i18n="blackbox.title">BLACK BOX</h2>
+<button class="small" data-i18n="button.back" data-open="menu">BACK</button>
+</div>
+<p data-i18n-html="blackbox.desc">Costo: <b>100 coins</b> per pull. Guadagni coins sopravvivendo alle wave.</p>
+<div class="menu-grid">
+<button data-i18n="blackbox.pullOne" id="pullOneBtn">PULL x1</button>
+<button data-i18n="blackbox.pullTen" id="pullTenBtn">PULL x10</button>
+<button data-i18n="blackbox.resetSave" id="resetSaveBtn">RESET SAVE</button>
+</div>
+<div class="results" id="gachaResults"></div>
+</div>
+</section>
+<section class="screen" id="screen-encyclopedia">
+<div class="panel">
+<div class="screen-head">
+<h2 data-i18n="ency.title">ENCYCLOPEDIA</h2>
+<button class="small" data-i18n="button.back" data-open="menu">BACK</button>
+</div>
+<p data-i18n-html="ency.desc">Armi, nemici e boss restano nascosti finché non li scopri.</p>
+<h3 data-i18n="ency.weapons">WEAPONS</h3>
+<div class="wiki-list" id="encyclopediaWeapons"></div>
+<h3 data-i18n="ency.enemies">ENEMIES</h3>
+<div class="wiki-list" id="encyclopediaEnemies"></div>
+<h3 data-i18n="ency.bosses">BOSSES</h3>
+<div class="wiki-list" id="encyclopediaBosses"></div>
+</div>
+</section>
+<section class="screen" id="screen-tester">
+<div class="panel panel-glow">
+<div class="screen-head">
+<h2 data-i18n="tester.title">WEAPON TESTER</h2>
+<button class="small" data-i18n="button.back" data-open="menu">BACK</button>
+</div>
+<p data-i18n="tester.desc">Prova qualsiasi arma contro un dummy selezionato. Il tester non sblocca armi e non dà coins.</p>
+<div class="loadout-grid">
+<div class="slot-box">
+<h3 data-i18n="tester.testWeapon">TEST WEAPON</h3>
+<select id="testerWeaponSelect"></select>
+<div class="weapon-info" id="testerWeaponCard"></div>
+<h3 data-i18n="tester.dummyEnemy">DUMMY ENEMY</h3>
+<select id="testerEnemySelect"></select>
+<div class="weapon-info" id="testerEnemyCard"></div>
+<button data-i18n="tester.startTest" id="testerStartBtn">START TEST</button>
+</div>
+<div class="slot-box">
+<h3 data-i18n="tester.dummyRules">DUMMY RULES</h3>
+<p data-i18n="tester.rules1">Il dummy usa sprite, dimensione e HP del nemico scelto, ma resta fermo e non attacca. Se muore o esce dall’arena, torna al punto iniziale.</p>
+<p data-i18n-html="tester.rules2"><b>Comandi:</b> WASD / Frecce per muoverti, <b>1</b> per usare l'arma testata.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="screen game-screen" id="screen-game">
+<div class="game-layout">
+<canvas height="720" id="gameCanvas" width="1280"></canvas>
+<div aria-hidden="true" class="mobile-controls" id="mobileControls">
+<div class="mobile-stick" id="mobileStick">
+<div class="mobile-stick-knob" id="mobileStickKnob"></div>
+</div>
+<div class="mobile-weapon-buttons">
+<button data-mobile-weapon="0" type="button">1</button>
+<button data-mobile-weapon="1" type="button">2</button>
+<button data-mobile-weapon="2" type="button">3</button>
+<button data-mobile-weapon="3" type="button">4</button>
+</div>
+</div>
+<aside class="hud-panel">
+<h2 data-i18n="hud.run">RUN</h2>
+<div class="stat-line"><span>HP</span><strong id="hudHp">100</strong></div>
+<div class="bar"><div id="hpBar"></div></div>
+<div class="stat-line"><span>MANA</span><strong id="hudMana">60</strong></div>
+<div class="bar"><div id="manaBar"></div></div>
+<div class="stat-line"><span data-i18n="hud.time">TIME</span><strong id="hudTime">0:00</strong></div>
+<div class="stat-line"><span data-i18n="hud.kills">KILLS</span><strong id="hudKills">0</strong></div>
+<div class="stat-line hud-mobile-hidden"><span data-i18n="hud.runCoins">RUN COINS</span><strong id="hudRunCoins">0</strong></div>
+<div class="stat-line hud-mobile-hidden"><span data-i18n="hud.runPoints">RUN POINTS</span><strong id="hudRunPoints">0</strong></div>
+<div class="stat-line"><span data-i18n="hud.wave">WAVE</span><strong id="hudWave">1</strong></div>
+<div class="stat-line"><span data-i18n="hud.active">ACTIVE</span><strong id="hudActive">-</strong></div>
+<div class="stat-line hud-mobile-hidden"><span data-i18n="hud.primary">PRIMARY</span><strong id="hudPrimary">-</strong></div>
+<div class="stat-line hud-mobile-hidden"><span data-i18n="hud.secondary">SECONDARY</span><strong id="hudSecondary">-</strong></div>
+<div class="stat-line hud-mobile-hidden"><span data-i18n="hud.slots">SLOTS</span><strong id="hudSlots">2 / 4</strong></div>
+<div class="tester-live-controls hidden" id="testerLiveControls">
+<h3 data-i18n="hud.testerLive">TESTER LIVE</h3>
+<label data-i18n="hud.weapon">Weapon</label>
+<select id="liveTesterWeaponSelect"></select>
+<label data-i18n="hud.dummy">Dummy</label>
+<select id="liveTesterEnemySelect"></select>
+<p class="small-text" data-i18n="hud.testerLiveHint">Puoi cambiare arma e dummy senza uscire dal test.</p>
+</div>
+<p class="help" data-i18n="hud.help">WASD / Frecce = movimento. Auto aim e auto shoot attivi. 1/2/3/4 = slot arma.</p>
+<button data-i18n="hud.quitRun" id="endRunBtn">QUIT RUN</button>
+</aside>
+</div>
+</section>
+<div class="clear-banner hidden" id="clearBanner">
+<div class="clear-banner-text" data-i18n="banner.waveCleared" id="clearBannerText">Wave Completata!</div>
+</div>
+<div class="wave-shop hidden" id="waveShop">
+<div class="wave-shop-box">
+<h2 data-i18n="shop.waveCleared" id="waveShopTitle">WAVE CLEARED</h2>
+<div class="wave-shop-stats" id="waveShopStats"></div>
+<div class="shop-grid">
+<div class="slot-box">
+<h3 data-i18n="shop.changeWeapons">CHANGE WEAPONS</h3>
+<div id="shopLoadout"></div>
+<button data-i18n="shop.applyWeapons" id="shopApplyLoadoutBtn">APPLY WEAPONS</button>
+<p class="small-text" data-i18n="shop.changeWeaponsHint">Cambiare armi è gratis. Gli slot extra costano punti.</p>
+</div>
+<div class="slot-box">
+<h3 data-i18n="shop.buyUpgrades">BUY UPGRADES</h3>
+<div id="shopUpgrades"></div>
+<h3 data-i18n="shop.extraSlotOffer">EXTRA SLOT OFFER</h3>
+<div id="shopSlotOffer"></div>
+<h3>BLACK BOX</h3>
+<div id="shopBlackBox"></div>
+</div>
+</div>
+<button data-i18n="shop.continue" id="shopContinueBtn">CONTINUE TO NEXT WAVE</button>
+</div>
+</div>
+<div class="modal hidden" id="modal">
+<div class="modal-box">
+<h2 data-i18n="modal.runEnd" id="modalTitle">RUN END</h2>
+<p id="modalText"></p>
+<button id="modalOkBtn">OK</button>
+</div>
+</div>
+</div>
+<script src="game.js"></script>
+<script src="online-runtime.js"></script>
 </body>
 </html>

@@ -1,52 +1,62 @@
-GVibeDev.cc V0.17 — NAVDATA HOTFIX
-==================================
+GVibeDev.cc V0.18a — LIVE QA FIXES PATCH
+=======================================
 
-CAUSE
------
-MainNav.astro and MobileNav.astro render labels with:
+Target baseline:
+V0.17 frozen + NAVFIX + NAVDATA HOTFIX
 
-    strings.nav[item.key]
+This patch contains only the low-risk fixes discovered by inspecting the
+actual GitHub Pages production artifact.
 
-but the navigation configuration currently published on GitHub contains only:
+CHANGES
 
-    { label, href }
+1. Arena Rubra live URL normalization
+   Replaces:
+       https://gvibedev.github.io/ArenaRubra/
+   with:
+       https://gvibedev.cc/ArenaRubra/
 
-and has no `key`.
+   The GitHub Pages API reports the ArenaRubra Pages html_url on the custom
+   domain, so the portfolio should link directly to the canonical live host.
 
-During Astro production build, `item.key` is therefore undefined and the generated
-English navigation anchors contain no text. The GitHub link remains visible because
-it is hard-coded separately.
+2. B&W Survivors raw runtime indexing policy
+   Adds:
+       <meta name="robots" content="noindex, nofollow">
 
-The Italian pages remain visible because they are currently static localized pages
-whose navigation labels were already compiled into their HTML.
+   The project page remains indexable. Only the raw /apps/bw-survivors/
+   application runtime is excluded from search indexing.
 
-FIX
----
-Replace only:
+FILES
+- src/data/projects/arena-rubra-digital.md
+- src/pages/it/index.html
+- src/pages/it/web-apps/index.html
+- src/pages/it/projects/index.html
+- src/pages/it/projects/arena-rubra-digital/index.html
+- public/apps/bw-survivors/index.html
 
-    src/config/navigation.ts
+VALIDATION GATE
 
-Then:
+After overlaying this patch:
 
     npm run build
 
-Before pushing, inspect the generated:
+Then verify in dist/:
 
-    dist/index.html
+A) No legacy Arena Rubra launch host remains:
 
-and confirm the header contains visible labels such as:
+    search for:
+    https://gvibedev.github.io/ArenaRubra/
 
-    Home
-    Projects
-    Web Apps
-    Tools
-    Worlds
-    BiggityKot
-    Manifesto
-    About
-    Contact
+   Expected: 0 occurrences.
 
-Then commit and push.
+B) The new canonical launch host exists:
 
-This patch also restores the full page routes for Web Apps, BiggityKot and Manifesto
-instead of the stale homepage anchors.
+    https://gvibedev.cc/ArenaRubra/
+
+C) dist/apps/bw-survivors/index.html contains:
+
+    noindex, nofollow
+
+D) The V0.17 navbar labels remain visible in dist/index.html.
+
+No visual design, translation text, project facts, navigation architecture,
+game runtime logic or image assets are changed.
