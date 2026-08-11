@@ -1,0 +1,31 @@
+GVibeDev.cc V0.17 FULL — Android preview
+=========================================
+
+1. Extract the complete folder.
+2. In Termux:
+
+   pkg install python
+   cd <folder>/GVibeDev_cc_V0.17_FULL_PREVIEW_READY
+   python -m http.server 8080
+
+3. Open:
+   http://127.0.0.1:8080/
+
+LANGUAGE SWITCH:
+A visible segmented EN | IT control is in the site header.
+- English pages show EN as active and IT as a link.
+- Italian pages show IT as active and EN as a link.
+- The switch keeps the equivalent page (for example:
+  /projects/manuale-llm/ <-> /it/projects/manuale-llm/).
+
+Quick verification:
+- /
+- /it/
+- /projects/
+- /it/projects/
+- /projects/manuale-llm/
+- /it/projects/manuale-llm/
+- /manifesto/
+- /it/manifesto/
+- /404.html
+- /sitemap.xml

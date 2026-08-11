@@ -1,0 +1,11 @@
+GVibeDev.cc V0.17 — HEADER NAVIGATION HOTFIX AUDIT
+==================================================
+Cause checked: source-level English header had an extra desktop/mobile wrapper layer
+that the validated Italian static pages did not have.
+
+Issues after hotfix: 0
+PASS — one visibility owner per navigation mode:
+- MainNav controls desktop visibility
+- MobileNav controls mobile visibility
+- LanguageSwitch remains visible in both modes
+- no extra SiteHeader desktop/mobile visibility wrappers remain

@@ -1,0 +1,1519 @@
+:root {
+  --black: #000000;
+  --white: #FFFFFF;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--black);
+  color: var(--white);
+  font-family: Consolas, "Courier New", monospace;
+}
+
+body {
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+button, select, input {
+  font-family: inherit;
+  background: var(--black);
+  color: var(--white);
+  border: 3px solid var(--white);
+  padding: 12px 14px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+button:hover, select:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+button.small { padding: 8px 10px; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px;
+  border-bottom: 4px solid var(--white);
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1 { margin-bottom: 4px; font-size: 26px; }
+.topbar p { margin: 0; }
+
+.wallet {
+  border: 3px solid var(--white);
+  padding: 10px 16px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.wallet span { display: block; font-size: 12px; }
+.wallet strong { font-size: 24px; }
+
+.screen {
+  display: none;
+  padding: 18px;
+}
+
+.screen.active { display: block; }
+
+.panel {
+  border: 4px solid var(--white);
+  padding: 18px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.hero { max-width: 760px; }
+
+.screen-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border-bottom: 3px solid var(--white);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.loadout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.slot-box, .weapon-card, .enemy-card, .result-card {
+  border: 3px solid var(--white);
+  padding: 14px;
+}
+
+select, input { width: 100%; margin-bottom: 12px; }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.language-box {
+  border: 3px solid var(--white);
+  padding: 8px 10px;
+  min-width: 118px;
+  box-shadow: 4px 4px 0 var(--white);
+}
+
+.language-box span {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.language-box select {
+  margin: 0;
+  padding: 6px 8px;
+  border-width: 2px;
+}
+
+
+input { cursor: text; }
+
+.weapon-info {
+  min-height: 160px;
+  line-height: 1.45;
+}
+
+.icon-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.sprite-box {
+  width: 76px;
+  height: 76px;
+  border: 2px solid var(--white);
+  display: grid;
+  place-items: center;
+  background: var(--white);
+  flex: none;
+}
+
+.sprite-box img {
+  max-width: 64px;
+  max-height: 64px;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+.tag-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.tag {
+  border: 2px solid var(--white);
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 12px;
+}
+
+.weapon-card.locked {
+  border-style: dashed;
+}
+
+.results {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.wiki-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.game-screen { padding: 12px; }
+
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 12px;
+  max-width: 1580px;
+  margin: 0 auto;
+}
+
+canvas {
+  width: 100%;
+  max-height: calc(100vh - 120px);
+  aspect-ratio: 16 / 9;
+  border: 4px solid var(--white);
+  background: var(--black);
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+.hud-panel {
+  border: 4px solid var(--white);
+  padding: 14px;
+}
+
+.stat-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 2px solid var(--white);
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.bar {
+  height: 16px;
+  border: 2px solid var(--white);
+  margin: 8px 0;
+}
+
+.bar div {
+  height: 100%;
+  background: var(--white);
+  width: 100%;
+}
+
+.help {
+  margin-top: 16px;
+  line-height: 1.45;
+  font-size: 13px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+
+.modal.hidden { display: none; }
+
+.modal-box {
+  width: min(520px, calc(100% - 24px));
+  border: 4px solid var(--white);
+  padding: 20px;
+  background: var(--black);
+}
+
+@media (max-width: 860px) {
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .topbar-actions { width: 100%; justify-content: space-between; }
+  .language-box, .wallet { flex: 1; min-width: 130px; }
+
+  .game-layout { grid-template-columns: 1fr; }
+  canvas { max-height: none; }
+}
+
+
+.active-weapon-label {
+  border: 2px solid var(--white);
+  padding: 6px;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 800;
+}
+
+input {
+  width: 100%;
+  font-family: inherit;
+  background: var(--black);
+  color: var(--white);
+  border: 3px solid var(--white);
+  padding: 12px 14px;
+  font-weight: 800;
+  margin: 8px 0 12px;
+}
+
+.dev-only.locked-dev {
+  display: none !important;
+}
+
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.small-text {
+  min-height: 20px;
+  font-size: 13px;
+}
+
+.unknown-card {
+  border: 3px dashed var(--white);
+  padding: 14px;
+  min-height: 160px;
+  display: grid;
+  align-content: center;
+  text-align: center;
+}
+
+.unknown-mark {
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+/* LANB 0.5A UI POLISH */
+:root {
+  --rare: #33CCFF;
+  --epic: #B84DFF;
+  --legendary: #FF8A00;
+}
+
+button {
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-width: 4px;
+  box-shadow: 5px 5px 0 var(--white);
+  transition: transform 0.08s linear, box-shadow 0.08s linear, background 0.08s linear, color 0.08s linear;
+}
+
+button:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--white);
+}
+
+button:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--white);
+}
+
+.panel-glow {
+  box-shadow: 8px 8px 0 var(--white);
+}
+
+.slot-box, .weapon-card, .enemy-card, .result-card, .unknown-card {
+  background:
+    linear-gradient(90deg, var(--white) 0 4px, transparent 4px),
+    var(--black);
+}
+
+.rarity-border.rarity-comune,
+.sprite-box.rarity-comune,
+.tag.rarity-comune {
+  border-color: var(--white);
+}
+
+.rarity-border.rarity-raro,
+.sprite-box.rarity-raro,
+.tag.rarity-raro {
+  border-color: var(--rare);
+}
+
+.rarity-border.rarity-epico,
+.sprite-box.rarity-epico,
+.tag.rarity-epico {
+  border-color: var(--epic);
+}
+
+.rarity-border.rarity-leggendario,
+.sprite-box.rarity-leggendario,
+.tag.rarity-leggendario {
+  border-color: var(--legendary);
+}
+
+.rarity-border.rarity-raro {
+  box-shadow: 5px 5px 0 var(--rare);
+}
+
+.rarity-border.rarity-epico {
+  box-shadow: 5px 5px 0 var(--epic);
+}
+
+.rarity-border.rarity-leggendario {
+  box-shadow: 5px 5px 0 var(--legendary);
+}
+
+.tag.rarity-raro { color: var(--rare); }
+.tag.rarity-epico { color: var(--epic); }
+.tag.rarity-leggendario { color: var(--legendary); }
+
+.sprite-box.rarity-raro { box-shadow: 3px 3px 0 var(--rare); }
+.sprite-box.rarity-epico { box-shadow: 3px 3px 0 var(--epic); }
+.sprite-box.rarity-leggendario { box-shadow: 3px 3px 0 var(--legendary); }
+
+.screen-head h2::before {
+  content: '▣ ';
+}
+
+.hero h2 {
+  font-size: 34px;
+  letter-spacing: 2px;
+}
+
+canvas {
+  box-shadow: 6px 6px 0 var(--white);
+}
+
+.wallet {
+  box-shadow: 4px 4px 0 var(--white);
+}
+
+select {
+  border-width: 4px;
+}
+
+.bar div {
+  transition: width 0.08s linear;
+}
+
+/* LANB FULLAN */
+.lan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.menu-grid.compact {
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  margin-top: 10px;
+}
+
+.lobby-box {
+  margin-top: 14px;
+}
+
+.lan-player-line {
+  border: 2px solid var(--white);
+  padding: 10px;
+  margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+}
+
+.lan-player-line.me {
+  box-shadow: 4px 4px 0 var(--rare);
+  border-color: var(--rare);
+}
+
+.lan-player-line small {
+  grid-column: 1 / -1;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 5px 5px 0 var(--white) !important;
+}
+
+.lan-player-line { border: 2px solid var(--white); padding: 8px; margin-bottom: 8px; display: grid; gap: 4px; }
+.lan-player-line.me { background: var(--white); color: var(--black); }
+.small-text b { padding: 0 3px; }
+
+
+.character-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 18px;
+}
+
+.character-preview {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 12px;
+  border: 2px solid #FFFFFF;
+  background: #000000;
+  overflow: visible;
+}
+
+.character-preview img {
+  position: absolute;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+.character-preview .player-sprite {
+  width: 96px;
+  height: 96px;
+  left: 42px;
+  top: 66px;
+}
+
+.character-preview .hat-sprite {
+  width: 96px;
+  height: 96px;
+  left: 42px;
+  top: -18px;
+}
+
+.hat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+}
+
+.hat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 110px;
+}
+
+.hat-card.selected {
+  box-shadow: 0 0 0 2px #FFFFFF inset;
+}
+
+.hat-card img {
+  width: 52px;
+  height: 52px;
+  image-rendering: pixelated;
+  cursor: crosshair;
+}
+
+.hat-empty {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #FFFFFF;
+}
+
+@media (max-width: 860px) {
+  .character-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+.wave-shop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.wave-shop.hidden {
+  display: none;
+}
+
+.wave-shop-box {
+  width: min(1180px, 96vw);
+  max-height: 92vh;
+  overflow: auto;
+  border: 4px solid #FFFFFF;
+  background: #000000;
+  padding: 20px;
+  box-shadow: 8px 8px 0 #FFFFFF;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 14px 0;
+}
+
+.shop-row {
+  border: 2px solid #FFFFFF;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: grid;
+  gap: 6px;
+}
+
+.shop-row button {
+  justify-self: start;
+}
+
+.shop-loadout-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.wave-float-text {
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.clear-banner {
+  position: fixed;
+  inset: 0;
+  z-index: 38;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.clear-banner.hidden {
+  display: none;
+}
+
+.clear-banner-text {
+  border: 4px solid #FFFFFF;
+  background: #000000;
+  color: #FFFFFF;
+  padding: 22px 34px;
+  font-size: clamp(28px, 5vw, 64px);
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 8px 8px 0 #FFFFFF;
+}
+
+.tester-live-controls.hidden { display: none !important; }
+
+
+.shop-player-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 2px solid #FFFFFF;
+}
+
+.shop-player-stats span,
+.shop-player-stats b {
+  border: 2px solid #FFFFFF;
+  padding: 3px 6px;
+  background: #000000;
+}
+
+
+.wave-shop-stats {
+  margin: 8px 0 12px;
+  line-height: 1.35;
+}
+
+
+.dev-bossrush-controls {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.dev-bossrush-controls.hidden {
+  display: none !important;
+}
+
+.dev-bossrush-controls select {
+  min-width: 210px;
+}
+
+
+.shop-blackbox-result {
+  margin-top: 6px;
+  padding: 6px;
+  border: 2px solid #FFFFFF;
+  background: #000000;
+}
+
+/* 0.9A MOBILEWEBFIT
+   Web/mobile gameplay is now a fixed viewport: no page scroll, no giant canvas.
+   Menus stay scrollable; only the active game screen is locked. */
+:root {
+  --mobile-vw: 100vw;
+  --mobile-vh: 100dvh;
+  --mobile-hud-h: 44px;
+}
+
+html,
+body {
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+}
+
+body.game-input-lock {
+  overflow: hidden;
+  touch-action: none;
+  width: 100vw;
+  height: var(--mobile-vh);
+}
+
+body.game-input-lock .topbar {
+  display: none;
+}
+
+body.game-input-lock #app {
+  width: var(--mobile-vw);
+  height: var(--mobile-vh);
+  max-height: var(--mobile-vh);
+  overflow: hidden;
+}
+
+#gameCanvas {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+.screen:not(#screen-game) {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+#screen-game {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+.game-layout {
+  position: relative;
+}
+
+.mobile-controls {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  display: none;
+  touch-action: none;
+  user-select: none;
+}
+
+.mobile-stick {
+  position: absolute;
+  left: 28px;
+  bottom: 32px;
+  width: 132px;
+  height: 132px;
+  border: 4px solid var(--white);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.52);
+  box-shadow: 4px 4px 0 var(--white);
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.mobile-stick-knob {
+  position: absolute;
+  left: 42px;
+  top: 42px;
+  width: 42px;
+  height: 42px;
+  border: 4px solid var(--white);
+  border-radius: 50%;
+  background: var(--black);
+  transform: translate(0px, 0px);
+  pointer-events: none;
+}
+
+.mobile-weapon-buttons {
+  position: absolute;
+  right: 28px;
+  bottom: 32px;
+  display: grid;
+  grid-template-columns: 58px 58px;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.mobile-weapon-buttons button {
+  touch-action: none;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border-width: 4px;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.mobile-weapon-buttons button.mobile-active {
+  background: var(--white);
+  color: var(--black);
+}
+
+@media (pointer: coarse) {
+  .game-screen.active .mobile-controls {
+    display: block;
+  }
+
+  body.game-input-lock #screen-game.active {
+    display: block;
+    padding: 0;
+    width: var(--mobile-vw);
+    height: var(--mobile-vh);
+    max-height: var(--mobile-vh);
+    overflow: hidden;
+  }
+
+  body.game-input-lock .game-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "hud"
+      "stage";
+    gap: 3px;
+    width: var(--mobile-vw);
+    height: var(--mobile-vh);
+    max-width: none;
+    margin: 0;
+    padding: 3px;
+    overflow: hidden;
+    align-items: start;
+    justify-items: center;
+  }
+
+  body.game-input-lock #gameCanvas {
+    grid-area: stage;
+    justify-self: center;
+    align-self: start;
+    width: min(calc(var(--mobile-vw) - 6px), calc((var(--mobile-vh) - var(--mobile-hud-h) - 9px) * 1.7777778));
+    height: auto;
+    max-width: calc(var(--mobile-vw) - 6px);
+    max-height: calc(var(--mobile-vh) - var(--mobile-hud-h) - 9px);
+    border-width: 2px;
+    box-shadow: none;
+  }
+
+  body.game-input-lock .hud-panel {
+    grid-area: hud;
+    width: calc(var(--mobile-vw) - 6px);
+    min-height: 0;
+    max-height: var(--mobile-hud-h);
+    overflow: hidden;
+    border-width: 2px;
+    padding: 2px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+    align-items: stretch;
+    justify-content: center;
+    background: var(--black);
+  }
+
+  body.game-input-lock .hud-panel h2,
+  body.game-input-lock .hud-panel .bar,
+  body.game-input-lock .hud-panel .help,
+  body.game-input-lock .hud-panel #endRunBtn,
+  body.game-input-lock .hud-panel .tester-live-controls,
+  body.game-input-lock .hud-panel .hud-mobile-hidden {
+    display: none !important;
+  }
+
+  body.game-input-lock .hud-panel .stat-line {
+    border: 2px solid var(--white);
+    padding: 2px 4px;
+    font-size: 9px;
+    line-height: 1;
+    min-width: 58px;
+    max-width: 120px;
+    flex: 1 1 0;
+    gap: 3px;
+    align-items: center;
+  }
+
+  body.game-input-lock .hud-panel .stat-line span,
+  body.game-input-lock .hud-panel .stat-line strong {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+  }
+
+  body.game-input-lock .hud-panel .stat-line span {
+    font-size: 8px;
+  }
+
+  body.game-input-lock .hud-panel .stat-line strong {
+    font-size: 11px;
+    text-align: right;
+  }
+}
+
+@media (pointer: coarse) and (orientation: landscape) {
+  :root {
+    --mobile-hud-h: 38px;
+  }
+
+  .mobile-stick {
+    left: 14px;
+    bottom: 14px;
+    width: 86px;
+    height: 86px;
+    border-width: 3px;
+    box-shadow: 2px 2px 0 var(--white);
+  }
+
+  .mobile-stick-knob {
+    left: 27px;
+    top: 27px;
+    width: 28px;
+    height: 28px;
+    border-width: 3px;
+  }
+
+  .mobile-weapon-buttons {
+    right: 14px;
+    bottom: 14px;
+    grid-template-columns: 44px 44px;
+    gap: 7px;
+  }
+
+  .mobile-weapon-buttons button {
+    width: 44px;
+    height: 44px;
+    border-width: 3px;
+    font-size: 17px;
+    box-shadow: 2px 2px 0 var(--white);
+  }
+
+  body.game-input-lock .hud-panel .stat-line {
+    min-width: 56px;
+    padding: 2px 3px;
+  }
+}
+
+@media (pointer: coarse) and (orientation: portrait) {
+  :root {
+    --mobile-hud-h: 68px;
+  }
+
+  body.game-input-lock .hud-panel {
+    flex-wrap: wrap;
+    align-content: start;
+  }
+
+  body.game-input-lock .hud-panel .stat-line {
+    flex: 1 1 28%;
+    min-width: 78px;
+  }
+
+  .mobile-stick {
+    left: 18px;
+    bottom: 18px;
+    width: 108px;
+    height: 108px;
+  }
+
+  .mobile-stick-knob {
+    left: 34px;
+    top: 34px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .mobile-weapon-buttons {
+    right: 18px;
+    bottom: 18px;
+    grid-template-columns: 50px 50px;
+    gap: 8px;
+  }
+
+  .mobile-weapon-buttons button {
+    width: 50px;
+    height: 50px;
+    font-size: 19px;
+  }
+}
+
+
+
+/* 0.9A MOBILEMENUSHOPFIX
+   Mobile title/menu screens are compact and readable. Gameplay fit remains unchanged. */
+@media (pointer: coarse) {
+  body:not(.game-input-lock) {
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  body:not(.game-input-lock) .topbar {
+    padding: 8px;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  body:not(.game-input-lock) .topbar h1 {
+    font-size: clamp(18px, 5.2vw, 24px);
+    line-height: 1.05;
+    margin-bottom: 2px;
+    word-break: keep-all;
+  }
+
+  body:not(.game-input-lock) #versionText {
+    font-size: 12px;
+  }
+
+  body:not(.game-input-lock) .topbar-actions {
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  body:not(.game-input-lock) .language-box,
+  body:not(.game-input-lock) .wallet {
+    min-width: 0;
+    padding: 6px 8px;
+    box-shadow: 2px 2px 0 var(--white);
+    border-width: 2px;
+  }
+
+  body:not(.game-input-lock) .wallet strong {
+    font-size: 18px;
+  }
+
+  body:not(.game-input-lock) .screen {
+    padding: 8px;
+  }
+
+  body:not(.game-input-lock) .panel {
+    width: 100%;
+    max-width: none;
+    padding: 10px;
+    border-width: 3px;
+  }
+
+  body:not(.game-input-lock) .hero {
+    max-width: none;
+  }
+
+  body:not(.game-input-lock) .hero h2 {
+    font-size: clamp(22px, 7vw, 30px);
+    margin-bottom: 6px;
+  }
+
+  body:not(.game-input-lock) .hero p,
+  body:not(.game-input-lock) .small-text {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  body:not(.game-input-lock) .menu-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  body:not(.game-input-lock) button,
+  body:not(.game-input-lock) select,
+  body:not(.game-input-lock) input {
+    padding: 9px 8px;
+    border-width: 3px;
+    box-shadow: 2px 2px 0 var(--white);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  body:not(.game-input-lock) .dev-bossrush-controls {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  body:not(.game-input-lock) .dev-bossrush-controls.hidden {
+    display: none !important;
+  }
+
+  body:not(.game-input-lock) .dev-bossrush-controls select {
+    min-width: 0;
+  }
+}
+
+@media (pointer: coarse) and (orientation: landscape) {
+  body:not(.game-input-lock) .topbar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  body:not(.game-input-lock) .topbar-actions {
+    width: auto;
+    flex-wrap: nowrap;
+  }
+
+  body:not(.game-input-lock) #screen-menu.screen.active {
+    padding: 6px;
+  }
+
+  body:not(.game-input-lock) #screen-menu .hero {
+    display: grid;
+    grid-template-columns: minmax(190px, 0.65fr) 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+
+  body:not(.game-input-lock) #screen-menu .hero h2,
+  body:not(.game-input-lock) #screen-menu .hero p {
+    grid-column: 1;
+  }
+
+  body:not(.game-input-lock) #screen-menu .menu-grid {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin-top: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-self: stretch;
+  }
+
+  body:not(.game-input-lock) #screen-menu button,
+  body:not(.game-input-lock) #screen-menu select {
+    min-height: 38px;
+  }
+}
+
+@media (pointer: coarse) and (max-width: 430px) and (orientation: portrait) {
+  body:not(.game-input-lock) .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* 0.9A MOBILEMENUSFIT
+   On mobile, menus behave like app screens instead of giant web pages.
+   Encyclopedia is intentionally the only non-game screen with vertical scroll. */
+@media (pointer: coarse) {
+  body:not(.game-input-lock) {
+    height: var(--mobile-vh);
+    max-height: var(--mobile-vh);
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #app {
+    height: var(--mobile-vh);
+    max-height: var(--mobile-vh);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body:not(.game-input-lock) .topbar {
+    flex: 0 0 auto;
+  }
+
+  body:not(.game-input-lock) .screen.active {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) .panel {
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  body:not(.game-input-lock) .screen-head {
+    flex: 0 0 auto;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    gap: 8px;
+  }
+
+  body:not(.game-input-lock) .screen-head h2,
+  body:not(.game-input-lock) h3,
+  body:not(.game-input-lock) p {
+    margin-bottom: 5px;
+  }
+
+  body:not(.game-input-lock) .screen-head h2 {
+    font-size: clamp(16px, 4.4vw, 22px);
+  }
+
+  body:not(.game-input-lock) .panel > p {
+    flex: 0 0 auto;
+    font-size: 11px;
+    line-height: 1.18;
+    margin-bottom: 4px;
+  }
+
+  body:not(.game-input-lock) .slot-box,
+  body:not(.game-input-lock) .weapon-card,
+  body:not(.game-input-lock) .enemy-card,
+  body:not(.game-input-lock) .result-card,
+  body:not(.game-input-lock) .unknown-card {
+    padding: 7px;
+    border-width: 2px;
+  }
+
+  body:not(.game-input-lock) .icon-row {
+    gap: 7px;
+    margin-bottom: 5px;
+  }
+
+  body:not(.game-input-lock) .icon-row h3,
+  body:not(.game-input-lock) .slot-box h3 {
+    font-size: 13px;
+    line-height: 1.05;
+    margin-bottom: 4px;
+  }
+
+  body:not(.game-input-lock) .sprite-box {
+    width: 42px;
+    height: 42px;
+  }
+
+  body:not(.game-input-lock) .sprite-box img {
+    max-width: 36px;
+    max-height: 36px;
+  }
+
+  body:not(.game-input-lock) .tag-row {
+    gap: 4px;
+    margin: 4px 0;
+  }
+
+  body:not(.game-input-lock) .tag {
+    padding: 2px 4px;
+    font-size: 9px;
+    border-width: 1px;
+  }
+
+  body:not(.game-input-lock) .weapon-info {
+    min-height: 0;
+    line-height: 1.16;
+    font-size: 10px;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) .weapon-info p,
+  body:not(.game-input-lock) .enemy-card p,
+  body:not(.game-input-lock) .weapon-card p,
+  body:not(.game-input-lock) .result-card p {
+    margin: 3px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) select,
+  body:not(.game-input-lock) input {
+    min-height: 0;
+    margin: 3px 0 5px;
+  }
+
+  /* Loadout: two compact cards, no page scroll. */
+  body:not(.game-input-lock) #screen-loadout .loadout-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 5px;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-loadout .slot-box {
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body:not(.game-input-lock) #screen-loadout .weapon-info {
+    flex: 1 1 auto;
+  }
+
+  body:not(.game-input-lock) #screen-loadout #playFromLoadoutBtn {
+    flex: 0 0 auto;
+  }
+
+  /* Character: preview + hats fit in one app screen. */
+  body:not(.game-input-lock) #screen-character .character-layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: 150px 1fr;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-character .character-preview {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 4px;
+  }
+
+  body:not(.game-input-lock) #screen-character .character-preview .player-sprite {
+    width: 56px;
+    height: 56px;
+    left: 20px;
+    top: 36px;
+  }
+
+  body:not(.game-input-lock) #screen-character .character-preview .hat-sprite {
+    width: 56px;
+    height: 56px;
+    left: 20px;
+  }
+
+  body:not(.game-input-lock) #screen-character .hat-grid {
+    grid-template-columns: repeat(auto-fit, minmax(64px, 1fr));
+    gap: 6px;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-character .hat-card {
+    min-height: 56px;
+    gap: 3px;
+    font-size: 9px;
+  }
+
+  body:not(.game-input-lock) #screen-character .hat-card img,
+  body:not(.game-input-lock) #screen-character .hat-empty {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* Gacha: compact result board, still no page scroll. */
+  body:not(.game-input-lock) #screen-gacha .results {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  body:not(.game-input-lock) #screen-gacha .result-card .tag-row,
+  body:not(.game-input-lock) #screen-gacha .result-card .weapon-info p:not(:last-child) {
+    display: none;
+  }
+
+  /* LAN: dense control panel for mobile, not a long webpage. */
+  body:not(.game-input-lock) #screen-lan .panel > p,
+  body:not(.game-input-lock) #screen-lan .small-text {
+    display: none;
+  }
+
+  body:not(.game-input-lock) #screen-lan .lan-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 5px;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-lan .slot-box {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-lan label,
+  body:not(.game-input-lock) #screen-lan #lanStatus,
+  body:not(.game-input-lock) #screen-lan #lanServerStatus {
+    font-size: 9px;
+    line-height: 1;
+    margin: 2px 0;
+  }
+
+  body:not(.game-input-lock) #screen-lan .menu-grid.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  body:not(.game-input-lock) #screen-lan .lobby-box {
+    flex: 0 0 auto;
+    max-height: 54px;
+    margin-top: 0;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-lan #lanLobbyList {
+    font-size: 10px;
+    line-height: 1.15;
+  }
+
+  /* Weapon tester: compact setup, play immediately. */
+  body:not(.game-input-lock) #screen-tester .loadout-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 8px;
+    margin-bottom: 0;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-tester .slot-box {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  body:not(.game-input-lock) #screen-tester .slot-box:nth-child(2) p {
+    font-size: 10px;
+    line-height: 1.15;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Encyclopedia is the only mobile menu with vertical scroll. */
+  body[data-screen="encyclopedia"]:not(.game-input-lock) .screen.active {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  body[data-screen="encyclopedia"]:not(.game-input-lock) .panel {
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
+    display: block;
+  }
+
+  body[data-screen="encyclopedia"]:not(.game-input-lock) .wiki-list {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 8px;
+  }
+
+  body[data-screen="encyclopedia"]:not(.game-input-lock) .weapon-info p,
+  body[data-screen="encyclopedia"]:not(.game-input-lock) .enemy-card p,
+  body[data-screen="encyclopedia"]:not(.game-input-lock) .weapon-card p {
+    display: block;
+    overflow: visible;
+  }
+}
+
+@media (pointer: coarse) and (orientation: landscape) {
+  body:not(.game-input-lock) .topbar {
+    padding: 5px 7px;
+  }
+
+  body:not(.game-input-lock) .screen {
+    padding: 5px;
+  }
+
+  body:not(.game-input-lock) .panel {
+    padding: 7px;
+  }
+
+  body:not(.game-input-lock) button,
+  body:not(.game-input-lock) select,
+  body:not(.game-input-lock) input {
+    padding: 6px 6px;
+    font-size: 10px;
+    min-height: 27px;
+  }
+
+  body:not(.game-input-lock) .language-box span,
+  body:not(.game-input-lock) .wallet span {
+    font-size: 9px;
+  }
+
+  body:not(.game-input-lock) .wallet strong {
+    font-size: 15px;
+  }
+
+  body:not(.game-input-lock) #screen-loadout .panel > p,
+  body:not(.game-input-lock) #screen-character .panel > p,
+  body:not(.game-input-lock) #screen-tester .panel > p {
+    display: none;
+  }
+}
+
+@media (pointer: coarse) and (orientation: portrait) {
+  body:not(.game-input-lock) #screen-loadout .loadout-grid,
+  body:not(.game-input-lock) #screen-character .character-layout,
+  body:not(.game-input-lock) #screen-lan .lan-grid,
+  body:not(.game-input-lock) #screen-tester .loadout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body:not(.game-input-lock) #screen-loadout .weapon-info p,
+  body:not(.game-input-lock) #screen-tester .weapon-info p {
+    -webkit-line-clamp: 1;
+  }
+
+  body:not(.game-input-lock) #screen-character .slot-box:first-child,
+  body:not(.game-input-lock) #screen-lan .lobby-box,
+  body:not(.game-input-lock) #screen-tester .slot-box:nth-child(2) {
+    display: none;
+  }
+}

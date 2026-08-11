@@ -1,20 +1,40 @@
 ---
 import { primaryNavigation } from '../../config/navigation';
 import { siteConfig } from '../../config/site';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const strings = getUi(locale);
+const normalize = (value: string) => value === '/' ? '/' : value.endsWith('/') ? value : `${value}/`;
 ---
 
 <details class="mobile-nav">
   <summary>
-    <span class="mobile-nav__label">Menu</span>
+    <span class="mobile-nav__label">{strings.menu}</span>
     <span class="mobile-nav__icon" aria-hidden="true"></span>
   </summary>
-  <nav aria-label="Mobile navigation">
+  <nav aria-label={strings.mobileNavigation}>
     <ul>
-      {primaryNavigation.map((item) => (
-        <li><a href={item.href}>{item.label}</a></li>
-      ))}
+      {primaryNavigation.map((item) => {
+        const href = getNavigationPath(item.href, locale);
+        const current = normalize(pathname) === normalize(href);
+        return (
+          <li>
+            <a href={href} aria-current={current ? 'page' : undefined}>
+              {strings.nav[item.key]}
+            </a>
+          </li>
+        );
+      })}
       <li>
-        <a href={siteConfig.github} target="_blank" rel="noreferrer">
+        <a href={siteConfig.github} target="_blank" rel="noopener noreferrer">
           GitHub <span aria-hidden="true">↗</span>
         </a>
       </li>
@@ -23,104 +43,17 @@ import { siteConfig } from '../../config/site';
 </details>
 
 <style>
-  .mobile-nav {
-    position: relative;
-  }
-
-  summary {
-    display: inline-flex;
-    min-width: 78px;
-    min-height: 44px;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    padding: 0.55rem 0.7rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    color: var(--color-text);
-    background: var(--color-surface-1);
-    cursor: pointer;
-    list-style: none;
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .mobile-nav__icon,
-  .mobile-nav__icon::before,
-  .mobile-nav__icon::after {
-    width: 14px;
-    height: 1px;
-    background: currentColor;
-  }
-
-  .mobile-nav__icon {
-    position: relative;
-  }
-
-  .mobile-nav__icon::before,
-  .mobile-nav__icon::after {
-    position: absolute;
-    left: 0;
-    content: '';
-  }
-
-  .mobile-nav__icon::before {
-    top: -4px;
-  }
-
-  .mobile-nav__icon::after {
-    top: 4px;
-  }
-
-  nav {
-    position: absolute;
-    top: calc(100% + 0.65rem);
-    right: 0;
-    z-index: 20;
-    width: min(18rem, calc(100vw - 2rem));
-    padding: 0.8rem;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--color-surface-1) 96%, transparent);
-    box-shadow: var(--shadow-lg);
-  }
-
-  ul {
-    display: grid;
-    gap: 0.15rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  a {
-    display: flex;
-    min-height: 42px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.55rem 0.65rem;
-    border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    text-decoration: none;
-  }
-
-  a:hover,
-  a:focus-visible {
-    color: var(--color-text);
-    background: var(--color-surface-2);
-  }
-
-  @media (min-width: 60rem) {
-    .mobile-nav {
-      display: none;
-    }
-  }
+  .mobile-nav { position:relative; }
+  summary { display:inline-flex; min-width:74px; min-height:44px; align-items:center; justify-content:center; gap:.55rem; padding:.55rem .65rem; border:1px solid var(--color-border); border-radius:var(--radius-sm); color:var(--color-text); background:var(--color-surface-1); cursor:pointer; list-style:none; font-family:var(--font-mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; }
+  summary::-webkit-details-marker { display:none; }
+  .mobile-nav__icon,.mobile-nav__icon::before,.mobile-nav__icon::after { width:14px; height:1px; background:currentColor; }
+  .mobile-nav__icon { position:relative; }
+  .mobile-nav__icon::before,.mobile-nav__icon::after { position:absolute; left:0; content:''; }
+  .mobile-nav__icon::before { top:-4px; }
+  .mobile-nav__icon::after { top:4px; }
+  nav { position:absolute; top:calc(100% + .65rem); right:0; z-index:20; width:min(18rem,calc(100vw - 2rem)); padding:.8rem; border:1px solid var(--color-border-strong); border-radius:var(--radius-md); background:color-mix(in srgb,var(--color-surface-1) 96%,transparent); box-shadow:var(--shadow-lg); }
+  ul { display:grid; gap:.15rem; margin:0; padding:0; list-style:none; }
+  a { display:flex; min-height:42px; align-items:center; justify-content:space-between; padding:.55rem .65rem; border-radius:var(--radius-sm); color:var(--color-text-muted); font-family:var(--font-mono); font-size:.8rem; text-decoration:none; }
+  a:hover,a:focus-visible,a[aria-current="page"] { color:var(--color-text); background:var(--color-surface-2); }
+  @media (min-width:60rem) { .mobile-nav { display:none; } }
 </style>

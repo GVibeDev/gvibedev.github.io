@@ -1,0 +1,28 @@
+GVibeDev.cc V0.17 — NAVFIX PATCH
+=================================
+
+Target baseline:
+GVibeDev_cc_V0.17_FULL_SOURCE_READY
+
+Replace these files in the project:
+
+1. src/components/chrome/SiteHeader.astro
+2. src/components/chrome/MainNav.astro
+
+Then run:
+
+    npm run dev
+
+Desktop expected:
+Home · Projects · Web Apps · Tools · Worlds · BiggityKot · Manifesto · About · Contact · GitHub · EN | IT
+
+Mobile expected:
+EN | IT · Menu
+
+What this patch fixes:
+- removes the extra desktop/mobile visibility wrapper layer from SiteHeader;
+- returns desktop visibility control to MainNav only;
+- leaves MobileNav responsible for mobile visibility;
+- keeps the EN | IT switch visible in both modes.
+
+No localization content, project data, SEO metadata, routes, assets or other V0.17 files are changed.

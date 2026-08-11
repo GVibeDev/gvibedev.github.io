@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import EditorialHero from '../components/editorial/EditorialHero.astro';
+import EditorialChapter from '../components/editorial/EditorialChapter.astro';
+import ThemeSignals from '../components/editorial/ThemeSignals.astro';
+import PreviewLibrary from '../components/editorial/PreviewLibrary.astro';
+import EditorialQuote from '../components/editorial/EditorialQuote.astro';
+import EditorialEndcap from '../components/editorial/EditorialEndcap.astro';
+
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const { data } = project;
+const accent = data.accentColor ?? '#B78643';
+---
+
+<BaseLayout title={`${data.title}${data.subtitle ? ` — ${data.subtitle}` : ''}`} description={data.seoDescription ?? data.summary} image={data.socialImage}>
+  <article class="editorial-project" style={`--editorial-accent:${accent}; --editorial-accent-soft:color-mix(in srgb, ${accent} 72%, white);`}>
+    <Container>
+      <EditorialHero project={project} />
+
+      <section class="editorial-prose" id="world">
+        <slot />
+      </section>
+
+      {data.editorialSections.map((section, index) => (
+        <EditorialChapter
+          eyebrow={section.eyebrow}
+          title={section.title}
+          body={section.body}
+          image={section.image}
+          imageAlt={section.imageAlt}
+          imagePosition={section.imagePosition}
+          reverse={index % 2 === 1}
+        />
+      ))}
+
+      <ThemeSignals themes={data.themes} />
+      <PreviewLibrary documents={data.documents} cover={data.heroImage} coverAlt={data.heroAlt} />
+      {data.editorialQuote && <EditorialQuote text={data.editorialQuote.text} attribution={data.editorialQuote.attribution} />}
+    </Container>
+
+    <EditorialEndcap image={data.endcapImage} alt={data.endcapAlt} />
+  </article>
+</BaseLayout>
+
+<style>
+  .editorial-project { background:
+      radial-gradient(circle at 75% 10%, color-mix(in srgb, var(--editorial-accent) 7%, transparent), transparent 28rem),
+      var(--color-bg);
+  }
+  .editorial-prose { display: grid; gap: 1.2rem; max-width: 59rem; padding-block: clamp(3rem, 7vw, 6rem); border-top: 1px solid var(--color-border); }
+  .editorial-prose :global(h2) { margin: 0 0 .5rem; max-width: 14ch; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.5rem, 6vw, 5.6rem); font-weight: 500; line-height: .95; letter-spacing: -.04em; }
+  .editorial-prose :global(p) { max-width: 48rem; margin: 0; color: var(--color-text-muted); font-size: clamp(1.05rem, 1rem + .2vw, 1.2rem); line-height: 1.8; }
+  .editorial-prose :global(p:first-of-type) { color: var(--color-text); font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.55; }
+</style>

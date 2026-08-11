@@ -1,0 +1,38 @@
+GV-PORTFOLIO V0.9 — Arena Rubra Board Game Showcase
+
+TARGET
+------
+Apply on top of the locally validated V0.8a3 state.
+
+WHAT THIS PATCH CHANGES
+-----------------------
+- Publishes /projects/arena-rubra-board-game/
+- Replaces the previous Arena Rubra board-game placeholder data.
+- Adds a dedicated tabletop project layout.
+- Adds optimized derivatives of the user-provided tabletop concepts, cards and faction artwork.
+- Keeps all claims conservative: the physical prototype is explicitly NOT presented as manufactured.
+- Uses the supplied Starter rulebook as the current rules source.
+- Does not add npm dependencies.
+- Does not modify Arena Rubra digital runtime or B&W Survivors runtime.
+
+APPLY
+-----
+1. Stop npm run dev.
+2. Back up or commit the current V0.8a3 site state.
+3. Copy the CONTENTS of this patch folder into the repository root.
+4. Allow overwrite of src/data/projects/arena-rubra-board-game.md and src/pages/projects/[slug].astro.
+5. Do not delete node_modules or package-lock.json.
+
+TEST
+----
+npm run dev
+
+Open:
+http://localhost:4321/worlds/
+http://localhost:4321/projects/arena-rubra-board-game/
+
+Then:
+npm run build
+npm run preview
+
+Check the same routes in preview before pushing.

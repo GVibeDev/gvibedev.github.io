@@ -1,0 +1,41 @@
+GVibeDev.cc V0.17 — FULL SOURCE READY
+=====================================
+
+This package is intended for the same workflow you use on PC:
+
+    npm run dev
+
+The Italian site is now present in the actual Astro source tree:
+
+    src/pages/it/
+
+Quick test:
+    http://localhost:4321/
+    http://localhost:4321/it/
+    http://localhost:4321/projects/manuale-llm/
+    http://localhost:4321/it/projects/manuale-llm/
+
+The EN | IT switch is rendered by the source-level SiteHeader on Astro pages.
+The validated Italian pages themselves also contain the switch.
+
+If dependencies are already present, use:
+    npm run dev
+
+If you extract this package into a clean directory and node_modules is unavailable:
+    npm install
+    npm run dev
+
+
+HEADER NAVIGATION HOTFIX
+------------------------
+The English-source header has been simplified to remove the extra desktop/mobile
+wrapper visibility layer. Please re-test at:
+
+    http://localhost:4321/
+    http://localhost:4321/projects/
+
+Expected desktop header:
+    Home · Projects · Web Apps · Tools · Worlds · BiggityKot · Manifesto · About · Contact · GitHub · EN | IT
+
+Expected narrow/mobile header:
+    EN | IT · Menu

@@ -52,6 +52,29 @@ const installGuideSchema = z.object({
   steps: z.array(installStepSchema).default([]),
 });
 
+const editorialDocumentSchema = z.object({
+  language: z.string(),
+  languageCode: z.string(),
+  label: z.string(),
+  file: z.string(),
+  pages: z.number().int().positive(),
+  scope: z.string().optional(),
+});
+
+const editorialSectionSchema = z.object({
+  eyebrow: z.string().optional(),
+  title: z.string(),
+  body: z.array(z.string()).default([]),
+  image: z.string().optional(),
+  imageAlt: z.string().optional(),
+  imagePosition: z.string().optional(),
+});
+
+const editorialQuoteSchema = z.object({
+  text: z.string(),
+  attribution: z.string().optional(),
+});
+
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/data/projects' }),
   schema: z.object({
@@ -59,7 +82,7 @@ const projects = defineCollection({
     slug: z.string(),
     summary: z.string(),
     kind: z.enum(['web-app', 'tool', 'world', 'game', 'experiment']),
-    section: z.enum(['web-apps', 'tools', 'worlds', 'biggitykot']),
+    section: z.enum(['projects', 'web-apps', 'tools', 'worlds', 'biggitykot']),
     owner: z.enum(['gvibedev', 'biggitykot']),
     featured: z.boolean().default(false),
     sortOrder: z.number().int().nonnegative(),
@@ -87,6 +110,24 @@ const projects = defineCollection({
     requirements: z.array(toolRequirementSchema).default([]),
     setupCopy: setupCopySchema.optional(),
     installGuide: installGuideSchema.optional(),
+
+    // Editorial / world-specific metadata. Optional for non-world projects.
+    subtitle: z.string().optional(),
+    editorialCategory: z.string().optional(),
+    editorialAvailability: z.string().optional(),
+    accentColor: z.string().optional(),
+    themes: z.array(z.string()).default([]),
+    documents: z.array(editorialDocumentSchema).default([]),
+    editorialSections: z.array(editorialSectionSchema).default([]),
+    editorialQuote: editorialQuoteSchema.optional(),
+
+    // Creator/build metadata used by the BiggityKot channel and future external-owner projects.
+    creatorProfileUrl: z.string().url().optional(),
+    launchPath: z.string().optional(),
+    launchLabel: z.string().optional(),
+    downloadPath: z.string().optional(),
+    downloadLabel: z.string().optional(),
+    buildSha256: z.string().optional(),
   }),
 });
 

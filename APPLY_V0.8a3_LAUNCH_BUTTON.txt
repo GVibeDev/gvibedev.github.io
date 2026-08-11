@@ -1,0 +1,16 @@
+GV-PORTFOLIO V0.8a3 — B&W Survivors Launch Button Hotfix
+
+Target: local state where /apps/bw-survivors/ already works both locally and on GitHub Pages.
+
+1. Stop npm run dev.
+2. Copy the contents of this folder into the ROOT of gvibedev.github.io.
+3. Overwrite the three files under src/.
+4. Do NOT delete node_modules or package-lock.json.
+5. Start: npm run dev
+6. Open: http://localhost:4321/projects/bw-survivors/
+7. Verify the primary "Play online" button opens /apps/bw-survivors/ in a new tab.
+8. Verify Download 0.9A build and BiggityKot on GitHub still work.
+9. Run: npm run build
+10. Run: npm run preview
+
+This hotfix does not change the B&W Survivors runtime. It only wires the already validated internal runtime into the BiggityKot project page.

@@ -1,0 +1,40 @@
+GVibeDev.cc — V0.12 patch application notes
+===========================================
+
+Target baseline:
+V0.11 validated + the already-applied Arena Rubra shared/tabletop expansion currently visible on the site.
+
+Patch scope:
+1. Arena Rubra Tabletop polish
+   - Fabeot faction image framing fix.
+   - Testing section cleanup: removes the oversized legacy stat block, keeps the explanatory copy and prevents overlap.
+   - Shared testing summary updated to 1000+ total Arena Rubra matches.
+
+2. Arena Rubra Digital expansion
+   - Dedicated project layout.
+   - The Digital Arena systems overview.
+   - Shared five-faction content.
+   - Digital doctrine notes.
+   - Testing Lab + telemetry evidence.
+   - Digital/Tabletop comparison.
+   - Arena Rubra ecosystem links.
+   - Seven optimized current-build screenshots.
+
+3. Shared architecture
+   - Updates `src/data/shared/arena-rubra.ts` as the canonical shared source.
+
+Application:
+- Stop `npm run dev`.
+- Back up or commit the current repository state.
+- Copy the CONTENTS of `gvibedev-v0.12` into the repository root and allow overwrite.
+- Do not delete `node_modules` or `package-lock.json`.
+- Restart with `npm run dev`.
+
+Primary validation routes:
+- /projects/arena-rubra-board-game/
+- /projects/arena-rubra-digital/
+- /projects/arena-rubra-card-composer/
+
+Then run:
+- npm run build
+- npm run preview

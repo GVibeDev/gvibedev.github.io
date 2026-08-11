@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import ProjectCard from '../../components/cards/ProjectCard.astro';
+
+const worlds = (await getCollection('projects'))
+  .filter((project) => project.data.section === 'worlds')
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+---
+
+<BaseLayout
+  title="Worlds"
+  description="Narrative worlds, books and tabletop projects from GVibeDev: stories, systems, symbols and settings developed alongside the software work."
+>
+  <section class="worlds-index">
+    <Container>
+      <div class="worlds-index__hero">
+        <span>Narrative archive</span>
+        <h1>Worlds.</h1>
+        <p>
+          Stories and settings developed with the same iterative discipline as the software projects, but allowed a different rhythm: slower, symbolic and deliberately editorial.
+        </p>
+      </div>
+
+      <div class="worlds-index__grid">
+        {worlds.map((world) => <ProjectCard project={world} featured={world.data.featured} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .worlds-index { padding-block: clamp(3rem, 8vw, 7rem) var(--section-space); }
+  .worlds-index__hero { display: grid; gap: 1rem; max-width: 58rem; margin-bottom: clamp(3rem, 7vw, 6rem); }
+  .worlds-index__hero > span { color: #b78643; font-family: var(--font-mono); font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  h1 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 500; line-height: .86; letter-spacing: -.06em; }
+  .worlds-index__hero p { max-width: 52rem; margin: 0; color: var(--color-text-muted); font-size: clamp(1.05rem, 1rem + .3vw, 1.3rem); line-height: 1.7; }
+  .worlds-index__grid { display: grid; gap: 1rem; }
+  @media (min-width: 40rem) { .worlds-index__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

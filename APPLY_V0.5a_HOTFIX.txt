@@ -1,0 +1,22 @@
+GV-PORTFOLIO V0.5a — Rubra Image Forge YAML Frontmatter Hotfix
+
+BASELINE REQUIRED:
+GV-PORTFOLIO V0.5 — Rubra Image Forge Showcase
+
+1. Stop `npm run dev` if it is running.
+2. Copy the CONTENTS of this hotfix folder into the root of gvibedev.github.io.
+3. Allow overwrite of:
+
+   src/data/projects/rubra-image-forge.md
+
+4. Do NOT delete node_modules.
+5. Do NOT delete package-lock.json.
+6. Run:
+
+   npm run dev
+
+7. Then run:
+
+   npm run build
+
+Cause fixed: YAML plain scalar in setupCopy.intro contained `modes:` followed by a space, which js-yaml parsed as an illegal mapping delimiter. The text is now a folded block scalar.

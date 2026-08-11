@@ -1,0 +1,46 @@
+GVibeDev.cc — V0.14 patch application notes
+===========================================
+
+Target baseline:
+V0.13 validated.
+
+Patch scope:
+1. Full Manifesto
+   - Adds `/manifesto/`.
+   - Keeps the homepage Manifesto strip.
+   - Adds a homepage CTA to the full page.
+
+2. Navigation / footer
+   - Manifesto → `/manifesto/`
+   - About → `/about/`
+   - Contact → `/contact/`
+   - Footer gains Manifesto / About / Contact + public email.
+
+3. Manuale LLM classification
+   - Adds neutral `projects` section to the project schema.
+   - Moves Manuale LLM out of the Tools catalogue while preserving it in `/projects/`.
+
+4. Documentation
+   - Replaces stale README.
+   - Updates CHANGELOG through V0.14.
+   - Adds V0.14 scope/checklist and current portfolio status.
+
+Application:
+- Stop `npm run dev`.
+- Back up or commit the current V0.13 repository state.
+- Copy the CONTENTS of `gvibedev-v0.14` into the repository root and allow overwrite.
+- Do not delete `node_modules` or `package-lock.json`.
+- Restart with `npm run dev`.
+
+Primary validation routes:
+- /
+- /manifesto/
+- /about/
+- /contact/
+- /projects/
+- /tools/
+- /projects/manuale-llm/
+
+Then run:
+- npm run build
+- npm run preview

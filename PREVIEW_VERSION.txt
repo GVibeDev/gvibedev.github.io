@@ -1,0 +1,17 @@
+GVibeDev.cc
+GV-PORTFOLIO V0.17 — PRODUCTION POLISH
+FULL PREVIEW READY — LANGUAGE SWITCH HOTFIX
+
+Validated source baseline:
+V0.16b — Italian Localization Completion
+
+Included:
+- complete EN/IT public portfolio
+- V0.17 production-polish metadata / sitemap / robots / custom 404 / accessibility pass
+- visible persistent EN | IT segmented language control in the main header
+- language switch preserves the equivalent page
+- corrected IT -> EN destinations (previous preview could point back to the Italian page)
+- all current portfolio pages retain canonical / hreflang / x-default metadata
+- standalone B&W Survivors runtime remains playable and noindex
+
+This package is a complete static preview/deploy tree, not a source-only patch.

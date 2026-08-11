@@ -2,15 +2,29 @@
 import Container from '../ui/Container.astro';
 import MainNav from './MainNav.astro';
 import MobileNav from './MobileNav.astro';
+import LanguageSwitch from './LanguageSwitch.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
 ---
 
 <header class="site-header">
   <Container class="site-header__inner">
-    <a class="brand" href="/" aria-label="G Vibe Dev — Home">
+    <a class="brand" href={getNavigationPath('/', locale)} aria-label="G Vibe Dev — Home">
       <img src="/assets/brand/gvibe-wordmark.webp" alt="G Vibe Dev" width="1200" height="392" />
     </a>
-    <MainNav />
-    <MobileNav />
+
+    <div class="site-header__controls">
+      <MainNav locale={locale} pathname={pathname} />
+      <LanguageSwitch locale={locale} pathname={pathname} />
+      <MobileNav locale={locale} pathname={pathname} />
+    </div>
   </Container>
 </header>
 
@@ -29,13 +43,14 @@ import MobileNav from './MobileNav.astro';
     min-height: 72px;
     align-items: center;
     justify-content: space-between;
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .brand {
     display: inline-flex;
+    flex: 0 1 auto;
     align-items: center;
-    width: clamp(8.8rem, 15vw, 11.5rem);
+    width: clamp(8.2rem, 15vw, 11.5rem);
     min-height: 44px;
     text-decoration: none;
   }
@@ -44,5 +59,19 @@ import MobileNav from './MobileNav.astro';
     display: block;
     width: 100%;
     height: auto;
+  }
+
+  .site-header__controls {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .7rem;
+  }
+
+  @media (max-width: 59.999rem) {
+    .site-header__controls {
+      gap: .5rem;
+    }
   }
 </style>

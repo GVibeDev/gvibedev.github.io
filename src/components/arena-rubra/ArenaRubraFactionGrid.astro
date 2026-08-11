@@ -1,0 +1,115 @@
+---
+import { arenaRubraFactions } from '../../data/shared/arena-rubra';
+---
+
+<div class="arena-factions">
+  {arenaRubraFactions.map((faction) => (
+    <article
+      class:list={['arena-faction', `arena-faction--${faction.id}`]}
+      style={`--faction-accent:${faction.accent}; --faction-texture:url('${faction.texture}');`}
+    >
+      <div class="arena-faction__media">
+        <img src={faction.image} alt={faction.imageAlt} width="1200" height="900" loading="lazy" decoding="async" />
+      </div>
+      <div class="arena-faction__body">
+        <div class="arena-faction__heading">
+          <span>{faction.name}</span>
+          <div class="arena-faction__keywords" aria-label={`${faction.name} keywords`}>
+            {faction.keywords.map((keyword) => <small>{keyword}</small>)}
+          </div>
+        </div>
+        <p class="arena-faction__summary">{faction.summary}</p>
+        <dl>
+          <div>
+            <dt>Battlefield identity</dt>
+            <dd>{faction.battlefieldIdentity}</dd>
+          </div>
+          <div>
+            <dt>Strategic philosophy</dt>
+            <dd>{faction.philosophy}</dd>
+          </div>
+          <div>
+            <dt>Wants to control</dt>
+            <dd>{faction.controls}</dd>
+          </div>
+          <div>
+            <dt>Creates pressure through</dt>
+            <dd>{faction.pressure}</dd>
+          </div>
+        </dl>
+        <p class="arena-faction__lore">{faction.loreTone}</p>
+        <p class="arena-faction__plays"><strong>Plays like:</strong> {faction.playsLike}</p>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .arena-factions { display: grid; gap: 1rem; }
+  .arena-faction {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    border: 1px solid color-mix(in srgb, var(--faction-accent) 45%, #2a2721);
+    background: #0b0b0a;
+  }
+  .arena-faction::before {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: linear-gradient(rgba(5,5,5,.78), rgba(5,5,5,.94)), var(--faction-texture);
+    background-size: cover;
+    background-position: center;
+    content: '';
+    opacity: .42;
+    pointer-events: none;
+  }
+  .arena-faction__media, .arena-faction__body { position: relative; z-index: 1; }
+  .arena-faction__media { min-height: 14rem; overflow: hidden; background: #030303; }
+  .arena-faction__media img { display: block; width: 100%; height: 100%; min-height: 14rem; object-fit: cover; object-position: center; }
+
+  /* V0.12 polish: the supplied Fabeot portrait is framed higher than the other faction art. */
+  .arena-faction--fabeot .arena-faction__media img { object-position: center top; }
+
+  .arena-faction__body { display: grid; gap: 1rem; padding: 1.25rem; }
+  .arena-faction__heading { display: grid; gap: .65rem; }
+  .arena-faction__heading > span { color: color-mix(in srgb, var(--faction-accent) 74%, white); font-family: var(--font-mono); font-size: .82rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+  .arena-faction__keywords { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .arena-faction__keywords small { padding: .32rem .42rem; border: 1px solid color-mix(in srgb, var(--faction-accent) 38%, transparent); color: var(--color-text-muted); background: rgba(0,0,0,.26); font-family: var(--font-mono); font-size: .62rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+  .arena-faction p { margin: 0; }
+  .arena-faction__summary { color: var(--color-text); font-size: 1rem; line-height: 1.72; }
+  .arena-faction dl { display: grid; gap: .9rem; margin: 0; }
+  .arena-faction dl > div { display: grid; gap: .28rem; }
+  .arena-faction dt { color: color-mix(in srgb, var(--faction-accent) 65%, white); font-family: var(--font-mono); font-size: .65rem; font-weight: 800; letter-spacing: .075em; text-transform: uppercase; }
+  .arena-faction dd { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.6; }
+  .arena-faction__lore { padding-top: .85rem; border-top: 1px solid color-mix(in srgb, var(--faction-accent) 24%, transparent); color: var(--color-text-subtle); font-size: .86rem; line-height: 1.62; }
+  .arena-faction__plays { color: var(--color-text-muted); font-size: .9rem; line-height: 1.6; }
+  .arena-faction__plays strong { color: var(--color-text); }
+
+  /* Board-game V0.12 polish: simplify the testing block and remove the oversized legacy statistic. */
+  :global(.tabletop-page .testing-stat) { display: none; }
+  :global(.tabletop-page .testing-hero) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    max-width: 64rem;
+    align-items: start;
+  }
+  :global(.tabletop-page .testing-copy) { max-width: 62rem; }
+  :global(.tabletop-page .testing-copy code) {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  :global(.tabletop-page .testing-strapline) {
+    max-width: 64rem;
+    line-height: 1.8;
+  }
+  /* The old status row still contains the pre-1000+ wording; hide it until status content is data-driven. */
+  :global(.tabletop-page .status-grid dl > div:nth-child(3)) { display: none; }
+
+  @media (min-width: 48rem) {
+    .arena-faction { grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.2fr); }
+    .arena-faction:nth-child(even) { grid-template-columns: minmax(0, 1.2fr) minmax(15rem, .8fr); }
+    .arena-faction:nth-child(even) .arena-faction__media { order: 2; }
+    .arena-faction--fabeot .arena-faction__media img { object-position: center 12%; }
+  }
+</style>

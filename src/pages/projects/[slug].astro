@@ -2,6 +2,10 @@
 import { getCollection, render } from 'astro:content';
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
 import ToolProjectLayout from '../../layouts/ToolProjectLayout.astro';
+import EditorialProjectLayout from '../../layouts/EditorialProjectLayout.astro';
+import BiggityKotProjectLayout from '../../layouts/BiggityKotProjectLayout.astro';
+import BoardGameProjectLayout from '../../layouts/BoardGameProjectLayout.astro';
+import ArenaRubraDigitalLayout from '../../layouts/ArenaRubraDigitalLayout.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -15,7 +19,17 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const Layout = project.data.kind === 'tool' ? ToolProjectLayout : ProjectLayout;
+const Layout = project.data.slug === 'arena-rubra-board-game'
+  ? BoardGameProjectLayout
+  : project.data.slug === 'arena-rubra-digital'
+    ? ArenaRubraDigitalLayout
+    : project.data.owner === 'biggitykot'
+      ? BiggityKotProjectLayout
+      : project.data.kind === 'tool'
+        ? ToolProjectLayout
+        : project.data.kind === 'world'
+          ? EditorialProjectLayout
+          : ProjectLayout;
 ---
 
 <Layout project={project}>

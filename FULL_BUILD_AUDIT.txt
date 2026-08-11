@@ -1,0 +1,10 @@
+GVibeDev.cc V0.17 FULL PREVIEW — AUDIT
+======================================
+HTML documents: 38
+Portfolio pages: 36
+Pages with visible EN|IT switch: 36
+Language switch issues: 0
+Broken internal links: 0
+Sitemap URLs: 36
+
+PASS — complete bilingual switch and internal-link audit passed.

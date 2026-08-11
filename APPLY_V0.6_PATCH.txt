@@ -1,0 +1,31 @@
+GV-PORTFOLIO V0.6 — Worlds Editorial Foundation + Unum Sunt: Radix Machinae
+
+BASELINE REQUIRED:
+GV-PORTFOLIO V0.5a — Rubra Image Forge Showcase + YAML Frontmatter Hotfix
+
+1. Stop `npm run dev` if it is running.
+2. Make a backup or Git commit of the current V0.5a working tree.
+3. Copy the CONTENTS of this patch folder into the root of gvibedev.github.io.
+4. Allow overwrite of matching files.
+5. Do NOT delete node_modules.
+6. Do NOT delete package-lock.json.
+7. No new npm dependency is introduced.
+8. Run:
+
+   npm run dev
+
+9. Inspect:
+
+   http://localhost:4321/
+   http://localhost:4321/worlds/
+   http://localhost:4321/projects/unum-sunt/
+   http://localhost:4321/tools/
+   http://localhost:4321/projects/rubra-image-forge/
+
+10. Test both PDF actions from the Unum Sunt page.
+11. Final gates:
+
+   npm run build
+   npm run preview
+
+12. If visual/build gates pass, commit/push and verify GitHub Pages.

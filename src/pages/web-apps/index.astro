@@ -1,0 +1,192 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import ProjectCard from '../../components/cards/ProjectCard.astro';
+
+const apps = (await getCollection('projects'))
+  .filter((project) => project.data.section === 'web-apps')
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const liveApps = apps.filter((project) => Boolean(project.data.links.launchUrl));
+const projectPages = apps.filter((project) => project.data.pageReady);
+---
+
+<BaseLayout
+  title="Web Apps"
+  description="Browser-native GVibeDev projects: playable applications, project pages and public runtimes kept separate so each can evolve without duplicating the source application inside the portfolio."
+>
+  <section class="webapps-index">
+    <Container>
+      <header class="webapps-index__hero">
+        <span>Browser runtime</span>
+        <h1>Web Apps.</h1>
+        <p>
+          Projects that can run as real browser applications. The portfolio explains the work; the runtime launches
+          separately, full-screen, from its own deployment. A Launch App action only appears after a public build has
+          actually been verified.
+        </p>
+
+        <div class="webapps-index__facts" aria-label="Web app publication status">
+          <div>
+            <strong>{apps.length}</strong>
+            <span>Projects tracked</span>
+          </div>
+          <div>
+            <strong>{projectPages.length}</strong>
+            <span>Project pages ready</span>
+          </div>
+          <div>
+            <strong>{liveApps.length}</strong>
+            <span>Public runtimes linked</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="webapps-index__grid">
+        {apps.map((app) => <ProjectCard project={app} featured={app.data.featured} />)}
+      </div>
+
+      <section class="runtime-policy" aria-labelledby="runtime-policy-title">
+        <div>
+          <span>Runtime policy</span>
+          <h2 id="runtime-policy-title">Showcase and executable stay separate.</h2>
+        </div>
+        <div class="runtime-policy__copy">
+          <p>
+            Project pages remain part of GVibeDev.cc and document screenshots, design decisions and development status.
+            Browser applications are deployed from their own repositories so a game update does not require copying the
+            whole runtime into the portfolio repository.
+          </p>
+          <p>
+            Native desktop tools are not forced into this model. They continue to use project pages and verified release
+            downloads; a browser demo is only added when a real web edition exists.
+          </p>
+        </div>
+      </section>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .webapps-index {
+    padding-block: clamp(3rem, 8vw, 7rem) var(--section-space);
+  }
+
+  .webapps-index__hero {
+    display: grid;
+    gap: 1rem;
+    max-width: 62rem;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+
+  .webapps-index__hero > span,
+  .runtime-policy > div:first-child > span {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    line-height: 0.86;
+    letter-spacing: -0.07em;
+  }
+
+  .webapps-index__hero > p {
+    max-width: 56rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.05rem, 1rem + 0.3vw, 1.3rem);
+    line-height: 1.7;
+  }
+
+  .webapps-index__facts {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .webapps-index__facts > div {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-1);
+  }
+
+  .webapps-index__facts strong {
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 1.45rem;
+  }
+
+  .webapps-index__facts span {
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .webapps-index__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .runtime-policy {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: var(--section-space);
+    padding-top: clamp(2rem, 5vw, 4rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .runtime-policy > div:first-child {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .runtime-policy h2 {
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .runtime-policy__copy {
+    display: grid;
+    gap: 1rem;
+    max-width: 54rem;
+  }
+
+  .runtime-policy__copy p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  @media (min-width: 40rem) {
+    .webapps-index__facts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .webapps-index__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .runtime-policy {
+      grid-template-columns: minmax(16rem, 0.8fr) minmax(0, 1.2fr);
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: start;
+    }
+  }
+</style>
