@@ -49,7 +49,8 @@ requirements:
     required: false
 setupCopy:
   heading: Understand the two image workflows before running a large batch.
-  intro: Rubra Image Forge currently exposes two practical modes: standard conversion for broad batch processing and Token 256×256 mode for game-asset preparation. The prototype keeps filtering, preflight and output decisions visible before files are converted.
+  intro: >-
+    Rubra Image Forge currently exposes two practical modes: standard conversion for broad batch processing and Token 256×256 mode for game-asset preparation. The prototype keeps filtering, preflight and output decisions visible before files are converted.
   coreLabel: Core workflow
   coreTitle: Standard conversion
   secondaryLabel: Optional token pipeline

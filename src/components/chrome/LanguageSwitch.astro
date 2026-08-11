@@ -1,0 +1,76 @@
+---
+import type { Locale } from '../../i18n/config';
+import { getEquivalentPath, hasItalianEquivalent } from '../../i18n/config';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const showSwitch = hasItalianEquivalent(pathname);
+const englishHref = getEquivalentPath(pathname, 'en');
+const italianHref = getEquivalentPath(pathname, 'it');
+---
+
+{showSwitch && englishHref && italianHref && (
+  <nav class="language-switch" aria-label={locale === 'it' ? 'Lingua' : 'Language'}>
+    {locale === 'en'
+      ? <span class="language-switch__item is-current" lang="en" aria-current="page">EN</span>
+      : <a class="language-switch__item" href={englishHref} hreflang="en" lang="en" aria-label="Switch to English">EN</a>
+    }
+    {locale === 'it'
+      ? <span class="language-switch__item is-current" lang="it" aria-current="page">IT</span>
+      : <a class="language-switch__item" href={italianHref} hreflang="it" lang="it" aria-label="Passa all’italiano">IT</a>
+    }
+  </nav>
+)}
+
+<style>
+  .language-switch {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    padding: 2px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    background: var(--color-surface-1);
+  }
+
+  .language-switch__item {
+    display: inline-flex;
+    min-width: 32px;
+    min-height: 32px;
+    align-items: center;
+    justify-content: center;
+    padding: .25rem .38rem;
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    font-weight: 850;
+    letter-spacing: .06em;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  a.language-switch__item:hover,
+  a.language-switch__item:focus-visible {
+    color: var(--color-text);
+    background: var(--color-surface-2);
+  }
+
+  .language-switch__item.is-current {
+    color: #07111d;
+    background: var(--color-blue-soft);
+  }
+
+  @media (max-width: 23rem) {
+    .language-switch__item {
+      min-width: 29px;
+      min-height: 30px;
+      padding: .18rem .28rem;
+      font-size: .64rem;
+    }
+  }
+</style>

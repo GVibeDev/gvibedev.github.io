@@ -1,97 +1,58 @@
 ---
 import Container from '../ui/Container.astro';
 import { siteConfig } from '../../config/site';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const strings = getUi(locale);
 ---
 
-<footer class="site-footer" id="about">
+<footer class="site-footer">
   <Container class="site-footer__inner">
     <div class="site-footer__brand">
       <img src="/assets/brand/gvibe-symbol.webp" alt="" width="691" height="900" />
       <div>
         <strong>G Vibe Dev</strong>
-        <p>Independent digital workshop.</p>
+        <p>{strings.workshop}</p>
       </div>
     </div>
 
-    <p class="site-footer__note">
-      Games, tools, worlds and experiments built through human direction, iteration, testing and AI-assisted development.
-    </p>
+    <div class="site-footer__center">
+      <p class="site-footer__note">{strings.footerNote}</p>
+      <nav aria-label={strings.footerNavigation}>
+        <a href={getNavigationPath('/manifesto/', locale)}>{strings.nav.manifesto}</a>
+        <a href={getNavigationPath('/about/', locale)}>{strings.nav.about}</a>
+        <a href={getNavigationPath('/contact/', locale)}>{strings.nav.contact}</a>
+      </nav>
+    </div>
 
     <div class="site-footer__meta">
       <span>gvibedev.cc</span>
-      <a href={siteConfig.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+      <a href="mailto:gvibedev@gmail.com">Email</a>
+      <a href={siteConfig.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
     </div>
   </Container>
 </footer>
 
 <style>
-  .site-footer {
-    padding-block: clamp(3rem, 7vw, 5.5rem);
-    border-top: 1px solid var(--color-border);
-    background: var(--color-bg-deep);
-  }
-
-  :global(.site-footer__inner) {
-    display: grid;
-    gap: 2rem;
-  }
-
-  .site-footer__brand {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-  }
-
-  .site-footer__brand img {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
-  }
-
-  .site-footer__brand strong {
-    display: block;
-    font-size: 1rem;
-  }
-
-  .site-footer__brand p,
-  .site-footer__note,
-  .site-footer__meta {
-    margin: 0;
-    color: var(--color-text-muted);
-  }
-
-  .site-footer__brand p {
-    margin-top: 0.2rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
-  }
-
-  .site-footer__note {
-    max-width: 58ch;
-  }
-
-  .site-footer__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-  }
-
-  .site-footer__meta a {
-    color: var(--color-blue-soft);
-    text-decoration: none;
-  }
-
-  @media (min-width: 60rem) {
-    :global(.site-footer__inner) {
-      grid-template-columns: 0.85fr 1.35fr auto;
-      align-items: end;
-    }
-
-    .site-footer__meta {
-      justify-content: flex-end;
-    }
+  .site-footer { padding-block:clamp(3rem,7vw,5.5rem); border-top:1px solid var(--color-border); background:var(--color-bg-deep); }
+  :global(.site-footer__inner) { display:grid; gap:2rem; }
+  .site-footer__brand { display:flex; align-items:center; gap:.9rem; }
+  .site-footer__brand img { width:42px; height:42px; object-fit:contain; }
+  .site-footer__brand strong { display:block; font-size:1rem; }
+  .site-footer__brand p,.site-footer__note,.site-footer__meta { margin:0; color:var(--color-text-muted); }
+  .site-footer__brand p { margin-top:.2rem; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.04em; }
+  .site-footer__center { display:grid; gap:.9rem; }
+  .site-footer__note { max-width:58ch; line-height:1.65; }
+  nav { display:flex; flex-wrap:wrap; gap:.7rem 1rem; }
+  nav a,.site-footer__meta a { color:var(--color-blue-soft); font-family:var(--font-mono); font-size:.72rem; font-weight:700; text-decoration:none; }
+  nav a:hover,.site-footer__meta a:hover { color:var(--color-text); }
+  .site-footer__meta { display:flex; flex-wrap:wrap; gap:.8rem 1.25rem; font-family:var(--font-mono); font-size:.74rem; }
+  @media (min-width:60rem) {
+    :global(.site-footer__inner) { grid-template-columns:.85fr 1.35fr auto; align-items:end; }
+    .site-footer__meta { justify-content:flex-end; }
   }
 </style>

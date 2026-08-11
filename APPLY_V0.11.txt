@@ -1,0 +1,26 @@
+GVibeDev.cc — V0.11 patch application notes
+=========================================
+
+Patch name:
+GVibeDev_cc_V0.11_PATCH_Unum_Sunt_Content_Expansion.zip
+
+Scope:
+- Update the Unum Sunt project data file.
+- Add five new image assets used by the expanded editorial sections.
+- No schema changes.
+- No layout changes.
+- No new dependencies.
+
+Files to copy into the site repository:
+- src/data/projects/unum-sunt.md
+- public/assets/projects/unum-sunt/xunes-terminal.webp
+- public/assets/projects/unum-sunt/world-map.webp
+- public/assets/projects/unum-sunt/rite-of-reclamation.webp
+- public/assets/projects/unum-sunt/grove-dialogue.webp
+- public/assets/projects/unum-sunt/agathoi-citadel.webp
+- CHANGELOG.md (merge or append the V0.11 entry as appropriate)
+
+Notes:
+- This patch is content-focused and intentionally does not alter the broader site architecture.
+- The page remains aligned with the validated Worlds / Editorial layout introduced earlier.
+- Browser validation was not performed in this session because the user was temporarily limited to mobile review rather than live browser testing.

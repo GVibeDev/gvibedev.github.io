@@ -8,8 +8,11 @@ import Container from '../ui/Container.astro';
     <div class="manifesto__copy">
       <h2 id="manifesto-title">AI is leverage, not autopilot.</h2>
       <p>
-        The point is not to pretend that one prompt replaces a craft. The point is to use new tools to attempt more, learn faster, and keep the human work visible: choosing, correcting, testing, verifying and deciding what deserves to survive the next iteration.
+        The point is not to pretend that one prompt replaces a craft. The point is to use new tools
+        to attempt more, learn faster, and keep the human work visible: choosing, correcting,
+        testing, verifying and deciding what deserves to survive the next iteration.
       </p>
+      <a href="/manifesto/">Read the full manifesto →</a>
     </div>
   </Container>
 </section>
@@ -58,6 +61,20 @@ import Container from '../ui/Container.astro';
     font-size: clamp(1rem, 1.45vw, 1.18rem);
     line-height: 1.75;
   }
+
+  .manifesto__copy a {
+    display: inline-flex;
+    margin-top: 1.35rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .manifesto__copy a:hover { color: var(--color-text); }
 
   @media (min-width: 60rem) {
     :global(.manifesto__inner) {

@@ -1,0 +1,37 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  body: string[];
+  image?: string;
+  imageAlt?: string;
+  imagePosition?: string;
+  reverse?: boolean;
+  id?: string;
+}
+const { eyebrow, title, body, image, imageAlt = '', imagePosition = 'center', reverse = false, id } = Astro.props;
+---
+
+<section class:list={['editorial-chapter', reverse && 'editorial-chapter--reverse']} id={id}>
+  <div class="editorial-chapter__copy">
+    {eyebrow && <p class="editorial-chapter__eyebrow">{eyebrow}</p>}
+    <h2>{title}</h2>
+    {body.map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+  {image && (
+    <figure>
+      <img src={image} alt={imageAlt} loading="lazy" decoding="async" style={`object-position:${imagePosition};`} />
+    </figure>
+  )}
+</section>
+
+<style>
+  .editorial-chapter { display: grid; gap: clamp(2rem, 6vw, 5rem); align-items: center; padding-block: clamp(3rem, 7vw, 6rem); border-top: 1px solid var(--color-border); }
+  .editorial-chapter__copy { display: grid; gap: 1rem; }
+  .editorial-chapter__eyebrow { margin: 0; color: var(--editorial-accent); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  h2 { margin: 0 0 .5rem; max-width: 12ch; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.4rem, 6vw, 5.6rem); font-weight: 500; line-height: .96; letter-spacing: -.04em; }
+  .editorial-chapter__copy > p:not(.editorial-chapter__eyebrow) { max-width: 48rem; margin: 0; color: var(--color-text-muted); font-size: clamp(1rem, .96rem + .2vw, 1.15rem); line-height: 1.78; }
+  figure { margin: 0; overflow: hidden; border: 1px solid color-mix(in srgb, var(--editorial-accent) 25%, var(--color-border)); background: #050505; }
+  img { display: block; width: 100%; max-height: 48rem; object-fit: contain; }
+  @media (min-width: 62rem) { .editorial-chapter { grid-template-columns: minmax(0, .9fr) minmax(22rem, 1.1fr); } .editorial-chapter--reverse .editorial-chapter__copy { order: 2; } .editorial-chapter--reverse figure { order: 1; } }
+</style>

@@ -1,0 +1,28 @@
+GV-PORTFOLIO V0.8a — B&W Survivors Online Runtime
+
+TARGET BASELINE
+- GV-PORTFOLIO V0.8 — BiggityKot Foundation + B&W Survivors 0.9A
+
+PART A — ONLINE RUNTIME
+1. Sign in to the GitHub account `pizza-990`.
+2. Create a PUBLIC repository named `black-white-survivors`.
+3. Copy the CONTENTS of `black-white-survivors-pages-v0.8a` into the repository root.
+4. In Settings → Pages choose GitHub Actions as Source.
+5. Commit/push to `main`.
+6. Wait for `Deploy B&W Survivors to GitHub Pages` to pass.
+7. Verify: https://pizza-990.github.io/black-white-survivors/
+8. Validate solo play before touching the portfolio.
+
+PART B — PORTFOLIO
+1. Stop `npm run dev`.
+2. Back up/commit V0.8.
+3. Copy the CONTENTS of `gvibedev-site-v0.8a-patch` into the root of `gvibedev.github.io`.
+4. Overwrite matching files.
+5. Do NOT delete node_modules or package-lock.json.
+6. Run `npm run dev`, verify BiggityKot and B&W Survivors.
+7. Run `npm run build` and `npm run preview`.
+
+IMPORTANT
+- Hosted runtime = single-player browser build.
+- Downloaded 0.9A archive = original complete snapshot, including local Node/LAN files.
+- No gameplay rebalance is part of V0.8a.

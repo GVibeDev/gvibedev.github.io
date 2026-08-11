@@ -1,0 +1,23 @@
+GV-PORTFOLIO V0.8a1 — B&W Survivors Runtime Placement Fix
+
+Target: local gvibedev.github.io repository after V0.8 (or after the unvalidated V0.8a candidate).
+
+ROOT CAUSE ADDRESSED
+The runtime must physically exist at:
+  <repo-root>\public\apps\bw-survivors\index.html
+If that directory is absent, Astro correctly returns 404 for /apps/bw-survivors/.
+
+APPLY
+1. Stop `npm run dev`.
+2. Extract THIS ZIP directly into the ROOT of the gvibedev.github.io repository.
+   After extraction you must see:
+     public\apps\bw-survivors\index.html
+     public\apps\bw-survivors\game.js
+     public\apps\bw-survivors\style.css
+3. Do NOT create an extra wrapper folder around `public`.
+4. Run `VERIFY_V0.8a_RUNTIME.bat` from the repository root.
+5. Run `npm run dev`.
+6. Open http://localhost:4321/apps/bw-survivors/
+7. Only after local validation, commit/push and test the public GitHub Pages deployment.
+
+No npm dependency is added.

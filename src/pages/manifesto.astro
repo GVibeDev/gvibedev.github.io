@@ -1,0 +1,312 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+
+const principles = [
+  {
+    code: '01',
+    title: 'Build before you preach.',
+    body: 'A working project is a stronger argument than a claim about what a tool might make possible.',
+  },
+  {
+    code: '02',
+    title: 'AI amplifies judgement. It does not replace it.',
+    body: 'Models can accelerate implementation, research and exploration. Intent, standards and responsibility still belong to the person directing the work.',
+  },
+  {
+    code: '03',
+    title: 'Test what can be tested.',
+    body: 'A convincing output is not automatically a correct one. Software should run, rules should survive play and workflows should be checked against real use.',
+  },
+  {
+    code: '04',
+    title: 'Treat failures as evidence.',
+    body: 'Broken builds, weak ideas and bad iterations are not wasted if they reveal what the process failed to understand.',
+  },
+  {
+    code: '05',
+    title: 'Learn while building.',
+    body: 'Capability does not need to arrive fully formed before a project begins. Real problems can become the curriculum.',
+  },
+  {
+    code: '06',
+    title: 'Keep the human decisions visible.',
+    body: 'Choosing, correcting, rejecting, verifying and deciding what deserves to survive are part of the work, not inconvenient steps to automate away.',
+  },
+  {
+    code: '07',
+    title: 'A prompt is not a process.',
+    body: 'Useful results come from context, constraints, iteration, inspection and feedback loops. Prompting is one instrument inside a larger method.',
+  },
+  {
+    code: '08',
+    title: 'Access to capability matters.',
+    body: 'New tools can let individuals attempt work that previously demanded larger teams, more specialised knowledge or resources they could not reach.',
+  },
+];
+---
+
+<BaseLayout
+  title="Manifesto"
+  description="GVibeDev manifesto: AI is leverage, not autopilot. Build, test, verify, learn and keep human responsibility visible."
+>
+  <div class="manifesto-page">
+    <section class="manifesto-hero">
+      <Container>
+        <span class="manifesto-code">// MANIFESTO_FULL</span>
+        <div class="manifesto-hero__copy">
+          <h1>AI is leverage,<br />not autopilot.</h1>
+          <p>
+            GVibeDev is built around a practical proposition: new tools can expand what one person
+            is able to attempt, but capability only becomes useful when it is paired with judgement,
+            method and responsibility.
+          </p>
+        </div>
+      </Container>
+    </section>
+
+    <section class="manifesto-intro section-block">
+      <Container>
+        <div class="split">
+          <div>
+            <span class="eyebrow">The position</span>
+            <h2>The tool is not the author of the intention.</h2>
+          </div>
+          <div class="prose">
+            <p>
+              A language model can help write code, reorganise a document, inspect a system,
+              compare alternatives, produce a prototype or expose a path that would have taken much
+              longer to reach alone.
+            </p>
+            <p>
+              None of that transfers responsibility to the model. The direction of the work, the
+              acceptance criteria, the decision to trust or reject an output and the consequences of
+              publishing or using it remain human.
+            </p>
+            <p>
+              That is why the interesting question is not whether AI can produce something. The
+              interesting question is whether a person can build a process around the tool that
+              produces something worth keeping.
+            </p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="principles section-block">
+      <Container>
+        <div class="section-heading">
+          <span class="eyebrow">Working principles</span>
+          <h2>Method matters more as the tools become more powerful.</h2>
+          <p>
+            These are not rules for everyone. They are the working principles behind the projects
+            collected on this site.
+          </p>
+        </div>
+
+        <div class="principle-grid">
+          {principles.map((principle) => (
+            <article>
+              <span>{principle.code}</span>
+              <h3>{principle.title}</h3>
+              <p>{principle.body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="practice section-block">
+      <Container>
+        <div class="split">
+          <div>
+            <span class="eyebrow">In practice</span>
+            <h2>Generation is cheap. Acceptance is expensive.</h2>
+          </div>
+          <div class="prose">
+            <p>
+              The visible output is often the fastest part of the process. The slower work is deciding
+              what the project actually needs, noticing when the implementation has drifted, reproducing
+              a failure, comparing alternatives and making a result stable enough to become a baseline.
+            </p>
+            <p>
+              That pattern appears across the workshop: game rules are tested through matches,
+              software through builds and regression checks, visual pipelines through repeated exports,
+              and writing through structure, revision and comparison.
+            </p>
+            <blockquote>
+              Speed is useful when it shortens the distance between a hypothesis and the evidence that
+              can prove it wrong.
+            </blockquote>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="responsibility section-block">
+      <Container>
+        <div class="split">
+          <div>
+            <span class="eyebrow">Responsibility</span>
+            <h2>Power without discipline only accelerates error.</h2>
+          </div>
+          <div class="prose">
+            <p>
+              Generative systems can also amplify weak research, false confidence, manipulation,
+              shallow content and plausible mistakes. Better output quality does not remove the need
+              to question the source, verify the claim or understand the context in which a result
+              will be used.
+            </p>
+            <p>
+              GVibeDev therefore treats AI assistance as part of an accountable workflow rather than
+              an excuse to hide the human decisions behind the result.
+            </p>
+            <p>
+              The goal is not to make the person disappear. The goal is to let the person reach further
+              without pretending that reach and judgement are the same thing.
+            </p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="evidence section-block">
+      <Container>
+        <div class="evidence-card">
+          <div>
+            <span class="eyebrow">The archive is the argument</span>
+            <h2>Build something, then show the work.</h2>
+            <p>
+              Games, tools, a novel, production workflows and a manual about working with language
+              models all grew from the same approach: define the problem, use the available tools,
+              inspect the result and keep iterating.
+            </p>
+          </div>
+          <div class="evidence-actions">
+            <a href="/projects/" class="button button--primary">Explore projects</a>
+            <a href="/projects/manuale-llm/" class="button button--secondary">Manuale LLM</a>
+            <a href="/about/" class="button button--secondary">About GVibeDev</a>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .manifesto-page { color: var(--color-text); background: var(--color-bg); }
+  .section-block { padding-block: var(--section-space); }
+  .eyebrow, .manifesto-code {
+    color: var(--color-red-bright);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .manifesto-hero {
+    padding-block: clamp(3.5rem, 9vw, 8rem);
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 8% 20%, color-mix(in srgb, var(--color-red) 13%, transparent), transparent 34%),
+      radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--color-blue) 15%, transparent), transparent 40%),
+      var(--color-bg-deep);
+  }
+  .manifesto-hero :global(.container) { display: grid; gap: 1.5rem; }
+  .manifesto-hero__copy { display: grid; gap: 1.4rem; max-width: 65rem; }
+  .manifesto-hero h1 {
+    margin: 0;
+    max-width: 12ch;
+    font-size: clamp(3rem, 9vw, 8rem);
+    line-height: .9;
+    letter-spacing: -.07em;
+  }
+  .manifesto-hero p, .section-heading > p, .prose p, .evidence-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+  .manifesto-hero p {
+    max-width: 58rem;
+    color: var(--color-text);
+    font-size: clamp(1.08rem, 1rem + .35vw, 1.35rem);
+  }
+  .split { display: grid; gap: 2rem; }
+  .split > div:first-child, .section-heading, .prose { display: grid; gap: 1rem; align-content: start; }
+  .split h2, .section-heading h2, .evidence-card h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4.8vw, 4.4rem);
+    line-height: .98;
+    letter-spacing: -.05em;
+  }
+  .manifesto-intro, .responsibility { border-bottom: 1px solid var(--color-border); }
+  .principles, .practice { border-bottom: 1px solid var(--color-border); background: var(--color-bg-deep); }
+  .section-heading { max-width: 60rem; margin-bottom: 2rem; }
+  .principle-grid { display: grid; gap: 1px; border: 1px solid var(--color-border); background: var(--color-border); }
+  .principle-grid article {
+    display: grid;
+    gap: .7rem;
+    padding: 1.1rem;
+    background: var(--color-surface-1);
+  }
+  .principle-grid article > span {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    font-weight: 800;
+  }
+  .principle-grid h3 { margin: 0; color: var(--color-text); font-size: 1.05rem; }
+  .principle-grid p { margin: 0; color: var(--color-text-muted); font-size: .92rem; line-height: 1.65; }
+  .prose blockquote {
+    margin: .4rem 0 0;
+    padding: 1rem 1.1rem;
+    border-left: 2px solid var(--color-red-soft);
+    color: var(--color-text);
+    background: var(--color-surface-1);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+  .evidence { background: var(--color-bg-deep); }
+  .evidence-card {
+    display: grid;
+    gap: 2rem;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface-1);
+  }
+  .evidence-card > div:first-child { display: grid; gap: 1rem; }
+  .evidence-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.8rem;
+    padding: .8rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .045em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .button--primary {
+    color: #08111e;
+    background: var(--color-blue-soft);
+    border-color: var(--color-blue-soft);
+  }
+
+  @media (min-width: 40rem) {
+    .principle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 60rem) {
+    .split { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 4rem; }
+    .principle-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .evidence-card { grid-template-columns: minmax(0, 1.2fr) minmax(18rem, .8fr); gap: 4rem; align-items: center; }
+    .evidence-actions { justify-content: flex-end; }
+  }
+</style>

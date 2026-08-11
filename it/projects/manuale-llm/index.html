@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="it"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><meta content="#05070A" name="theme-color"/><meta content="dark" name="color-scheme"/><title>Manuale LLM · G Vibe Dev</title><meta content="Progetto di scrittura e metodo su prompting, struttura, verifica e responsabilità umana nel lavoro pratico con i modelli linguistici." name="description"/><meta content="index, follow, max-image-preview:large" name="robots"/><link href="https://gvibedev.cc/it/projects/manuale-llm/" rel="canonical"/><link href="https://gvibedev.cc/projects/manuale-llm/" hreflang="x-default" rel="alternate"/><link href="https://gvibedev.cc/it/projects/manuale-llm/" hreflang="it" rel="alternate"/><link href="https://gvibedev.cc/projects/manuale-llm/" hreflang="en" rel="alternate"/><meta content="website" property="og:type"/><meta content="G Vibe Dev" property="og:site_name"/><meta content="Manuale LLM · G Vibe Dev" property="og:title"/><meta content="Progetto di scrittura e metodo su prompting, struttura, verifica e responsabilità umana nel lavoro pratico con i modelli linguistici." property="og:description"/><meta content="https://gvibedev.cc/it/projects/manuale-llm/" property="og:url"/><meta content="https://gvibedev.cc/assets/projects/manuale-llm/og-manuale-llm.webp" property="og:image"/><meta content="Manuale LLM — G Vibe Dev social preview" property="og:image:alt"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="image/webp" property="og:image:type"/><meta content="summary_large_image" name="twitter:card"/><meta content="Manuale LLM · G Vibe Dev" name="twitter:title"/><meta content="Progetto di scrittura e metodo su prompting, struttura, verifica e responsabilità umana nel lavoro pratico con i modelli linguistici." name="twitter:description"/><meta content="https://gvibedev.cc/assets/projects/manuale-llm/og-manuale-llm.webp" name="twitter:image"/><link href="/assets/icons/icon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="/site.webmanifest" rel="manifest"/><style>.tag[data-astro-cid-enav3c2u]{border:1px solid var(--color-border);min-height:24px;color:var(--color-text-muted);background:var(--color-surface-1);font-family:var(--font-mono);letter-spacing:.04em;border-radius:999px;align-items:center;padding:.2rem .48rem;font-size:.7rem;line-height:1;display:inline-flex}.tag--blue[data-astro-cid-enav3c2u]{border-color:color-mix(in srgb, var(--color-blue-bright) 45%, transparent);color:var(--color-blue-soft)}.tag--red[data-astro-cid-enav3c2u]{border-color:color-mix(in srgb, var(--color-red-bright) 45%, transparent);color:var(--color-red-soft)}
+</style><link href="/_astro/_slug_.D1HB2WP9.css" rel="stylesheet"/><link href="/_astro/BaseLayout.C__e1aeJ.css" rel="stylesheet"/><meta content="it_IT" property="og:locale"/><style>.v016a-lang-switch{display:inline-flex;min-width:38px;min-height:38px;align-items:center;justify-content:center;padding:.35rem .45rem;border:1px solid var(--color-border);border-radius:var(--radius-sm);color:var(--color-text-muted);background:var(--color-surface-1);font-family:var(--font-mono);font-size:.7rem;font-weight:800;letter-spacing:.06em;text-decoration:none;flex:0 0 auto}.v016a-lang-switch:hover,.v016a-lang-switch:focus-visible{color:var(--color-text);border-color:var(--color-border-strong)}</style><meta content="GVibeDev" name="author"/><meta content="G Vibe Dev" name="application-name"/><link href="/assets/icons/icon-192.png" rel="apple-touch-icon" sizes="192x192"/><meta content="Manuale LLM — G Vibe Dev social preview" name="twitter:image:alt"/><script data-gvibedev-structured-data="true" type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Manuale LLM · G Vibe Dev","url":"https://gvibedev.cc/it/projects/manuale-llm/","description":"Progetto di scrittura e metodo su prompting, struttura, verifica e responsabilità umana nel lavoro pratico con i modelli linguistici.","inLanguage":"it","isPartOf":{"@type":"WebSite","name":"G Vibe Dev","url":"https://gvibedev.cc/"}}</script><style id="v017-language-switch-style">
+.v017-language-switch{
+  display:inline-flex;
+  align-items:center;
+  padding:2px;
+  border:1px solid var(--color-border-strong);
+  border-radius:999px;
+  background:var(--color-surface-1);
+  flex:0 0 auto;
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--color-bg-deep) 70%, transparent);
+}
+.v017-language-switch a,
+.v017-language-switch span{
+  min-width:32px;
+  min-height:32px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.25rem .38rem;
+  border-radius:999px;
+  font-family:var(--font-mono);
+  font-size:.68rem;
+  font-weight:850;
+  letter-spacing:.06em;
+  line-height:1;
+  text-decoration:none;
+}
+.v017-language-switch a{
+  color:var(--color-text-muted);
+}
+.v017-language-switch a:hover,
+.v017-language-switch a:focus-visible{
+  color:var(--color-text);
+  background:var(--color-surface-2);
+}
+.v017-language-switch .is-current{
+  color:#07111d;
+  background:var(--color-blue-soft);
+  cursor:default;
+}
+@media (max-width: 23rem){
+  .v017-language-switch a,
+  .v017-language-switch span{
+    min-width:29px;
+    min-height:30px;
+    padding:.18rem .28rem;
+    font-size:.64rem;
+  }
+}
+</style></head><body id="top"><a class="skip-link" href="#main-content">Skip to content</a><header class="site-header" data-astro-cid-kbzixps5=""><div class="container site-header__inner" data-astro-cid-ygbe67ah="true"><a aria-label="G Vibe Dev — Home" class="brand" data-astro-cid-kbzixps5="" href="/it/"><img alt="G Vibe Dev" data-astro-cid-kbzixps5="" height="392" src="/assets/brand/gvibe-wordmark.webp" width="1200"/></a><nav aria-label="Navigazione principale" class="main-nav" data-astro-cid-dbnxbcvn=""><ul data-astro-cid-dbnxbcvn=""><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/">Home</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/projects/">Progetti</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/web-apps/">Web App</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/tools/">Strumenti</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/worlds/">Mondi</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/biggitykot/">BiggityKot</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/manifesto/">Manifesto</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/about/">Chi sono</a></li><li data-astro-cid-dbnxbcvn=""><a data-astro-cid-dbnxbcvn="" href="/it/contact/">Contatti</a></li><li data-astro-cid-dbnxbcvn=""><a class="main-nav__github" data-astro-cid-dbnxbcvn="" href="https://github.com/GVibeDev" rel="noopener noreferrer" target="_blank">GitHub <span aria-hidden="true" data-astro-cid-dbnxbcvn="">↗</span></a></li></ul></nav><nav aria-label="Lingua" class="v017-language-switch"><a aria-label="Switch to English" href="/projects/manuale-llm/" hreflang="en" lang="en">EN</a><span aria-current="page" class="is-current" lang="it">IT</span></nav><details class="mobile-nav" data-astro-cid-ltvqdxlh=""><summary data-astro-cid-ltvqdxlh=""><span class="mobile-nav__label" data-astro-cid-ltvqdxlh="">Menu</span><span aria-hidden="true" class="mobile-nav__icon" data-astro-cid-ltvqdxlh=""></span></summary><nav aria-label="Navigazione mobile" data-astro-cid-ltvqdxlh=""><ul data-astro-cid-ltvqdxlh=""><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/">Home</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/projects/">Progetti</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/web-apps/">Web App</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/tools/">Strumenti</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/worlds/">Mondi</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/biggitykot/">BiggityKot</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/manifesto/">Manifesto</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/about/">Chi sono</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="/it/contact/">Contatti</a></li><li data-astro-cid-ltvqdxlh=""><a data-astro-cid-ltvqdxlh="" href="https://github.com/GVibeDev" rel="noopener noreferrer" target="_blank">GitHub <span aria-hidden="true" data-astro-cid-ltvqdxlh="">↗</span></a></li></ul></nav></details></div></header><main id="main-content"><section class="project-hero" data-astro-cid-bmwli342=""><div class="container" data-astro-cid-ygbe67ah="true"><a class="project-hero__back" data-astro-cid-bmwli342="" href="/it/projects/">← Tutti i progetti</a><div class="project-hero__intro" data-astro-cid-bmwli342=""><div class="project-hero__copy" data-astro-cid-bmwli342=""><div class="project-hero__eyebrow" data-astro-cid-bmwli342=""><span data-astro-cid-bmwli342="">Esperimento</span><span class="project-hero__status" data-astro-cid-bmwli342="">Bozza pubblica / sviluppo attivo</span></div><h1 data-astro-cid-bmwli342="">Manuale LLM</h1><p class="project-hero__summary" data-astro-cid-bmwli342="">Un progetto di scrittura e metodo su struttura, disciplina del prompting e responsabilità umana nel lavoro pratico con i modelli linguistici.</p><div aria-label="Project tags" class="project-hero__tags" data-astro-cid-bmwli342=""><span class="tag tag--blue" data-astro-cid-enav3c2u="">Scrittura</span><span class="tag tag--blue" data-astro-cid-enav3c2u="">Prompting</span><span class="tag tag--blue" data-astro-cid-enav3c2u="">Metodo</span><span class="tag tag--blue" data-astro-cid-enav3c2u="">Documentazione</span><span class="tag tag--blue" data-astro-cid-enav3c2u="">Modelli linguistici</span></div><div class="project-actions" data-astro-cid-zc4efidh=""><a class="project-action project-action--primary" data-astro-cid-zc4efidh="" href="https://github.com/GVibeDev/Manuale_LLM" rel="noopener noreferrer" target="_blank">Apri su GitHub <span aria-hidden="true" data-astro-cid-zc4efidh="">↗</span></a></div></div></div><figure class="project-hero__media" data-astro-cid-bmwli342=""><img alt="Manuale LLM cover presented on a dark blue background." data-astro-cid-bmwli342="" fetchpriority="high" height="941" src="/assets/projects/manuale-llm/card-cover.webp" width="1672"/></figure></div></section><section class="project-story" data-astro-cid-s35pujdj=""><div class="container" data-astro-cid-ygbe67ah="true"><div class="project-story__grid" data-astro-cid-s35pujdj=""><aside class="project-story__aside" data-astro-cid-s35pujdj=""><span class="project-story__eyebrow" data-astro-cid-s35pujdj="">Nota sul progetto</span><p data-astro-cid-s35pujdj="">Questa pagina descrive un progetto in sviluppo attivo. Funzioni, grafica e dettagli dell'interfaccia possono cambiare mentre nuove baseline vengono testate e validate.</p><div class="project-actions" data-astro-cid-zc4efidh=""><a class="project-action project-action--primary" data-astro-cid-zc4efidh="" href="https://github.com/GVibeDev/Manuale_LLM" rel="noopener noreferrer" target="_blank">Apri su GitHub <span aria-hidden="true" data-astro-cid-zc4efidh="">↗</span></a></div></aside><article class="project-prose" data-astro-cid-s35pujdj=""><h2 id="a-method-project-built-from-practice">Un progetto di metodo nato dalla pratica.</h2>
+<p><em>Manuale LLM</em> non è un'introduzione generica all'IA. È un tentativo pratico di trasformare il lavoro ripetuto con i modelli linguistici in un metodo esplicito.</p>
+<p>Il progetto nasce da un'osservazione semplice: un buon risultato non deriva dall'“usare l'IA” in astratto. Deriva da contesto, struttura, vincoli, revisione, iterazione e dalla disponibilità a scartare gli output che non meritano di restare.</p>
+<h2 id="why-this-project-exists">Perché esiste questo progetto</h2>
+<p>I modelli linguistici vengono spesso discussi per estremi. O sono trattati come sostituti magici della competenza, oppure liquidati come rumore vuoto. Nessuno dei due approcci è utile.</p>
+<p>Nella pratica conta il rapporto tra strumento e utente. Un LLM può aiutare a scrivere, analizzare, confrontare, riorganizzare e accelerare. Non sceglie lo scopo del lavoro, i suoi standard né la responsabilità che ne deriva.</p>
+<p>Questa distinzione è il centro del manuale.</p>
+<h2 id="what-it-covers">Cosa tratta</h2>
+<p>Il repository raccoglie note e capitoli strutturati su come lavorare con i modelli linguistici in modo più deliberato. I temi includono:</p>
+<ul>
+<li>il prompting come architettura, non come impulso;</li>
+<li>metodo, iterazione e uso diagnostico;</li>
+<li>responsabilità, verifica e direzione umana;</li>
+<li>uso dei modelli per scrittura, struttura e supporto ai progetti;</li>
+<li>estendere le capacità senza rinunciare al giudizio.</li>
+</ul>
+<p>L'attuale repository pubblico include anche appendici dedicate al lavoro sul testo, al worldbuilding e all'uso legato alle immagini.</p>
+<h2 id="tool-responsibility-direction">Strumento, responsabilità, direzione</h2>
+<p>Il principio centrale del manuale è semplice: un modello linguistico è uno strumento potente, ma resta uno strumento.</p>
+<p>Può amplificare un processo. Non eredita la responsabilità. Intenzione, precisione, giudizio, criteri di accettazione e responsabilità etica restano umani.</p>
+<p>Per questo il manuale non si concentra soltanto su ciò che un modello può fare, ma su come una persona dovrebbe lavorare quando lo usa.</p>
+<h2 id="project-status">Stato del progetto</h2>
+<p><em>Manuale LLM</em> è una bozza pubblica in sviluppo attivo. Va letto come un progetto di metodo in evoluzione, non come una pubblicazione istituzionale definitiva.</p>
+<p>Il repository è l'attuale punto di riferimento pubblico.</p>
+</article></div></div></section></main><footer class="site-footer" data-astro-cid-3a5wmu7c="" id="about"><div class="container site-footer__inner" data-astro-cid-ygbe67ah="true"><div class="site-footer__brand" data-astro-cid-3a5wmu7c=""><img alt="" data-astro-cid-3a5wmu7c="" height="900" src="/assets/brand/gvibe-symbol.webp" width="691"/><div data-astro-cid-3a5wmu7c=""><strong data-astro-cid-3a5wmu7c="">G Vibe Dev</strong><p data-astro-cid-3a5wmu7c="">Laboratorio digitale indipendente.</p></div></div><p class="site-footer__note" data-astro-cid-3a5wmu7c="">Giochi, strumenti, mondi ed esperimenti costruiti attraverso direzione umana, iterazione, test e sviluppo assistito dall’IA.</p><div class="site-footer__meta" data-astro-cid-3a5wmu7c=""><span data-astro-cid-3a5wmu7c="">gvibedev.cc</span><a data-astro-cid-3a5wmu7c="" href="https://github.com/GVibeDev" rel="noopener noreferrer" target="_blank">GitHub ↗</a></div></div></footer></body></html>

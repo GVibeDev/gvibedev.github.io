@@ -1,0 +1,345 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import ProjectActions from '../components/project/ProjectActions.astro';
+import ProjectGallery from '../components/project/ProjectGallery.astro';
+import ArenaRubraFactionGrid from '../components/arena-rubra/ArenaRubraFactionGrid.astro';
+import ArenaRubraEcosystemLinks from '../components/arena-rubra/ArenaRubraEcosystemLinks.astro';
+import {
+  arenaRubraUniverse,
+  arenaRubraTestingSummary,
+  arenaRubraTestAreas,
+} from '../data/shared/arena-rubra';
+
+interface Props { project: CollectionEntry<'projects'>; }
+const { project } = Astro.props;
+const { data } = project;
+
+const digitalSystems = [
+  ['Executable rules', 'The browser build resolves movement, combat, states, targeting, ENE, deployment and victory checks as an executable rules environment rather than a static presentation.'],
+  ['Control Center', 'Play, card tools, maps, analysis, settings, version information and diagnostics are gathered into one operational hub.'],
+  ['Cards & decks', 'A card library, rendered card data and deck-building workflows let the content layer be inspected and changed without losing the rules context.'],
+  ['Maps', 'Official and custom battlefields can be inspected, validated and edited through a dedicated hex-map workflow.'],
+  ['Guided tutorials', 'Structured lessons use narrator overlays, highlights and controlled states to teach rules inside the actual game.'],
+  ['AI opponents', 'Automated players are used both as opponents and as repeatable behavioural test subjects for faction doctrines.'],
+  ['Telemetry & history', 'Match state, seeds, economy, card use and other runtime evidence can be exported and inspected instead of relying only on memory.'],
+  ['Diagnostics', 'Debug, logs, import/export and explicit baseline information make regressions easier to reproduce and compare.'],
+];
+
+const digitalFactionNotes: Record<string, string> = {
+  nexus: 'Digital doctrine work focuses on stable network growth, Strategic Point commitment and converting a mature position into actual offensive projection.',
+  exordium: 'The AI is tested for combined-arms timing, Commander deployment, forward commitments and the ability to turn formation into sustained assault.',
+  liberti: 'Digital tests watch whether numbers and aggression become useful pressure rather than simple clustering or wasteful exposure.',
+  agathoi: 'The rules environment makes it possible to test whether resilience and Structures eventually create movement and counter-pressure instead of permanent passivity.',
+  fabeot: 'Automated play is used to inspect whether economic disruption, denial and conditional effects genuinely alter enemy decisions rather than merely add noise.',
+};
+
+const investigationExamples = [
+  'Faction starvation',
+  'Territorial clustering',
+  'Commander deployment',
+  'Aggression timing',
+  'Strategic Point commitment',
+  'Defensive overcommitment',
+  'Path / occupancy behaviour',
+  'Effective attack value',
+  'Match duration',
+  'Faction asymmetry',
+];
+
+const digitalStrengths = ['Repetition', 'Simulation', 'Telemetry', 'AI testing', 'Edge cases', 'Rapid balancing'];
+const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load', 'Component clarity', 'Human decision flow', 'Manual rule discipline'];
+---
+
+<BaseLayout title={data.title} description={data.seoDescription ?? data.summary} image={data.socialImage ?? data.cover}>
+  <div class="digital-page">
+    <section class="digital-hero">
+      <Container>
+        <a class="digital-back" href="/web-apps/">← Web Apps</a>
+        <div class="digital-hero__head">
+          <div class="digital-hero__copy">
+            <div class="digital-kicker">
+              <span>Playable browser project</span>
+              {data.status && <span>{data.status}</span>}
+            </div>
+            <h1>Arena Rubra</h1>
+            <p>{data.summary}</p>
+            <ProjectActions links={data.links} />
+          </div>
+          <aside class="digital-status">
+            <span>Digital branch</span>
+            <strong>Rules that can be played, measured and challenged.</strong>
+            <p>The browser build is both a playable game and a development environment for testing the strategic system.</p>
+          </aside>
+        </div>
+
+        {data.heroImage && (
+          <figure class="digital-hero__media">
+            <img src={data.heroImage} alt={data.heroAlt ?? ''} width="1672" height="941" fetchpriority="high" />
+          </figure>
+        )}
+      </Container>
+    </section>
+
+    <section class="digital-arena section-block">
+      <Container>
+        <div class="split-heading">
+          <div>
+            <span class="eyebrow">The Digital Arena</span>
+            <h2>Not simply the tabletop game on a screen.</h2>
+          </div>
+          <div class="lead-copy">
+            <p>Arena Rubra Digital turns the rules into an environment that can be executed repeatedly, inspected and revised. The visible match is only one part of the application.</p>
+            <p>Deck tools, map authoring, tutorials, AI opponents, history, telemetry and diagnostics make the browser version useful both to players and to the design process itself.</p>
+          </div>
+        </div>
+        <div class="systems-grid">
+          {digitalSystems.map(([title, body]) => (
+            <article><h3>{title}</h3><p>{body}</p></article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="evidence-section section-block">
+      <Container>
+        <div class="evidence-grid">
+          <figure>
+            <img src="/assets/projects/arena-rubra/v012/control-center.webp" alt="Arena Rubra Control Center showing play, card, map, analysis and system tools." width="1600" height="900" loading="lazy" decoding="async" />
+          </figure>
+          <div>
+            <span class="eyebrow">A project with instruments</span>
+            <h2>The game carries its workshop with it.</h2>
+            <p>The Control Center exposes the parts normally hidden behind a development build: content, maps, statistics, telemetry, logs, version state, settings, diagnostics and archive operations.</p>
+            <p>That matters because a behavioural problem can be traced through evidence instead of being reduced to “the match felt wrong.”</p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="faction-section section-block">
+      <Container>
+        <div class="section-heading">
+          <span>The five factions</span>
+          <h2>One canonical identity, expressed through executable doctrine.</h2>
+          <p>The common faction descriptions below come from the shared Arena Rubra data source used by both Digital and Tabletop. The digital branch adds a testing interpretation rather than maintaining a second copy of the canon.</p>
+        </div>
+        <ArenaRubraFactionGrid />
+        <div class="doctrine-grid">
+          {Object.entries(digitalFactionNotes).map(([id, body]) => (
+            <article>
+              <span>{id}</span>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="testing-lab section-block">
+      <Container>
+        <div class="testing-heading">
+          <div>
+            <span class="eyebrow">Testing lab</span>
+            <h2>The game is also its own test lab.</h2>
+          </div>
+          <aside class="testing-volume" aria-label="Arena Rubra testing volume">
+            <strong>{arenaRubraTestingSummary.stat}</strong>
+            <span>{arenaRubraTestingSummary.statLabel}</span>
+          </aside>
+        </div>
+
+        <div class="testing-body">
+          <p>{arenaRubraTestingSummary.body}</p>
+          <blockquote>{arenaRubraTestingSummary.principle}</blockquote>
+          <code>{arenaRubraTestingSummary.cycle}</code>
+        </div>
+
+        <div class="investigation-grid" aria-label="Examples of Arena Rubra investigations">
+          {investigationExamples.map((item) => <span>{item}</span>)}
+        </div>
+
+        <figure class="telemetry-media">
+          <img src="/assets/projects/arena-rubra/v012/telemetry.webp" alt="Arena Rubra telemetry panel showing match schema, seed and player data with JSON export controls." width="1600" height="900" loading="lazy" decoding="async" />
+          <figcaption>Telemetry is treated as design evidence, not decoration.</figcaption>
+        </figure>
+      </Container>
+    </section>
+
+    <section class="what-we-test section-block">
+      <Container>
+        <div class="section-heading section-heading--compact">
+          <span>What we test</span>
+          <h2>Winning is only one signal.</h2>
+        </div>
+        <div class="test-grid">
+          {arenaRubraTestAreas.map(([title, body]) => (
+            <article><h3>{title}</h3><p>{body}</p></article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="two-forms section-block">
+      <Container>
+        <div class="split-heading">
+          <div>
+            <span class="eyebrow">One world. Two playable forms.</span>
+            <h2>Digital and Tabletop test different weaknesses.</h2>
+          </div>
+          <div class="lead-copy">
+            <p>{arenaRubraUniverse.relationship}</p>
+            <p>The goal is not numerical identity between the two versions. The goal is preservation of the same strategic character while each medium is allowed to demand different solutions.</p>
+          </div>
+        </div>
+
+        <div class="medium-grid">
+          <article>
+            <span>Digital is good at</span>
+            <div>{digitalStrengths.map((item) => <small>{item}</small>)}</div>
+          </article>
+          <article>
+            <span>Tabletop is good at</span>
+            <div>{tabletopStrengths.map((item) => <small>{item}</small>)}</div>
+          </article>
+        </div>
+
+        <ArenaRubraEcosystemLinks currentSlug="arena-rubra-digital" />
+      </Container>
+    </section>
+
+    {data.gallery.length > 0 && (
+      <section class="digital-gallery section-block">
+        <Container><ProjectGallery items={data.gallery} /></Container>
+      </section>
+    )}
+
+    <section class="digital-story section-block">
+      <Container>
+        <div class="digital-story__grid">
+          <aside>
+            <span>Human-directed development</span>
+            <strong>Automation does not choose what deserves to stay.</strong>
+            <p>The build can generate evidence quickly. Requirements, acceptance criteria, interpretation and final design decisions remain human responsibilities.</p>
+          </aside>
+          <article class="digital-prose"><slot /></article>
+        </div>
+      </Container>
+    </section>
+
+    {data.endcapImage && (
+      <section class="digital-endcap">
+        <Container>
+          <figure><img src={data.endcapImage} alt={data.endcapAlt ?? ''} width="1672" height="941" loading="lazy" decoding="async" /></figure>
+        </Container>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .digital-page {
+    --digital-blue: var(--color-blue-soft);
+    --digital-red: var(--color-red-soft);
+    --digital-line: var(--color-border);
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+  .section-block { padding-block: var(--section-space); }
+  .eyebrow, .section-heading > span, .digital-kicker, .digital-status > span, .medium-grid article > span, .digital-story aside > span {
+    color: var(--digital-blue); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase;
+  }
+  .digital-hero { padding-block: clamp(2rem,5vw,4.5rem) clamp(3rem,7vw,6rem); border-bottom: 1px solid var(--digital-line); background: var(--color-bg-deep); }
+  .digital-back { display: inline-flex; margin-bottom: clamp(2rem,4vw,3.5rem); color: var(--color-text-muted); font-family: var(--font-mono); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+  .digital-back:hover { color: var(--digital-blue); }
+  .digital-hero__head { display: grid; gap: 2rem; align-items: end; margin-bottom: clamp(2rem,5vw,3.5rem); }
+  .digital-hero__copy { display: grid; gap: 1.25rem; max-width: 56rem; }
+  .digital-kicker { display: flex; flex-wrap: wrap; gap: .7rem 1.1rem; }
+  .digital-kicker span:last-child { color: var(--digital-red); }
+  .digital-hero h1 { margin: 0; font-size: clamp(3.2rem,9vw,7.6rem); line-height: .87; letter-spacing: -.065em; }
+  .digital-hero__copy > p { max-width: 52rem; margin: 0; color: var(--color-text-muted); font-size: clamp(1.08rem,1rem + .45vw,1.4rem); line-height: 1.68; }
+  .digital-status { display: grid; gap: .7rem; max-width: 26rem; padding: 1.2rem; border: 1px solid var(--digital-line); background: var(--color-surface-1); }
+  .digital-status strong { font-size: 1.12rem; }
+  .digital-status p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.62; }
+  .digital-hero__media { overflow: hidden; margin: 0; border: 1px solid var(--color-border-strong); border-radius: var(--radius-lg); background: #020305; box-shadow: var(--shadow-lg); }
+  .digital-hero__media img { display: block; width: 100%; height: auto; }
+
+  .digital-arena { border-bottom: 1px solid var(--digital-line); }
+  .split-heading { display: grid; gap: 2rem; margin-bottom: 2rem; }
+  .split-heading > div:first-child, .section-heading { display: grid; gap: .8rem; align-content: start; }
+  .split-heading h2, .section-heading h2, .evidence-grid h2, .testing-heading h2 { margin: 0; font-size: clamp(2.2rem,5vw,4.8rem); line-height: .98; letter-spacing: -.05em; }
+  .lead-copy { display: grid; gap: 1rem; }
+  .lead-copy p, .evidence-grid p, .testing-body p { margin: 0; color: var(--color-text-muted); line-height: 1.78; }
+  .lead-copy p:first-child { color: var(--color-text); font-size: 1.05rem; }
+  .systems-grid { display: grid; gap: .8rem; }
+  .systems-grid article, .test-grid article, .doctrine-grid article { display: grid; gap: .6rem; padding: 1rem; border: 1px solid var(--digital-line); background: var(--color-surface-1); }
+  .systems-grid h3, .test-grid h3 { margin: 0; color: var(--color-text); font-size: 1rem; }
+  .systems-grid p, .test-grid p, .doctrine-grid p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.65; }
+
+  .evidence-section { border-bottom: 1px solid var(--digital-line); background: var(--color-bg-deep); }
+  .evidence-grid { display: grid; gap: 2rem; align-items: center; }
+  .evidence-grid figure, .telemetry-media { overflow: hidden; margin: 0; border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); background: #020305; }
+  .evidence-grid img, .telemetry-media img { display: block; width: 100%; height: auto; }
+  .evidence-grid > div { display: grid; gap: 1rem; }
+
+  .faction-section { border-bottom: 1px solid var(--digital-line); }
+  .section-heading { max-width: 58rem; margin-bottom: 2rem; }
+  .section-heading > p { margin: 0; color: var(--color-text-muted); line-height: 1.72; }
+  .section-heading--compact h2 { max-width: 16ch; }
+  .doctrine-grid { display: grid; gap: .8rem; margin-top: 1rem; }
+  .doctrine-grid span { color: var(--digital-blue); font-family: var(--font-mono); font-size: .68rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+
+  .testing-lab { border-bottom: 1px solid var(--digital-line); background: var(--color-bg-deep); }
+  .testing-heading { display: grid; gap: 2rem; align-items: start; }
+  .testing-heading > div { display: grid; gap: .8rem; }
+  .testing-volume { display: grid; gap: .35rem; padding: 1rem; border: 1px solid var(--color-border-strong); background: var(--color-surface-1); }
+  .testing-volume strong { color: var(--color-text); font-size: clamp(2.4rem,7vw,4.4rem); line-height: .9; letter-spacing: -.06em; }
+  .testing-volume span { color: var(--color-text-muted); font-family: var(--font-mono); font-size: .68rem; font-weight: 800; line-height: 1.5; text-transform: uppercase; }
+  .testing-body { display: grid; gap: 1rem; max-width: 62rem; margin-top: 2rem; }
+  .testing-body blockquote { margin: 0; padding: 1rem 1.1rem; border-left: 2px solid var(--digital-blue); color: var(--color-text); background: var(--color-surface-1); font-family: Georgia, 'Times New Roman', serif; font-size: 1.12rem; line-height: 1.65; }
+  .testing-body code { width: fit-content; max-width: 100%; padding: .55rem .7rem; overflow-wrap: anywhere; border: 1px solid var(--digital-line); color: var(--digital-blue); background: #05070a; font-family: var(--font-mono); font-size: .74rem; }
+  .investigation-grid { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.4rem; }
+  .investigation-grid span { padding: .4rem .55rem; border: 1px solid var(--digital-line); color: var(--color-text-muted); background: var(--color-surface-1); font-family: var(--font-mono); font-size: .65rem; font-weight: 800; text-transform: uppercase; }
+  .telemetry-media { margin-top: 2rem; }
+  .telemetry-media figcaption { padding: .75rem .9rem; border-top: 1px solid var(--digital-line); color: var(--color-text-subtle); font-family: var(--font-mono); font-size: .68rem; }
+
+  .what-we-test { border-bottom: 1px solid var(--digital-line); }
+  .test-grid { display: grid; gap: .8rem; }
+
+  .two-forms { border-bottom: 1px solid var(--digital-line); background: var(--color-bg-deep); }
+  .medium-grid { display: grid; gap: .8rem; margin-bottom: 2rem; }
+  .medium-grid article { display: grid; gap: .8rem; padding: 1rem; border: 1px solid var(--digital-line); background: var(--color-surface-1); }
+  .medium-grid article > div { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .medium-grid small { padding: .35rem .45rem; border: 1px solid var(--digital-line); color: var(--color-text-muted); font-family: var(--font-mono); font-size: .64rem; font-weight: 800; text-transform: uppercase; }
+
+  .digital-gallery { border-bottom: 1px solid var(--digital-line); }
+  .digital-story { background: var(--color-bg-deep); }
+  .digital-story__grid { display: grid; gap: 3rem; }
+  .digital-story aside { display: grid; align-content: start; gap: .8rem; padding: 1.1rem; border: 1px solid var(--digital-line); background: var(--color-surface-1); }
+  .digital-story aside p { margin: 0; color: var(--color-text-muted); font-size: .9rem; line-height: 1.65; }
+  :global(.digital-prose) { max-width: 54rem; }
+  :global(.digital-prose h2) { margin: 0 0 1.1rem; font-size: clamp(2rem,4vw,3.5rem); line-height: 1; letter-spacing: -.045em; }
+  :global(.digital-prose h2:not(:first-child)) { margin-top: 4rem; }
+  :global(.digital-prose p) { margin: 0 0 1.25rem; color: var(--color-text-muted); font-size: clamp(1rem,.96rem + .15vw,1.08rem); line-height: 1.8; }
+  :global(.digital-prose strong) { color: var(--color-text); }
+  .digital-endcap { padding-block: 0 var(--section-space); background: var(--color-bg-deep); }
+  .digital-endcap figure { overflow: hidden; margin: 0; border: 1px solid var(--digital-line); border-radius: var(--radius-lg); }
+  .digital-endcap img { display: block; width: 100%; height: auto; }
+
+  @media (min-width: 40rem) {
+    .systems-grid, .test-grid, .doctrine-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .medium-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  }
+  @media (min-width: 60rem) {
+    .digital-hero__head { grid-template-columns: minmax(0,1fr) 25rem; gap: 4rem; }
+    .split-heading { grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 4rem; align-items: start; }
+    .systems-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .evidence-grid { grid-template-columns: minmax(0,1.25fr) minmax(20rem,.75fr); gap: 4rem; }
+    .doctrine-grid { grid-template-columns: repeat(5,minmax(0,1fr)); }
+    .testing-heading { grid-template-columns: minmax(0,1fr) minmax(16rem,.42fr); gap: 4rem; }
+    .test-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    .digital-story__grid { grid-template-columns: 18rem minmax(0,1fr); gap: clamp(3rem,7vw,6rem); align-items: start; }
+    .digital-story aside { position: sticky; top: 6.5rem; }
+  }
+</style>

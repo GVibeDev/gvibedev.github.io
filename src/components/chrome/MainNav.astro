@@ -1,15 +1,35 @@
 ---
 import { primaryNavigation } from '../../config/navigation';
 import { siteConfig } from '../../config/site';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getUi } from '../../i18n/ui';
+
+interface Props {
+  locale: Locale;
+  pathname: string;
+}
+
+const { locale, pathname } = Astro.props;
+const strings = getUi(locale);
+const normalize = (value: string) => value === '/' ? '/' : value.endsWith('/') ? value : `${value}/`;
 ---
 
-<nav class="main-nav" aria-label="Primary navigation">
+<nav class="main-nav" aria-label={strings.primaryNavigation}>
   <ul>
-    {primaryNavigation.map((item) => (
-      <li><a href={item.href}>{item.label}</a></li>
-    ))}
+    {primaryNavigation.map((item) => {
+      const href = getNavigationPath(item.href, locale);
+      const current = normalize(pathname) === normalize(href);
+      return (
+        <li>
+          <a href={href} aria-current={current ? 'page' : undefined}>
+            {strings.nav[item.key]}
+          </a>
+        </li>
+      );
+    })}
     <li>
-      <a class="main-nav__github" href={siteConfig.github} target="_blank" rel="noreferrer">
+      <a class="main-nav__github" href={siteConfig.github} target="_blank" rel="noopener noreferrer">
         GitHub <span aria-hidden="true">↗</span>
       </a>
     </li>
@@ -17,45 +37,12 @@ import { siteConfig } from '../../config/site';
 </nav>
 
 <style>
-  .main-nav {
-    display: none;
-  }
-
-  ul {
-    display: flex;
-    align-items: center;
-    gap: clamp(0.8rem, 1.3vw, 1.35rem);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  a {
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    font-weight: 650;
-    letter-spacing: 0.035em;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  a:hover,
-  a:focus-visible {
-    color: var(--color-text);
-  }
-
-  .main-nav__github {
-    color: var(--color-blue-soft);
-  }
-
-  .main-nav__github span {
-    color: var(--color-red-bright);
-  }
-
-  @media (min-width: 60rem) {
-    .main-nav {
-      display: block;
-    }
-  }
+  .main-nav { display: none; }
+  ul { display:flex; align-items:center; gap:clamp(.65rem,1.05vw,1.15rem); margin:0; padding:0; list-style:none; }
+  a { color:var(--color-text-muted); font-family:var(--font-mono); font-size:.72rem; font-weight:650; letter-spacing:.025em; text-decoration:none; white-space:nowrap; }
+  a:hover, a:focus-visible, a[aria-current="page"] { color:var(--color-text); }
+  a[aria-current="page"] { text-decoration:underline; text-decoration-color:var(--color-blue-soft); text-underline-offset:.35rem; }
+  .main-nav__github { color:var(--color-blue-soft); }
+  .main-nav__github span { color:var(--color-red-bright); }
+  @media (min-width:60rem) { .main-nav { display:block; } }
 </style>

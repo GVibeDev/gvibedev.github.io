@@ -1,0 +1,132 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import ProjectCard from '../../components/cards/ProjectCard.astro';
+
+const projects = (await getCollection('projects'))
+  .filter((project) => project.data.section === 'biggitykot')
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const profileUrl = 'https://github.com/pizza-990';
+---
+
+<BaseLayout
+  title="BiggityKot"
+  description="BiggityKot is a separate black-and-white project channel inside GVibeDev, focused on playable experiments and compact game prototypes."
+>
+  <section class="bk-index">
+    <Container>
+      <div class="bk-index__hero">
+        <span class="bk-index__eyebrow">Side channel / independent experiments</span>
+        <div class="bk-index__title-row">
+          <h1>BiggityKot.</h1>
+          <a href={profileUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
+        </div>
+        <p>
+          A separate channel inside GVibeDev for smaller, faster and more playful projects. The presentation stays
+          deliberately monochrome; the work is allowed to be rougher, stranger and more experimental.
+        </p>
+      </div>
+
+      <div class="bk-index__rule" aria-hidden="true"><span></span><span></span><span></span></div>
+
+      <div class="bk-index__grid">
+        {projects.map((project) => <ProjectCard project={project} featured={project.data.featured} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .bk-index {
+    min-height: 70vh;
+    padding-block: clamp(3rem, 8vw, 7rem) var(--section-space);
+    background:
+      repeating-linear-gradient(90deg, transparent 0 79px, rgba(255,255,255,0.018) 79px 80px),
+      var(--color-bg);
+  }
+
+  .bk-index__hero {
+    display: grid;
+    gap: 1.2rem;
+    max-width: 67rem;
+    margin-bottom: clamp(2rem, 6vw, 4rem);
+  }
+
+  .bk-index__eyebrow {
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .bk-index__title-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    align-items: end;
+    justify-content: space-between;
+  }
+
+  h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(3.5rem, 11vw, 8.5rem);
+    line-height: 0.84;
+    letter-spacing: -0.075em;
+  }
+
+  .bk-index__title-row a {
+    margin-bottom: 0.4rem;
+    padding: 0.72rem 0.95rem;
+    border: 1px solid #fff;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .bk-index__title-row a:hover {
+    color: #050505;
+    background: #fff;
+  }
+
+  .bk-index__hero p {
+    max-width: 54rem;
+    margin: 0;
+    color: #b7b7b7;
+    font-size: clamp(1.05rem, 1rem + 0.3vw, 1.3rem);
+    line-height: 1.72;
+  }
+
+  .bk-index__rule {
+    display: grid;
+    grid-template-columns: 1fr 3rem 0.5rem;
+    gap: 0.5rem;
+    margin-bottom: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .bk-index__rule span {
+    height: 3px;
+    background: #fff;
+  }
+
+  .bk-index__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 40rem) {
+    .bk-index__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 70rem) {
+    .bk-index__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>

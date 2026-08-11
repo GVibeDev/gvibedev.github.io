@@ -7,57 +7,105 @@ import '../styles/utilities.css';
 import SiteHeader from '../components/chrome/SiteHeader.astro';
 import SiteFooter from '../components/chrome/SiteFooter.astro';
 import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/config';
+import {
+  getLocaleFromPath,
+  getEquivalentPath,
+  hasItalianEquivalent,
+  localeMeta,
+} from '../i18n/config';
+import { getUi } from '../i18n/ui';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  locale?: Locale;
+  noindex?: boolean;
 }
 
 const {
   title = siteConfig.name,
   description = siteConfig.description,
   image = siteConfig.socialImage,
+  locale: localeProp,
+  noindex = false,
 } = Astro.props;
+
+const locale = localeProp ?? getLocaleFromPath(Astro.url.pathname);
+const strings = getUi(locale);
+const meta = localeMeta[locale];
 
 const pageTitle = title === siteConfig.name ? title : `${title} · ${siteConfig.name}`;
 const canonical = new URL(Astro.url.pathname, siteConfig.site).toString();
 const socialImage = new URL(image, siteConfig.site).toString();
+
+const translated = hasItalianEquivalent(Astro.url.pathname);
+const englishPath = translated ? getEquivalentPath(Astro.url.pathname, 'en') : null;
+const italianPath = translated ? getEquivalentPath(Astro.url.pathname, 'it') : null;
+const englishUrl = englishPath ? new URL(englishPath, siteConfig.site).toString() : null;
+const italianUrl = italianPath ? new URL(italianPath, siteConfig.site).toString() : null;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': Astro.url.pathname === '/' || Astro.url.pathname === '/it/' ? 'WebSite' : 'WebPage',
+  name: pageTitle,
+  url: canonical,
+  description,
+  inLanguage: meta.htmlLang,
+  ...(Astro.url.pathname === '/' || Astro.url.pathname === '/it/'
+    ? { sameAs: [siteConfig.github] }
+    : { isPartOf: { '@type': 'WebSite', name: siteConfig.name, url: siteConfig.site } }),
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#05070A" />
     <meta name="color-scheme" content="dark" />
+    <meta name="author" content="GVibeDev" />
+    <meta name="application-name" content="G Vibe Dev" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+
+    {translated && englishUrl && <link rel="alternate" hreflang="en" href={englishUrl} />}
+    {translated && italianUrl && <link rel="alternate" hreflang="it" href={italianUrl} />}
+    {translated && englishUrl && <link rel="alternate" hreflang="x-default" href={englishUrl} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {translated && <meta property="og:locale:alternate" content={locale === 'en' ? localeMeta.it.ogLocale : localeMeta.en.ogLocale} />}
     <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={`${pageTitle} — G Vibe Dev social preview`} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={`${pageTitle} — G Vibe Dev social preview`} />
 
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/assets/icons/icon-192.png" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body id="top">
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <SiteHeader />
+    <a class="skip-link" href="#main-content">{strings.skip}</a>
+    <SiteHeader locale={locale} pathname={Astro.url.pathname} />
     <main id="main-content">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter locale={locale} />
   </body>
 </html>
