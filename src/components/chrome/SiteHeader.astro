@@ -20,12 +20,8 @@ const { locale, pathname } = Astro.props;
       <img src="/assets/brand/gvibe-wordmark.webp" alt="G Vibe Dev" width="1200" height="392" />
     </a>
 
-    <div class="site-header__desktop">
+    <div class="site-header__controls">
       <MainNav locale={locale} pathname={pathname} />
-      <LanguageSwitch locale={locale} pathname={pathname} />
-    </div>
-
-    <div class="site-header__mobile">
       <LanguageSwitch locale={locale} pathname={pathname} />
       <MobileNav locale={locale} pathname={pathname} />
     </div>
@@ -65,20 +61,17 @@ const { locale, pathname } = Astro.props;
     height: auto;
   }
 
-  .site-header__desktop {
-    display: none;
-    align-items: center;
-    gap: .8rem;
-  }
-
-  .site-header__mobile {
+  .site-header__controls {
     display: flex;
+    min-width: 0;
     align-items: center;
-    gap: .55rem;
+    justify-content: flex-end;
+    gap: .7rem;
   }
 
-  @media (min-width: 60rem) {
-    .site-header__desktop { display: flex; }
-    .site-header__mobile { display: none; }
+  @media (max-width: 59.999rem) {
+    .site-header__controls {
+      gap: .5rem;
+    }
   }
 </style>
