@@ -24,18 +24,3 @@ If dependencies are already present, use:
 If you extract this package into a clean directory and node_modules is unavailable:
     npm install
     npm run dev
-
-
-HEADER NAVIGATION HOTFIX
-------------------------
-The English-source header has been simplified to remove the extra desktop/mobile
-wrapper visibility layer. Please re-test at:
-
-    http://localhost:4321/
-    http://localhost:4321/projects/
-
-Expected desktop header:
-    Home · Projects · Web Apps · Tools · Worlds · BiggityKot · Manifesto · About · Contact · GitHub · EN | IT
-
-Expected narrow/mobile header:
-    EN | IT · Menu
