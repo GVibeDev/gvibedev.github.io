@@ -1,28 +1,52 @@
-GVibeDev.cc V0.17 — NAVFIX PATCH
-=================================
+GVibeDev.cc V0.17 — NAVDATA HOTFIX
+==================================
 
-Target baseline:
-GVibeDev_cc_V0.17_FULL_SOURCE_READY
+CAUSE
+-----
+MainNav.astro and MobileNav.astro render labels with:
 
-Replace these files in the project:
+    strings.nav[item.key]
 
-1. src/components/chrome/SiteHeader.astro
-2. src/components/chrome/MainNav.astro
+but the navigation configuration currently published on GitHub contains only:
 
-Then run:
+    { label, href }
 
-    npm run dev
+and has no `key`.
 
-Desktop expected:
-Home · Projects · Web Apps · Tools · Worlds · BiggityKot · Manifesto · About · Contact · GitHub · EN | IT
+During Astro production build, `item.key` is therefore undefined and the generated
+English navigation anchors contain no text. The GitHub link remains visible because
+it is hard-coded separately.
 
-Mobile expected:
-EN | IT · Menu
+The Italian pages remain visible because they are currently static localized pages
+whose navigation labels were already compiled into their HTML.
 
-What this patch fixes:
-- removes the extra desktop/mobile visibility wrapper layer from SiteHeader;
-- returns desktop visibility control to MainNav only;
-- leaves MobileNav responsible for mobile visibility;
-- keeps the EN | IT switch visible in both modes.
+FIX
+---
+Replace only:
 
-No localization content, project data, SEO metadata, routes, assets or other V0.17 files are changed.
+    src/config/navigation.ts
+
+Then:
+
+    npm run build
+
+Before pushing, inspect the generated:
+
+    dist/index.html
+
+and confirm the header contains visible labels such as:
+
+    Home
+    Projects
+    Web Apps
+    Tools
+    Worlds
+    BiggityKot
+    Manifesto
+    About
+    Contact
+
+Then commit and push.
+
+This patch also restores the full page routes for Web Apps, BiggityKot and Manifesto
+instead of the stale homepage anchors.
