@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
+import { ecosystemConfig, getVisibleChannels } from '../config/ecosystem';
+
+const publicChannels = getVisibleChannels();
+const email = ecosystemConfig.contact.email;
 ---
 
 <BaseLayout
@@ -25,15 +29,27 @@ import Container from '../components/ui/Container.astro';
     <section class="section-block">
       <Container>
         <div class="contact-grid">
-          <article class="contact-card">
-            <span class="eyebrow">GitHub</span>
-            <h2>Repositories, code and issues</h2>
-            <p>
-              For repository-level discussion, code questions or issue reporting, GitHub is the most
-              direct and useful channel.
-            </p>
-            <a href="https://github.com/GVibeDev" class="button button--primary">github.com/GVibeDev</a>
-          </article>
+          {publicChannels.map((channel) => (
+            <article class="contact-card">
+              <span class="eyebrow">{channel.label}</span>
+              <h2>{channel.id === 'github' ? 'Repositories, code and issues' : 'Public channel'}</h2>
+              <p>
+                {channel.id === 'github'
+                  ? 'For repository-level discussion, code questions or issue reporting, GitHub is the most direct and useful channel.'
+                  : 'This public channel is active and maintained by GVibeDev.'}
+              </p>
+              <a
+                href={channel.url!}
+                class="button button--primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="social"
+                data-analytics-channel={channel.id}
+              >
+                {channel.label}
+              </a>
+            </article>
+          ))}
 
           <article class="contact-card">
             <span class="eyebrow">Email</span>
@@ -42,7 +58,7 @@ import Container from '../components/ui/Container.astro';
               For general contact, collaborations, editorial questions, press or broader project
               conversations, email is the better option.
             </p>
-            <a href="mailto:gvibedev@gmail.com" class="button button--primary">gvibedev@gmail.com</a>
+            <a href={`mailto:${email}`} class="button button--primary">{email}</a>
           </article>
         </div>
       </Container>
@@ -96,8 +112,9 @@ import Container from '../components/ui/Container.astro';
             Just a small set of clear public channels.
           </p>
           <div class="note-actions">
-            <a href="mailto:gvibedev@gmail.com" class="button button--secondary">Send email</a>
+            <a href={`mailto:${email}`} class="button button--secondary">Send email</a>
             <a href="/about/" class="button button--secondary">About GVibeDev</a>
+            <a href="/support/" class="button button--secondary">Support GVibeDev</a>
           </div>
         </div>
       </Container>

@@ -1,0 +1,15 @@
+---
+import { ecosystemConfig } from '../../config/ecosystem';
+
+const analytics = ecosystemConfig.analytics;
+const active = analytics.enabled && Boolean(analytics.scriptSrc);
+---
+
+{active && analytics.scriptSrc && (
+  <script
+    src={analytics.scriptSrc}
+    defer
+    data-gvibedev-analytics={analytics.provider}
+    data-domain={analytics.siteDomain}
+  ></script>
+)}

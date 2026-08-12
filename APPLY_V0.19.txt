@@ -1,0 +1,26 @@
+GVibeDev.cc V0.19 — SUPPORT INFRASTRUCTURE + GROWTH FOUNDATION
+=============================================================
+
+Target:
+V0.18 validated baseline / current V0.17 production source with accepted V0.18 minor fixes.
+
+Apply this ZIP as an overlay at repository root.
+
+IMPORTANT
+---------
+No PayPal URL, social account, store page or analytics account has been invented.
+
+After applying:
+
+    npm run build
+
+Then validate `dist/` using VALIDATION_V0.19.md.
+
+The candidate MUST NOT be frozen solely from `npm run dev`.
+
+External input still required:
+1. real PayPal public support URL;
+2. decision/account for analytics activation and its site-specific script;
+3. real public URLs for future social/distribution/crowdfunding channels;
+4. future Sprite Studio release/download endpoints;
+5. future Arena Rubra Community Depot / commercial endpoints.

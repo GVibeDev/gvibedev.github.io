@@ -20,6 +20,16 @@ cardImage: /assets/projects/sprite-studio/card-cover.webp
 cardImageAlt: Unum Sunt Sprite Studio production view with a cleaned pixel-art character and application branding.
 cardImagePosition: center
 links: {}
+distribution:
+  currentVersion: Development Preview
+  plannedSections:
+    - download
+    - documentation
+    - requirements
+    - tutorials
+    - changelog
+    - github
+    - support
 pageReady: true
 heroImage: /assets/projects/sprite-studio/cleanup.webp
 heroAlt: Unum Sunt Sprite Studio Clean-up workspace with a pixel-art character on transparency and precision editing controls.

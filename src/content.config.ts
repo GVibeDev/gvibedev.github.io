@@ -2,13 +2,59 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+const projectActionSchema = z.object({
+  type: z.enum([
+    'play',
+    'download',
+    'support',
+    'wishlist',
+    'buy',
+    'follow-development',
+    'github',
+    'join-playtest',
+    'kickstarter',
+    'documentation',
+    'tutorials',
+    'changelog',
+    'community',
+    'cards',
+    'decks',
+    'maps',
+  ]),
+  label: z.string().optional(),
+  href: z.string().min(1),
+  primary: z.boolean().default(false),
+  newTab: z.boolean().default(false),
+});
+
 const linksSchema = z
   .object({
     repositoryUrl: z.string().url().optional(),
     launchUrl: z.string().url().optional(),
     releaseUrl: z.string().url().optional(),
+    actions: z.array(projectActionSchema).default([]),
   })
-  .default({});
+  .default({ actions: [] });
+
+const distributionSchema = z.object({
+  currentVersion: z.string().optional(),
+  plannedSections: z.array(z.enum([
+    'play',
+    'starter-game',
+    'full-edition',
+    'community-depot',
+    'download',
+    'documentation',
+    'requirements',
+    'tutorials',
+    'changelog',
+    'github',
+    'support',
+    'cards',
+    'decks',
+    'maps',
+  ])).default([]),
+});
 
 const galleryItemSchema = z.object({
   src: z.string(),
@@ -94,6 +140,7 @@ const projects = defineCollection({
     cardImageAlt: z.string().optional(),
     cardImagePosition: z.string().optional(),
     links: linksSchema,
+    distribution: distributionSchema.optional(),
     pageReady: z.boolean().default(false),
     heroImage: z.string().optional(),
     heroAlt: z.string().optional(),

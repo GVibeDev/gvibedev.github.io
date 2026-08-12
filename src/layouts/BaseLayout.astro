@@ -6,6 +6,7 @@ import '../styles/global.css';
 import '../styles/utilities.css';
 import SiteHeader from '../components/chrome/SiteHeader.astro';
 import SiteFooter from '../components/chrome/SiteFooter.astro';
+import Analytics from '../components/system/Analytics.astro';
 import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/config';
 import {
@@ -99,6 +100,7 @@ const structuredData = {
     <link rel="manifest" href="/site.webmanifest" />
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <Analytics />
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">{strings.skip}</a>

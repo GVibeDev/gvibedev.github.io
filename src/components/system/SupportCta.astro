@@ -1,0 +1,82 @@
+---
+import { ecosystemConfig } from '../../config/ecosystem';
+import type { Locale } from '../../i18n/config';
+import { getSupportCopy } from '../../i18n/support';
+
+interface Props {
+  locale: Locale;
+  compact?: boolean;
+}
+
+const { locale, compact = false } = Astro.props;
+const copy = getSupportCopy(locale);
+const support = ecosystemConfig.support;
+const active = support.enabled && Boolean(support.url);
+---
+
+<div class:list={['support-cta', compact && 'support-cta--compact']}>
+  {active && support.url ? (
+    <a
+      class="support-cta__button"
+      href={support.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-analytics-event="support"
+      data-analytics-provider={support.provider}
+    >
+      {copy.cta} <span aria-hidden="true">↗</span>
+    </a>
+  ) : (
+    <>
+      <span class="support-cta__button support-cta__button--disabled" aria-disabled="true">
+        {copy.cta}
+      </span>
+      <small>{copy.unavailable}</small>
+    </>
+  )}
+</div>
+
+<style>
+  .support-cta {
+    display: grid;
+    gap: .65rem;
+    justify-items: start;
+  }
+
+  .support-cta__button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    padding: .75rem 1rem;
+    border: 1px solid var(--color-blue-soft);
+    border-radius: var(--radius-sm);
+    color: #08111e;
+    background: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .78rem;
+    font-weight: 850;
+    letter-spacing: .045em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .support-cta__button span { color: var(--color-red); }
+
+  .support-cta__button--disabled {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-muted);
+    background: var(--color-surface-2);
+    cursor: not-allowed;
+  }
+
+  small {
+    max-width: 42rem;
+    color: var(--color-text-muted);
+    font-size: .78rem;
+    line-height: 1.55;
+  }
+
+  .support-cta--compact small { max-width: 32rem; }
+</style>

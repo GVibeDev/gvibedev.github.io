@@ -1,5 +1,32 @@
 # Changelog
 
+## GV-PORTFOLIO V0.19 — Support Infrastructure + Growth Foundation
+
+- Added `/support/` and `/it/support/` as bilingual voluntary-support pages.
+- Added one central ecosystem configuration for Support, contact data, public/future channels and analytics activation.
+- Added PayPal-ready Support CTA logic with no invented or clickable placeholder URL.
+- Added Plausible-ready analytics infrastructure, disabled by default until a real site/account snippet is supplied.
+- Extended project data architecture with configurable future CTAs and distribution-information slots.
+- Added planned product-hub slots for Unum Sunt Sprite Studio and Arena Rubra without presenting them as implemented public features.
+- Consolidated Contact around centralized active channels and added discreet Support discovery from About/Contact.
+- Carried forward the V0.18 canonical Arena Rubra URL normalization and raw B&W Survivors `noindex` fix.
+- Preserved the validated EN/IT language switch and added Support to the translated-route registry.
+- Added the ecosystem roadmap and validation documentation.
+
+### Intentionally not activated
+
+- PayPal link: not configured.
+- Analytics collection: disabled.
+- YouTube / newsletter / itch.io / Steam / Kickstarter / Patreon: no public URLs configured and therefore not rendered.
+- Community Depot, commercial Arena Rubra edition, Sprite Studio public download/store pages: architecture only.
+
+## GV-PORTFOLIO V0.18 — Live Domain QA & Performance
+
+- Audited the actual GitHub Pages artifact after V0.17 production fixes.
+- Verified 36 indexable EN/IT portfolio URLs, metadata, hreflang, sitemap and internal links.
+- Established `npm run build` + `dist/` inspection as the mandatory pre-deployment validation gate.
+
+
 ## GV-PORTFOLIO V0.13 — About + Contact + Manuale LLM
 
 - Added a full `/about/` page for GVibeDev as a personal workshop rather than a corporate or agency-style profile.
@@ -25,5 +52,5 @@
 - Replaced the earlier sectional copy with five new public blocks: Synopsis, A Story Built in Cycles, Signals / How to Read Unum Sunt, Author's Note, and Development Status.
 - Preserved the existing visual identity, hero, preview library and editorial layout.
 - Added five new optimized project artworks to support the expanded sections without turning the page into a lore wiki.
-- Kept the page focused on the novel as a public-facing work in development rather than a full archive.
+- Kept the page focused on the novel as a public-facing work in development rather than a full lore archive.
 - Preserved the existing Italian and English preview PDF access.

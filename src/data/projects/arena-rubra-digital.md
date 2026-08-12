@@ -21,6 +21,19 @@ cardImagePosition: center
 links:
   repositoryUrl: https://github.com/GVibeDev/ArenaRubra
   launchUrl: https://gvibedev.cc/ArenaRubra/
+distribution:
+  currentVersion: Demo — Work in Progress
+  plannedSections:
+    - play
+    - starter-game
+    - full-edition
+    - community-depot
+    - cards
+    - decks
+    - maps
+    - documentation
+    - changelog
+    - support
 pageReady: true
 heroImage: /assets/projects/arena-rubra/hero-city.webp
 heroAlt: Arena Rubra key art showing a ruined monumental city under a stormy sky.

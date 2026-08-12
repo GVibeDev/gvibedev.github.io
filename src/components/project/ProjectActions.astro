@@ -1,18 +1,83 @@
 ---
+type ActionType =
+  | 'play'
+  | 'download'
+  | 'support'
+  | 'wishlist'
+  | 'buy'
+  | 'follow-development'
+  | 'github'
+  | 'join-playtest'
+  | 'kickstarter'
+  | 'documentation'
+  | 'tutorials'
+  | 'changelog'
+  | 'community'
+  | 'cards'
+  | 'decks'
+  | 'maps';
+
+interface DataAction {
+  type: ActionType;
+  label?: string;
+  href: string;
+  primary?: boolean;
+  newTab?: boolean;
+}
+
 interface Props {
   links: {
     repositoryUrl?: string;
     launchUrl?: string;
     releaseUrl?: string;
+    actions?: DataAction[];
   };
 }
 
 const { links } = Astro.props;
-const actions = [
-  links.launchUrl && { label: 'Launch App', href: links.launchUrl, primary: true },
-  links.repositoryUrl && { label: 'View on GitHub', href: links.repositoryUrl, primary: !links.launchUrl },
-  links.releaseUrl && { label: 'Download release', href: links.releaseUrl, primary: false },
-].filter(Boolean) as { label: string; href: string; primary: boolean }[];
+
+const defaultLabels: Record<ActionType, string> = {
+  play: 'Play',
+  download: 'Download',
+  support: 'Support',
+  wishlist: 'Wishlist',
+  buy: 'Buy',
+  'follow-development': 'Follow development',
+  github: 'View on GitHub',
+  'join-playtest': 'Join playtest',
+  kickstarter: 'Back on Kickstarter',
+  documentation: 'Documentation',
+  tutorials: 'Tutorials',
+  changelog: 'Changelog',
+  community: 'Community',
+  cards: 'Cards',
+  decks: 'Decks',
+  maps: 'Maps',
+};
+
+const legacy = [
+  links.launchUrl && { label: 'Launch App', href: links.launchUrl, primary: true, newTab: true, type: 'play' as ActionType },
+  links.repositoryUrl && { label: 'View on GitHub', href: links.repositoryUrl, primary: !links.launchUrl, newTab: true, type: 'github' as ActionType },
+  links.releaseUrl && { label: 'Download release', href: links.releaseUrl, primary: false, newTab: true, type: 'download' as ActionType },
+].filter(Boolean) as { label: string; href: string; primary: boolean; newTab: boolean; type: ActionType }[];
+
+const configured = (links.actions ?? [])
+  .filter((action) => Boolean(action.href))
+  .map((action) => ({
+    label: action.label ?? defaultLabels[action.type],
+    href: action.href,
+    primary: Boolean(action.primary),
+    newTab: Boolean(action.newTab),
+    type: action.type,
+  }));
+
+const seen = new Set<string>();
+const actions = [...legacy, ...configured].filter((action) => {
+  const key = `${action.label}|${action.href}`;
+  if (seen.has(key)) return false;
+  seen.add(key);
+  return true;
+});
 ---
 
 {actions.length > 0 && (
@@ -21,10 +86,12 @@ const actions = [
       <a
         class:list={['project-action', action.primary && 'project-action--primary']}
         href={action.href}
-        target="_blank"
-        rel="noreferrer"
+        target={action.newTab ? '_blank' : undefined}
+        rel={action.newTab ? 'noopener noreferrer' : undefined}
+        data-analytics-event="project-cta"
+        data-analytics-action={action.type}
       >
-        {action.label} <span aria-hidden="true">↗</span>
+        {action.label} {action.newTab && <span aria-hidden="true">↗</span>}
       </a>
     ))}
   </div>
@@ -61,11 +128,6 @@ const actions = [
     background: linear-gradient(180deg, color-mix(in srgb, var(--color-blue) 78%, #fff 6%), var(--color-blue-deep));
   }
 
-  .project-action span {
-    color: var(--color-red-soft);
-  }
-
-  .project-action:hover {
-    border-color: var(--color-blue-soft);
-  }
+  .project-action span { color: var(--color-red-soft); }
+  .project-action:hover { border-color: var(--color-blue-soft); }
 </style>
