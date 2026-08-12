@@ -17,8 +17,8 @@ export type EcosystemChannel = {
 
 export const ecosystemConfig = {
   release: {
-    version: '0.19',
-    milestone: 'Support Infrastructure + Growth Foundation',
+    version: '0.20',
+    milestone: 'Shared Localized Shell Consolidation',
   },
 
   contact: {

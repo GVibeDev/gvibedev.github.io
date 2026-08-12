@@ -1,0 +1,23 @@
+GVibeDev.cc V0.20 — files that must be removed before production build
+
+V0.20 replaces the following full-document Italian HTML routes with Astro wrappers.
+If this patch is overlaid on V0.19, delete these files before `npm run build`:
+
+src/pages/it/index.html
+src/pages/it/about/index.html
+src/pages/it/biggitykot/index.html
+src/pages/it/contact/index.html
+src/pages/it/manifesto/index.html
+src/pages/it/projects/index.html
+src/pages/it/projects/arena-rubra-board-game/index.html
+src/pages/it/projects/arena-rubra-card-composer/index.html
+src/pages/it/projects/arena-rubra-digital/index.html
+src/pages/it/projects/bw-survivors/index.html
+src/pages/it/projects/manuale-llm/index.html
+src/pages/it/projects/rubra-composer/index.html
+src/pages/it/projects/rubra-image-forge/index.html
+src/pages/it/projects/unum-sunt/index.html
+src/pages/it/projects/unum-sunt-sprite-studio/index.html
+src/pages/it/tools/index.html
+src/pages/it/web-apps/index.html
+src/pages/it/worlds/index.html

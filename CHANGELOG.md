@@ -1,5 +1,23 @@
 # Changelog
 
+## GV-PORTFOLIO V0.20 — Shared Localized Shell Consolidation
+
+- Replaced the 18 pre-existing Italian full-document HTML routes with Astro routes using the shared `BaseLayout`.
+- Centralized the preserved Italian page bodies and page metadata in `src/i18n/it-pages.json`.
+- Added a shared `LocalizedContentPage` bridge so Italian pages use the same header, footer, language switch, canonical/hreflang generation, structured data and analytics adapter as English pages.
+- Added a named head slot to `BaseLayout` so preserved route-specific styles can be attached without duplicating the site shell.
+- Kept the already-native `/it/support/` route on the shared Astro stack.
+- Preserved existing Italian URLs and translated page content while removing duplicated static header/footer markup from source routes.
+- Updated the sitemap to include the V0.19 Support routes, bringing the bilingual public portfolio surface to 38 indexable URLs.
+- Updated the ecosystem release marker to V0.20.
+
+### Transitional architecture retained intentionally
+
+- Italian page bodies are preserved as centralized localized content fragments and still reuse a limited set of validated compiled route styles from `public/_astro`.
+- V0.20 consolidates the shell without rewriting every translated project page at once.
+- Product-specific bilingual components can now replace these content fragments incrementally in later distribution milestones.
+
+
 ## GV-PORTFOLIO V0.19 — Support Infrastructure + Growth Foundation
 
 - Added `/support/` and `/it/support/` as bilingual voluntary-support pages.

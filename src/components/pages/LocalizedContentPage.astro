@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { LocalizedContentPage as LocalizedContentPageData } from '../../i18n/pages';
+
+interface Props {
+  page: LocalizedContentPageData;
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout
+  title={page.title}
+  description={page.description}
+  image={page.image || undefined}
+  locale="it"
+>
+  <Fragment slot="head">
+    {page.stylesheets.map((href) => <link rel="stylesheet" href={href} />)}
+    {page.inlineStyles.map((css) => <style is:inline set:html={css} />)}
+  </Fragment>
+
+  <Fragment set:html={page.content} />
+</BaseLayout>

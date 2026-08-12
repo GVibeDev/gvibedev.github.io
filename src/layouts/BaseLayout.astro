@@ -101,6 +101,7 @@ const structuredData = {
 
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     <Analytics />
+    <slot name="head" />
   </head>
   <body id="top">
     <a class="skip-link" href="#main-content">{strings.skip}</a>

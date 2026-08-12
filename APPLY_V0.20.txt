@@ -1,0 +1,51 @@
+GVibeDev.cc V0.20 — SHARED LOCALIZED SHELL CONSOLIDATION
+========================================================
+
+Target baseline:
+V0.19 — Support Infrastructure + Growth Foundation (validated)
+
+PURPOSE
+-------
+V0.20 removes duplicated full-document Italian shell markup while preserving the
+validated translated page bodies and URLs.
+
+IMPORTANT APPLY STEP
+--------------------
+This patch ADDs `.astro` replacements for 18 Italian routes. Therefore the previous
+`.html` route files must be removed before building.
+
+On Windows, after extracting the patch at repository root, run:
+
+    APPLY_V0.20_REMOVE_LEGACY_IT.cmd
+
+Then:
+
+    npm run build
+
+Validate the real `dist/` output with `VALIDATION_V0.20.md`.
+
+WHAT IS SHARED AFTER V0.20
+--------------------------
+- BaseLayout
+- header / desktop navigation / mobile navigation
+- EN / IT switch
+- footer
+- canonical / hreflang / x-default
+- structured-data shell
+- analytics adapter
+- global accessibility shell
+
+WHAT IS STILL TRANSITIONAL
+--------------------------
+The 18 validated Italian page bodies are centralized as localized content fragments.
+They are not all rewritten into the exact same semantic body components as English
+yet. A small set of existing validated route styles is retained from `public/_astro`.
+
+This is deliberate: V0.20 consolidates infrastructure without mixing in a full
+content/layout rewrite.
+
+PRODUCTION BUILD NOTE
+---------------------
+The development package contains Windows-native Node dependencies. The assistant
+environment cannot complete the Linux Astro build because the optional Rolldown
+Linux/WASI binding is absent. Windows `npm run build` remains the validation gate.

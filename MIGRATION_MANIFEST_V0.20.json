@@ -1,0 +1,98 @@
+{
+  "version": "0.20",
+  "targetBaseline": "0.19",
+  "convertedItalianRoutes": [
+    {
+      "key": "home",
+      "route": "/it/"
+    },
+    {
+      "key": "about",
+      "route": "/it/about/"
+    },
+    {
+      "key": "biggitykot",
+      "route": "/it/biggitykot/"
+    },
+    {
+      "key": "contact",
+      "route": "/it/contact/"
+    },
+    {
+      "key": "manifesto",
+      "route": "/it/manifesto/"
+    },
+    {
+      "key": "projects",
+      "route": "/it/projects/"
+    },
+    {
+      "key": "projects--arena-rubra-board-game",
+      "route": "/it/projects/arena-rubra-board-game/"
+    },
+    {
+      "key": "projects--arena-rubra-card-composer",
+      "route": "/it/projects/arena-rubra-card-composer/"
+    },
+    {
+      "key": "projects--arena-rubra-digital",
+      "route": "/it/projects/arena-rubra-digital/"
+    },
+    {
+      "key": "projects--bw-survivors",
+      "route": "/it/projects/bw-survivors/"
+    },
+    {
+      "key": "projects--manuale-llm",
+      "route": "/it/projects/manuale-llm/"
+    },
+    {
+      "key": "projects--rubra-composer",
+      "route": "/it/projects/rubra-composer/"
+    },
+    {
+      "key": "projects--rubra-image-forge",
+      "route": "/it/projects/rubra-image-forge/"
+    },
+    {
+      "key": "projects--unum-sunt-sprite-studio",
+      "route": "/it/projects/unum-sunt-sprite-studio/"
+    },
+    {
+      "key": "projects--unum-sunt",
+      "route": "/it/projects/unum-sunt/"
+    },
+    {
+      "key": "tools",
+      "route": "/it/tools/"
+    },
+    {
+      "key": "web-apps",
+      "route": "/it/web-apps/"
+    },
+    {
+      "key": "worlds",
+      "route": "/it/worlds/"
+    }
+  ],
+  "removeBeforeBuild": [
+    "src/pages/it/index.html",
+    "src/pages/it/about/index.html",
+    "src/pages/it/biggitykot/index.html",
+    "src/pages/it/contact/index.html",
+    "src/pages/it/manifesto/index.html",
+    "src/pages/it/projects/index.html",
+    "src/pages/it/projects/arena-rubra-board-game/index.html",
+    "src/pages/it/projects/arena-rubra-card-composer/index.html",
+    "src/pages/it/projects/arena-rubra-digital/index.html",
+    "src/pages/it/projects/bw-survivors/index.html",
+    "src/pages/it/projects/manuale-llm/index.html",
+    "src/pages/it/projects/rubra-composer/index.html",
+    "src/pages/it/projects/rubra-image-forge/index.html",
+    "src/pages/it/projects/unum-sunt/index.html",
+    "src/pages/it/projects/unum-sunt-sprite-studio/index.html",
+    "src/pages/it/tools/index.html",
+    "src/pages/it/web-apps/index.html",
+    "src/pages/it/worlds/index.html"
+  ]
+}

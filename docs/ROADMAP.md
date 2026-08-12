@@ -12,14 +12,10 @@ This progression remains incremental. A future capability is not shown as active
 
 ## Validated baseline
 
-### V0.18 — Live Domain QA & Performance ✅
-Production-domain and GitHub Pages artifact audit.
-
-## Current candidate
-
-### V0.19 — Support Infrastructure + Growth Foundation
+### V0.19 — Support Infrastructure + Growth Foundation ✅
 Foundation milestone:
-- Support page and PayPal-ready configuration;
+- bilingual Support surface;
+- PayPal-ready central configuration;
 - centralized public/future channel model;
 - About / Contact consolidation;
 - analytics adapter and instrumentation foundation;
@@ -27,16 +23,19 @@ Foundation milestone:
 - product-distribution information architecture;
 - continued EN/IT route discipline.
 
-## Next milestones
+## Current candidate
 
 ### V0.20 — Shared Localized Shell Consolidation
-Replace the current hybrid Italian static-page shell with shared Astro/localized components where practical.
+Consolidate the Italian public layer onto the shared Astro shell without rewriting validated translated content.
 
 Goals:
-- structural changes propagate to EN and IT from the same components;
-- no duplicated navigation/footer/support plumbing;
-- analytics can be activated consistently across both languages;
-- preserve current URLs, metadata and visual output.
+- one header/footer/language-switch implementation for EN and IT;
+- canonical, hreflang, structured data and analytics adapter generated from `BaseLayout`;
+- remove full-document Italian HTML duplication;
+- preserve current URLs, metadata, translated content and visual output;
+- retain a bounded compatibility bridge for validated page-body styles.
+
+## Next milestones
 
 ### V0.21 — Product Distribution Surfaces
 Build real public surfaces only when product endpoints exist.

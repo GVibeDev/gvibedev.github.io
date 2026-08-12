@@ -7,136 +7,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/about/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/about/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/about/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/about/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/biggitykot/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/biggitykot/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/biggitykot/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/biggitykot/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/contact/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/contact/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/contact/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/contact/" />
-  </url>
-  <url>
     <loc>https://gvibedev.cc/it/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/" />
     <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/about/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/about/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/about/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/about/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/biggitykot/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/biggitykot/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/biggitykot/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/biggitykot/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/contact/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/contact/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/contact/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/contact/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/manifesto/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/manifesto/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/manifesto/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/manifesto/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/arena-rubra-board-game/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-board-game/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-board-game/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-board-game/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/arena-rubra-card-composer/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-card-composer/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-card-composer/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-card-composer/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/arena-rubra-digital/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-digital/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/bw-survivors/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/bw-survivors/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/bw-survivors/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/bw-survivors/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/manuale-llm/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/manuale-llm/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/manuale-llm/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/manuale-llm/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/rubra-composer/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/rubra-composer/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/rubra-composer/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/rubra-composer/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/rubra-image-forge/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/rubra-image-forge/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/rubra-image-forge/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/rubra-image-forge/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/unum-sunt-sprite-studio/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt-sprite-studio/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/projects/unum-sunt/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/tools/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/tools/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/tools/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/tools/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/web-apps/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/web-apps/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/web-apps/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/web-apps/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/it/worlds/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/worlds/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/worlds/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/worlds/" />
-  </url>
-  <url>
-    <loc>https://gvibedev.cc/manifesto/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/manifesto/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/manifesto/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/manifesto/" />
   </url>
   <url>
     <loc>https://gvibedev.cc/projects/</loc>
@@ -145,7 +19,127 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/" />
   </url>
   <url>
+    <loc>https://gvibedev.cc/it/projects/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/web-apps/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/web-apps/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/web-apps/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/web-apps/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/web-apps/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/web-apps/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/web-apps/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/web-apps/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/tools/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/tools/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/tools/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/tools/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/tools/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/tools/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/tools/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/tools/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/worlds/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/worlds/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/worlds/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/worlds/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/worlds/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/worlds/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/worlds/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/worlds/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/biggitykot/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/biggitykot/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/biggitykot/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/biggitykot/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/biggitykot/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/biggitykot/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/biggitykot/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/biggitykot/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/manifesto/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/manifesto/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/manifesto/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/manifesto/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/manifesto/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/manifesto/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/manifesto/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/manifesto/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/about/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/about/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/about/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/about/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/about/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/contact/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/contact/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/contact/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/contact/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/contact/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/contact/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/support/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/support/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/support/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/support/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/support/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/support/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/support/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/support/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/projects/arena-rubra-digital/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-digital/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/projects/arena-rubra-digital/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-digital/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
+  </url>
+  <url>
     <loc>https://gvibedev.cc/projects/arena-rubra-board-game/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-board-game/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-board-game/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-board-game/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/projects/arena-rubra-board-game/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-board-game/" />
     <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-board-game/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-board-game/" />
@@ -157,25 +151,43 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-card-composer/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/projects/arena-rubra-digital/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-digital/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
+    <loc>https://gvibedev.cc/it/projects/arena-rubra-card-composer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-card-composer/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-card-composer/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/arena-rubra-card-composer/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/projects/bw-survivors/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/bw-survivors/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/bw-survivors/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/bw-survivors/" />
+    <loc>https://gvibedev.cc/projects/unum-sunt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/projects/manuale-llm/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/manuale-llm/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/manuale-llm/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/manuale-llm/" />
+    <loc>https://gvibedev.cc/it/projects/unum-sunt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/projects/unum-sunt-sprite-studio/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt-sprite-studio/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/projects/unum-sunt-sprite-studio/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt-sprite-studio/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
   </url>
   <url>
     <loc>https://gvibedev.cc/projects/rubra-composer/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/rubra-composer/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/rubra-composer/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/rubra-composer/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/projects/rubra-composer/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/rubra-composer/" />
     <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/rubra-composer/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/rubra-composer/" />
@@ -187,33 +199,33 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/rubra-image-forge/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/projects/unum-sunt-sprite-studio/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt-sprite-studio/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt-sprite-studio/" />
+    <loc>https://gvibedev.cc/it/projects/rubra-image-forge/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/rubra-image-forge/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/rubra-image-forge/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/rubra-image-forge/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/projects/unum-sunt/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/unum-sunt/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/unum-sunt/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/unum-sunt/" />
+    <loc>https://gvibedev.cc/projects/bw-survivors/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/bw-survivors/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/bw-survivors/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/bw-survivors/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/tools/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/tools/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/tools/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/tools/" />
+    <loc>https://gvibedev.cc/it/projects/bw-survivors/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/bw-survivors/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/bw-survivors/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/bw-survivors/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/web-apps/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/web-apps/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/web-apps/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/web-apps/" />
+    <loc>https://gvibedev.cc/projects/manuale-llm/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/manuale-llm/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/manuale-llm/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/manuale-llm/" />
   </url>
   <url>
-    <loc>https://gvibedev.cc/worlds/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/worlds/" />
-    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/worlds/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/worlds/" />
+    <loc>https://gvibedev.cc/it/projects/manuale-llm/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/manuale-llm/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/manuale-llm/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/projects/manuale-llm/" />
   </url>
 </urlset>

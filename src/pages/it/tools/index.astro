@@ -1,0 +1,8 @@
+---
+import LocalizedContentPage from '../../../components/pages/LocalizedContentPage.astro';
+import { getItalianContentPage } from '../../../i18n/pages';
+
+const page = getItalianContentPage('tools');
+---
+
+<LocalizedContentPage page={page} />

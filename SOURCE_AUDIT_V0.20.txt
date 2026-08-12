@@ -1,0 +1,37 @@
+GVibeDev.cc V0.20 — SOURCE MIGRATION AUDIT
+===========================================
+
+Target baseline: V0.19 validated
+
+Italian full-document routes converted: 18
+Legacy src/pages/it/**/index.html remaining: 0
+Centralized Italian content entries: 18
+Sitemap indexable URLs: 38
+Static migration / policy issues: 0
+
+Content preservation:
+PASS — all 18 centralized Italian page-body fragments were compared against the
+reconstructed V0.19 source documents and matched exactly.
+
+Shared shell:
+PASS — converted Italian routes use LocalizedContentPage -> BaseLayout, therefore
+header, navigation, language switch, footer, canonical/hreflang, structured-data
+shell and analytics adapter are centralized.
+
+Compatibility styles:
+PASS — every retained route-specific stylesheet referenced by the migration data
+exists under public/_astro.
+
+V0.19 safety:
+PASS — Support configuration remains placeholder-safe, analytics remains disabled,
+Arena Rubra retains the custom-domain launch URL and B&W runtime remains noindex.
+
+Assistant-environment production build:
+NOT AVAILABLE — the source package carries Windows-native Node dependencies and the
+Linux environment cannot load the optional Rolldown Linux/WASI binding. This is the
+same environment limitation already documented for V0.17.
+
+Windows `npm run build` + `dist/` inspection remains mandatory before validation.
+
+Result:
+PASS — source migration audit passed.
