@@ -36,24 +36,42 @@ const linksSchema = z
   })
   .default({ actions: [] });
 
+const distributionItemIdSchema = z.enum([
+  'play',
+  'starter-game',
+  'full-edition',
+  'community-depot',
+  'download',
+  'documentation',
+  'requirements',
+  'tutorials',
+  'changelog',
+  'github',
+  'support',
+  'cards',
+  'decks',
+  'maps',
+]);
+
+const distributionItemSchema = z.object({
+  id: distributionItemIdSchema,
+  stage: z.enum(['current', 'development', 'future']),
+  state: z.enum(['available', 'on-page', 'in-development', 'planned', 'not-published']),
+  href: z.string().min(1).optional(),
+  newTab: z.boolean().default(false),
+  note: z.string(),
+  noteIt: z.string().optional(),
+});
+
 const distributionSchema = z.object({
   currentVersion: z.string().optional(),
-  plannedSections: z.array(z.enum([
-    'play',
-    'starter-game',
-    'full-edition',
-    'community-depot',
-    'download',
-    'documentation',
-    'requirements',
-    'tutorials',
-    'changelog',
-    'github',
-    'support',
-    'cards',
-    'decks',
-    'maps',
-  ])).default([]),
+  currentVersionIt: z.string().optional(),
+  summary: z.string().optional(),
+  summaryIt: z.string().optional(),
+  items: z.array(distributionItemSchema).default([]),
+
+  // Kept during the V0.21 migration so older project data remains valid.
+  plannedSections: z.array(distributionItemIdSchema).default([]),
 });
 
 const galleryItemSchema = z.object({

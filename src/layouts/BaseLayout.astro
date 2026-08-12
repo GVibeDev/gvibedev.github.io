@@ -7,11 +7,14 @@ import '../styles/utilities.css';
 import SiteHeader from '../components/chrome/SiteHeader.astro';
 import SiteFooter from '../components/chrome/SiteFooter.astro';
 import Analytics from '../components/system/Analytics.astro';
+import ProductDistributionSurface from '../components/project/ProductDistributionSurface.astro';
+import { getCollection } from 'astro:content';
 import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/config';
 import {
   getLocaleFromPath,
   getEquivalentPath,
+  getEnglishPath,
   hasItalianEquivalent,
   localeMeta,
 } from '../i18n/config';
@@ -46,6 +49,16 @@ const englishPath = translated ? getEquivalentPath(Astro.url.pathname, 'en') : n
 const italianPath = translated ? getEquivalentPath(Astro.url.pathname, 'it') : null;
 const englishUrl = englishPath ? new URL(englishPath, siteConfig.site).toString() : null;
 const italianUrl = italianPath ? new URL(italianPath, siteConfig.site).toString() : null;
+
+const distributionRouteMap: Record<string, string> = {
+  '/projects/arena-rubra-digital/': 'arena-rubra-digital',
+  '/projects/unum-sunt-sprite-studio/': 'unum-sunt-sprite-studio',
+};
+
+const distributionSlug = distributionRouteMap[getEnglishPath(Astro.url.pathname)];
+const distributionProject = distributionSlug
+  ? (await getCollection('projects')).find((project) => project.data.slug === distributionSlug)
+  : undefined;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -108,6 +121,7 @@ const structuredData = {
     <SiteHeader locale={locale} pathname={Astro.url.pathname} />
     <main id="main-content">
       <slot />
+      {distributionProject && <ProductDistributionSurface project={distributionProject} locale={locale} />}
     </main>
     <SiteFooter locale={locale} />
   </body>

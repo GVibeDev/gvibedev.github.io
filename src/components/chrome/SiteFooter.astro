@@ -1,6 +1,7 @@
 ---
 import Container from '../ui/Container.astro';
-import { siteConfig } from '../../config/site';
+import ChannelLinks from '../community/ChannelLinks.astro';
+import { ecosystemConfig } from '../../config/ecosystem';
 import type { Locale } from '../../i18n/config';
 import { getNavigationPath } from '../../i18n/config';
 import { getUi } from '../../i18n/ui';
@@ -26,13 +27,15 @@ const strings = getUi(locale);
         <a href={getNavigationPath('/manifesto/', locale)}>{strings.nav.manifesto}</a>
         <a href={getNavigationPath('/about/', locale)}>{strings.nav.about}</a>
         <a href={getNavigationPath('/contact/', locale)}>{strings.nav.contact}</a>
+        <a href={getNavigationPath('/community/', locale)}>{strings.nav.community}</a>
+        <a href={getNavigationPath('/support/', locale)}>{strings.nav.support}</a>
       </nav>
     </div>
 
     <div class="site-footer__meta">
       <span>gvibedev.cc</span>
-      <a href="mailto:gvibedev@gmail.com">Email</a>
-      <a href={siteConfig.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href={`mailto:${ecosystemConfig.contact.email}`}>Email</a>
+      <ChannelLinks locale={locale} variant="compact" />
     </div>
   </Container>
 </footer>
@@ -48,9 +51,9 @@ const strings = getUi(locale);
   .site-footer__center { display:grid; gap:.9rem; }
   .site-footer__note { max-width:58ch; line-height:1.65; }
   nav { display:flex; flex-wrap:wrap; gap:.7rem 1rem; }
-  nav a,.site-footer__meta a { color:var(--color-blue-soft); font-family:var(--font-mono); font-size:.72rem; font-weight:700; text-decoration:none; }
-  nav a:hover,.site-footer__meta a:hover { color:var(--color-text); }
-  .site-footer__meta { display:flex; flex-wrap:wrap; gap:.8rem 1.25rem; font-family:var(--font-mono); font-size:.74rem; }
+  nav a,.site-footer__meta > a { color:var(--color-blue-soft); font-family:var(--font-mono); font-size:.72rem; font-weight:700; text-decoration:none; }
+  nav a:hover,.site-footer__meta > a:hover { color:var(--color-text); }
+  .site-footer__meta { display:flex; flex-wrap:wrap; align-items:center; gap:.35rem 1rem; font-family:var(--font-mono); font-size:.74rem; }
   @media (min-width:60rem) {
     :global(.site-footer__inner) { grid-template-columns:.85fr 1.35fr auto; align-items:end; }
     .site-footer__meta { justify-content:flex-end; }

@@ -1,0 +1,20 @@
+GVibeDev.cc V0.22 — SOURCE AUDIT
+=================================
+
+Required files checked: 16
+Issues: 0
+
+PASS — source-level Community & Social Activation audit passed.
+
+Validated constraints:
+- Community is a real EN/IT route pair;
+- footer social links are centralized;
+- only configured + visible channels can render;
+- GitHub is the only active external channel;
+- all unconfigured future providers remain invisible;
+- no placeholder external account URL was introduced;
+- sitemap advances from 38 to 40 URLs;
+- analytics and PayPal remain disabled.
+
+NOTE:
+A Windows `npm run build` plus generated `dist/` inspection remains the mandatory release gate before V0.22 can be frozen.

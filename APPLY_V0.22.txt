@@ -1,0 +1,34 @@
+GVibeDev.cc V0.22 — COMMUNITY & SOCIAL ACTIVATION
+================================================
+
+Target baseline:
+V0.21 — Product Distribution Surfaces (validated)
+
+Apply this ZIP as an overlay at repository root.
+
+No source file must be deleted.
+
+Then run:
+
+    npm run build
+
+Validate the generated `dist/` using VALIDATION_V0.22.md.
+
+CURRENT EXTERNAL CHANNEL
+- GitHub
+
+INACTIVE UNTIL REAL URL IS SUPPLIED
+- YouTube
+- newsletter/community
+- itch.io
+- Steam
+- Kickstarter
+- Patreon
+
+Future activation happens only in:
+    src/config/ecosystem.ts
+
+Set a real URL and `visible: true`.
+Do not add social URLs directly inside components.
+
+Analytics and PayPal remain disabled.

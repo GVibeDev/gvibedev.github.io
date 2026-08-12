@@ -19,6 +19,7 @@ const translatedEnglishRoutes = new Set([
   '/about/',
   '/contact/',
   '/support/',
+  '/community/',
   '/projects/arena-rubra-digital/',
   '/projects/arena-rubra-board-game/',
   '/projects/arena-rubra-card-composer/',

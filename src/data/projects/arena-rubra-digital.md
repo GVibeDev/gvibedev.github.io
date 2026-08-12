@@ -23,6 +23,70 @@ links:
   launchUrl: https://gvibedev.cc/ArenaRubra/
 distribution:
   currentVersion: Demo — Work in Progress
+  currentVersionIt: Demo — In sviluppo
+  summary: Arena Rubra already has a playable browser build and public repository. This hub separates those real endpoints from the Starter roadmap, future community surfaces and any later commercial edition.
+  summaryIt: Arena Rubra dispone già di una build browser giocabile e di un repository pubblico. Questo hub separa questi endpoint reali dalla roadmap Starter, dalle future superfici community e da un'eventuale successiva edizione commerciale.
+  items:
+    - id: play
+      stage: current
+      state: available
+      href: https://gvibedev.cc/ArenaRubra/
+      newTab: true
+      note: The current browser demo is public and playable.
+      noteIt: La demo browser corrente è pubblica e giocabile.
+    - id: github
+      stage: current
+      state: available
+      href: https://github.com/GVibeDev/ArenaRubra
+      newTab: true
+      note: The public repository remains the code reference shared outside the local development archive.
+      noteIt: Il repository pubblico resta il riferimento del codice condiviso al di fuori dell'archivio di sviluppo locale.
+    - id: support
+      stage: current
+      state: available
+      href: /support/
+      note: Voluntary project support routes through the shared GVibeDev Support page.
+      noteIt: Il supporto volontario al progetto passa dalla pagina Supporto condivisa di GVibeDev.
+    - id: starter-game
+      stage: development
+      state: in-development
+      note: The free Starter Game is the next product-facing public target; the current demo must not be presented as its final form.
+      noteIt: Lo Starter Game gratuito è il prossimo obiettivo pubblico orientato al prodotto; la demo corrente non deve essere presentata come la sua forma finale.
+    - id: documentation
+      stage: development
+      state: planned
+      note: Dedicated player-facing documentation will be published when the Starter rules surface is ready.
+      noteIt: La documentazione dedicata ai giocatori verrà pubblicata quando la superficie di regole dello Starter sarà pronta.
+    - id: changelog
+      stage: development
+      state: planned
+      note: The site does not yet expose a dedicated Arena Rubra release changelog surface.
+      noteIt: Il sito non espone ancora una superficie changelog dedicata alle release di Arena Rubra.
+    - id: community-depot
+      stage: future
+      state: planned
+      note: The future Community Depot will require its own content and moderation workflow; no backend is implied by this page.
+      noteIt: Il futuro Community Depot richiederà un proprio workflow di contenuti e moderazione; questa pagina non implica l'esistenza di un backend.
+    - id: cards
+      stage: future
+      state: planned
+      note: Cards already exist inside the game, but a public community catalogue is not published yet.
+      noteIt: Le carte esistono già nel gioco, ma non è ancora pubblicato un catalogo community pubblico.
+    - id: decks
+      stage: future
+      state: planned
+      note: Deck tools exist in the application; a public shareable deck catalogue remains future infrastructure.
+      noteIt: Gli strumenti per i mazzi esistono nell'applicazione; un catalogo pubblico condivisibile resta infrastruttura futura.
+    - id: maps
+      stage: future
+      state: planned
+      note: Map authoring exists in the application; a public map catalogue or Depot endpoint is not active.
+      noteIt: L'authoring delle mappe esiste nell'applicazione; non è attivo un catalogo pubblico di mappe né un endpoint Depot.
+    - id: full-edition
+      stage: future
+      state: planned
+      note: A possible commercial Full Edition remains a future distinction, not a current product or purchase offer.
+      noteIt: Una possibile Edizione completa commerciale resta una distinzione futura, non un prodotto corrente né un'offerta di acquisto.
   plannedSections:
     - play
     - starter-game

@@ -1,0 +1,20 @@
+GVibeDev.cc V0.21 — SOURCE AUDIT
+=================================
+
+Changed files: 14
+Required files checked: 14
+Issues: 0
+
+PASS — source-level product distribution audit passed.
+
+Validated constraints:
+- shared EN/IT injection point;
+- real Arena Rubra Play + GitHub endpoints only;
+- no Sprite Studio download/repository endpoint invented;
+- future product states are data entries without href;
+- Support uses the existing internal Support route;
+- analytics / PayPal / stores / crowdfunding remain inactive;
+- Italian Sprite Studio documentation anchors are present.
+
+NOTE:
+A Windows `npm run build` + generated `dist/` inspection remains the mandatory release gate before V0.21 can be frozen.

@@ -26,7 +26,7 @@ const publicationNotes = [
 >
   <ToolProjectHero project={project} />
 
-  <section class="tool-story">
+  <section class="tool-story" id="documentation">
     <Container>
       <div class="tool-story__grid">
         <aside class="tool-story__aside">
@@ -52,7 +52,7 @@ const publicationNotes = [
   )}
 
   {(data.requirements.length > 0 || data.installGuide) && (
-    <section class="tool-setup-shell">
+    <section class="tool-setup-shell" id="requirements">
       <Container>
         <ToolInstallGuide
           platforms={data.platforms}

@@ -1,0 +1,287 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Container from '../ui/Container.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getDistributionUi } from '../../i18n/distribution';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locale: Locale;
+}
+
+const { project, locale } = Astro.props;
+const distribution = project.data.distribution;
+const ui = getDistributionUi(locale);
+
+const stages = ['current', 'development', 'future'] as const;
+
+const groups = stages
+  .map((stage) => ({
+    stage,
+    items: distribution?.items.filter((item) => item.stage === stage) ?? [],
+  }))
+  .filter((group) => group.items.length > 0);
+
+const version =
+  locale === 'it'
+    ? distribution?.currentVersionIt ?? distribution?.currentVersion
+    : distribution?.currentVersion;
+
+const summary =
+  locale === 'it'
+    ? distribution?.summaryIt ?? distribution?.summary
+    : distribution?.summary;
+
+function resolveHref(href?: string) {
+  if (!href) return null;
+  if (href.startsWith('#')) return href;
+  if (href.startsWith('/')) return getNavigationPath(href, locale);
+  return href;
+}
+
+function actionLabel(id: string, href: string) {
+  if (href.startsWith('#')) return ui.actions.section;
+  if (id === 'play') return ui.actions.play;
+  if (id === 'github') return ui.actions.github;
+  if (id === 'support') return ui.actions.support;
+  return ui.actions.open;
+}
+---
+
+{distribution && distribution.items.length > 0 && (
+  <section class="distribution-surface" aria-labelledby={`distribution-${project.data.slug}`}>
+    <Container>
+      <div class="distribution-surface__heading">
+        <div>
+          <span class="distribution-surface__eyebrow">{ui.eyebrow}</span>
+          <h2 id={`distribution-${project.data.slug}`}>{ui.title}</h2>
+        </div>
+
+        <aside class="distribution-surface__version">
+          <span>{ui.currentVersion}</span>
+          <strong>{version ?? project.data.status ?? project.data.title}</strong>
+        </aside>
+      </div>
+
+      {summary && <p class="distribution-surface__summary">{summary}</p>}
+
+      <div class="distribution-groups">
+        {groups.map((group) => (
+          <section class="distribution-group" aria-label={ui.groups[group.stage]}>
+            <div class="distribution-group__label">{ui.groups[group.stage]}</div>
+
+            <div class="distribution-grid">
+              {group.items.map((item) => {
+                const href = resolveHref(item.href);
+                const note = locale === 'it' ? item.noteIt ?? item.note : item.note;
+
+                return (
+                  <article class:list={['distribution-card', href && 'distribution-card--active']}>
+                    <div class="distribution-card__topline">
+                      <h3>{ui.items[item.id]}</h3>
+                      <span>{ui.states[item.state]}</span>
+                    </div>
+
+                    <p>{note}</p>
+
+                    {href ? (
+                      <a
+                        href={href}
+                        target={item.newTab ? '_blank' : undefined}
+                        rel={item.newTab ? 'noopener noreferrer' : undefined}
+                        data-analytics-event="distribution-cta"
+                        data-analytics-project={project.data.slug}
+                        data-analytics-action={item.id}
+                      >
+                        {actionLabel(item.id, href)}
+                        {item.newTab && <span aria-hidden="true">↗</span>}
+                      </a>
+                    ) : (
+                      <small>{ui.states[item.state]}</small>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+    </Container>
+  </section>
+)}
+
+<style>
+  .distribution-surface {
+    padding-block: var(--section-space);
+    border-top: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 88% 8%, color-mix(in srgb, var(--color-blue-bright) 9%, transparent), transparent 25rem),
+      var(--color-bg-deep);
+  }
+
+  .distribution-surface__heading {
+    display: grid;
+    gap: 1.4rem;
+    align-items: end;
+    margin-bottom: 1rem;
+  }
+
+  .distribution-surface__heading > div:first-child {
+    display: grid;
+    gap: .65rem;
+  }
+
+  .distribution-surface__eyebrow,
+  .distribution-group__label,
+  .distribution-surface__version span,
+  .distribution-card__topline span {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .distribution-surface h2 {
+    max-width: 18ch;
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4.6rem);
+    line-height: .98;
+    letter-spacing: -.05em;
+  }
+
+  .distribution-surface__version {
+    display: grid;
+    gap: .35rem;
+    min-width: min(100%, 17rem);
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+  }
+
+  .distribution-surface__version strong {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .distribution-surface__summary {
+    max-width: 64rem;
+    margin: 0 0 2rem;
+    color: var(--color-text-muted);
+    font-size: clamp(1rem, .98rem + .2vw, 1.14rem);
+    line-height: 1.75;
+  }
+
+  .distribution-groups {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .distribution-group {
+    display: grid;
+    gap: .8rem;
+  }
+
+  .distribution-group__label {
+    color: var(--color-text-muted);
+  }
+
+  .distribution-grid {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .distribution-card {
+    display: grid;
+    align-content: start;
+    gap: .8rem;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+  }
+
+  .distribution-card--active {
+    border-color: color-mix(in srgb, var(--color-blue-soft) 38%, var(--color-border));
+  }
+
+  .distribution-card__topline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .5rem 1rem;
+  }
+
+  .distribution-card h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1rem;
+  }
+
+  .distribution-card__topline span {
+    color: var(--color-red-soft);
+    text-align: right;
+  }
+
+  .distribution-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: .9rem;
+    line-height: 1.65;
+  }
+
+  .distribution-card a {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 44px;
+    align-items: center;
+    gap: .4rem;
+    margin-top: auto;
+    padding: .65rem .85rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-blue-soft);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .045em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .distribution-card a:hover,
+  .distribution-card a:focus-visible {
+    border-color: var(--color-blue-soft);
+    color: var(--color-text);
+  }
+
+  .distribution-card small {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 46rem) {
+    .distribution-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .distribution-surface__heading {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 3rem;
+    }
+
+    .distribution-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

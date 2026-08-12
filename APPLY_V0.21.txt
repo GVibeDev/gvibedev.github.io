@@ -1,0 +1,31 @@
+GVibeDev.cc V0.21 — PRODUCT DISTRIBUTION SURFACES
+==================================================
+
+Target baseline:
+V0.20 — Shared Localized Shell Consolidation (validated)
+
+Apply this ZIP as an overlay at repository root.
+
+This patch does NOT require deleting or renaming existing source routes.
+
+After overlaying:
+
+    npm run build
+
+Then validate the generated `dist/` using VALIDATION_V0.21.md.
+
+Important:
+- Real links render only for real endpoints.
+- Planned / unpublished product surfaces are deliberately non-clickable.
+- PayPal, analytics, itch.io, Steam, Kickstarter and Patreon remain inactive.
+- No Community Depot backend or Sprite Studio public release is implied.
+
+Key files:
+- src/components/project/ProductDistributionSurface.astro
+- src/i18n/distribution.ts
+- src/layouts/BaseLayout.astro
+- src/content.config.ts
+- src/data/projects/arena-rubra-digital.md
+- src/data/projects/unum-sunt-sprite-studio.md
+- src/layouts/ToolProjectLayout.astro
+- src/i18n/it-pages.json

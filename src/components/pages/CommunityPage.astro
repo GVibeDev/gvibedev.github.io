@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../ui/Container.astro';
+import ChannelLinks from '../community/ChannelLinks.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getCommunityCopy } from '../../i18n/community';
+
+interface Props { locale: Locale; }
+
+const { locale } = Astro.props;
+const copy = getCommunityCopy(locale);
+const description =
+  locale === 'it'
+    ? 'Canali pubblici e community di GVibeDev: vengono mostrati solo account e piattaforme realmente attivi.'
+    : 'GVibeDev public channels and community entry points: only real, active accounts and platforms are shown.';
+---
+
+<BaseLayout title={locale === 'it' ? 'Community GVibeDev' : 'GVibeDev Community'} description={description} locale={locale}>
+  <div class="community-page">
+    <section class="community-hero">
+      <Container>
+        <div class="community-hero__copy">
+          <span class="eyebrow">{copy.eyebrow}</span>
+          <h1>{copy.title}</h1>
+          <p class="lead">{copy.lead}</p>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block">
+      <Container>
+        <div class="split">
+          <div class="section-heading">
+            <span class="eyebrow">{copy.activeEyebrow}</span>
+            <h2>{copy.activeTitle}</h2>
+            <p>{copy.activeBody}</p>
+          </div>
+          <ChannelLinks locale={locale} variant="cards" />
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block section-block--deep">
+      <Container>
+        <div class="future-card">
+          <span class="eyebrow">{copy.futureEyebrow}</span>
+          <h2>{copy.futureTitle}</h2>
+          <p>{copy.futureBody}</p>
+          <div class="actions">
+            <a class="button" href={getNavigationPath('/contact/', locale)}>{copy.contact}</a>
+            <a class="button" href={getNavigationPath('/support/', locale)}>{copy.support}</a>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .community-page { color:var(--color-text); background:var(--color-bg); }
+  .community-hero { padding-block:clamp(2.5rem,7vw,6rem); border-bottom:1px solid var(--color-border); background:var(--color-bg-deep); }
+  .community-hero__copy { display:grid; gap:1rem; max-width:62rem; }
+  .eyebrow { color:var(--color-blue-soft); font-family:var(--font-mono); font-size:.72rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; }
+  h1 { max-width:13ch; margin:0; font-size:clamp(2.8rem,8vw,7rem); line-height:.9; letter-spacing:-.06em; }
+  .lead,.section-heading p,.future-card p { margin:0; color:var(--color-text-muted); line-height:1.8; }
+  .lead { color:var(--color-text); font-size:clamp(1.08rem,1rem + .35vw,1.35rem); }
+  .section-block { padding-block:var(--section-space); }
+  .section-block--deep { border-block:1px solid var(--color-border); background:var(--color-bg-deep); }
+  .split { display:grid; gap:2rem; }
+  .section-heading,.future-card { display:grid; gap:.9rem; align-content:start; }
+  .section-heading h2,.future-card h2 { margin:0; font-size:clamp(2rem,4.5vw,4rem); line-height:.98; letter-spacing:-.05em; }
+  .future-card { max-width:60rem; padding:1.2rem; border:1px solid var(--color-border); background:var(--color-surface-1); }
+  .actions { display:flex; flex-wrap:wrap; gap:.8rem; margin-top:.3rem; }
+  .button {
+    display:inline-flex; min-height:44px; align-items:center; justify-content:center;
+    padding:.75rem 1rem; border:1px solid var(--color-border-strong);
+    color:var(--color-text); background:var(--color-surface-2);
+    font-family:var(--font-mono); font-size:.76rem; font-weight:800;
+    letter-spacing:.04em; text-decoration:none; text-transform:uppercase;
+  }
+  .button:hover,.button:focus-visible { border-color:var(--color-blue-soft); }
+  @media (min-width:60rem) {
+    .split { grid-template-columns:minmax(17rem,.7fr) minmax(0,1.3fr); gap:4rem; }
+  }
+</style>

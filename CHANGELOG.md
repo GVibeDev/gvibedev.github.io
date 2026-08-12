@@ -1,5 +1,34 @@
 # Changelog
 
+## GV-PORTFOLIO V0.22 — Community & Social Activation
+
+- Added bilingual `/community/` and `/it/community/` public channel pages.
+- Added a shared `ChannelLinks` component driven exclusively by the central ecosystem channel registry.
+- Added localized channel descriptions and one activation rule for future development, discovery, community, distribution and crowdfunding channels.
+- Replaced the footer hard-coded GitHub link with the shared active-channel renderer and added Community / Support discovery links.
+- Added Community discovery from the English Contact page.
+- Added Community to the EN/IT route registry and sitemap, bringing the public bilingual surface to 40 URLs.
+- Preserved analytics and PayPal as disabled.
+- Kept every unconfigured provider invisible: no placeholder account or URL is rendered.
+
+### Current activation state
+
+- GitHub: active.
+- YouTube: inactive.
+- Newsletter / community service: inactive.
+- itch.io: inactive.
+- Steam: inactive.
+- Kickstarter: inactive.
+- Patreon: inactive.
+
+## GV-PORTFOLIO V0.21 — Product Distribution Surfaces
+
+- Added one shared bilingual Product Hub surface for Arena Rubra Digital and Unum Sunt Sprite Studio.
+- Extended the distribution data schema with explicit lifecycle stage, publication state, real-link handling and bilingual notes.
+- Added real Arena Rubra Play / GitHub / Support endpoints and non-clickable future states.
+- Added Sprite Studio Documentation / Requirements / Support with non-clickable unpublished Download / GitHub states.
+- Preserved inactive PayPal, analytics, store and crowdfunding providers.
+
 ## GV-PORTFOLIO V0.20 — Shared Localized Shell Consolidation
 
 - Replaced the 18 pre-existing Italian full-document HTML routes with Astro routes using the shared `BaseLayout`.
@@ -16,7 +45,6 @@
 - Italian page bodies are preserved as centralized localized content fragments and still reuse a limited set of validated compiled route styles from `public/_astro`.
 - V0.20 consolidates the shell without rewriting every translated project page at once.
 - Product-specific bilingual components can now replace these content fragments incrementally in later distribution milestones.
-
 
 ## GV-PORTFOLIO V0.19 — Support Infrastructure + Growth Foundation
 
@@ -44,7 +72,6 @@
 - Verified 36 indexable EN/IT portfolio URLs, metadata, hreflang, sitemap and internal links.
 - Established `npm run build` + `dist/` inspection as the mandatory pre-deployment validation gate.
 
-
 ## GV-PORTFOLIO V0.13 — About + Contact + Manuale LLM
 
 - Added a full `/about/` page for GVibeDev as a personal workshop rather than a corporate or agency-style profile.
@@ -53,22 +80,3 @@
 - Added `Manuale LLM` as a public project page, linked to the repository `GVibeDev/Manuale_LLM`.
 - Introduced a concise public positioning for AI use on the site: tools, method and responsibility rather than automation hype.
 - Added dedicated public assets for the Manuale LLM project cover.
-
-## GV-PORTFOLIO V0.12 — Arena Rubra Shared Architecture + Digital Expansion
-
-- Expanded Arena Rubra Digital into a dedicated system / testing project page while preserving the existing visual identity, playable-app CTA and public repository link.
-- Added a dedicated `ArenaRubraDigitalLayout` with The Digital Arena, shared factions, Testing Lab, Digital vs Tabletop comparison, ecosystem navigation and current-build screenshot evidence.
-- Reused the shared Arena Rubra data module for canonical faction descriptions, core principles, testing summary and related-project navigation.
-- Updated the testing summary to the validated `1000+` total Arena Rubra match figure.
-- Added seven optimized screenshots from the current Arena Rubra digital build: match overview, tactical zoom, Control Center, Map Editor, guided tutorial, telemetry and Starter splash.
-- Applied Board Game polish: corrected the Fabeot faction image framing and simplified the `Designed by playing it` section by removing the oversized legacy statistic presentation and preventing layout overlap.
-- Preserved the Tabletop page structure, physical-prototype disclaimer, gallery, sample cards and existing factual tabletop content.
-
-## GV-PORTFOLIO V0.11 — Unum Sunt Content Expansion v1.0
-
-- Expanded the Unum Sunt — Radix Machinae page from preview showcase to fuller editorial project page.
-- Replaced the earlier sectional copy with five new public blocks: Synopsis, A Story Built in Cycles, Signals / How to Read Unum Sunt, Author's Note, and Development Status.
-- Preserved the existing visual identity, hero, preview library and editorial layout.
-- Added five new optimized project artworks to support the expanded sections without turning the page into a lore wiki.
-- Kept the page focused on the novel as a public-facing work in development rather than a full lore archive.
-- Preserved the existing Italian and English preview PDF access.

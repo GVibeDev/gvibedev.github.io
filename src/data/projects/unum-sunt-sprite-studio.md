@@ -22,6 +22,48 @@ cardImagePosition: center
 links: {}
 distribution:
   currentVersion: Development Preview
+  currentVersionIt: Anteprima di sviluppo
+  summary: The project page now acts as the public product hub. The working desktop application is real, while a packaged public release and public repository have not yet been published.
+  summaryIt: La pagina del progetto ora funziona come hub pubblico del prodotto. L'applicazione desktop di sviluppo è reale, mentre non sono ancora stati pubblicati né un pacchetto pubblico né un repository pubblico.
+  items:
+    - id: documentation
+      stage: current
+      state: on-page
+      href: '#documentation'
+      note: The current workflow, setup rationale and local WanGP integration are documented on this page.
+      noteIt: Il workflow corrente, la logica di configurazione e l'integrazione locale WanGP sono documentati in questa pagina.
+    - id: requirements
+      stage: current
+      state: on-page
+      href: '#requirements'
+      note: Validated Windows and WanGP requirements are listed in the technical setup section.
+      noteIt: I requisiti Windows e WanGP validati sono elencati nella sezione di configurazione tecnica.
+    - id: support
+      stage: current
+      state: available
+      href: /support/
+      note: The GVibeDev Support page is public. A PayPal payment link remains inactive until a real public URL is configured.
+      noteIt: La pagina Supporto di GVibeDev è pubblica. Il collegamento di pagamento PayPal resta inattivo finché non viene configurato un URL pubblico reale.
+    - id: download
+      stage: development
+      state: not-published
+      note: No public installer or release package is published yet.
+      noteIt: Non è ancora pubblicato alcun installer o pacchetto di release.
+    - id: tutorials
+      stage: development
+      state: planned
+      note: Demonstration and tutorial material will be linked when the public release workflow is ready.
+      noteIt: Il materiale dimostrativo e i tutorial verranno collegati quando il workflow di release pubblica sarà pronto.
+    - id: changelog
+      stage: development
+      state: planned
+      note: A public product changelog will be exposed when external release versioning begins.
+      noteIt: Un changelog pubblico del prodotto verrà esposto quando inizierà il versioning delle release esterne.
+    - id: github
+      stage: development
+      state: not-published
+      note: A public Sprite Studio repository has not been published yet.
+      noteIt: Non è ancora stato pubblicato un repository pubblico di Sprite Studio.
   plannedSections:
     - download
     - documentation

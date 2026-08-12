@@ -121,6 +121,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/support/" />
   </url>
   <url>
+    <loc>https://gvibedev.cc/community/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/community/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/community/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/community/" />
+  </url>
+  <url>
+    <loc>https://gvibedev.cc/it/community/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/community/" />
+    <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/community/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gvibedev.cc/community/" />
+  </url>
+  <url>
     <loc>https://gvibedev.cc/projects/arena-rubra-digital/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://gvibedev.cc/projects/arena-rubra-digital/" />
     <xhtml:link rel="alternate" hreflang="it" href="https://gvibedev.cc/it/projects/arena-rubra-digital/" />

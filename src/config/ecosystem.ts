@@ -13,12 +13,14 @@ export type EcosystemChannel = {
   url: string | null;
   visible: boolean;
   category: 'development' | 'discovery' | 'community' | 'distribution' | 'crowdfunding';
+  description: string;
+  descriptionIt: string;
 };
 
 export const ecosystemConfig = {
   release: {
-    version: '0.20',
-    milestone: 'Shared Localized Shell Consolidation',
+    version: '0.22',
+    milestone: 'Community & Social Activation',
   },
 
   contact: {
@@ -45,18 +47,72 @@ export const ecosystemConfig = {
       url: 'https://github.com/GVibeDev',
       visible: true,
       category: 'development',
+      description: 'Repositories, source code, project history and issue tracking.',
+      descriptionIt: 'Repository, codice sorgente, cronologia dei progetti e segnalazione issue.',
     },
-    { id: 'youtube', label: 'YouTube', url: null, visible: false, category: 'discovery' },
-    { id: 'newsletter', label: 'Newsletter / Community', url: null, visible: false, category: 'community' },
-    { id: 'itch', label: 'itch.io', url: null, visible: false, category: 'distribution' },
-    { id: 'steam', label: 'Steam', url: null, visible: false, category: 'distribution' },
-    { id: 'kickstarter', label: 'Kickstarter', url: null, visible: false, category: 'crowdfunding' },
-    { id: 'patreon', label: 'Patreon', url: null, visible: false, category: 'crowdfunding' },
+    {
+      id: 'youtube',
+      label: 'YouTube',
+      url: null,
+      visible: false,
+      category: 'discovery',
+      description: 'Video, demonstrations and tutorials.',
+      descriptionIt: 'Video, dimostrazioni e tutorial.',
+    },
+    {
+      id: 'newsletter',
+      label: 'Newsletter / Community',
+      url: null,
+      visible: false,
+      category: 'community',
+      description: 'Direct project updates and community communication.',
+      descriptionIt: 'Aggiornamenti diretti sui progetti e comunicazione community.',
+    },
+    {
+      id: 'itch',
+      label: 'itch.io',
+      url: null,
+      visible: false,
+      category: 'distribution',
+      description: 'Independent release and download channel.',
+      descriptionIt: 'Canale indipendente per release e download.',
+    },
+    {
+      id: 'steam',
+      label: 'Steam',
+      url: null,
+      visible: false,
+      category: 'distribution',
+      description: 'Future game distribution channel when a real store presence exists.',
+      descriptionIt: 'Futuro canale di distribuzione quando esisterà una presenza reale sullo store.',
+    },
+    {
+      id: 'kickstarter',
+      label: 'Kickstarter',
+      url: null,
+      visible: false,
+      category: 'crowdfunding',
+      description: 'Future crowdfunding channel when a real campaign exists.',
+      descriptionIt: 'Futuro canale di crowdfunding quando esisterà una campagna reale.',
+    },
+    {
+      id: 'patreon',
+      label: 'Patreon',
+      url: null,
+      visible: false,
+      category: 'crowdfunding',
+      description: 'Future recurring support channel if it becomes useful.',
+      descriptionIt: 'Futuro canale di supporto ricorrente se diventerà utile.',
+    },
   ] satisfies EcosystemChannel[],
 } as const;
 
 export function getVisibleChannels() {
-  return ecosystemConfig.channels.filter((channel) => channel.visible && channel.url);
+  return ecosystemConfig.channels.filter((channel) => channel.visible && Boolean(channel.url));
+}
+
+export function getVisibleChannelsByCategory(category: EcosystemChannel['category']) {
+  return getVisibleChannels().filter((channel) => channel.category === category);
 }
 
 export function getChannel(id: EcosystemChannelId) {
