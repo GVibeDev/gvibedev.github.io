@@ -2,30 +2,53 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-const projectActionSchema = z.object({
-  type: z.enum([
-    'play',
-    'download',
-    'support',
-    'wishlist',
-    'buy',
-    'follow-development',
-    'github',
-    'join-playtest',
-    'kickstarter',
-    'documentation',
-    'tutorials',
-    'changelog',
-    'community',
-    'cards',
-    'decks',
-    'maps',
-  ]),
-  label: z.string().optional(),
-  href: z.string().min(1),
-  primary: z.boolean().default(false),
-  newTab: z.boolean().default(false),
-});
+const commercialProviderSchema = z.enum([
+  'paypal-support',
+  'itch',
+  'steam',
+  'kickstarter',
+  'patreon',
+]);
+
+const commercialActionSchema = z.enum([
+  'support',
+  'download',
+  'wishlist',
+  'buy',
+  'back',
+  'follow',
+]);
+
+const projectActionSchema = z
+  .object({
+    type: z.enum([
+      'play',
+      'download',
+      'support',
+      'wishlist',
+      'buy',
+      'follow-development',
+      'github',
+      'join-playtest',
+      'kickstarter',
+      'documentation',
+      'tutorials',
+      'changelog',
+      'community',
+      'cards',
+      'decks',
+      'maps',
+    ]),
+    label: z.string().optional(),
+    href: z.string().min(1).optional(),
+    provider: commercialProviderSchema.optional(),
+    commercialAction: commercialActionSchema.optional(),
+    primary: z.boolean().default(false),
+    newTab: z.boolean().default(false),
+  })
+  .refine((action) => Boolean(action.href || action.provider), {
+    message: 'Project action requires either href or provider.',
+  });
 
 const linksSchema = z
   .object({
@@ -58,6 +81,8 @@ const distributionItemSchema = z.object({
   stage: z.enum(['current', 'development', 'future']),
   state: z.enum(['available', 'on-page', 'in-development', 'planned', 'not-published']),
   href: z.string().min(1).optional(),
+  provider: commercialProviderSchema.optional(),
+  commercialAction: commercialActionSchema.optional(),
   newTab: z.boolean().default(false),
   note: z.string(),
   noteIt: z.string().optional(),
@@ -70,7 +95,7 @@ const distributionSchema = z.object({
   summaryIt: z.string().optional(),
   items: z.array(distributionItemSchema).default([]),
 
-  // Kept during the V0.21 migration so older project data remains valid.
+  // Kept during the V0.21+ migration so older project data remains valid.
   plannedSections: z.array(distributionItemIdSchema).default([]),
 });
 

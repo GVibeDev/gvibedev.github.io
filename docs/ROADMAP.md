@@ -10,57 +10,64 @@ A capability appears publicly only when a real endpoint exists.
 
 ## Validated baseline
 
-### V0.21 — Product Distribution Surfaces ✅
+### V0.22 — Community & Social Activation ✅
 
-- shared bilingual Product Hub;
-- real CTA links only for real endpoints;
-- Arena Rubra Play + GitHub + Support;
-- Sprite Studio Documentation + Requirements + Support;
-- explicit development / future states;
-- no invented download, store or commercial links.
+- bilingual Community layer;
+- centralized active-channel renderer;
+- GitHub as the only current active external channel;
+- inactive providers remain invisible;
+- 40 public EN/IT sitemap URLs;
+- analytics and PayPal still disabled.
 
 ## Current candidate
 
-### V0.22 — Community & Social Activation
+### V0.23 — Commercial / Crowdfunding Foundation
 
-- bilingual Community page;
-- shared active-channel renderer;
-- centralized activation rule;
-- footer integration;
-- Contact discovery path;
-- analytics-ready social click markers;
-- inactive providers remain invisible until configured.
+Build the provider-neutral commercial lifecycle without activating nonexistent endpoints.
 
-Current active external channel:
-- GitHub.
+Candidate scope:
+- PayPal Support endpoint modes;
+- central commercial-provider resolver;
+- provider-aware project CTAs;
+- provider-aware Product Hub entries;
+- Wishlist / Buy / Download / Support / Back / Follow lifecycle actions;
+- conversion-event contract;
+- optional future QR support;
+- no commercial URL duplication across components.
 
-Configured but inactive:
-- YouTube;
-- newsletter/community;
-- itch.io;
-- Steam;
-- Kickstarter;
+No provider becomes active solely because V0.23 is installed.
+
+## Activation patches after V0.23
+
+### V0.23a — PayPal Support Activation
+Only when the final public PayPal support endpoint has been selected and tested.
+
+### Distribution / store activation
+Applied per real endpoint when available:
+- Sprite Studio itch.io / download;
+- Steam product page / Wishlist / Buy;
+- Kickstarter campaign;
 - Patreon.
 
-## Next milestone
+These are configuration/content activations, not site redesigns.
 
-### V0.23 — Commercial / Crowdfunding Channels
+## Before V1.0
 
-Activate commercial or campaign CTAs only when real endpoints exist:
-- PayPal public support URL;
-- itch.io / Steam product pages;
-- Wishlist / Buy flows;
-- Kickstarter;
-- Patreon;
-- conversion measurement.
-
-If the external accounts do not exist yet, V0.23 remains partly dormant rather than inventing them.
+### Analytics & Conversion Activation
+Enable privacy-conscious analytics only after the real provider/account script is configured, then validate aggregate conversion events.
 
 ### V1.0 — GVibeDev Ecosystem Hub Baseline
+Stable public hub combining:
+- portfolio;
+- bilingual discovery;
+- product distribution;
+- documentation;
+- voluntary support;
+- community;
+- commercial/crowdfunding CTAs where real;
+- measured aggregate conversion paths where enabled.
 
-Stable public hub combining portfolio, bilingual discovery, distribution surfaces, documentation, voluntary support, public community channels and real product-specific commercial CTAs.
-
-## Cross-cutting maintenance before V1.0
+## Cross-cutting maintenance
 
 - repository/site naming consistency;
 - stale project status cleanup;

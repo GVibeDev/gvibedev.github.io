@@ -21,8 +21,10 @@ const active = support.enabled && Boolean(support.url);
       href={support.url}
       target="_blank"
       rel="noopener noreferrer"
-      data-analytics-event="support"
+      data-analytics-event="conversion-cta"
+      data-analytics-action="support"
       data-analytics-provider={support.provider}
+      data-analytics-endpoint-kind={support.endpointKind}
     >
       {copy.cta} <span aria-hidden="true">↗</span>
     </a>

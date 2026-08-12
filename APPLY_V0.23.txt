@@ -1,0 +1,34 @@
+GVibeDev.cc V0.23 — COMMERCIAL / CROWDFUNDING FOUNDATION
+========================================================
+
+Target baseline:
+V0.22 — Community & Social Activation (validated)
+
+Apply this ZIP as an overlay at repository root.
+
+No source file must be deleted.
+
+Then run:
+
+    npm run build
+
+Validate the generated `dist/` using VALIDATION_V0.23.md.
+
+IMPORTANT
+---------
+This milestone intentionally activates NO new commercial endpoint.
+
+PayPal:
+- account existence is not enough to activate the site CTA;
+- V0.23 supports either a dedicated Donate-page endpoint or an intentional PayPal.Me endpoint;
+- current configuration stays disabled with URL = null.
+
+Inactive:
+- PayPal payment CTA
+- itch.io
+- Steam
+- Kickstarter
+- Patreon
+- analytics collection
+
+Future real provider URLs belong in central configuration, not in components.

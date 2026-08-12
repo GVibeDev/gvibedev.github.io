@@ -17,10 +17,12 @@ export type EcosystemChannel = {
   descriptionIt: string;
 };
 
+export type SupportEndpointKind = 'donate-page' | 'paypal-me';
+
 export const ecosystemConfig = {
   release: {
-    version: '0.22',
-    milestone: 'Community & Social Activation',
+    version: '0.23',
+    milestone: 'Commercial / Crowdfunding Foundation',
   },
 
   contact: {
@@ -30,7 +32,9 @@ export const ecosystemConfig = {
   support: {
     provider: 'paypal',
     enabled: false,
+    endpointKind: 'donate-page' as SupportEndpointKind,
     url: null as string | null,
+    qrAsset: null as string | null,
   },
 
   analytics: {

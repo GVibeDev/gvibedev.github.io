@@ -40,6 +40,14 @@ export const distributionUi = {
       github: 'Open GitHub',
       support: 'Open Support',
     },
+    commercialActions: {
+      support: 'Support',
+      download: 'Download',
+      wishlist: 'Wishlist',
+      buy: 'Buy',
+      back: 'Back project',
+      follow: 'Follow development',
+    },
   },
 
   it: {
@@ -80,6 +88,14 @@ export const distributionUi = {
       play: 'Gioca ora',
       github: 'Apri GitHub',
       support: 'Apri Supporto',
+    },
+    commercialActions: {
+      support: 'Supporta',
+      download: 'Download',
+      wishlist: 'Wishlist',
+      buy: 'Acquista',
+      back: 'Sostieni il progetto',
+      follow: 'Segui lo sviluppo',
     },
   },
 } as const satisfies Record<Locale, Record<string, unknown>>;

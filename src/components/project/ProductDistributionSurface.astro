@@ -4,6 +4,11 @@ import Container from '../ui/Container.astro';
 import type { Locale } from '../../i18n/config';
 import { getNavigationPath } from '../../i18n/config';
 import { getDistributionUi } from '../../i18n/distribution';
+import {
+  resolveCommercialEndpoint,
+  type CommercialAction,
+  type CommercialProviderId,
+} from '../../config/commercial';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -33,14 +38,29 @@ const summary =
     ? distribution?.summaryIt ?? distribution?.summary
     : distribution?.summary;
 
-function resolveHref(href?: string) {
-  if (!href) return null;
-  if (href.startsWith('#')) return href;
-  if (href.startsWith('/')) return getNavigationPath(href, locale);
-  return href;
+function resolveItemHref(item: {
+  href?: string;
+  provider?: CommercialProviderId;
+}) {
+  if (item.href) {
+    if (item.href.startsWith('#')) return item.href;
+    if (item.href.startsWith('/')) return getNavigationPath(item.href, locale);
+    return item.href;
+  }
+
+  if (item.provider) {
+    return resolveCommercialEndpoint(item.provider)?.url ?? null;
+  }
+
+  return null;
 }
 
-function actionLabel(id: string, href: string) {
+function actionLabel(
+  id: string,
+  href: string,
+  commercialAction?: CommercialAction,
+) {
+  if (commercialAction) return ui.commercialActions[commercialAction];
   if (href.startsWith('#')) return ui.actions.section;
   if (id === 'play') return ui.actions.play;
   if (id === 'github') return ui.actions.github;
@@ -73,7 +93,7 @@ function actionLabel(id: string, href: string) {
 
             <div class="distribution-grid">
               {group.items.map((item) => {
-                const href = resolveHref(item.href);
+                const href = resolveItemHref(item);
                 const note = locale === 'it' ? item.noteIt ?? item.note : item.note;
 
                 return (
@@ -88,14 +108,15 @@ function actionLabel(id: string, href: string) {
                     {href ? (
                       <a
                         href={href}
-                        target={item.newTab ? '_blank' : undefined}
-                        rel={item.newTab ? 'noopener noreferrer' : undefined}
-                        data-analytics-event="distribution-cta"
+                        target={item.provider || item.newTab ? '_blank' : undefined}
+                        rel={item.provider || item.newTab ? 'noopener noreferrer' : undefined}
+                        data-analytics-event={item.provider ? 'conversion-cta' : 'distribution-cta'}
                         data-analytics-project={project.data.slug}
-                        data-analytics-action={item.id}
+                        data-analytics-action={item.commercialAction ?? item.id}
+                        data-analytics-provider={item.provider}
                       >
-                        {actionLabel(item.id, href)}
-                        {item.newTab && <span aria-hidden="true">↗</span>}
+                        {actionLabel(item.id, href, item.commercialAction)}
+                        {(item.provider || item.newTab) && <span aria-hidden="true">↗</span>}
                       </a>
                     ) : (
                       <small>{ui.states[item.state]}</small>
