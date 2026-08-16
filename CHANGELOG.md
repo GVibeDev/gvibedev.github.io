@@ -1,5 +1,21 @@
 # Changelog
 
+## GV-PORTFOLIO V0.24 — Sprite Studio Public Repository & Project Page Refresh
+
+- Rebuilt the Unum Sunt Sprite Studio public page around the current R5c-series product rather than the older Development Preview copy.
+- Added the public repository and GitHub Releases endpoints supplied for Sprite Studio.
+- Changed the Product Hub from unpublished GitHub/download states to real Repository, Download/Releases and release-history links.
+- Replaced the previous Sprite Studio branding with the new icon, extended logo, splash/banner and refreshed social/card artwork.
+- Replaced the old screenshot gallery with thirteen current development captures covering video generation, image generation, Project Groups, clean-up, smart selection, alignment, spritesheet decomposition, Productive Presets, Calibration Lab, Guided Workflows, runtime preflight and Runtime Manager.
+- Added a dedicated bilingual EN/IT Sprite Studio project layout so the project no longer depends on the legacy preserved Italian HTML body.
+- Documented the 14-workspace production pipeline and the R5c1–R5c6 standalone Windows/runtime-management architecture.
+- Documented Inno Setup Core/Complete/Custom installation, PyInstaller onedir packaging, preflight, managed/external WanGP distinction, repair/update, opt-in uninstall cleanup, SHA-256 verification and Authenticode checks.
+- Preserved the R5c2 policy that no arbitrary fixed GPU/VRAM/RAM minimum is imposed; effective local-generation compatibility is diagnosed against the runtime.
+- Marked end-to-end Krea 2 setup as pending after R5c6 rather than presenting it as complete.
+- Kept PayPal, itch.io, Steam, Kickstarter, Patreon and analytics activation frozen/inactive.
+- No public route was added; sitemap cardinality is unchanged.
+
+
 ## GV-PORTFOLIO V0.23 — Commercial / Crowdfunding Foundation
 
 - Added a centralized commercial-provider resolver for PayPal Support, itch.io, Steam, Kickstarter and Patreon.

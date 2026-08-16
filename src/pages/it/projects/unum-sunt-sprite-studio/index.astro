@@ -1,8 +1,14 @@
 ---
-import LocalizedContentPage from '../../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import SpriteStudioProjectLayout from '../../../../layouts/SpriteStudioProjectLayout.astro';
 
-const page = getItalianContentPage('projects--unum-sunt-sprite-studio');
+const project = (await getCollection('projects')).find(
+  (entry) => entry.data.slug === 'unum-sunt-sprite-studio',
+);
+
+if (!project) {
+  throw new Error('Unum Sunt Sprite Studio project data not found.');
+}
 ---
 
-<LocalizedContentPage page={page} />
+<SpriteStudioProjectLayout project={project} locale="it" />

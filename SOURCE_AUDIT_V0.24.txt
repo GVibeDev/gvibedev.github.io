@@ -1,0 +1,34 @@
+GVibeDev.cc V0.24 — SOURCE AUDIT
+=================================
+
+Target baseline: V0.23 validated
+Milestone: Sprite Studio Public Repository & Project Page Refresh
+
+Structural issues: 0
+Gallery full images: 13
+Gallery thumbnails: 13
+Branding/social assets in V0.24 patch: 5
+Total V0.24 image assets: 31
+Sitemap URLs: 40 (unchanged)
+
+PASS — source-level V0.24 audit passed.
+
+Validated constraints:
+- repository and Releases URLs match the supplied public endpoints;
+- Sprite Studio Product Hub now exposes real repository/release surfaces;
+- all thirteen new gallery images and thumbnails exist;
+- old Sprite Studio gallery references are removed from project data;
+- the new icon, extended logo, splash/banner and social/card assets exist;
+- EN and IT Sprite Studio routes converge on one shared project layout;
+- the Italian Sprite Studio route no longer depends on the legacy preserved HTML body;
+- all 14 workspaces are represented in the shared localized copy;
+- no fixed GPU/VRAM/RAM minimum is introduced;
+- Krea 2 is explicitly marked pending after R5c6;
+- PayPal, itch.io, Steam, Kickstarter, Patreon and analytics remain inactive;
+- no public route is added and the sitemap remains at 40 URLs.
+
+Production-build attempt:
+`npm run build` was attempted in the assistant Linux runtime. Astro starts, then fails before compiling the site because the reconstructed source package contains Windows-native Rolldown dependencies and the Linux/WASI binding `@rolldown/binding-wasm32-wasi` / `rolldown-binding.wasi.cjs` is unavailable. This is the same environment-class limitation seen in earlier milestones and is not counted as a V0.24 source failure.
+
+Mandatory freeze gate:
+Run `npm run build` in the normal Windows development environment and inspect `dist/` with VALIDATION_V0.24.md before freezing V0.24.

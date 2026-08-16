@@ -1,0 +1,31 @@
+GVibeDev.cc V0.24 — SPRITE STUDIO PUBLIC REPOSITORY & PROJECT PAGE REFRESH
+===========================================================================
+
+Target baseline:
+V0.23 — Commercial / Crowdfunding Foundation (validated)
+
+Apply this ZIP as an overlay at repository root.
+
+No source file needs to be deleted.
+
+The patch intentionally overwrites these existing branding assets:
+- public/assets/projects/sprite-studio/card-cover.webp
+- public/assets/projects/sprite-studio/sprite-studio-logo.webp
+- public/assets/projects/sprite-studio/og-sprite-studio.webp
+
+It also adds:
+- public/assets/projects/sprite-studio/sprite-studio-icon.webp
+- public/assets/projects/sprite-studio/splash-banner.webp
+- public/assets/projects/sprite-studio/v024/*
+
+After overlaying:
+
+    npm run build
+
+Then inspect the generated dist using VALIDATION_V0.24.md.
+
+Important:
+- V0.24 does not activate PayPal, itch.io, Steam, Kickstarter, Patreon or analytics.
+- No sitemap route is added.
+- Krea 2 remains explicitly pending after R5c6.
+- Repository and Releases URLs are the public endpoints supplied for Sprite Studio.

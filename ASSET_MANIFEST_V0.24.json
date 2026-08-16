@@ -1,0 +1,161 @@
+{
+  "milestone": "V0.24 \u2014 Sprite Studio Public Repository & Project Page Refresh",
+  "asset_count": 31,
+  "assets": [
+    {
+      "path": "public/assets/projects/sprite-studio/card-cover.webp",
+      "bytes": 81400,
+      "sha256": "2b9863d92ddc7db6614e35fb3d8edef5e1d81251892df25d28b55b3a299d9b2c"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/sprite-studio-logo.webp",
+      "bytes": 91272,
+      "sha256": "69ba686306b27881bf41c59583943885ec5a75ea6ef617628dff885854b11aca"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/sprite-studio-icon.webp",
+      "bytes": 40722,
+      "sha256": "b1ad6525bbf1e04322924addb293ffbe2bdd3de8a87ab9b468cb64a3d4af0221"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/splash-banner.webp",
+      "bytes": 144730,
+      "sha256": "51c6d4ed60fe83db7694f601fcbf56467f759176671c998a2d44ad23e7ab4bf1"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/og-sprite-studio.webp",
+      "bytes": 66576,
+      "sha256": "efee262e91708a368d49ae4628320a18b65dae4b3c0a6e4b3d982c14f826b257"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/alignment.webp",
+      "bytes": 88886,
+      "sha256": "2604de10f5159ead65e48dbb5cd03ce8c38c8f4c7997bde4c5ae48ef4c8d0f11"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/calibration-lab.webp",
+      "bytes": 65786,
+      "sha256": "cc64853a51999ca36e72e9d004c3042386020e02b99b25c05e37741b6d26a7ce"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/cleanup.webp",
+      "bytes": 89500,
+      "sha256": "635819363ee744c130c001572d66e7075501ca05af31e75d69f35dd268aae299"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/guided-workflows.webp",
+      "bytes": 63470,
+      "sha256": "b8afd734f02048ed3db4c4dc8aa1fad675897814a7c7be6f542c5a70992679e3"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/image-generation.webp",
+      "bytes": 96664,
+      "sha256": "45655edcdae34e0f886eda3820cf168a165d0bf86ab2061926e4a0beb8c6beb3"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/productive-presets.webp",
+      "bytes": 53688,
+      "sha256": "045e0f32c7ebc377877ff878514cec8e1bcbb03d5e8e4dc27eaf396ae4ec9478"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/project-groups.webp",
+      "bytes": 68462,
+      "sha256": "d230f43fd29c6aca00ee95a61b4abdefccf3216ad92ce89b4e9bbe3d0693a2f8"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/runtime-manager.webp",
+      "bytes": 86212,
+      "sha256": "6b8a828070f55d76801ed155d511d2324de9c6b60aee0f9e6c477b494619a63a"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/runtime-preflight.webp",
+      "bytes": 95710,
+      "sha256": "59b463ac490efa24effa0eb8f7bebca47425f45fbf228e36a2e6edb54a974f3b"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/smart-selection-analysis.webp",
+      "bytes": 71630,
+      "sha256": "43a50ba27c8af0ef45a47056b3fc7c7b6fbf78efff57b30cd570a24623f1692c"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/smart-selection-results.webp",
+      "bytes": 57714,
+      "sha256": "be5cd19fd3dc8cd2500ac0ccf28ab9ffe51784def7c4c275b2ac42148138754d"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/sprite-sheet-import.webp",
+      "bytes": 111712,
+      "sha256": "5d7e48869f789bf88478cc011f7a9e08378bc9e3700131cc58eab7a6049f0dc1"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/alignment.webp",
+      "bytes": 24290,
+      "sha256": "68402d88bde8b35046ac91f514a0f1ee9869df515f110764fdf02fffc7c25f4e"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/calibration-lab.webp",
+      "bytes": 16660,
+      "sha256": "e977e0f0c7003f00af2d9284ea08881d8c677cdfcb4a5bda0be74e58a3d23d29"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/cleanup.webp",
+      "bytes": 25124,
+      "sha256": "9d1ef54c8b7d8c24edd1e77b5f4c98b415adb41cb072ce92f6b3f0a16064c8e4"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/guided-workflows.webp",
+      "bytes": 16234,
+      "sha256": "be1ece5cdb76cd1604e93399e0acd24affe386dfaead3b33b02d43e5e1b749ca"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/image-generation.webp",
+      "bytes": 25664,
+      "sha256": "94fb3dc275df62466e3b274297b1b8e18bae800d5c6f6f32cb0acee7669f5c22"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/productive-presets.webp",
+      "bytes": 13618,
+      "sha256": "3bd80f22143f7d43ab84650cee55e9d3e0768fb6c297bee94833779cf2b3ac8e"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/project-groups.webp",
+      "bytes": 18288,
+      "sha256": "a0e52b107276b0b926875010e29509a04d333c0d5433fc9a926ecffe9b9d2a73"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/runtime-manager.webp",
+      "bytes": 22486,
+      "sha256": "98dafc212376b0663e2415aa9f192d57d9195e017af8950e48767fbdec320770"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/runtime-preflight.webp",
+      "bytes": 29720,
+      "sha256": "62668a845058f19c32801de740c50cf21e62eb6722ee2d4981db5c0b412e0850"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/smart-selection-analysis.webp",
+      "bytes": 20506,
+      "sha256": "1dffdf06e5d6175752b29a56962cad406200c2132f7c6854ec9e26046b190f5b"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/smart-selection-results.webp",
+      "bytes": 15522,
+      "sha256": "fdf8ba38f7a3c5eba0d0fd5a4e98c7fe14324aa393672b84f84462107f13080d"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/sprite-sheet-import.webp",
+      "bytes": 29478,
+      "sha256": "dc2082d08bf46eb52b548bba6ff043447c3d296ee6b0fb3957c6807967da0286"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/thumbs/video-generation.webp",
+      "bytes": 30196,
+      "sha256": "912c3233c3b21350a3a60c7ab3ed3bb209314e99ddfa8fd5bd2ca52539b0cbdc"
+    },
+    {
+      "path": "public/assets/projects/sprite-studio/v024/video-generation.webp",
+      "bytes": 121140,
+      "sha256": "2b9cb8ec0e6025a8d8b18d40508f23d946a1be482427a12619c0c504a1584146"
+    }
+  ]
+}

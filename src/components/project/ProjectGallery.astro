@@ -8,19 +8,35 @@ interface GalleryItem {
 
 interface Props {
   items: GalleryItem[];
+  locale?: 'en' | 'it';
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
 }
 
-const { items } = Astro.props;
+const {
+  items,
+  locale = 'en',
+  eyebrow = locale === 'it' ? 'In sviluppo' : 'In development',
+  title = locale === 'it' ? 'Schermate dalla build corrente.' : 'Screens from the current build.',
+  intro = locale === 'it'
+    ? 'Catture reali di sviluppo. Apri qualsiasi frame per ispezionare l’immagine completa.'
+    : 'Real development captures. Click any frame to inspect the full image.',
+} = Astro.props;
+
+const openLabel = locale === 'it' ? 'Apri' : 'Open';
+const closeLabel = locale === 'it' ? 'Chiudi' : 'Close';
+const dialogLabel = locale === 'it' ? 'Screenshot del progetto ingrandito' : 'Expanded project screenshot';
 ---
 
 {items.length > 0 && (
   <section class="project-gallery" aria-labelledby="gallery-title">
     <div class="project-gallery__heading">
       <div>
-        <span class="project-gallery__eyebrow">In development</span>
-        <h2 id="gallery-title">Screens from the current build.</h2>
+        <span class="project-gallery__eyebrow">{eyebrow}</span>
+        <h2 id="gallery-title">{title}</h2>
       </div>
-      <p>Real development captures. Click any frame to inspect the full image.</p>
+      <p>{intro}</p>
     </div>
 
     <div class="project-gallery__grid">
@@ -42,16 +58,16 @@ const { items } = Astro.props;
               loading="lazy"
               decoding="async"
             />
-            <span class="gallery-card__inspect" aria-hidden="true">Open ↗</span>
+            <span class="gallery-card__inspect" aria-hidden="true">{openLabel} ↗</span>
           </a>
           {item.caption && <figcaption>{item.caption}</figcaption>}
         </figure>
       ))}
     </div>
 
-    <dialog class="gallery-dialog" data-gallery-dialog aria-label="Expanded project screenshot">
+    <dialog class="gallery-dialog" data-gallery-dialog aria-label={dialogLabel}>
       <div class="gallery-dialog__chrome">
-        <button type="button" data-gallery-close aria-label="Close expanded screenshot">Close ×</button>
+        <button type="button" data-gallery-close aria-label={closeLabel}>{closeLabel} ×</button>
       </div>
       <img data-gallery-image alt="" />
       <p data-gallery-caption></p>

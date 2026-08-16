@@ -1,0 +1,600 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import ProjectGallery from '../components/project/ProjectGallery.astro';
+import type { Locale } from '../i18n/config';
+import { getNavigationPath } from '../i18n/config';
+import { getSpriteStudioCopy } from '../i18n/sprite-studio';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locale?: Locale;
+}
+
+const { project, locale = 'en' } = Astro.props;
+const { data } = project;
+const copy = getSpriteStudioCopy(locale);
+const repoUrl = data.links.repositoryUrl;
+const releaseUrl = data.links.releaseUrl;
+
+const gallery = data.gallery.map((item, index) => ({
+  ...item,
+  alt: copy.gallery[index]?.[0] ?? item.alt,
+  caption: copy.gallery[index]?.[1] ?? item.caption,
+}));
+---
+
+<BaseLayout
+  title={data.title}
+  description={locale === 'it'
+    ? 'Unum Sunt Sprite Studio è una suite desktop Windows end-to-end per generazione, estrazione, clean-up, selezione, allineamento, spritesheet, workflow guidati e runtime AI locale gestito.'
+    : data.seoDescription ?? data.summary}
+  image={data.socialImage ?? data.cover}
+  locale={locale}
+>
+  <section class="sprite-hero">
+    <Container>
+      <a class="sprite-hero__back" href={getNavigationPath('/tools/', locale)}>{copy.back}</a>
+
+      <div class="sprite-hero__grid">
+        <div class="sprite-hero__copy">
+          <div class="sprite-hero__eyebrow">
+            <img src="/assets/projects/sprite-studio/sprite-studio-icon.webp" alt="" width="56" height="56" />
+            <div>
+              <span>{copy.eyebrow}</span>
+              <strong>{copy.status}</strong>
+            </div>
+          </div>
+
+          <h1>{data.title}</h1>
+          <p>{copy.summary}</p>
+
+          <div class="sprite-hero__tags" aria-label={locale === 'it' ? 'Caratteristiche principali' : 'Primary capabilities'}>
+            {copy.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+
+          <div class="sprite-hero__actions">
+            {releaseUrl && (
+              <a
+                class="sprite-button sprite-button--primary"
+                href={releaseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="project-cta"
+                data-analytics-action="download"
+              >
+                {copy.releases} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            {repoUrl && (
+              <a
+                class="sprite-button"
+                href={repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="project-cta"
+                data-analytics-action="github"
+              >
+                {copy.repository} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+            <a class="sprite-button" href="#documentation">{copy.documentation}</a>
+          </div>
+        </div>
+
+        <aside class="sprite-hero__profile">
+          <span>{copy.toolProfile}</span>
+          <strong>{copy.toolCategory}</strong>
+          <p>{copy.platform}</p>
+          <p>{copy.publication}</p>
+        </aside>
+      </div>
+
+      {data.logo && (
+        <figure class="sprite-hero__brand">
+          <img src={data.logo} alt={copy.identityAlt} width="1200" height="800" fetchpriority="high" />
+        </figure>
+      )}
+
+      {data.heroImage && (
+        <figure class="sprite-hero__banner">
+          <img src={data.heroImage} alt={copy.bannerAlt} width="2048" height="682" fetchpriority="high" />
+        </figure>
+      )}
+    </Container>
+  </section>
+
+  <section class="sprite-workspaces" id="documentation">
+    <Container>
+      <div class="section-heading">
+        <span>{copy.workspaceEyebrow}</span>
+        <h2>{copy.workspaceTitle}</h2>
+        <p>{copy.workspaceIntro}</p>
+      </div>
+
+      <div class="workspace-grid">
+        {copy.workspaces.map(([title, detail]) => (
+          <article>
+            <strong>{title}</strong>
+            <p>{detail}</p>
+          </article>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <section class="sprite-capabilities">
+    <Container>
+      <div class="capability-stack">
+        {copy.sections.map((section, index) => (
+          <article class:list={['capability', index % 2 === 1 && 'capability--offset']}>
+            <div class="capability__heading">
+              <span>{section.eyebrow}</span>
+              <h2>{section.title}</h2>
+            </div>
+            <div class="capability__body">
+              {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  {gallery.length > 0 && (
+    <section class="sprite-gallery">
+      <Container>
+        <ProjectGallery
+          items={gallery}
+          locale={locale}
+          eyebrow={copy.galleryEyebrow}
+          title={copy.galleryTitle}
+          intro={copy.galleryIntro}
+        />
+      </Container>
+    </section>
+  )}
+
+  <section class="sprite-setup" id="requirements">
+    <Container>
+      <div class="section-heading section-heading--wide">
+        <span>{copy.setupEyebrow}</span>
+        <h2>{copy.setupTitle}</h2>
+        <p>{copy.setupIntro}</p>
+      </div>
+
+      <div class="setup-facts">
+        {copy.setupFacts.map(([label, value]) => (
+          <article>
+            <span>{label}</span>
+            <strong>{value}</strong>
+          </article>
+        ))}
+      </div>
+
+      <div class="setup-columns">
+        <section>
+          <h3>{copy.runtimeTitle}</h3>
+          <div class="setup-list">
+            {copy.runtimeItems.map(([label, detail]) => (
+              <article>
+                <strong>{label}</strong>
+                <p>{detail}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h3>{copy.safetyTitle}</h3>
+          <ul class="safety-list">
+            {copy.safetyItems.map((item) => <li>{item}</li>)}
+          </ul>
+        </section>
+      </div>
+
+      <div class="release-actions">
+        {releaseUrl && (
+          <a class="sprite-button sprite-button--primary" href={releaseUrl} target="_blank" rel="noopener noreferrer">
+            {copy.releases} <span aria-hidden="true">↗</span>
+          </a>
+        )}
+        {repoUrl && (
+          <a class="sprite-button" href={repoUrl} target="_blank" rel="noopener noreferrer">
+            {copy.repository} <span aria-hidden="true">↗</span>
+          </a>
+        )}
+      </div>
+    </Container>
+  </section>
+
+  {data.endcapImage && (
+    <section class="sprite-endcap">
+      <Container>
+        <div class="sprite-endcap__heading">
+          <span>{copy.endcapEyebrow}</span>
+          <h2>{copy.endcapTitle}</h2>
+        </div>
+        <figure>
+          <img src={data.endcapImage} alt={copy.endcapAlt} width="512" height="384" loading="lazy" decoding="async" />
+        </figure>
+      </Container>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  .sprite-hero,
+  .sprite-workspaces,
+  .sprite-capabilities,
+  .sprite-gallery,
+  .sprite-setup,
+  .sprite-endcap {
+    padding-block: var(--section-space);
+  }
+
+  .sprite-hero {
+    padding-top: clamp(2rem, 5vw, 4.5rem);
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 80% 7%, color-mix(in srgb, var(--color-blue-bright) 12%, transparent), transparent 29rem),
+      radial-gradient(circle at 12% 78%, color-mix(in srgb, var(--color-red-bright) 8%, transparent), transparent 24rem),
+      var(--color-bg);
+  }
+
+  .sprite-hero__back {
+    display: inline-flex;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .055em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .sprite-hero__back:hover { color: var(--color-blue-soft); }
+
+  .sprite-hero__grid {
+    display: grid;
+    gap: 2rem;
+    align-items: end;
+  }
+
+  .sprite-hero__copy {
+    display: grid;
+    gap: 1.2rem;
+    max-width: 62rem;
+  }
+
+  .sprite-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+  }
+
+  .sprite-hero__eyebrow img {
+    width: 3.2rem;
+    height: 3.2rem;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  .sprite-hero__eyebrow > div {
+    display: grid;
+    gap: .25rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .sprite-hero__eyebrow strong { color: var(--color-red-soft); }
+
+  .sprite-hero h1 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: .88;
+    letter-spacing: -.065em;
+  }
+
+  .sprite-hero__copy > p {
+    max-width: 56rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.08rem, 1rem + .45vw, 1.42rem);
+    line-height: 1.65;
+  }
+
+  .sprite-hero__tags,
+  .sprite-hero__actions,
+  .release-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+  }
+
+  .sprite-hero__tags span {
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    padding: .3rem .55rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    background: var(--color-surface-1);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing: .04em;
+  }
+
+  .sprite-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    padding: .75rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: .74rem;
+    font-weight: 800;
+    letter-spacing: .045em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .sprite-button--primary {
+    border-color: color-mix(in srgb, var(--color-blue-bright) 70%, var(--color-border));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-blue) 78%, white 6%), var(--color-blue-deep));
+  }
+
+  .sprite-button span { color: var(--color-red-soft); }
+  .sprite-button:hover,
+  .sprite-button:focus-visible { border-color: var(--color-blue-soft); }
+
+  .sprite-hero__profile {
+    display: grid;
+    gap: .55rem;
+    padding: 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface-1);
+  }
+
+  .sprite-hero__profile > span,
+  .section-heading > span,
+  .capability__heading > span,
+  .setup-facts span,
+  .sprite-endcap__heading > span {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .sprite-hero__profile p { margin: 0; color: var(--color-text-muted); line-height: 1.55; }
+
+  .sprite-hero__brand,
+  .sprite-hero__banner {
+    overflow: hidden;
+    margin: clamp(1.5rem, 4vw, 2.5rem) 0 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-1);
+  }
+
+  .sprite-hero__brand img,
+  .sprite-hero__banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .sprite-hero__brand {
+    max-width: 64rem;
+  }
+
+  .sprite-hero__banner {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sprite-workspaces { background: var(--color-bg); }
+  .sprite-capabilities,
+  .sprite-gallery,
+  .sprite-endcap {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-deep);
+  }
+
+  .section-heading {
+    display: grid;
+    gap: .8rem;
+    max-width: 66rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-heading h2,
+  .capability h2,
+  .sprite-endcap h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    line-height: .98;
+    letter-spacing: -.05em;
+  }
+
+  .section-heading p,
+  .capability p,
+  .setup-list p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  .workspace-grid {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .workspace-grid article {
+    display: grid;
+    gap: .5rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+  }
+
+  .workspace-grid strong {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .8rem;
+    letter-spacing: .03em;
+  }
+
+  .workspace-grid p { margin: 0; color: var(--color-text-muted); line-height: 1.6; }
+
+  .capability-stack {
+    display: grid;
+    gap: clamp(3rem, 7vw, 6rem);
+  }
+
+  .capability {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .capability__heading,
+  .capability__body {
+    display: grid;
+    gap: .75rem;
+    align-content: start;
+  }
+
+  .sprite-gallery { background: var(--color-bg); }
+
+  .sprite-setup {
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .setup-facts {
+    display: grid;
+    gap: .75rem;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+  }
+
+  .setup-facts article {
+    display: grid;
+    gap: .45rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-1);
+  }
+
+  .setup-facts strong { line-height: 1.45; }
+
+  .setup-columns {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .setup-columns > section {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .setup-columns h3 {
+    margin: 0;
+    font-size: clamp(1.45rem, 3vw, 2.15rem);
+  }
+
+  .setup-list {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .setup-list article {
+    display: grid;
+    gap: .45rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--color-blue) 7%, transparent), transparent 60%),
+      var(--color-surface-1);
+  }
+
+  .safety-list {
+    display: grid;
+    gap: .75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .safety-list li {
+    padding: 1rem;
+    border-left: 2px solid var(--color-border-strong);
+    color: var(--color-text-muted);
+    background: var(--color-surface-1);
+    line-height: 1.65;
+  }
+
+  .release-actions { margin-top: 2rem; }
+
+  .sprite-endcap__heading {
+    display: grid;
+    gap: .65rem;
+    margin-bottom: 2rem;
+  }
+
+  .sprite-endcap__heading h2 { max-width: 22ch; }
+
+  .sprite-endcap figure {
+    display: grid;
+    place-items: center;
+    min-height: 20rem;
+    margin: 0;
+    padding: clamp(1rem, 4vw, 3rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%),
+      linear-gradient(45deg, #111 25%, #07090d 25%, #07090d 75%, #111 75%);
+    background-position: 0 0, 12px 12px;
+    background-size: 24px 24px;
+  }
+
+  .sprite-endcap img {
+    display: block;
+    width: min(100%, 42rem);
+    height: auto;
+    image-rendering: pixelated;
+  }
+
+  @media (min-width: 46rem) {
+    .workspace-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .setup-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 64rem) {
+    .sprite-hero__grid { grid-template-columns: minmax(0, 1fr) 19rem; gap: 3rem; }
+    .workspace-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .capability { grid-template-columns: minmax(18rem, .8fr) minmax(0, 1.2fr); gap: 4rem; }
+    .capability--offset .capability__heading { order: 2; }
+    .capability--offset .capability__body { order: 1; }
+    .setup-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .setup-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem; }
+  }
+</style>

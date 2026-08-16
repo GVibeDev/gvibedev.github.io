@@ -1,69 +1,85 @@
 ---
 title: Unum Sunt Sprite Studio
 slug: unum-sunt-sprite-studio
-summary: A desktop workflow for turning motion references into cleaned, aligned and export-ready sprite assets.
+summary: A Windows desktop suite for generating, extracting, cleaning, selecting, aligning, organising and exporting sprite animation assets, with optional managed local AI runtimes.
 kind: tool
 section: tools
 owner: gvibedev
 featured: true
 sortOrder: 30
 tags:
-  - Sprite pipeline
-  - Windows Desktop
-  - WanGP bridge
-  - Frame extraction
-  - Cleanup & alignment
-status: Development Preview
+  - End-to-end sprite pipeline
+  - Windows x64
+  - WanGP / WAN Animate
+  - Smart frame selection
+  - Managed AI runtime
+status: Public Development Release — R5c6
 cover: /assets/projects/sprite-studio/card-cover.webp
-coverAlt: Unum Sunt Sprite Studio interface showing a cleaned pixel-art character in the production workflow.
+coverAlt: Unum Sunt Sprite Studio extended brand mark with the three-ring emblem and application name.
 cardImage: /assets/projects/sprite-studio/card-cover.webp
-cardImageAlt: Unum Sunt Sprite Studio production view with a cleaned pixel-art character and application branding.
+cardImageAlt: Unum Sunt Sprite Studio extended brand mark with the three-ring emblem and application name.
 cardImagePosition: center
-links: {}
+links:
+  repositoryUrl: https://github.com/GVibeDev/UnumSunt_Sprite_Studio
+  releaseUrl: https://github.com/GVibeDev/UnumSunt_Sprite_Studio/releases
+  actions:
+    - type: documentation
+      label: Documentation
+      href: '#documentation'
+    - type: support
+      label: Support
+      href: /support/
 distribution:
-  currentVersion: Development Preview
-  currentVersionIt: Anteprima di sviluppo
-  summary: The project page now acts as the public product hub. The working desktop application is real, while a packaged public release and public repository have not yet been published.
-  summaryIt: La pagina del progetto ora funziona come hub pubblico del prodotto. L'applicazione desktop di sviluppo è reale, mentre non sono ancora stati pubblicati né un pacchetto pubblico né un repository pubblico.
+  currentVersion: R5c6 — Public Development Release
+  currentVersionIt: R5c6 — Release pubblica di sviluppo
+  summary: Sprite Studio now has a public repository and GitHub Releases. The Windows core is standalone, while the managed local-AI runtime remains an optional layer with preflight, adoption, repair and health-check tooling.
+  summaryIt: Sprite Studio dispone ora di repository pubblico e GitHub Releases. Il core Windows è standalone, mentre il runtime AI locale gestito resta un livello opzionale con preflight, adozione, repair e health check.
   items:
+    - id: download
+      stage: current
+      state: available
+      href: https://github.com/GVibeDev/UnumSunt_Sprite_Studio/releases
+      commercialAction: download
+      newTab: true
+      note: Public development packages are distributed through GitHub Releases.
+      noteIt: I pacchetti pubblici di sviluppo sono distribuiti tramite GitHub Releases.
+    - id: github
+      stage: current
+      state: available
+      href: https://github.com/GVibeDev/UnumSunt_Sprite_Studio
+      newTab: true
+      note: Source, history and public project documentation are available in the repository.
+      noteIt: Sorgenti, cronologia e documentazione pubblica del progetto sono disponibili nel repository.
     - id: documentation
       stage: current
       state: on-page
       href: '#documentation'
-      note: The current workflow, setup rationale and local WanGP integration are documented on this page.
-      noteIt: Il workflow corrente, la logica di configurazione e l'integrazione locale WanGP sono documentati in questa pagina.
+      note: The 14-workspace production chain and validated R5c-series architecture are documented on this page.
+      noteIt: La catena produttiva a 14 workspace e l’architettura validata della serie R5c sono documentate in questa pagina.
     - id: requirements
       stage: current
       state: on-page
       href: '#requirements'
-      note: Validated Windows and WanGP requirements are listed in the technical setup section.
-      noteIt: I requisiti Windows e WanGP validati sono elencati nella sezione di configurazione tecnica.
+      note: Core Windows packaging and the optional managed local-AI runtime are documented separately.
+      noteIt: Il packaging Windows core e il runtime AI locale gestito opzionale sono documentati separatamente.
+    - id: changelog
+      stage: current
+      state: available
+      href: https://github.com/GVibeDev/UnumSunt_Sprite_Studio/releases
+      newTab: true
+      note: Public release history and packaged builds are exposed through GitHub Releases.
+      noteIt: La cronologia delle release pubbliche e i pacchetti sono esposti tramite GitHub Releases.
     - id: support
       stage: current
       state: available
       href: /support/
-      note: The GVibeDev Support page is public. A PayPal payment link remains inactive until a real public URL is configured.
-      noteIt: La pagina Supporto di GVibeDev è pubblica. Il collegamento di pagamento PayPal resta inattivo finché non viene configurato un URL pubblico reale.
-    - id: download
-      stage: development
-      state: not-published
-      note: No public installer or release package is published yet.
-      noteIt: Non è ancora pubblicato alcun installer o pacchetto di release.
+      note: Voluntary project support routes through the shared GVibeDev Support page; the external PayPal endpoint remains inactive until configured.
+      noteIt: Il supporto volontario passa dalla pagina Supporto condivisa di GVibeDev; l’endpoint PayPal esterno resta inattivo finché non viene configurato.
     - id: tutorials
       stage: development
       state: planned
-      note: Demonstration and tutorial material will be linked when the public release workflow is ready.
-      noteIt: Il materiale dimostrativo e i tutorial verranno collegati quando il workflow di release pubblica sarà pronto.
-    - id: changelog
-      stage: development
-      state: planned
-      note: A public product changelog will be exposed when external release versioning begins.
-      noteIt: Un changelog pubblico del prodotto verrà esposto quando inizierà il versioning delle release esterne.
-    - id: github
-      stage: development
-      state: not-published
-      note: A public Sprite Studio repository has not been published yet.
-      noteIt: Non è ancora stato pubblicato un repository pubblico di Sprite Studio.
+      note: Dedicated public tutorials will be linked when the documentation set is ready.
+      noteIt: I tutorial pubblici dedicati verranno collegati quando il set documentale sarà pronto.
   plannedSections:
     - download
     - documentation
@@ -73,166 +89,150 @@ distribution:
     - github
     - support
 pageReady: true
-heroImage: /assets/projects/sprite-studio/cleanup.webp
-heroAlt: Unum Sunt Sprite Studio Clean-up workspace with a pixel-art character on transparency and precision editing controls.
+heroImage: /assets/projects/sprite-studio/splash-banner.webp
+heroAlt: Unum Sunt Sprite Studio splash banner with the three-ring brand mark, sprite production imagery and the line Create sprites. Refine frames. Build worlds.
 logo: /assets/projects/sprite-studio/sprite-studio-logo.webp
 socialImage: /assets/projects/sprite-studio/og-sprite-studio.webp
 endcapImage: /assets/projects/sprite-studio/idle-se-spritesheet.webp
-endcapAlt: Exported eight-frame idle sprite sheet produced through Unum Sunt Sprite Studio.
-seoDescription: Unum Sunt Sprite Studio is a Windows desktop development preview for generating, extracting, cleaning, aligning, selecting and exporting sprite animation frames, with an optional local WanGP generation bridge.
-toolCategory: Sprite production workflow
+endcapAlt: Exported idle sprite sheet produced through Unum Sunt Sprite Studio.
+seoDescription: Unum Sunt Sprite Studio is a public Windows development release for end-to-end sprite production, combining WanGP/WAN Animate generation, chroma extraction, alpha cleanup, smart selection, alignment, spritesheet tools, guided workflows and an optional managed local-AI runtime.
+toolCategory: End-to-end sprite production suite
 platforms:
-  - Windows Desktop
+  - Windows x64
 requirements:
-  - label: Windows desktop environment
-    detail: The current development preview is built and tested as a Windows desktop workflow.
+  - label: Windows x64
+    detail: The public application is packaged as a standalone PyInstaller onedir build and installed through Inno Setup. Python is not required on the destination machine for the core application.
     scope: core
     required: true
-  - label: Miniconda / isolated Python environment
-    detail: Recommended for the local WanGP integration so its runtime does not collide with the system Python installation.
+  - label: GitHub Releases package
+    detail: Public development packages and release history are distributed from the project Releases page.
+    scope: core
+    required: true
+  - label: Managed local-AI runtime
+    detail: Optional for AI generation. Sprite Studio can bootstrap a private Miniconda + Python 3.11.14 + PyTorch 2.10/cu130 + WanGP environment or adopt an existing external WanGP installation without moving it.
     scope: generation
     required: true
-  - label: Python 3.11.14
-    detail: This is the interpreter version validated for the working local WanGP bridge. Point the bridge to this dedicated interpreter, not to a newer global Python installation.
+  - label: Compatible CUDA / PyTorch runtime
+    detail: Local generation depends on effective driver, CUDA and PyTorch-wheel compatibility. R5c2 intentionally does not impose a fixed minimum GPU, VRAM or RAM model threshold.
     scope: generation
     required: true
-  - label: WanGP Standalone
-    detail: Required only for the Generate workspace when using the Local WAN / WanGP Bridge provider. Extraction, cleanup, alignment and export are separate stages.
+  - label: Local model storage
+    detail: WAN Animate and selected checkpoints require substantial disk space. Preflight checks destination paths, writability and free space before managed installation.
     scope: generation
     required: true
-  - label: PyTorch / CUDA stack
-    detail: The validated local generation machine used PyTorch 2.10.0, torchvision 0.25.0 and torchaudio 2.10.0 from the CUDA 13.0 wheel index.
+  - label: Krea 2 setup
+    detail: Runtime acquisition/licence plumbing is present, but the end-to-end Krea 2 setup remains pending after R5c6 and is not treated as a completed public feature.
     scope: generation
-    required: true
-  - label: triton-windows
-    detail: Installed after the WanGP requirements in the validated Windows generation environment.
-    scope: generation
-    required: true
-  - label: CUDA-capable NVIDIA GPU
-    detail: Part of the validated local WanGP generation setup. The non-generation Sprite Studio stages do not depend on WanGP GPU inference.
-    scope: generation
-    required: true
+    required: false
+setupCopy:
+  heading: Install the Windows core first; add local AI only when needed.
+  intro: The public application no longer requires a hand-built Python environment. Core, Complete and Custom installer paths keep the Windows application separate from the heavier optional AI runtime.
+  coreLabel: Core application
+  coreTitle: Sprite Studio standalone
+  secondaryLabel: Optional local AI
+  secondaryTitle: Managed WanGP runtime
+  publicPackage: GitHub Releases
+  platformLabel: Platform
+  secondaryRequiredLabel: Required for local generation
 installGuide:
-  title: Prepare and launch the validated local WanGP stack
-  intro: >-
-    The public Sprite Studio installer is not available yet, so this guide focuses on the dependency chain that previously caused the most trouble: the local WanGP runtime used by the Generate workspace.
-  warning: The working bridge environment uses Python 3.11.14. In earlier tests, pointing the bridge at newer global Python 3.13/3.14 installations produced a NOT READY result even though the rest of the desktop application could still open. Keep WanGP isolated and select the dedicated 3.11.14 python.exe inside Sprite Studio.
+  eyebrow: Public Windows release
+  title: Install, verify and maintain the release without hand-editing a Python stack
+  intro: R5c4/c4a introduced a real Inno Setup installer. R5c6 adds maintenance/update behaviour and opt-in cleanup while preserving user data by default.
+  warningTitle: Local AI is a separate layer.
+  warning: Core Sprite Studio can be installed without the heavy AI runtime. GPU/VRAM/RAM values are diagnostic; local-generation compatibility is decided by the runtime contract rather than a hard-coded minimum model list.
+  footnote: Existing external WanGP installations remain external unless deliberately adopted. Managed repair/update/removal never takes ownership of folders that Sprite Studio did not install as managed components. Krea 2 end-to-end setup remains pending after R5c6.
   steps:
-    - title: Create a dedicated Python 3.11.14 environment
-      body: Keep WanGP independent from the global Python installation. The path below mirrors the known-good development layout and can be changed if you keep the same separation.
-      code: |-
-        conda create -p C:\AI\envs\WanGP python=3.11.14 -y
-        conda activate C:\AI\envs\WanGP
-        python --version
-    - title: Install the validated PyTorch / CUDA packages
-      body: This pins the package set used by the working Windows generation environment rather than allowing pip to resolve an arbitrary stack.
-      code: |-
-        python -m pip install torch==2.10.0 torchvision==0.25.0 torchaudio==2.10.0 --index-url https://download.pytorch.org/whl/cu130
-    - title: Install WanGP requirements and Triton for Windows
-      body: Run these commands from the WanGP Standalone root, the same directory that contains wgp.py and the models folder.
-      code: |-
-        cd /d C:\AI\WanGP_Standalone
-        python -m pip install -r requirements.txt
-        python -m pip install triton-windows
-        python -m pip check
-    - title: Verify CUDA before involving Sprite Studio
-      body: Confirm that the dedicated environment can actually see the GPU. This isolates WanGP problems from Sprite Studio bridge problems.
-      code: |-
-        python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO CUDA')"
-    - title: Launch WanGP once on its own
-      body: The validated launch used SDPA, profile 4 and FP16. A successful run opens the local WanGP interface, normally on 127.0.0.1:7860.
-      code: |-
-        cd /d C:\AI\WanGP_Standalone
-        C:\AI\envs\WanGP\python.exe wgp.py --attention sdpa --profile 4 --fp16 --open-browser
-    - title: Point Sprite Studio at the dedicated WanGP runtime
-      body: In Generate, choose Local WAN / WanGP Bridge. Set Python executable to the dedicated 3.11.14 python.exe, wgp.py to the file inside WanGP_Standalone, WanGP root to that same folder, and select the exported WanGP settings JSON used by your preset. Validate the bridge before starting a generation job.
-    - title: Keep the working directory contract intact
-      body: The bridge must run with the WanGP Standalone root as its working directory. Using another folder can break access to wgp.py, models/_settings.json and relative WanGP resources even when the Python path itself is correct.
+    - title: Download a public package
+      body: Use the GitHub Releases page for the current development package and its release notes/checksums.
+    - title: Choose Core, Complete or Custom
+      body: Core installs the standalone application. Complete/Custom can orchestrate the optional local-AI stack and model choices.
+    - title: Run the non-destructive preflight
+      body: Preflight checks Windows/CUDA driver capability, destination paths, writability, disk space and any existing WanGP installation before a managed install begins.
+    - title: Adopt or install the AI runtime only when required
+      body: An existing WanGP install can be registered as external without moving or renaming it; otherwise Runtime Manager can bootstrap the private managed environment.
+    - title: Verify with health check
+      body: Runtime Manager reports Python/PyTorch/CUDA/model compatibility and keeps real bindings separate from mock fixtures used by the test suite.
+    - title: Repair or update without losing user data
+      body: Re-running Setup or maintenance can repair/update the managed stack. Runtime, models and application data have independent opt-in removal choices during uninstall.
 gallery:
-  - src: /assets/projects/sprite-studio/generate-wangp.webp
-    thumb: /assets/projects/sprite-studio/thumbs/generate-wangp.webp
-    alt: Unum Sunt Sprite Studio Generate workspace configured for the Local WAN and WanGP bridge.
-    caption: Generate — reference image, motion reference, prompts, seed, resolution, frames and live job state in one workspace.
-  - src: /assets/projects/sprite-studio/project-groups.webp
-    thumb: /assets/projects/sprite-studio/thumbs/project-groups.webp
-    alt: Unum Sunt Sprite Studio project workspace grouping subject, animation and direction.
-    caption: Project Groups organize production as Subject → Animation → Direction while preserving local project state.
-  - src: /assets/projects/sprite-studio/extraction-original.webp
-    thumb: /assets/projects/sprite-studio/thumbs/extraction-original.webp
-    alt: Sprite Studio extraction workspace showing a pixel-art character on a green background and chroma controls.
-    caption: Extraction R1 starts from the source video and builds a configurable multi-colour background mask.
-  - src: /assets/projects/sprite-studio/mask-structure.webp
-    thumb: /assets/projects/sprite-studio/thumbs/mask-structure.webp
-    alt: Sprite Studio mask preview showing the detected character silhouette in white against black.
-    caption: Structural mask diagnostics expose the detected central silhouette before destructive cleanup.
-  - src: /assets/projects/sprite-studio/transparent-result.webp
-    thumb: /assets/projects/sprite-studio/thumbs/transparent-result.webp
-    alt: Sprite Studio transparent result preview with the extracted character over a checkerboard.
-    caption: The transparent preview makes edge contamination and missing pixels visible before later stages.
-  - src: /assets/projects/sprite-studio/cleanup.webp
-    thumb: /assets/projects/sprite-studio/thumbs/cleanup.webp
-    alt: Sprite Studio Clean-up workspace with alpha cleanup, pixel painter and selection tools.
-    caption: Clean-up combines automatic alpha repair with pixel painting, rectangle/lasso selection and undoable corrections.
-  - src: /assets/projects/sprite-studio/alignment.webp
-    thumb: /assets/projects/sprite-studio/thumbs/alignment.webp
-    alt: Sprite Studio alignment workspace with output geometry, anchor controls and onion-skin options.
-    caption: Alignment uses output geometry, shared scale and global/per-frame anchors to reduce animation jitter.
-  - src: /assets/projects/sprite-studio/smart-selection.webp
-    thumb: /assets/projects/sprite-studio/thumbs/smart-selection.webp
-    alt: Sprite Studio smart frame selection workspace analysing movement, duplicates, anomalies and loop quality.
-    caption: Smart selection analyses a source interval and proposes a smaller frame set for the target animation profile.
-  - src: /assets/projects/sprite-studio/export.webp
-    thumb: /assets/projects/sprite-studio/thumbs/export.webp
-    alt: Sprite Studio Export Studio workspace configured to export an eight-frame WebP sprite sheet.
-    caption: Export Studio produces individual frames or sprite sheets with configurable layout, scale, format and background.
+  - src: /assets/projects/sprite-studio/v024/video-generation.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/video-generation.webp
+    alt: Unum Sunt Sprite Studio video generation workspace driving WanGP with reference image, motion reference, prompts and live job progress.
+    caption: Video generation — WanGP/WAN Animate bridge with explicit reference, prompt, resolution, frame, FPS and job controls.
+  - src: /assets/projects/sprite-studio/v024/image-generation.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/image-generation.webp
+    alt: Unum Sunt Sprite Studio local image generation provider showing prompt controls and a completed character image job.
+    caption: Image Gen — a separate local provider produces normalised image jobs without coupling the application core to the AI runtime.
+  - src: /assets/projects/sprite-studio/v024/project-groups.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/project-groups.webp
+    alt: Unum Sunt Sprite Studio Project Groups hierarchy showing subject, animation and direction state.
+    caption: Project Groups — Subject → Animation → Direction keeps production assets, state and metadata attached to the active group.
+  - src: /assets/projects/sprite-studio/v024/cleanup.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/cleanup.webp
+    alt: Unum Sunt Sprite Studio Clean-up workspace with alpha brush, pixel grid and selection propagation tools.
+    caption: Clean-up — alpha painting, rectangle/lasso selection, propagation and transactional undo support frame-level repair.
+  - src: /assets/projects/sprite-studio/v024/smart-selection-results.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/smart-selection-results.webp
+    alt: Unum Sunt Sprite Studio smart frame selection results with movement, anomaly and quality scores.
+    caption: Smart Selection — MAD/Rec.709-derived analysis proposes a compact frame set while exposing movement, anomalies and loop quality.
+  - src: /assets/projects/sprite-studio/v024/alignment.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/alignment.webp
+    alt: Unum Sunt Sprite Studio Alignment workspace with output geometry, shared scale, anchor and per-frame offset controls.
+    caption: Alignment — shared geometry, anchors, pivots, mirroring and per-frame offsets reduce jitter without hiding the underlying frames.
+  - src: /assets/projects/sprite-studio/v024/sprite-sheet-import.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/sprite-sheet-import.webp
+    alt: Unum Sunt Sprite Studio Sprite Sheet workspace decomposing an imported atlas into frames.
+    caption: Sprite Sheet — regular or irregular sheets can be decomposed, normalised and rebuilt as WAN reference material.
+  - src: /assets/projects/sprite-studio/v024/productive-presets.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/productive-presets.webp
+    alt: Unum Sunt Sprite Studio Productive Presets workspace with reusable pipeline settings.
+    caption: Productive Presets — capture reusable settings while preserving source media and manual per-frame corrections.
+  - src: /assets/projects/sprite-studio/v024/calibration-lab.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/calibration-lab.webp
+    alt: Unum Sunt Sprite Studio Calibration Lab listing generation runs and A/B baseline controls.
+    caption: Calibration Lab — compare runs, ratings and useful-frame counts, then promote a validated configuration to a production profile.
+  - src: /assets/projects/sprite-studio/v024/guided-workflows.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/guided-workflows.webp
+    alt: Unum Sunt Sprite Studio Guided Workflows router showing the Standard Video to Sprite sequence.
+    caption: Guided Workflows — Standard, Full AI-to-Sprite and Rework routes record completion and preserve checkpoints instead of locking the user into a wizard.
+  - src: /assets/projects/sprite-studio/v024/runtime-preflight.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/runtime-preflight.webp
+    alt: Unum Sunt Sprite Studio local AI preflight showing CUDA, PyTorch, disk and runtime compatibility checks.
+    caption: Runtime preflight — non-destructive checks report driver/runtime compatibility, writable paths and disk requirements before installation.
+  - src: /assets/projects/sprite-studio/v024/runtime-manager.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/runtime-manager.webp
+    alt: Unum Sunt Sprite Studio Runtime Manager with managed components, model choices, licences and health status.
+    caption: Runtime Manager — install/adopt, health-check, repair/update and remove managed components without touching external WanGP folders.
+  - src: /assets/projects/sprite-studio/v024/smart-selection-analysis.webp
+    thumb: /assets/projects/sprite-studio/v024/thumbs/smart-selection-analysis.webp
+    alt: Unum Sunt Sprite Studio long-source smart-selection analysis running with progress and cancellation controls.
+    caption: Long-source analysis remains cancellable and explicit, with profile, interval and proposal controls visible during processing.
 ---
 
-## One pipeline instead of a folder full of half-finished frames
+## A production suite rather than a one-click sprite generator
 
-Unum Sunt Sprite Studio is a Windows desktop workflow built around a recurring production problem: converting a motion reference into sprite assets is not a single operation. Generation, background removal, frame selection, cleanup, alignment and export all create different failure points.
+Unum Sunt Sprite Studio has grown from a frame-extraction workflow into a fourteen-workspace Windows production suite. It can start from generated video, generated images, ordinary footage or an existing spritesheet, then keep the downstream work inspectable: extraction, cleanup, frame analysis, alignment, reusable presets, project organisation and export.
 
-The tool keeps those stages visible and inspectable instead of hiding them behind one “make sprites” button.
+The current public development line reaches **R5c6** and now has a public repository and GitHub Releases. The core application is packaged as a standalone Windows build; local AI generation remains an optional managed layer rather than a hidden dependency of every workspace.
 
-The current public status is **Development Preview**. It is a working development application, but a public repository and packaged release have not been published yet.
+## Creative pipeline
 
-## What the current workflow covers
+Project Groups organise production as Subject → Animation → Direction. Generate can drive WanGP/WAN Animate video jobs and a separate image-generation provider. Extraction R1 handles chroma-key analysis and edge decontamination. Clean-up adds alpha painting, rectangle/lasso selections, propagation and transactional undo. Alignment controls pivots, anchors, mirroring and output geometry. Smart Selection analyses frames using MAD / Rec.709-derived metrics before Export writes the final images or spritesheets.
 
-### Generate with a local WanGP bridge
+Productive Presets, Calibration Lab, Prompt Builder, Sprite Sheet tools, Guided Workflows and Character Set / Layer Manager make those stages reusable across a larger character-production process.
 
-The Generate workspace can send a reference image and motion reference to a local WanGP installation. Prompt, negative prompt, seed, requested resolution, frame count, FPS and generation steps remain explicit, while job state and output are tracked inside Sprite Studio.
+## Standalone Windows and managed AI runtime
 
-WanGP is an integration, not the whole application. The remaining production stages can be reasoned about and tested independently from generation.
+R5c1 moved the application to a PyInstaller onedir build with LocalAppData configuration/logging and frozen-runtime self-checks. R5c4/c4a introduced a real Inno Setup installer with Core, Complete and Custom paths, so the target machine does not need a pre-installed Python interpreter for the core application.
 
-### Extract and inspect the mask
+The optional local-AI runtime can bootstrap private Miniconda + Python 3.11.14, PyTorch 2.10/cu130 and WanGP requirements, or adopt an existing WanGP installation as an external dependency without moving it. Preflight checks CUDA driver capability, paths, writability and free space without imposing an arbitrary fixed GPU/VRAM/RAM model threshold.
 
-Source video frames can be analysed against one or more background colours. The extraction workspace exposes tolerance, edge softening, cleanup and structural mask refinement instead of treating chroma removal as a one-value effect.
+Runtime downloads are resumable and SHA-256 verified; downloaded Windows installers are checked with Authenticode before execution. Managed repair/update/removal acts only on managed components, and uninstall cleanup for runtime, models and application data remains opt-in.
 
-Separate views for the original frame, mask, transparent result, detected silhouette and candidate background make failures visible before they propagate.
+Krea 2 acquisition/licence plumbing is present, but end-to-end Krea 2 setup remains pending after R5c6 and is not presented as complete.
 
-### Clean the result instead of accepting it blindly
+## AI-assisted, still operator-visible
 
-Automatic cleanup handles small alpha defects, while the pixel painter and selection tools allow local corrections. Rectangle and polygonal lasso selections can remove unwanted areas without forcing the user to repaint an entire frame.
+AI generation is one input to the production chain, not the authority over its output. Masks can be inspected, frames can be rejected, pixels can be repaired, anchors can be corrected, presets can be compared, and final exports can be rebuilt.
 
-### Align a sequence around useful anchors
-
-Animation frames rarely arrive perfectly registered. Sprite Studio applies a shared output geometry, scale and anchor model, then allows per-frame correction. Onion-skin inspection helps reveal jitter that is easy to miss when looking at frames individually.
-
-### Select fewer, better frames
-
-The smart selection stage analyses motion, near-duplicates and anomalies across an interval. The goal is not simply to keep every generated frame, but to propose a compact sequence that better matches the intended animation profile.
-
-### Export assets for a game pipeline
-
-Export Studio can produce individual images or sprite sheets with controlled layout, scale, image format and background. The final product is an asset package, not merely a preview inside the tool.
-
-## Why the setup is documented publicly
-
-Local AI generation is the part most likely to fail for reasons unrelated to Sprite Studio itself. During development, a seemingly minor Python-version mismatch was enough to make the WanGP bridge report **NOT READY**.
-
-That is exactly the kind of detail GVibeDev should expose rather than bury. A useful AI-assisted workflow includes dependency management, reproducible environments and diagnostics alongside the visible creative tool.
-
-## AI-assisted, but designed around inspection
-
-AI is used where it helps — most visibly in the optional generation stage — while later stages deliberately give control back to the operator. Masks can be inspected, frames can be rejected, anchors can be corrected and outputs can be rebuilt.
-
-The objective is not maximum automation. It is a production chain where automation saves time without making mistakes impossible to see.
+The objective remains the same even as the suite grows: automation should remove repetitive work without making errors impossible to see.
