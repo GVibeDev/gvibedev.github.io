@@ -1,0 +1,630 @@
+---
+interface GalleryItem {
+  src: string;
+  thumb: string;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  items: GalleryItem[];
+  locale?: 'en' | 'it';
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+}
+
+const {
+  items,
+  locale = 'en',
+  eyebrow = locale === 'it' ? 'In sviluppo' : 'In development',
+  title = locale === 'it' ? 'Schermate dalla build corrente.' : 'Screens from the current build.',
+  intro = locale === 'it'
+    ? 'Catture reali di sviluppo. Scorri lateralmente oppure scegli una miniatura.'
+    : 'Real development captures. Scroll sideways or choose a thumbnail.',
+} = Astro.props;
+
+const previousLabel = locale === 'it' ? 'Screenshot precedente' : 'Previous screenshot';
+const nextLabel = locale === 'it' ? 'Screenshot successivo' : 'Next screenshot';
+const openLabel = locale === 'it' ? 'Apri immagine completa' : 'Open full image';
+const closeLabel = locale === 'it' ? 'Chiudi' : 'Close';
+const stripLabel = locale === 'it' ? 'Seleziona screenshot' : 'Select screenshot';
+const carouselLabel = locale === 'it' ? 'Screenshot di Unum Sunt Sprite Studio' : 'Unum Sunt Sprite Studio screenshots';
+const dialogLabel = locale === 'it' ? 'Screenshot del progetto ingrandito' : 'Expanded project screenshot';
+---
+
+{items.length > 0 && (
+  <section class="screenshot-showcase" aria-labelledby="screenshot-showcase-title" data-screenshot-carousel>
+    <div class="screenshot-showcase__heading">
+      <div>
+        <span class="screenshot-showcase__eyebrow">{eyebrow}</span>
+        <h2 id="screenshot-showcase-title">{title}</h2>
+      </div>
+      <p>{intro}</p>
+    </div>
+
+    <div class="screenshot-carousel">
+      <div class="screenshot-carousel__toolbar">
+        <span class="screenshot-carousel__counter" aria-live="polite">
+          <strong data-carousel-current>01</strong>
+          <span aria-hidden="true">/</span>
+          <span>{String(items.length).padStart(2, '0')}</span>
+        </span>
+
+        <div class="screenshot-carousel__controls">
+          <button type="button" data-carousel-prev aria-label={previousLabel}>
+            <span aria-hidden="true">←</span>
+          </button>
+          <button type="button" data-carousel-next aria-label={nextLabel}>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="screenshot-carousel__viewport"
+        data-carousel-viewport
+        tabindex="0"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={carouselLabel}
+      >
+        <div class="screenshot-carousel__track">
+          {items.map((item, index) => (
+            <figure
+              class="screenshot-slide"
+              data-carousel-slide
+              data-index={index}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} / ${items.length}`}
+            >
+              <button
+                class="screenshot-slide__open"
+                type="button"
+                data-carousel-open
+                data-full={item.src}
+                data-alt={item.alt}
+                data-caption={item.caption ?? ''}
+                aria-label={`${openLabel}: ${item.alt}`}
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  width="1600"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="screenshot-slide__zoom" aria-hidden="true">↗</span>
+              </button>
+
+              {item.caption && <figcaption>{item.caption}</figcaption>}
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      <div class="screenshot-thumbnails" role="group" aria-label={stripLabel} data-carousel-thumbnails>
+        {items.map((item, index) => (
+          <button
+            class="screenshot-thumb"
+            type="button"
+            data-carousel-thumb
+            data-index={index}
+            aria-label={`${index + 1}. ${item.alt}`}
+            aria-current={index === 0 ? 'true' : 'false'}
+          >
+            <img
+              src={item.thumb}
+              alt=""
+              width="160"
+              height="90"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>{String(index + 1).padStart(2, '0')}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <dialog class="screenshot-dialog" data-carousel-dialog aria-label={dialogLabel}>
+      <div class="screenshot-dialog__chrome">
+        <button type="button" data-carousel-close aria-label={closeLabel}>{closeLabel} ×</button>
+      </div>
+      <img data-carousel-dialog-image alt="" />
+      <p data-carousel-dialog-caption></p>
+    </dialog>
+  </section>
+)}
+
+<script>
+  document.querySelectorAll('[data-screenshot-carousel]').forEach((root) => {
+    if (!(root instanceof HTMLElement)) return;
+
+    const viewport = root.querySelector('[data-carousel-viewport]');
+    const slides = Array.from(root.querySelectorAll('[data-carousel-slide]'));
+    const thumbs = Array.from(root.querySelectorAll('[data-carousel-thumb]'));
+    const previous = root.querySelector('[data-carousel-prev]');
+    const next = root.querySelector('[data-carousel-next]');
+    const current = root.querySelector('[data-carousel-current]');
+    const dialog = root.querySelector('[data-carousel-dialog]');
+    const dialogImage = root.querySelector('[data-carousel-dialog-image]');
+    const dialogCaption = root.querySelector('[data-carousel-dialog-caption]');
+    const closeButton = root.querySelector('[data-carousel-close]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (
+      !(viewport instanceof HTMLElement) ||
+      slides.length === 0 ||
+      !(previous instanceof HTMLButtonElement) ||
+      !(next instanceof HTMLButtonElement)
+    ) {
+      return;
+    }
+
+    let activeIndex = 0;
+    let scrollFrame = 0;
+
+    const scrollBehavior = () => prefersReducedMotion.matches ? 'auto' : 'smooth';
+
+    const updateState = (index) => {
+      activeIndex = Math.max(0, Math.min(index, slides.length - 1));
+
+      thumbs.forEach((thumb, thumbIndex) => {
+        if (!(thumb instanceof HTMLButtonElement)) return;
+        thumb.setAttribute('aria-current', thumbIndex === activeIndex ? 'true' : 'false');
+      });
+
+      previous.disabled = activeIndex === 0;
+      next.disabled = activeIndex === slides.length - 1;
+
+      if (current instanceof HTMLElement) {
+        current.textContent = String(activeIndex + 1).padStart(2, '0');
+      }
+
+      const activeThumb = thumbs[activeIndex];
+      if (activeThumb instanceof HTMLElement) {
+        activeThumb.scrollIntoView({
+          behavior: scrollBehavior(),
+          block: 'nearest',
+          inline: 'center',
+        });
+      }
+    };
+
+    const goTo = (index, behavior = scrollBehavior()) => {
+      const target = slides[Math.max(0, Math.min(index, slides.length - 1))];
+      if (!(target instanceof HTMLElement)) return;
+
+      viewport.scrollTo({
+        left: target.offsetLeft,
+        behavior,
+      });
+
+      updateState(index);
+    };
+
+    const findNearestSlide = () => {
+      const viewportLeft = viewport.scrollLeft;
+      let nearestIndex = 0;
+      let nearestDistance = Number.POSITIVE_INFINITY;
+
+      slides.forEach((slide, index) => {
+        if (!(slide instanceof HTMLElement)) return;
+        const distance = Math.abs(slide.offsetLeft - viewportLeft);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearestIndex = index;
+        }
+      });
+
+      updateState(nearestIndex);
+    };
+
+    viewport.addEventListener('scroll', () => {
+      if (scrollFrame) cancelAnimationFrame(scrollFrame);
+      scrollFrame = requestAnimationFrame(findNearestSlide);
+    }, { passive: true });
+
+    viewport.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        goTo(activeIndex - 1);
+      }
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        goTo(activeIndex + 1);
+      }
+    });
+
+    previous.addEventListener('click', () => goTo(activeIndex - 1));
+    next.addEventListener('click', () => goTo(activeIndex + 1));
+
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => goTo(index));
+    });
+
+    if (
+      dialog instanceof HTMLDialogElement &&
+      dialogImage instanceof HTMLImageElement &&
+      dialogCaption instanceof HTMLElement
+    ) {
+      root.querySelectorAll('[data-carousel-open]').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          if (!(trigger instanceof HTMLButtonElement)) return;
+          dialogImage.src = trigger.dataset.full ?? '';
+          dialogImage.alt = trigger.dataset.alt ?? '';
+          dialogCaption.textContent = trigger.dataset.caption ?? '';
+          dialog.showModal();
+        });
+      });
+
+      closeButton?.addEventListener('click', () => dialog.close());
+
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+
+      dialog.addEventListener('close', () => {
+        dialogImage.removeAttribute('src');
+        dialogImage.alt = '';
+        dialogCaption.textContent = '';
+      });
+    }
+
+    window.addEventListener('resize', () => goTo(activeIndex, 'auto'), { passive: true });
+    updateState(0);
+  });
+</script>
+
+<style>
+  .screenshot-showcase {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .screenshot-showcase__heading {
+    display: grid;
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .screenshot-showcase__eyebrow {
+    display: block;
+    margin-bottom: .45rem;
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .screenshot-showcase h2 {
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(2rem, 4.5vw, 3.7rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+  }
+
+  .screenshot-showcase__heading > p {
+    max-width: 38rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .screenshot-carousel {
+    position: relative;
+    display: grid;
+    gap: .9rem;
+    padding: clamp(.75rem, 2vw, 1.25rem);
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--color-border-strong) 82%, transparent);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-blue) 7%, transparent),
+        transparent 42%,
+        color-mix(in srgb, var(--color-red) 4%, transparent)
+      ),
+      color-mix(in srgb, var(--color-surface-1) 44%, transparent);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.025) inset,
+      0 22px 70px rgba(0,0,0,.18);
+  }
+
+  @supports (backdrop-filter: blur(1px)) {
+    .screenshot-carousel {
+      backdrop-filter: blur(12px);
+    }
+  }
+
+  .screenshot-carousel__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .screenshot-carousel__counter {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .35rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .06em;
+  }
+
+  .screenshot-carousel__counter strong {
+    color: var(--color-blue-soft);
+    font-size: .9rem;
+  }
+
+  .screenshot-carousel__controls {
+    display: flex;
+    gap: .45rem;
+  }
+
+  .screenshot-carousel__controls button {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    color: var(--color-text);
+    background: color-mix(in srgb, var(--color-surface-2) 78%, transparent);
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .screenshot-carousel__controls button:hover,
+  .screenshot-carousel__controls button:focus-visible {
+    border-color: var(--color-blue-soft);
+  }
+
+  .screenshot-carousel__controls button:disabled {
+    opacity: .32;
+    cursor: default;
+  }
+
+  .screenshot-carousel__viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    border-radius: calc(var(--radius-lg) - .35rem);
+    outline: none;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+  }
+
+  .screenshot-carousel__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .screenshot-carousel__viewport:focus-visible {
+    outline: 2px solid var(--color-blue-soft);
+    outline-offset: 3px;
+  }
+
+  .screenshot-carousel__track {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .screenshot-slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    margin: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .screenshot-slide__open {
+    position: relative;
+    display: grid;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    place-items: center;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--radius-md);
+    color: inherit;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(255,255,255,.025), transparent 44%),
+      rgba(2,3,5,.2);
+    cursor: zoom-in;
+  }
+
+  .screenshot-slide__open img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .screenshot-slide__zoom {
+    position: absolute;
+    right: .75rem;
+    bottom: .75rem;
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 999px;
+    color: var(--color-text);
+    background: rgba(2,3,5,.74);
+    opacity: .72;
+  }
+
+  .screenshot-slide__open:hover .screenshot-slide__zoom,
+  .screenshot-slide__open:focus-visible .screenshot-slide__zoom {
+    opacity: 1;
+  }
+
+  .screenshot-slide figcaption {
+    min-height: 3.2rem;
+    padding: .8rem .15rem .15rem;
+    color: var(--color-text-muted);
+    font-size: .88rem;
+    line-height: 1.55;
+  }
+
+  .screenshot-thumbnails {
+    display: flex;
+    gap: .55rem;
+    padding: .15rem .05rem .3rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+  }
+
+  .screenshot-thumb {
+    position: relative;
+    flex: 0 0 clamp(6.4rem, 13vw, 9rem);
+    padding: .28rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-surface-2) 48%, transparent);
+    opacity: .56;
+    cursor: pointer;
+    transition:
+      opacity .18s ease,
+      border-color .18s ease,
+      transform .18s ease;
+  }
+
+  .screenshot-thumb:hover,
+  .screenshot-thumb:focus-visible {
+    opacity: .88;
+    border-color: var(--color-border-strong);
+  }
+
+  .screenshot-thumb[aria-current="true"] {
+    opacity: 1;
+    border-color: var(--color-blue-soft);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-blue-soft) 35%, transparent);
+  }
+
+  .screenshot-thumb img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: calc(var(--radius-sm) - .2rem);
+  }
+
+  .screenshot-thumb > span {
+    position: absolute;
+    right: .45rem;
+    bottom: .4rem;
+    padding: .16rem .3rem;
+    border-radius: .2rem;
+    color: #fff;
+    background: rgba(2,3,5,.76);
+    font-family: var(--font-mono);
+    font-size: .61rem;
+    font-weight: 800;
+    letter-spacing: .04em;
+  }
+
+  .screenshot-dialog {
+    width: min(96vw, 96rem);
+    max-width: none;
+    max-height: 94vh;
+    padding: 0;
+    overflow: auto;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-text);
+    background: var(--color-bg-deep);
+    box-shadow: 0 30px 120px rgba(0,0,0,.75);
+  }
+
+  .screenshot-dialog::backdrop {
+    background: rgba(0,0,0,.84);
+    backdrop-filter: blur(5px);
+  }
+
+  .screenshot-dialog__chrome {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-end;
+    padding: .65rem;
+    background: linear-gradient(var(--color-bg-deep), rgba(2,3,5,.82));
+  }
+
+  .screenshot-dialog button {
+    min-height: 42px;
+    padding: .55rem .8rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .screenshot-dialog > img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .screenshot-dialog > p {
+    margin: 0;
+    padding: 1rem 1.2rem 1.3rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .screenshot-showcase__heading {
+      grid-template-columns: minmax(0, 1fr) minmax(18rem, .72fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .screenshot-carousel {
+      margin-inline: -.35rem;
+      padding: .55rem;
+      border-radius: var(--radius-md);
+    }
+
+    .screenshot-slide figcaption {
+      min-height: 4.3rem;
+      padding-inline: .2rem;
+    }
+
+    .screenshot-thumb {
+      flex-basis: 6.1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .screenshot-carousel__viewport,
+    .screenshot-thumbnails,
+    .screenshot-thumb {
+      scroll-behavior: auto;
+      transition: none;
+    }
+  }
+</style>

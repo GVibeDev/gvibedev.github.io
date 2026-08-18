@@ -1,5 +1,20 @@
 # Changelog
 
+## GV-PORTFOLIO V0.25 — Sprite Studio Screenshot Carousel
+
+- Replaced the Sprite Studio static screenshot grid with a focused horizontal carousel.
+- Moved the screenshot showcase directly after the 14-workspace overview, before the longer capability sections, so real application UI appears earlier in the page.
+- Preserved all V0.24 screenshot assets, localized alt text and existing captions.
+- Added native horizontal touch/trackpad scrolling with CSS scroll snap.
+- Added previous/next controls, keyboard Left/Right navigation and an active slide counter.
+- Added a single-line horizontally scrollable thumbnail strip with selectable thumbnails and a visible active state.
+- Added a translucent glass-like presentation layer without changing the site's underlying dark visual language.
+- Preserved full-resolution screenshot inspection in a dialog.
+- Kept the carousel isolated to Sprite Studio; existing galleries on other project pages are unchanged.
+- Added reduced-motion handling and 44px navigation controls.
+- No route, sitemap, commercial provider or activation state changed.
+
+
 ## GV-PORTFOLIO V0.24 — Sprite Studio Public Repository & Project Page Refresh
 
 - Rebuilt the Unum Sunt Sprite Studio public page around the current R5c-series product rather than the older Development Preview copy.

@@ -1,0 +1,22 @@
+GVibeDev.cc V0.25 — SOURCE AUDIT
+=================================
+
+Changed source/docs files: 8
+Issues: 0
+
+PASS — source-level Sprite Studio Screenshot Carousel audit passed.
+
+Validated constraints:
+- V0.24 screenshot assets and captions are not rewritten;
+- new carousel is isolated to Sprite Studio;
+- carousel sits between workspace overview and long capability copy;
+- native horizontal rail + scroll snap are present;
+- previous/next, keyboard arrows and slide counter are present;
+- inline selectable thumbnail strip is present;
+- full-resolution dialog is retained;
+- reduced-motion handling is present;
+- other application galleries are untouched;
+- no route/sitemap/commercial activation change is introduced.
+
+NOTE:
+A Windows `npm run build` plus generated `dist/` and mobile/touch smoke test remain the release gate before V0.25 can be frozen.

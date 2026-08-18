@@ -10,47 +10,48 @@ A capability appears publicly only when a real endpoint exists.
 
 ## Validated baseline
 
-### V0.23 — Commercial / Crowdfunding Foundation ✅
+### V0.24 — Sprite Studio Public Repository & Project Page Refresh ✅
 
-- central commercial-provider resolver;
-- provider-aware product CTAs and Product Hub items;
-- Support / Download / Wishlist / Buy / Back / Follow lifecycle vocabulary;
-- conversion-event contract prepared while analytics remains disabled;
-- PayPal endpoint modes prepared but not activated;
-- no invented store or crowdfunding endpoint.
-
-Activation work is intentionally frozen for now. PayPal, itch.io, Steam, Kickstarter, Patreon and analytics remain dormant until a real activation is explicitly authorised.
+- first public Sprite Studio repository and Releases endpoints;
+- current branding and screenshot set;
+- shared bilingual Sprite Studio page;
+- 14-workspace production map;
+- current R5c standalone Windows/runtime architecture;
+- Product Hub aligned with the public repository and Releases;
+- Krea 2 limitations represented accurately;
+- commercial activation work remains frozen.
 
 ## Current candidate
 
-### V0.24 — Sprite Studio Public Repository & Project Page Refresh
+### V0.25 — Sprite Studio Screenshot Carousel
 
-Bring the public Sprite Studio page in line with the current R5c-series application and its first public repository/releases.
+Improve application screenshot presentation without changing project content.
 
 Candidate scope:
-- public repository and Releases endpoints;
-- new application branding;
-- complete replacement of the old screenshot gallery;
-- bilingual shared Sprite Studio page implementation;
-- 14-workspace feature map;
-- standalone Windows installer/build architecture;
-- managed local-AI runtime and preflight documentation;
-- current safety/reproducibility contracts;
-- Krea 2 clearly marked as pending where appropriate;
-- no change to unrelated commercial activation channels.
+- move screenshots closer to the centre of the page flow;
+- one large horizontal, touch-friendly screenshot rail;
+- transparent/translucent presentation layer;
+- existing captions preserved;
+- selectable inline thumbnail strip;
+- previous/next and keyboard navigation;
+- full-resolution dialog retained;
+- reduced-motion and mobile behaviour;
+- Sprite Studio only for this iteration.
 
-## After V0.24
+## After V0.25
+
+### Gallery pattern evaluation
+
+If the Sprite Studio carousel is validated in production, the same component can later be adopted selectively by other application pages. It should not be applied globally until each page's screenshot set and layout are reviewed.
 
 ### Product-specific release maintenance
 
-Future Sprite Studio site updates should normally be content/asset patches:
+Future Sprite Studio site updates should normally remain content/asset patches:
 - new release tag/current-version marker;
 - release notes;
 - genuine screenshots;
 - tutorials/documentation links;
 - future distribution endpoint if one is actually published.
-
-The shared site architecture should not need redesign for each application release.
 
 ### Activation patches — frozen until requested
 

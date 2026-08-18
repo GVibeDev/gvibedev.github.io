@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
-import ProjectGallery from '../components/project/ProjectGallery.astro';
+import ScreenshotCarousel from '../components/project/ScreenshotCarousel.astro';
 import type { Locale } from '../i18n/config';
 import { getNavigationPath } from '../i18n/config';
 import { getSpriteStudioCopy } from '../i18n/sprite-studio';
@@ -124,6 +124,20 @@ const gallery = data.gallery.map((item, index) => ({
     </Container>
   </section>
 
+  {gallery.length > 0 && (
+    <section class="sprite-showcase">
+      <Container>
+        <ScreenshotCarousel
+          items={gallery}
+          locale={locale}
+          eyebrow={copy.galleryEyebrow}
+          title={copy.galleryTitle}
+          intro={copy.galleryIntro}
+        />
+      </Container>
+    </section>
+  )}
+
   <section class="sprite-capabilities">
     <Container>
       <div class="capability-stack">
@@ -141,20 +155,6 @@ const gallery = data.gallery.map((item, index) => ({
       </div>
     </Container>
   </section>
-
-  {gallery.length > 0 && (
-    <section class="sprite-gallery">
-      <Container>
-        <ProjectGallery
-          items={gallery}
-          locale={locale}
-          eyebrow={copy.galleryEyebrow}
-          title={copy.galleryTitle}
-          intro={copy.galleryIntro}
-        />
-      </Container>
-    </section>
-  )}
 
   <section class="sprite-setup" id="requirements">
     <Container>
@@ -228,7 +228,7 @@ const gallery = data.gallery.map((item, index) => ({
   .sprite-hero,
   .sprite-workspaces,
   .sprite-capabilities,
-  .sprite-gallery,
+  .sprite-showcase,
   .sprite-setup,
   .sprite-endcap {
     padding-block: var(--section-space);
@@ -412,10 +412,18 @@ const gallery = data.gallery.map((item, index) => ({
 
   .sprite-workspaces { background: var(--color-bg); }
   .sprite-capabilities,
-  .sprite-gallery,
   .sprite-endcap {
     border-top: 1px solid var(--color-border);
     background: var(--color-bg-deep);
+  }
+
+  .sprite-showcase {
+    position: relative;
+    border-block: 1px solid color-mix(in srgb, var(--color-border) 78%, transparent);
+    background:
+      radial-gradient(circle at 12% 22%, color-mix(in srgb, var(--color-blue-bright) 8%, transparent), transparent 28rem),
+      radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--color-red-bright) 5%, transparent), transparent 24rem),
+      transparent;
   }
 
   .section-heading {
@@ -480,8 +488,6 @@ const gallery = data.gallery.map((item, index) => ({
     gap: .75rem;
     align-content: start;
   }
-
-  .sprite-gallery { background: var(--color-bg); }
 
   .sprite-setup {
     border-top: 1px solid var(--color-border);

@@ -1,0 +1,22 @@
+GVibeDev.cc V0.25 — SPRITE STUDIO SCREENSHOT CAROUSEL
+=======================================================
+
+Target baseline:
+V0.24 — Sprite Studio Public Repository & Project Page Refresh (validated)
+
+Apply this ZIP as an overlay at repository root.
+
+No file must be deleted.
+
+Then run:
+
+    npm run build
+
+Validate the generated `dist/` using VALIDATION_V0.25.md.
+
+The change is intentionally isolated to Sprite Studio:
+- other project galleries are not replaced;
+- no screenshot asset is changed;
+- no route is added;
+- sitemap remains unchanged;
+- no commercial/activation provider is touched.
