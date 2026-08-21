@@ -138,4 +138,16 @@ const profiles = [
   @media (min-width: 70rem) {
     .bk-index__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
+
+  .bk-index__grid :global(.project-card) {
+    border-color: rgba(156, 255, 59, 0.25);
+  }
+
+  .bk-index__grid :global(.project-card:hover) {
+    box-shadow: 0 0 30px rgba(156, 255, 59, 0.16);
+  }
+
+  .bk-index__rule span:nth-child(2) {
+    background: #2b063d;
+  }
 </style>
