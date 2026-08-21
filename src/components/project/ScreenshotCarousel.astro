@@ -186,11 +186,13 @@ const dialogLabel = locale === 'it' ? 'Screenshot del progetto ingrandito' : 'Ex
 
       const activeThumb = thumbs[activeIndex];
       if (activeThumb instanceof HTMLElement) {
-        activeThumb.scrollIntoView({
-          behavior: scrollBehavior(),
-          block: 'nearest',
-          inline: 'center',
-        });
+        const thumbnails = activeThumb.parentElement;
+        if (thumbnails instanceof HTMLElement) {
+          thumbnails.scrollTo({
+            left: activeThumb.offsetLeft - (thumbnails.clientWidth / 2) + (activeThumb.clientWidth / 2),
+            behavior: scrollBehavior(),
+          });
+        }
       }
     };
 

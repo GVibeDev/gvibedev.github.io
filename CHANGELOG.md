@@ -1,5 +1,12 @@
 # Changelog
 
+## GV-PORTFOLIO V0.25a — Sprite Studio Visual Flow Polish
+
+- Fixed screenshot carousel navigation so slide changes no longer move the page vertically.
+- Thumbnail strip auto-centering is now constrained to the thumbnail container.
+- Prepared Sprite Studio hero composition refinement.
+
+
 ## GV-PORTFOLIO V0.25 — Sprite Studio Screenshot Carousel
 
 - Replaced the Sprite Studio static screenshot grid with a focused horizontal carousel.

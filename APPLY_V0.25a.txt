@@ -1,0 +1,8 @@
+GVibeDev.cc V0.25a — Sprite Studio Visual Flow Polish
+
+Overlay this patch on top of V0.25.
+
+Run:
+npm run build
+
+No files need to be deleted.
