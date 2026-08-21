@@ -8,24 +8,29 @@ const projects = (await getCollection('projects'))
   .filter((project) => project.data.section === 'biggitykot')
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
-const profileUrl = 'https://github.com/pizza-990';
+const profiles = [
+  'https://github.com/pizza-990',
+  'https://github.com/MROctopusII',
+];
 ---
 
 <BaseLayout
-  title="BiggityKot"
-  description="BiggityKot is a separate black-and-white project channel inside GVibeDev, focused on playable experiments and compact game prototypes."
+  title="MO2 Projects"
+  description="MO2 Projects is a dedicated channel for playable experiments, games and compact software projects."
 >
   <section class="bk-index">
     <Container>
       <div class="bk-index__hero">
-        <span class="bk-index__eyebrow">Side channel / independent experiments</span>
+        <span class="bk-index__eyebrow">MO2 Projects / independent experiments</span>
         <div class="bk-index__title-row">
-          <h1>BiggityKot.</h1>
-          <a href={profileUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
+          <h1>MO2 Projects.</h1>
+          <div class="bk-index__profiles">
+            {profiles.map((profile) => <a href={profile} target="_blank" rel="noreferrer">GitHub ↗</a>)}
+          </div>
         </div>
         <p>
-          A separate channel inside GVibeDev for smaller, faster and more playful projects. The presentation stays
-          deliberately monochrome; the work is allowed to be rougher, stranger and more experimental.
+          A dedicated project channel for games and experiments. The visual identity moves from monochrome into a dark
+          lime-and-purple palette while keeping the experimental spirit.
         </p>
       </div>
 
@@ -39,12 +44,16 @@ const profileUrl = 'https://github.com/pizza-990';
 </BaseLayout>
 
 <style>
+  @font-face {
+    font-family: "Silkscreen";
+    src: url("/fonts/Silkscreen-Regular.ttf") format("truetype");
+  }
   .bk-index {
     min-height: 70vh;
     padding-block: clamp(3rem, 8vw, 7rem) var(--section-space);
     background:
       repeating-linear-gradient(90deg, transparent 0 79px, rgba(255,255,255,0.018) 79px 80px),
-      var(--color-bg);
+      var(--color-bg);\n    --mo2-lime: #9cff3b;\n    --mo2-purple: #2b063d;
   }
 
   .bk-index__hero {
