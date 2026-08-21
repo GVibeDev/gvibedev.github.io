@@ -1,8 +1,44 @@
 ---
-import LocalizedContentPage from '../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/ui/Container.astro';
+import ProjectCard from '../../../components/cards/ProjectCard.astro';
 
-const page = getItalianContentPage('biggitykot');
+const projects = (await getCollection('projects'))
+.filter((project)=>project.data.section==='biggitykot')
+.sort((a,b)=>a.data.sortOrder-b.data.sortOrder);
 ---
 
-<LocalizedContentPage page={page} />
+<BaseLayout title="MO2 Projects" description="Esperimenti, giochi e progetti software indipendenti.">
+<section class="mo2-page">
+<Container>
+<div class="hero">
+<span>MO2 Projects / esperimenti indipendenti</span>
+<h1>MO2 Projects</h1>
+<p>Una raccolta di giochi, esperimenti e piccoli progetti interattivi.</p>
+</div>
+
+<div class="grid">
+{projects.map((project)=><ProjectCard project={project} featured={project.data.featured}/>)}
+</div>
+</Container>
+</section>
+</BaseLayout>
+
+<style>
+.mo2-page {
+ --mo2-lime:#9cff3b;
+ --mo2-purple:#35005a;
+ background:#050505;
+ color:#eee;
+ padding-block:5rem;
+}
+.mo2-page h1 {
+ font-family:"Silkscreen", monospace;
+ color:var(--mo2-lime);
+}
+.hero span { color:var(--mo2-lime); }
+.grid :global(*) {
+ border-color:rgba(156,255,59,.25);
+}
+</style>
