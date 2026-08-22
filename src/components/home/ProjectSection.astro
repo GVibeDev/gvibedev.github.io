@@ -25,56 +25,78 @@ const {
 
 <section class:list={['project-section', variant === 'biggitykot' && 'project-section--biggitykot']} id={id}>
   <Container>
-    <SectionHeading eyebrow={eyebrow} title={title} description={description} />
-    <div class="project-section__grid">
-      {projects.map((project) => <ProjectCard project={project} />)}
+    <div class:list={['project-section__shell', variant === 'biggitykot' && 'project-section__shell--biggitykot']}>
+      <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+      <div class="project-section__grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
     </div>
   </Container>
 </section>
 
 <style>
-
   .project-section {
     padding-block: var(--section-space);
     border-top: 1px solid var(--color-border);
   }
 
+  .project-section__shell {
+    position: relative;
+  }
+
   .project-section--biggitykot {
-    --color-surface-1: rgba(235, 249, 255, .72);
-    --color-surface-2: rgba(208, 237, 250, .78);
-    --color-border: rgba(42, 110, 153, .4);
-    --color-border-strong: rgba(22, 93, 141, .68);
-    --color-blue-soft: #0e73b5;
-    --color-blue-bright: #1794d4;
-    --color-red-soft: #577a91;
-    --color-red-bright: #7fba35;
-    --color-text: #15384f;
-    --color-text-muted: #45687f;
-    --mo2-title-font: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
+    position: relative;
+    overflow: clip;
     background:
-      radial-gradient(circle at 14% 0%, rgba(255,255,255,.9), transparent 22rem),
-      radial-gradient(circle at 92% 18%, rgba(72,176,226,.28), transparent 26rem),
-      linear-gradient(180deg, #c9ecfb 0%, #91d0ed 52%, #d8f3ff 100%);
-    border-top-color: rgba(255,255,255,.76);
+      linear-gradient(180deg, rgba(8, 21, 40, 0.12), rgba(8, 21, 40, 0.42)),
+      url('/assets/projects/mo2-aero-clouds-bg.png') center center / cover no-repeat,
+      #74a7d6;
   }
 
-  .project-section--biggitykot :global(.section-heading h2) {
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: #163d57;
-    font-weight: 300;
-    letter-spacing: -.045em;
-    text-shadow: 0 1px 0 #fff;
+  .project-section--biggitykot::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent 30%),
+      linear-gradient(180deg, rgba(255,255,255,0.08), transparent 42%);
+    content: '';
+    pointer-events: none;
   }
 
-  .project-section--biggitykot :global(.section-heading__eyebrow) {
-    color: #0b6fab;
+  .project-section__shell--biggitykot {
+    padding: clamp(1.3rem, 2vw, 1.9rem);
+    border: 1px solid rgba(255, 255, 255, 0.54);
+    border-radius: 1.65rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.14)),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.58),
+      0 24px 60px rgba(8, 27, 56, 0.16),
+      0 8px 20px rgba(8, 27, 56, 0.12);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
   }
 
-  .project-section--biggitykot :global(.project-card--biggitykot h3) {
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: #143c56;
-    font-weight: 400;
-    letter-spacing: -.025em;
+  .project-section__shell--biggitykot :global(.section-heading) {
+    margin-bottom: clamp(1.5rem, 2.8vw, 2.35rem);
+  }
+
+  .project-section__shell--biggitykot :global(.section-heading__eyebrow) {
+    color: rgba(8, 21, 40, 0.74);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+  }
+
+  .project-section__shell--biggitykot :global(.section-heading h2) {
+    color: #081528;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.36);
+  }
+
+  .project-section__shell--biggitykot :global(.section-heading__row > p) {
+    color: rgba(8, 21, 40, 0.78);
   }
 
   .project-section__grid {

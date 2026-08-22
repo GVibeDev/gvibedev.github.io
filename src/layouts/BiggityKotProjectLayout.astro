@@ -21,12 +21,12 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
   <div class="bk-project">
     <section class="bk-hero">
       <Container>
-        <a class="bk-back" href="/biggitykot/">← Mo2 Projects</a>
+        <a class="bk-back" href="/biggitykot/">← MO2 Projects</a>
 
         <div class="bk-hero__top">
-          <div class="bk-hero__copy">
+          <div class="bk-hero__copy bk-glass-panel">
             <div class="bk-meta">
-              <span>Mo2 Projects / {data.kind === 'game' ? 'Game' : 'Project'}</span>
+              <span>MO2 Projects / {data.kind === 'game' ? 'Game' : 'Project'}</span>
               {data.status && <span>{data.status}</span>}
             </div>
             <h1>{data.title}</h1>
@@ -43,20 +43,20 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
                 </a>
               )}
               <a class="bk-action" href={profileUrl} target="_blank" rel="noreferrer">
-                Mo2 Projects on GitHub ↗
+                GitHub profile ↗
               </a>
             </div>
           </div>
 
           {data.logo && (
-            <div class="bk-logo" aria-hidden="true">
+            <div class="bk-logo bk-glass-panel" aria-hidden="true">
               <img src={data.logo} alt="" width="512" height="512" />
             </div>
           )}
         </div>
 
         {data.heroImage && (
-          <figure class="bk-hero__media">
+          <figure class="bk-hero__media bk-glass-panel">
             <img src={data.heroImage} alt={data.heroAlt ?? ''} width="1600" height="900" fetchpriority="high" />
           </figure>
         )}
@@ -66,7 +66,7 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
     <section class="bk-story">
       <Container>
         <div class="bk-story__grid">
-          <aside class="bk-build">
+          <aside class="bk-build bk-glass-panel">
             <span>Build snapshot</span>
             <strong>{data.status ?? 'Prototype'}</strong>
             <p>The downloadable archive is the author-provided build used as the source for this page.</p>
@@ -83,7 +83,7 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
             </div>
           </aside>
 
-          <article class="bk-prose">
+          <article class="bk-prose bk-glass-panel">
             <slot />
           </article>
         </div>
@@ -93,9 +93,9 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
     {data.gallery.length > 0 && (
       <section class="bk-gallery">
         <Container>
-          <div class="bk-gallery__heading">
+          <div class="bk-gallery__heading bk-glass-panel">
             <span>Build material</span>
-            <h2>Inside 0.9A.</h2>
+            <h2>Inside the project.</h2>
           </div>
           <ProjectGallery items={data.gallery} />
         </Container>
@@ -105,79 +105,122 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
 </BaseLayout>
 
 <style>
-
   .bk-project {
-    --bk-white: #153b54;
-    --bk-muted: #46697f;
-    --bk-dim: #66859a;
-    --bk-line: rgba(38,105,147,.46);
-    color: var(--bk-white);
-    background: linear-gradient(180deg, #bfe7fb 0%, #8ccbe9 42%, #d9f3ff 100%);
-    font-family: "Segoe UI", Arial, sans-serif;
+    --bk-ink: #0b1730;
+    --bk-ink-soft: rgba(11, 23, 48, 0.76);
+    --bk-text: #071224;
+    --bk-text-soft: rgba(7, 18, 36, 0.76);
+    --bk-line: rgba(255, 255, 255, 0.55);
+    --bk-line-strong: rgba(255, 255, 255, 0.82);
+    --bk-glass-top: rgba(255, 255, 255, 0.36);
+    --bk-glass-bottom: rgba(255, 255, 255, 0.16);
+    --bk-accent: #7dc3ff;
+    --bk-accent-strong: #3f8fe7;
+    color: var(--bk-text);
+    background:
+      linear-gradient(180deg, rgba(3, 14, 30, 0.2), rgba(3, 14, 30, 0.52)),
+      url('/assets/projects/mo2-aero-clouds-bg.png') center top / cover fixed no-repeat,
+      #6ba2d5;
+  }
+
+  .bk-hero,
+  .bk-story,
+  .bk-gallery {
+    position: relative;
+    background: transparent;
   }
 
   .bk-hero {
     padding-block: clamp(2rem, 5vw, 4.5rem) clamp(3rem, 8vw, 6rem);
-    border-bottom: 1px solid rgba(255,255,255,.72);
-    background:
-      radial-gradient(circle at 18% 0%, rgba(255,255,255,.95), transparent 24rem),
-      linear-gradient(180deg, rgba(78,177,224,.22), rgba(255,255,255,.12));
+  }
+
+  .bk-story,
+  .bk-gallery {
+    padding-block: var(--section-space);
   }
 
   .bk-back {
     display: inline-flex;
     margin-bottom: clamp(2rem, 5vw, 4rem);
-    color: var(--bk-muted);
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 800;
-    letter-spacing: 0.07em;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--bk-line);
+    border-radius: 999px;
+    color: var(--bk-ink-soft);
     text-decoration: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(10px) saturate(130%);
+    -webkit-backdrop-filter: blur(10px) saturate(130%);
+    box-shadow: 0 10px 24px rgba(9, 27, 56, 0.16);
   }
 
-  .bk-back:hover { color: var(--bk-white); }
+  .bk-back:hover {
+    color: var(--bk-text);
+    border-color: var(--bk-line-strong);
+    background: rgba(255, 255, 255, 0.44);
+  }
+
+  .bk-glass-panel {
+    border: 1px solid var(--bk-line);
+    border-radius: 1.5rem;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.18)),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.04));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.58),
+      0 24px 60px rgba(8, 27, 56, 0.18),
+      0 8px 20px rgba(8, 27, 56, 0.12);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+  }
 
   .bk-hero__top {
     display: grid;
-    gap: 2rem;
-    align-items: end;
-    margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+    gap: 1.35rem;
+    align-items: stretch;
+    margin-bottom: clamp(2rem, 6vw, 3.5rem);
   }
 
   .bk-hero__copy {
     display: grid;
     gap: 1.25rem;
-    max-width: 57rem;
+    max-width: 58rem;
+    padding: clamp(1.4rem, 2.4vw, 2rem);
   }
 
   .bk-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 0.65rem 1.2rem;
-    color: var(--bk-muted);
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
+    color: var(--bk-ink-soft);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   h1 {
     margin: 0;
-    color: var(--bk-white);
-    font-family: "Segoe UI", Arial, sans-serif;
-    font-size: clamp(3.2rem, 9vw, 7.6rem);
-    line-height: 0.87;
-    letter-spacing: -0.07em;
+    color: var(--bk-text);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(3rem, 9vw, 6.8rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.44);
   }
 
   .bk-hero__copy > p {
     max-width: 49rem;
     margin: 0;
-    color: var(--bk-muted);
-    font-size: clamp(1.08rem, 1rem + 0.4vw, 1.36rem);
-    line-height: 1.7;
+    color: var(--bk-text-soft);
+    font-size: clamp(1.02rem, 0.98rem + 0.3vw, 1.22rem);
+    line-height: 1.72;
   }
 
   .bk-actions {
@@ -187,94 +230,226 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
   }
 
   .bk-action {
-    padding: 0.8rem 1rem;
-    border: 1px solid rgba(29,94,135,.55);
-    border-radius: 7px;
-    color: var(--bk-white);
-    background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(190,229,247,.72));
-    box-shadow: inset 0 1px 0 #fff;
-    font-family: var(--font-mono);
-    font-size: 0.74rem;
-    font-weight: 800;
-    letter-spacing: 0.055em;
+    padding: 0.85rem 1.05rem;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    color: var(--bk-ink);
     text-decoration: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.36);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   }
 
-  .bk-action:hover { border-color: var(--bk-white); }
-  .bk-action--primary { border-color: #2b84b7; background: linear-gradient(180deg,#e8f8ff,#9bd2ee); color: #12384f; }
-  .bk-action--primary:hover { background: linear-gradient(180deg,#f5fcff,#acdcef); }
+  .bk-action:hover {
+    border-color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.52);
+  }
+
+  .bk-action--primary {
+    color: #fff;
+    border-color: rgba(68, 136, 214, 0.75);
+    background: linear-gradient(180deg, rgba(108, 182, 255, 0.92), rgba(59, 126, 214, 0.95));
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.18);
+  }
+
+  .bk-action--primary:hover {
+    background: linear-gradient(180deg, rgba(120, 190, 255, 0.95), rgba(71, 137, 224, 0.98));
+  }
 
   .bk-logo {
-    width: min(12rem, 45vw);
+    width: min(13rem, 45vw);
     padding: 1rem;
-    border: 1px solid var(--bk-line);
-    background: #000;
+    justify-self: start;
   }
 
-  .bk-logo img { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+  .bk-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
 
   .bk-hero__media {
     overflow: hidden;
     margin: 0;
-    border: 1px solid var(--bk-line);
-    background: #000;
+    padding: 0.8rem;
   }
 
-  .bk-hero__media img { display: block; width: 100%; height: auto; }
+  .bk-hero__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28);
+  }
 
-  .bk-story { padding-block: var(--section-space); }
-  .bk-story__grid { display: grid; gap: 3rem; }
+  .bk-story__grid {
+    display: grid;
+    gap: 2rem;
+  }
 
   .bk-build {
     display: grid;
     align-content: start;
     gap: 0.85rem;
-    padding: 1.15rem;
-    border: 1px solid rgba(36,102,145,.48);
-    border-radius: 10px;
-    background: linear-gradient(180deg, rgba(255,255,255,.8), rgba(205,235,249,.62));
-    box-shadow: inset 0 1px 0 #fff, 0 10px 24px rgba(34,86,116,.14);
-    backdrop-filter: blur(14px);
+    padding: 1.25rem;
   }
 
   .bk-build > span {
-    color: var(--bk-dim);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
+    color: var(--bk-ink-soft);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  .bk-build strong { font-size: 1.08rem; }
-  .bk-build p { margin: 0; color: var(--bk-muted); font-size: 0.9rem; line-height: 1.65; }
-  .bk-build summary { cursor: pointer; color: var(--bk-muted); font-family: var(--font-mono); font-size: 0.74rem; }
-  .bk-build code { display: block; overflow-wrap: anywhere; margin-top: 0.6rem; color: #ddd; font-size: 0.68rem; line-height: 1.5; }
-  .bk-build__links { display: grid; gap: 0.55rem; padding-top: 0.6rem; border-top: 1px solid var(--bk-line); }
-  .bk-build__links a { color: var(--bk-white); font-family: var(--font-mono); font-size: 0.73rem; text-decoration: none; text-transform: uppercase; }
-
-  :global(.bk-prose) { max-width: 52rem; }
-  :global(.bk-prose h2) { margin: 0 0 1.2rem; color: #143c56; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -0.045em; }
-  :global(.bk-prose h2:not(:first-child)) { margin-top: 4.5rem; }
-  :global(.bk-prose h3) { margin: 2.6rem 0 0.7rem; color: #143c56; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  :global(.bk-prose p) { margin: 0 0 1.3rem; color: var(--bk-muted); font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem); line-height: 1.82; }
-  :global(.bk-prose strong) { color: #143c56; }
-
-  .bk-gallery {
-    padding-block: var(--section-space);
-    border-top: 1px solid rgba(255,255,255,.72);
-    background: linear-gradient(180deg, rgba(228,246,255,.42), rgba(118,194,230,.2));
+  .bk-build strong {
+    font-size: 1.1rem;
+    color: var(--bk-text);
   }
 
-  .bk-gallery__heading { display: grid; gap: 0.6rem; margin-bottom: 2rem; }
-  .bk-gallery__heading span { color: var(--bk-dim); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
-  .bk-gallery__heading h2 { margin: 0; color: var(--bk-white); font-family: "Segoe UI", Arial, sans-serif; font-size: clamp(2.2rem, 5vw, 4.5rem); letter-spacing: -0.03em; }
+  .bk-build p {
+    margin: 0;
+    color: var(--bk-text-soft);
+    font-size: 0.94rem;
+    line-height: 1.66;
+  }
 
-  @media (min-width: 60rem) {
-    .bk-hero__top { grid-template-columns: minmax(0, 1fr) auto; gap: 4rem; }
-    .bk-logo { width: 13rem; }
-    .bk-story__grid { grid-template-columns: 18rem minmax(0, 1fr); gap: clamp(3rem, 7vw, 6rem); align-items: start; }
-    .bk-build { position: sticky; top: 6.5rem; }
+  .bk-build summary {
+    cursor: pointer;
+    color: var(--bk-ink-soft);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .bk-build code {
+    display: block;
+    overflow-wrap: anywhere;
+    margin-top: 0.6rem;
+    padding: 0.85rem;
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.24);
+    color: var(--bk-text);
+    font-size: 0.7rem;
+    line-height: 1.5;
+  }
+
+  .bk-build__links {
+    display: grid;
+    gap: 0.55rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .bk-build__links a {
+    color: var(--bk-ink);
+    text-decoration: none;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  :global(.bk-prose) {
+    max-width: 52rem;
+    padding: clamp(1.35rem, 2.2vw, 1.9rem);
+  }
+
+  :global(.bk-prose h2) {
+    margin: 0 0 1.15rem;
+    color: var(--bk-text);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  :global(.bk-prose h2:not(:first-child)) {
+    margin-top: 4rem;
+  }
+
+  :global(.bk-prose h3) {
+    margin: 2.4rem 0 0.7rem;
+    color: var(--bk-ink);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  :global(.bk-prose p) {
+    margin: 0 0 1.2rem;
+    color: var(--bk-text-soft);
+    font-size: clamp(0.98rem, 0.95rem + 0.14vw, 1.06rem);
+    line-height: 1.82;
+  }
+
+  :global(.bk-prose strong) {
+    color: var(--bk-text);
+  }
+
+  .bk-gallery {
+    padding-top: 0;
+  }
+
+  .bk-gallery__heading {
+    display: grid;
+    gap: 0.35rem;
+    max-width: 24rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .bk-gallery__heading span {
+    color: var(--bk-ink-soft);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .bk-gallery__heading h2 {
+    margin: 0;
+    color: var(--bk-text);
+    font-size: clamp(1.55rem, 3vw, 2.25rem);
+  }
+
+  @media (min-width: 52rem) {
+    .bk-hero__top {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .bk-logo {
+      justify-self: end;
+      align-self: stretch;
+    }
+
+    .bk-story__grid {
+      grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 51.99rem) {
+    .bk-logo {
+      width: min(10rem, 40vw);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bk-back,
+    .bk-action {
+      transition: none;
+    }
   }
 </style>
