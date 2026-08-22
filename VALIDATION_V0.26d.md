@@ -40,3 +40,11 @@
 - [ ] Arena Rubra pages are unchanged.
 - [ ] GVibeDev global blue/red palette is unchanged.
 - [ ] PayPal, itch.io, Steam, Kickstarter, Patreon and analytics states are unchanged.
+
+## Italian home card-media hotfix
+- [ ] On `/it/`, WarTanks card image matches the geometry/crop behaviour of the English home.
+- [ ] On `/it/`, Half-Life Weapon Checker card image matches the English home.
+- [ ] On `/it/`, Team.io card image matches the English home.
+- [ ] Images use the same 4:3 ProjectCard media viewport as EN.
+- [ ] No image is stretched by its HTML width/height attributes.
+- [ ] B&W Survivors card remains unchanged.

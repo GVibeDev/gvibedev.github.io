@@ -1,0 +1,34 @@
+GVibeDev.cc V0.26d — IT HOME CARD MEDIA HOTFIX
+================================================
+
+Root cause verified:
+The English MO2 cards are rendered by `ProjectCard.astro` and therefore carry
+Astro's `data-astro-cid-twgkaktg` scope. The preserved Italian homepage already
+contains the compiled ProjectCard CSS, but the three newly inserted raw HTML
+cards did not carry that scope.
+
+Because of that mismatch, the Italian cards did not receive the same media rules
+as the English cards:
+- 4:3 screenshot viewport;
+- overflow clipping;
+- image width/height 100%;
+- `object-fit: cover`;
+- normal ProjectCard padding/flex geometry.
+
+Fix applied:
+- WarTanks: scoped to the existing ProjectCard CSS.
+- Half-Life Weapon Checker: scoped to the existing ProjectCard CSS.
+- Team.io: scoped to the existing ProjectCard CSS.
+- `object-position: center` restored on all three card images.
+
+B&W Survivors is unchanged because it already had the correct scope.
+
+Milestone remains: V0.26d
+Routes changed: 0
+Image assets changed: 0
+Global CSS changed: 0
+
+PASS — source-level EN/IT card-media parity hotfix prepared.
+
+Release gate:
+Run `npm run build`, then compare the MO2 cards on `/` and `/it/`.

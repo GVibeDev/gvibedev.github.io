@@ -2,6 +2,8 @@
 
 ## GV-PORTFOLIO V0.26d — Mo2 Projects Visual Expansion
 
+- Fixed Italian-home MO2 card media parity: WarTanks, Half-Life Weapon Checker and Team.io now receive the same scoped ProjectCard image/layout rules as the English home, eliminating stretched, oversized or incorrectly zoomed screenshots.
+
 - Built on the validated V0.26c public rename to Mo2 Projects.
 - Applied the MO2 black / lime / dark-purple identity to the EN and IT MO2 landing pages.
 - Kept the internal `/biggitykot/` slug and data keys unchanged for URL compatibility.
