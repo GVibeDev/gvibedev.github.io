@@ -5,16 +5,23 @@ import Tag from '../ui/Tag.astro';
 interface Props {
   project: CollectionEntry<'projects'>;
   featured?: boolean;
+  locale?: 'en' | 'it';
 }
 
-const { project, featured = false } = Astro.props;
+const { project, featured = false, locale = 'en' } = Astro.props;
 const { data } = project;
 
 const cardImage = data.cardImage ?? data.cover;
 const cardImageAlt = data.cardImageAlt ?? data.coverAlt ?? '';
 const cardImagePosition = data.cardImagePosition ?? 'center';
 
-const kindLabels = {
+const kindLabels = locale === 'it' ? {
+  'web-app': 'Web App',
+  tool: 'Strumento',
+  world: 'Mondo',
+  game: 'Gioco',
+  experiment: 'Esperimento',
+} as const : {
   'web-app': 'Web App',
   tool: 'Tool',
   world: 'World',
@@ -22,10 +29,17 @@ const kindLabels = {
   experiment: 'Experiment',
 } as const;
 
+const summary = locale === 'it' ? (data.summaryIt ?? data.summary) : data.summary;
+const status = locale === 'it' ? (data.statusIt ?? data.status) : data.status;
+const tags = locale === 'it' ? (data.tagsIt ?? data.tags) : data.tags;
+const viewLabel = locale === 'it' ? 'Vedi progetto' : 'View project';
+const internalProjectHref = locale === 'it' ? `/it/projects/${data.slug}/` : `/projects/${data.slug}/`;
+const internalAriaLabel = locale === 'it' ? `Apri la pagina progetto ${data.title}` : `View ${data.title} project page`;
+
 const externalActions = [
-  data.links.launchUrl && { label: 'Launch App', href: data.links.launchUrl },
+  data.links.launchUrl && { label: locale === 'it' ? 'Apri' : 'Launch App', href: data.links.launchUrl },
   data.links.repositoryUrl && { label: 'Repository', href: data.links.repositoryUrl },
-  data.links.releaseUrl && { label: 'Release', href: data.links.releaseUrl },
+  data.links.releaseUrl && { label: locale === 'it' ? 'Release' : 'Release', href: data.links.releaseUrl },
 ].filter(Boolean) as { label: string; href: string }[];
 ---
 
@@ -34,8 +48,8 @@ const externalActions = [
     data.pageReady ? (
       <a
         class="project-card__media"
-        href={`/projects/${data.slug}/`}
-        aria-label={`View ${data.title} project page`}
+        href={internalProjectHref}
+        aria-label={internalAriaLabel}
       >
         <img
           src={cardImage}
@@ -64,25 +78,25 @@ const externalActions = [
 
   <div class="project-card__topline">
     <span class="project-card__kind">{kindLabels[data.kind]}</span>
-    {data.status && <span class="project-card__status">{data.status}</span>}
+    {status && <span class="project-card__status">{status}</span>}
   </div>
 
   <div class="project-card__body">
     <h3>{data.title}</h3>
-    <p>{data.summary}</p>
+    <p>{summary}</p>
   </div>
 
-  {data.tags.length > 0 && (
+  {tags.length > 0 && (
     <div class="project-card__tags" aria-label="Project tags">
-      {data.tags.map((tag) => <Tag tone={data.owner === 'biggitykot' ? 'default' : 'blue'}>{tag}</Tag>)}
+      {tags.map((tag) => <Tag tone={data.owner === 'biggitykot' ? 'default' : 'blue'}>{tag}</Tag>)}
     </div>
   )}
 
   {(data.pageReady || externalActions.length > 0) && (
     <div class="project-card__actions">
       {data.pageReady && (
-        <a class="project-card__internal" href={`/projects/${data.slug}/`}>
-          View project <span aria-hidden="true">→</span>
+        <a class="project-card__internal" href={internalProjectHref}>
+          {viewLabel} <span aria-hidden="true">→</span>
         </a>
       )}
       {externalActions.map((action) => (
@@ -138,13 +152,19 @@ const externalActions = [
   }
 
   .project-card--biggitykot {
+    border-color: var(--color-border-strong);
     background:
-      linear-gradient(135deg, rgba(255,255,255,0.035), transparent 42%),
+      linear-gradient(145deg, rgba(72,24,94,.56), transparent 52%),
       var(--color-surface-1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
   }
 
   .project-card--biggitykot::before {
-    background: linear-gradient(var(--color-text), transparent 60%);
+    background: linear-gradient(#a8ff3e, #52206a 68%, transparent);
+  }
+
+  .project-card--biggitykot:hover {
+    border-color: #a8ff3e;
   }
 
   .project-card__media {
@@ -190,9 +210,13 @@ const externalActions = [
     color: var(--color-blue-soft);
   }
 
-  .project-card--biggitykot .project-card__kind {
-    color: var(--color-text);
-  }
+  .project-card--biggitykot .project-card__kind { color: #a8ff3e; }
+  .project-card--biggitykot .project-card__status { color: #d29be8; }
+  .project-card--biggitykot h3 { font-family: var(--mo2-title-font, var(--font-mono)); }
+  .project-card--biggitykot .project-card__actions { border-top-color: var(--color-border-strong); }
+  .project-card--biggitykot .project-card__actions a,
+  .project-card--biggitykot .project-card__actions .project-card__internal { color: #cfff86; }
+  .project-card--biggitykot .project-card__actions span { color: #c689e0; }
 
   .project-card__status {
     color: var(--color-red-soft);

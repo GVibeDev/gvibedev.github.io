@@ -1,0 +1,26 @@
+GVibeDev.cc V0.26d — SOURCE AUDIT
+=================================
+
+Issues: 0
+PASS
+
+Validated source constraints:
+- public name is `Mo2 Projects` in EN and IT navigation;
+- historical `/biggitykot/` URL and internal data keys remain unchanged;
+- both public GitHub profiles are present: pizza-990 and MROctopusII;
+- black + lime + dark-purple palette is scoped to Mo2 surfaces;
+- Silkscreen is referenced from the font already present in the repository;
+- no font file is added by this patch;
+- five supplied screenshots are converted to WebP and integrated;
+- WarTanks: 2 screenshots;
+- Team.io: 2 screenshots;
+- Half-Life Weapon Checker: 1 screenshot;
+- project cards have EN/IT localized summaries/status/tags;
+- supplied live/repository endpoints are preserved exactly;
+- Italian home Mo2 section contains B&W Survivors + the three new projects;
+- visible BiggityKot naming is removed from updated public source surfaces;
+- PayPal/analytics activation state remains disabled.
+
+Build note:
+A real Windows `npm run build` plus browser/mobile smoke test remains the release gate.
+The assistant environment did not complete dependency installation within the available execution window, so no local production-build pass is claimed.

@@ -2,17 +2,24 @@
 title: B&W Survivors
 slug: bw-survivors
 summary: A monochrome browser survival prototype built around waves, weapon loadouts, bosses, character customization and a compact mobile interface.
+summaryIt: Un prototipo survival monocromatico per browser basato su ondate, equipaggiamenti, boss, personalizzazione del personaggio e un'interfaccia mobile compatta.
 kind: game
 section: biggitykot
 owner: biggitykot
 featured: false
 sortOrder: 80
 tags:
-  - BiggityKot
+  - Mo2 Projects
   - Browser game
   - Survival
   - JavaScript
+tagsIt:
+  - Mo2 Projects
+  - Gioco browser
+  - Survival
+  - JavaScript
 status: 0.9A — Active Prototype
+statusIt: 0.9A — Prototipo attivo
 cover: /assets/projects/bw-survivors/card-cover.webp
 coverAlt: B&W Survivors monochrome skull emblem and title on a black background.
 cardImage: /assets/projects/bw-survivors/card-cover.webp
@@ -24,7 +31,7 @@ heroImage: /assets/projects/bw-survivors/hero.webp
 heroAlt: B&W Survivors monochrome showcase with the skull emblem, project title and enemy sprites.
 logo: /assets/projects/bw-survivors/iconbig.png
 socialImage: /assets/projects/bw-survivors/og-bw-survivors.webp
-seoDescription: B&W Survivors is a BiggityKot browser survival prototype with wave progression, weapon loadouts, boss encounters, character hats, a Weapon Tester and mobile controls.
+seoDescription: B&W Survivors is an Mo2 Projects browser survival prototype with wave progression, weapon loadouts, boss encounters, character hats, a Weapon Tester and mobile controls.
 creatorProfileUrl: https://github.com/pizza-990
 launchPath: /apps/bw-survivors/
 launchLabel: Play online
@@ -90,4 +97,4 @@ The LAN side requires a local Node process: a static browser page cannot start t
 
 The downloadable ZIP on this page is the exact 0.9A archive supplied for the portfolio milestone. It is kept as a concrete snapshot rather than silently repackaging or rewriting the game.
 
-The V0.8a milestone hosts the isolated **single-player browser runtime directly inside the GVibeDev site**. It does not require a separate BiggityKot repository. The downloadable 0.9A archive remains the complete local snapshot, including its Node-based LAN path.
+The V0.8a milestone hosts the isolated **single-player browser runtime directly inside the GVibeDev site**. It does not require a separate Mo2 Projects repository. The downloadable 0.9A archive remains the complete local snapshot, including its Node-based LAN path.

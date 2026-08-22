@@ -1,5 +1,21 @@
 # Changelog
 
+## GV-PORTFOLIO V0.26d — Mo2 Projects Visual Expansion
+
+- Built on the validated V0.26c public rename to Mo2 Projects.
+- Applied the MO2 black / lime / dark-purple identity to the EN and IT MO2 landing pages.
+- Kept the internal `/biggitykot/` slug and data keys unchanged for URL compatibility.
+- Kept both public GitHub identities visible on the MO2 landing page: `pizza-990` and `MROctopusII`.
+- Added supplied screenshots for WarTanks, Half-Life Weapon Checker and Team.io.
+- Added screenshot-backed project cards and purple project-window showcases.
+- Added WarTanks and Team.io live links plus their repositories; Half-Life Weapon Checker links to its repository.
+- Applied Silkscreen to MO2 titles while reusing the font already present in the repository.
+- Updated the MO2 section on the English homepage and the preserved Italian homepage surface.
+- Updated visible MO2 naming in About and the B&W Survivors public metadata/layout.
+- Kept GVibeDev global blue/red styling unchanged outside the MO2-scoped surfaces.
+- No commercial provider or activation state changed.
+
+
 ## GV-PORTFOLIO V0.25a — Sprite Studio Visual Flow Polish
 
 - Fixed screenshot carousel navigation so slide changes no longer move the page vertically.

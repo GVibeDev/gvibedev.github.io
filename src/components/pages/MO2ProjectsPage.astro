@@ -1,0 +1,347 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../ui/Container.astro';
+import ProjectCard from '../cards/ProjectCard.astro';
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const projects = (await getCollection('projects'))
+  .filter((project) => project.data.section === 'biggitykot')
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+
+const profiles = [
+  { label: 'pizza-990', href: 'https://github.com/pizza-990' },
+  { label: 'MROctopusII', href: 'https://github.com/MROctopusII' },
+];
+
+const copy = locale === 'it'
+  ? {
+      description: 'Mo2 Projects raccoglie giochi, esperimenti e piccoli progetti software con una propria identità visuale.',
+      eyebrow: 'Canale laterale / esperimenti indipendenti',
+      intro: 'Giochi, esperimenti e piccoli progetti interattivi raccolti in un canale separato, con un’identità visiva propria.',
+      profiles: 'Profili GitHub',
+      showcaseEyebrow: 'Finestre di progetto',
+      showcaseTitle: 'Dentro i progetti.',
+      showcaseIntro: 'Screenshot reali dei progetti pubblicati o in sviluppo.',
+      launch: 'Apri',
+      repository: 'Repository',
+      screenshot: 'Screenshot',
+    }
+  : {
+      description: 'Mo2 Projects collects games, experiments and compact software projects with its own visual identity.',
+      eyebrow: 'Side channel / independent experiments',
+      intro: 'Games, experiments and compact interactive projects collected in a separate channel with its own visual identity.',
+      profiles: 'GitHub profiles',
+      showcaseEyebrow: 'Project windows',
+      showcaseTitle: 'Inside the projects.',
+      showcaseIntro: 'Real screenshots from published and in-development projects.',
+      launch: 'Open',
+      repository: 'Repository',
+      screenshot: 'Screenshot',
+    };
+
+const showcaseSlugs = new Set(['wartanks', 'half-life-weapon-checker', 'team-io']);
+const showcaseProjects = projects.filter((project) => showcaseSlugs.has(project.data.slug) && project.data.gallery.length > 0);
+
+const italianCaptions: Record<string, string[]> = {
+  wartanks: [
+    'Configurazione del giocatore con colore personalizzato del carro e scelta dello stile di movimento.',
+    'Un carro attivo sul campo di battaglia browser.',
+  ],
+  'half-life-weapon-checker': [
+    'Il checker separa le tre campagne supportate di Half-Life.',
+  ],
+  'team-io': [
+    'Configurazione del match con preset bot, modalità a obiettivi e pratica/tutorial.',
+    'Arena di pratica con squadre rosse e blu, icone arma e HUD.',
+  ],
+};
+
+const captionFor = (slug: string, index: number, fallback?: string) =>
+  locale === 'it' ? (italianCaptions[slug]?.[index] ?? fallback ?? '') : (fallback ?? '');
+---
+
+<BaseLayout title="Mo2 Projects" description={copy.description} locale={locale}>
+  <div class="mo2-page">
+    <section class="mo2-hero">
+      <Container>
+        <div class="mo2-hero__copy">
+          <span class="mo2-eyebrow">{copy.eyebrow}</span>
+          <h1>Mo2 Projects</h1>
+          <p>{copy.intro}</p>
+
+          <div class="mo2-profiles" aria-label={copy.profiles}>
+            {profiles.map((profile) => (
+              <a href={profile.href} target="_blank" rel="noopener noreferrer">
+                <span>{profile.label}</span>
+                <strong>GitHub ↗</strong>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="mo2-signal" aria-hidden="true"><span></span><span></span><span></span></div>
+
+        <div class="mo2-grid">
+          {projects.map((project) => <ProjectCard project={project} featured={project.data.featured} locale={locale} />)}
+        </div>
+      </Container>
+    </section>
+
+    {showcaseProjects.length > 0 && (
+      <section class="mo2-showcase">
+        <Container>
+          <div class="mo2-showcase__heading">
+            <div>
+              <span class="mo2-eyebrow">{copy.showcaseEyebrow}</span>
+              <h2>{copy.showcaseTitle}</h2>
+            </div>
+            <p>{copy.showcaseIntro}</p>
+          </div>
+
+          <div class="mo2-windows">
+            {showcaseProjects.map((project) => (
+              <article class="mo2-window">
+                <header class="mo2-window__bar">
+                  <div>
+                    <span class="mo2-window__dot"></span>
+                    <strong>{project.data.title}</strong>
+                  </div>
+                  <div class="mo2-window__actions">
+                    {project.data.links.launchUrl && (
+                      <a href={project.data.links.launchUrl} target="_blank" rel="noopener noreferrer">{copy.launch} ↗</a>
+                    )}
+                    {project.data.links.repositoryUrl && (
+                      <a href={project.data.links.repositoryUrl} target="_blank" rel="noopener noreferrer">{copy.repository} ↗</a>
+                    )}
+                  </div>
+                </header>
+
+                <div class="mo2-window__shots">
+                  {project.data.gallery.map((item, index) => (
+                    <figure>
+                      <a href={item.src} target="_blank" rel="noopener noreferrer">
+                        <img src={item.src} alt={item.alt} width="1200" height="800" loading="lazy" decoding="async" />
+                      </a>
+                      <figcaption>
+                        <span>{copy.screenshot} {String(index + 1).padStart(2, '0')}</span>
+                        {captionFor(project.data.slug, index, item.caption) && <p>{captionFor(project.data.slug, index, item.caption)}</p>}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </Container>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  @font-face {
+    font-family: 'Silkscreen';
+    src: url('/fonts/Silkscreen-Regular.ttf') format('truetype');
+    font-display: swap;
+  }
+
+  .mo2-page {
+    --mo2-lime: #a8ff3e;
+    --mo2-lime-soft: #d4ff93;
+    --mo2-purple: #351047;
+    --mo2-purple-deep: #16091f;
+    --mo2-purple-surface: #21102c;
+    --mo2-purple-border: #5c2876;
+    --color-bg: #050505;
+    --color-bg-deep: #020202;
+    --color-surface-1: var(--mo2-purple-deep);
+    --color-surface-2: var(--mo2-purple-surface);
+    --color-border: #3a1c49;
+    --color-border-strong: var(--mo2-purple-border);
+    --color-blue-soft: var(--mo2-lime);
+    --color-blue-bright: var(--mo2-lime);
+    --color-red-soft: #c689e0;
+    --color-red-bright: var(--mo2-lime);
+    --color-text: #efffdc;
+    --color-text-muted: #c5b9ca;
+    --color-text-subtle: #927f99;
+    --mo2-title-font: 'Silkscreen', var(--font-mono);
+    color: var(--color-text);
+    background: #050505;
+  }
+
+  .mo2-hero,
+  .mo2-showcase { padding-block: clamp(3rem, 8vw, 7rem); }
+
+  .mo2-hero {
+    min-height: 70vh;
+    background:
+      radial-gradient(circle at 88% 5%, rgba(77, 16, 104, .48), transparent 25rem),
+      repeating-linear-gradient(90deg, transparent 0 79px, rgba(168,255,62,.022) 79px 80px),
+      #050505;
+  }
+
+  .mo2-hero__copy { display: grid; gap: 1.15rem; max-width: 70rem; }
+
+  .mo2-eyebrow {
+    color: var(--mo2-lime);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .mo2-hero h1,
+  .mo2-showcase h2 {
+    margin: 0;
+    font-family: var(--mo2-title-font);
+    color: var(--mo2-lime);
+    text-shadow: 0 0 28px rgba(168,255,62,.12);
+  }
+
+  .mo2-hero h1 {
+    max-width: 12ch;
+    font-size: clamp(3rem, 9vw, 7.4rem);
+    line-height: .92;
+    letter-spacing: -.05em;
+  }
+
+  .mo2-hero__copy > p {
+    max-width: 54rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.05rem, 1rem + .3vw, 1.3rem);
+    line-height: 1.72;
+  }
+
+  .mo2-profiles { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: .5rem; }
+
+  .mo2-profiles a {
+    display: grid;
+    gap: .15rem;
+    min-width: 10rem;
+    padding: .72rem .9rem;
+    border: 1px solid var(--mo2-purple-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: linear-gradient(180deg, rgba(69,23,91,.65), rgba(27,9,37,.88));
+    text-decoration: none;
+  }
+
+  .mo2-profiles a:hover,
+  .mo2-profiles a:focus-visible { border-color: var(--mo2-lime); }
+
+  .mo2-profiles span { color: var(--color-text-muted); font-family: var(--font-mono); font-size: .68rem; }
+  .mo2-profiles strong { color: var(--mo2-lime); font-family: var(--font-mono); font-size: .72rem; text-transform: uppercase; }
+
+  .mo2-signal {
+    display: grid;
+    grid-template-columns: 1fr 4rem .65rem;
+    gap: .55rem;
+    margin-block: clamp(2rem, 5vw, 4rem);
+  }
+  .mo2-signal span { height: 3px; background: var(--mo2-lime); }
+  .mo2-signal span:nth-child(2) { background: var(--mo2-purple-border); }
+
+  .mo2-grid { display: grid; gap: 1rem; }
+
+  .mo2-showcase {
+    border-top: 1px solid var(--mo2-purple-border);
+    background: linear-gradient(180deg, rgba(53,16,71,.13), transparent 22rem), #020202;
+  }
+
+  .mo2-showcase__heading { display: grid; gap: 1rem; margin-bottom: 2rem; }
+  .mo2-showcase h2 { margin-top: .6rem; font-size: clamp(2rem, 5vw, 4rem); line-height: 1; }
+  .mo2-showcase__heading > p { max-width: 34rem; margin: 0; color: var(--color-text-muted); line-height: 1.65; }
+  .mo2-windows { display: grid; gap: clamp(1.25rem, 3vw, 2rem); }
+
+  .mo2-window {
+    overflow: hidden;
+    border: 1px solid var(--mo2-purple-border);
+    border-radius: var(--radius-md);
+    background: linear-gradient(180deg, rgba(53,16,71,.96), rgba(19,8,26,.98) 4.2rem), var(--mo2-purple-deep);
+    box-shadow: 0 20px 70px rgba(0,0,0,.28);
+  }
+
+  .mo2-window__bar {
+    display: flex;
+    min-height: 3.3rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .72rem .9rem;
+    border-bottom: 1px solid var(--mo2-purple-border);
+    background: rgba(25,8,34,.72);
+  }
+
+  .mo2-window__bar > div { display: flex; align-items: center; gap: .55rem; }
+  .mo2-window__bar strong { font-family: var(--mo2-title-font); color: var(--mo2-lime-soft); font-size: clamp(.72rem, 1vw, .9rem); }
+
+  .mo2-window__dot {
+    width: .65rem;
+    height: .65rem;
+    border-radius: 50%;
+    background: var(--mo2-lime);
+    box-shadow: 0 0 14px rgba(168,255,62,.55);
+  }
+
+  .mo2-window__actions { flex-wrap: wrap; justify-content: flex-end; }
+  .mo2-window__actions a { color: #d7b7e4; font-family: var(--font-mono); font-size: .66rem; font-weight: 800; text-decoration: none; text-transform: uppercase; }
+  .mo2-window__actions a:hover,
+  .mo2-window__actions a:focus-visible { color: var(--mo2-lime); }
+
+  .mo2-window__shots {
+    display: flex;
+    gap: .85rem;
+    padding: .85rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-color: var(--mo2-purple-border) transparent;
+  }
+
+  .mo2-window figure {
+    flex: 0 0 min(86vw, 46rem);
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid #452056;
+    border-radius: var(--radius-sm);
+    background: #070707;
+    scroll-snap-align: start;
+  }
+
+  .mo2-window figure > a { display: grid; min-height: 18rem; place-items: center; background: #030303; }
+  .mo2-window img { display: block; width: 100%; max-height: 34rem; object-fit: contain; }
+
+  .mo2-window figcaption {
+    display: grid;
+    gap: .35rem;
+    padding: .7rem .8rem .8rem;
+    border-top: 1px solid #452056;
+    background: #120817;
+  }
+
+  .mo2-window figcaption span { color: var(--mo2-lime); font-family: var(--font-mono); font-size: .64rem; font-weight: 800; text-transform: uppercase; }
+  .mo2-window figcaption p { margin: 0; color: var(--color-text-muted); font-size: .82rem; line-height: 1.45; }
+
+  :global(.mo2-page .project-card--biggitykot h3) {
+    font-family: var(--mo2-title-font);
+    color: var(--mo2-lime-soft);
+    letter-spacing: -.02em;
+  }
+
+  @media (min-width: 40rem) { .mo2-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  @media (min-width: 64rem) {
+    .mo2-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .mo2-showcase__heading { grid-template-columns: minmax(0, 1fr) minmax(22rem, .65fr); align-items: end; gap: 2rem; }
+    .mo2-showcase__heading > p { justify-self: end; }
+  }
+</style>

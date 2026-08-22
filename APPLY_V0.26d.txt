@@ -1,0 +1,16 @@
+GVibeDev.cc V0.26d — MO2 PROJECTS VISUAL EXPANSION
+=================================================
+
+Target baseline:
+V0.26c — Mo2 Projects Branding Fix (validated)
+
+Apply this ZIP as an overlay at repository root.
+No files need to be deleted.
+
+Then run:
+
+    npm run build
+
+Validate EN + IT using VALIDATION_V0.26d.md.
+
+The historical `/biggitykot/` route is intentionally preserved.

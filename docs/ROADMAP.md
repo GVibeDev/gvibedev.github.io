@@ -1,76 +1,27 @@
 # GVibeDev.cc — Ecosystem Roadmap
 
-## Direction
-
-GVibeDev.cc is evolving from a portfolio/showcase into the public infrastructure of the GVibeDev ecosystem.
-
-**discovery → interest → community → download → support → sale → crowdfunding → publishing**
-
-A capability appears publicly only when a real endpoint exists.
-
 ## Validated baseline
 
-### V0.24 — Sprite Studio Public Repository & Project Page Refresh ✅
+### V0.26c — Mo2 Projects Branding Fix ✅
 
-- first public Sprite Studio repository and Releases endpoints;
-- current branding and screenshot set;
-- shared bilingual Sprite Studio page;
-- 14-workspace production map;
-- current R5c standalone Windows/runtime architecture;
-- Product Hub aligned with the public repository and Releases;
-- Krea 2 limitations represented accurately;
-- commercial activation work remains frozen.
+The public BiggityKot identity has been replaced by **Mo2 Projects** while the historical `/biggitykot/` route remains stable.
 
 ## Current candidate
 
-### V0.25 — Sprite Studio Screenshot Carousel
+### V0.26d — Mo2 Projects Visual Expansion
 
-Improve application screenshot presentation without changing project content.
+Scope:
+- complete black / lime / dark-purple MO2 identity;
+- Silkscreen headings;
+- EN/IT MO2 landing parity;
+- two public GitHub profile links;
+- WarTanks, Half-Life Weapon Checker and Team.io screenshot integration;
+- MO2-styled home section;
+- no global theme changes outside MO2 surfaces.
 
-Candidate scope:
-- move screenshots closer to the centre of the page flow;
-- one large horizontal, touch-friendly screenshot rail;
-- transparent/translucent presentation layer;
-- existing captions preserved;
-- selectable inline thumbnail strip;
-- previous/next and keyboard navigation;
-- full-resolution dialog retained;
-- reduced-motion and mobile behaviour;
-- Sprite Studio only for this iteration.
+## Deferred / unchanged
 
-## After V0.25
-
-### Gallery pattern evaluation
-
-If the Sprite Studio carousel is validated in production, the same component can later be adopted selectively by other application pages. It should not be applied globally until each page's screenshot set and layout are reviewed.
-
-### Product-specific release maintenance
-
-Future Sprite Studio site updates should normally remain content/asset patches:
-- new release tag/current-version marker;
-- release notes;
-- genuine screenshots;
-- tutorials/documentation links;
-- future distribution endpoint if one is actually published.
-
-### Activation patches — frozen until requested
-
-Potential future activation work remains available but is not part of the current development track:
-- PayPal Support activation;
-- itch.io / Steam;
-- Kickstarter / Patreon;
-- analytics/conversion collection.
-
-### V1.0 — GVibeDev Ecosystem Hub Baseline
-
-Stable public hub combining portfolio, bilingual discovery, real product distribution, documentation, voluntary support, community, and commercial/crowdfunding CTAs only where genuine endpoints exist.
-
-## Cross-cutting maintenance
-
-- repository/site naming consistency;
-- stale project status cleanup;
-- genuine screenshots only;
-- image intrinsic-dimension cleanup;
-- live-domain regression checks;
-- accessibility and mobile validation;
-- production `dist/` inspection before every deployment.
+- activation/commercial patches remain frozen;
+- MO2 internal data keys and route slug remain unchanged;
+- no individual project page is created for the three new projects in this milestone;
+- Sprite Studio and Arena Rubra remain outside this patch.

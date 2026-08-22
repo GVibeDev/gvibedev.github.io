@@ -21,8 +21,8 @@ export type SupportEndpointKind = 'donate-page' | 'paypal-me';
 
 export const ecosystemConfig = {
   release: {
-    version: '0.25',
-    milestone: 'Sprite Studio Screenshot Carousel',
+    version: '0.26d',
+    milestone: 'Mo2 Projects Visual Expansion',
   },
 
   contact: {

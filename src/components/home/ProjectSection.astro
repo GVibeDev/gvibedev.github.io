@@ -33,17 +33,46 @@ const {
 </section>
 
 <style>
+  @font-face {
+    font-family: 'Silkscreen';
+    src: url('/fonts/Silkscreen-Regular.ttf') format('truetype');
+    font-display: swap;
+  }
+
   .project-section {
     padding-block: var(--section-space);
     border-top: 1px solid var(--color-border);
   }
 
   .project-section--biggitykot {
+    --color-surface-1: #190b22;
+    --color-surface-2: #24102f;
+    --color-border: #442054;
+    --color-border-strong: #68327f;
+    --color-blue-soft: #a8ff3e;
+    --color-blue-bright: #a8ff3e;
+    --color-red-soft: #c689e0;
+    --color-red-bright: #a8ff3e;
+    --color-text: #efffdc;
+    --color-text-muted: #c2b5c6;
+    --mo2-title-font: 'Silkscreen', var(--font-mono);
     background:
-      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px),
-      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-      var(--color-bg-deep);
-    background-size: 28px 28px;
+      radial-gradient(circle at 90% 0%, rgba(69,19,92,.34), transparent 24rem),
+      linear-gradient(90deg, rgba(168,255,62,.025) 1px, transparent 1px),
+      linear-gradient(rgba(168,255,62,.025) 1px, transparent 1px),
+      #050505;
+    background-size: auto, 28px 28px, 28px 28px, auto;
+  }
+
+  .project-section--biggitykot :global(.section-heading h2) {
+    font-family: 'Silkscreen', var(--font-mono);
+    color: #a8ff3e;
+  }
+
+  .project-section--biggitykot :global(.project-card--biggitykot h3) {
+    font-family: 'Silkscreen', var(--font-mono);
+    color: #d7ff9c;
+    letter-spacing: -.02em;
   }
 
   .project-section__grid {
