@@ -33,11 +33,6 @@ const {
 </section>
 
 <style>
-  @font-face {
-    font-family: 'Silkscreen';
-    src: url('/fonts/Silkscreen-Regular.ttf') format('truetype');
-    font-display: swap;
-  }
 
   .project-section {
     padding-block: var(--section-space);
@@ -45,34 +40,41 @@ const {
   }
 
   .project-section--biggitykot {
-    --color-surface-1: #190b22;
-    --color-surface-2: #24102f;
-    --color-border: #442054;
-    --color-border-strong: #68327f;
-    --color-blue-soft: #a8ff3e;
-    --color-blue-bright: #a8ff3e;
-    --color-red-soft: #c689e0;
-    --color-red-bright: #a8ff3e;
-    --color-text: #efffdc;
-    --color-text-muted: #c2b5c6;
-    --mo2-title-font: 'Silkscreen', var(--font-mono);
+    --color-surface-1: rgba(235, 249, 255, .72);
+    --color-surface-2: rgba(208, 237, 250, .78);
+    --color-border: rgba(42, 110, 153, .4);
+    --color-border-strong: rgba(22, 93, 141, .68);
+    --color-blue-soft: #0e73b5;
+    --color-blue-bright: #1794d4;
+    --color-red-soft: #577a91;
+    --color-red-bright: #7fba35;
+    --color-text: #15384f;
+    --color-text-muted: #45687f;
+    --mo2-title-font: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
     background:
-      radial-gradient(circle at 90% 0%, rgba(69,19,92,.34), transparent 24rem),
-      linear-gradient(90deg, rgba(168,255,62,.025) 1px, transparent 1px),
-      linear-gradient(rgba(168,255,62,.025) 1px, transparent 1px),
-      #050505;
-    background-size: auto, 28px 28px, 28px 28px, auto;
+      radial-gradient(circle at 14% 0%, rgba(255,255,255,.9), transparent 22rem),
+      radial-gradient(circle at 92% 18%, rgba(72,176,226,.28), transparent 26rem),
+      linear-gradient(180deg, #c9ecfb 0%, #91d0ed 52%, #d8f3ff 100%);
+    border-top-color: rgba(255,255,255,.76);
   }
 
   .project-section--biggitykot :global(.section-heading h2) {
-    font-family: 'Silkscreen', var(--font-mono);
-    color: #a8ff3e;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #163d57;
+    font-weight: 300;
+    letter-spacing: -.045em;
+    text-shadow: 0 1px 0 #fff;
+  }
+
+  .project-section--biggitykot :global(.section-heading__eyebrow) {
+    color: #0b6fab;
   }
 
   .project-section--biggitykot :global(.project-card--biggitykot h3) {
-    font-family: 'Silkscreen', var(--font-mono);
-    color: #d7ff9c;
-    letter-spacing: -.02em;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #143c56;
+    font-weight: 400;
+    letter-spacing: -.025em;
   }
 
   .project-section__grid {
