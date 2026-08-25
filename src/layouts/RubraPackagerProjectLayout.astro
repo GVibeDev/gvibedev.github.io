@@ -12,6 +12,8 @@ interface Props {
 const { project, locale = 'en' } = Astro.props;
 const { data } = project;
 const repositoryUrl = data.links.repositoryUrl ?? 'https://github.com/GVibeDev/Rubra-Packager';
+const arenaRubraUrl = locale === 'it' ? '/it/projects/arena-rubra-digital/' : '/projects/arena-rubra-digital/';
+const arenaProfileUrl = 'https://github.com/GVibeDev/Rubra-Packager/blob/main/profiles/arena-rubra.json';
 
 const copy = locale === 'it'
   ? {
@@ -19,19 +21,45 @@ const copy = locale === 'it'
       status: 'v1.0.0 · prima release sorgente stabile',
       repo: 'Repository GitHub',
       overviewEyebrow: 'Release engineering locale',
-      overviewTitle: 'Un unico banco di lavoro per trasformare sorgenti fidati in artefatti distribuibili.',
+      overviewTitle: 'Dal sorgente alla release Windows: non soltanto HTML → EXE.',
       overviewBody: [
-        'Rubra Packager è una workstation desktop Windows pensata per progetti locali fidati. Registra i sorgenti, esegue il preflight, prepara build Windows o Android e può trasformare applicazioni Windows già compilate in installer Inno Setup.',
+        'Rubra Packager è una workstation desktop Windows pensata per progetti locali fidati. Oltre a trasformare applicazioni web statiche/offline in EXE o APK, può partire direttamente dal codice sorgente di un’app Python, validarlo, preparare le dipendenze in uno staging isolato e costruire un artefatto Windows ONEFILE o ONEDIR.',
+        'Quell’artefatto può poi passare a Setup Builder per diventare un vero installer Windows Inno Setup. Questa catena Python sorgente → EXE/ONEDIR → Setup è una delle caratteristiche centrali del progetto e lo distingue da un semplice convertitore HTML-to-EXE.',
         'Il progetto è nato come strumento interno per il workflow di GVibeDev e, dopo molte build reali, è stato separato in un prodotto autonomo con interfaccia, runtime di build privato, controlli di sicurezza e tooling di release dedicati.',
       ],
       features: [
         ['Projects', 'Registra i progetti web locali e conserva profilo, variante e metadati di packaging senza duplicare i sorgenti.'],
         ['Web Preflight', 'Controlla leggibilità UTF-8, riferimenti locali, file richiesti dal profilo e contenuti inclusi/esclusi prima della compilazione.'],
         ['Web → Windows', 'Confeziona applicazioni web statiche/offline come EXE Windows one-file tramite PyWebView e PyInstaller.'],
-        ['Python → Windows', 'Compila applicazioni Python in ONEFILE o ONEDIR, GUI o console, con icone, hidden imports, data files e staging controllato delle dipendenze.'],
+        ['Python → Windows', 'Parte dal codice sorgente Python e costruisce ONEFILE o ONEDIR, GUI o console, con icone, metadati, hidden imports, data files e dipendenze isolate.'],
         ['Web → Android', 'Prepara APK Android per progetti web statici supportati usando Node/npm, staging Capacitor-style e toolchain Gradle/Android.'],
-        ['Setup Builder', 'Trasforma un EXE ONEFILE o una cartella ONEDIR già compilata in un installer Inno Setup con AppId stabile, shortcut e disinstallazione.'],
+        ['Setup Builder', 'Prende l’EXE ONEFILE o la cartella ONEDIR costruita e la trasforma in un installer Inno Setup con AppId stabile, shortcut e disinstallazione.'],
       ],
+      pythonEyebrow: 'La caratteristica distintiva',
+      pythonTitle: 'Da un progetto Python sorgente a EXE e Setup Windows.',
+      pythonIntro: 'Il percorso Python non è un accessorio del convertitore web: è una pipeline separata. Rubra Packager usa un motore Python/PyInstaller privato, esegue un preflight dedicato e mantiene lo staging delle dipendenze separato dal runtime dell’app.',
+      pythonSteps: [
+        ['01 · Sorgente', 'Seleziona la cartella del progetto e l’entry point Python.'],
+        ['02 · Preflight', 'Controlla entry point, sintassi, metadata delle dipendenze, hidden imports, data path e search path.'],
+        ['03 · Build EXE', 'Scegli ONEFILE o ONEDIR, GUI o console, icona, versione, publisher e descrizione; PyInstaller produce l’artefatto Windows.'],
+        ['04 · Setup', 'Passa l’EXE o la directory ONEDIR a Setup Builder e genera un installer Inno Setup con shortcut, AppId stabile e supporto alla disinstallazione.'],
+      ],
+      pythonFootnote: 'Setup Builder è volutamente un secondo stadio: non compila direttamente il sorgente Python, ma confeziona l’artefatto Windows già prodotto e testato. Per l’utente il workflow completo resta: sorgente Python → EXE/ONEDIR → Setup.',
+      originEyebrow: 'Perché esiste “Arena Rubra” tra i profili?',
+      originTitle: 'Rubra Packager nasce da un problema reale di Arena Rubra Digital.',
+      originBody: [
+        'Il primo workflow che ha portato alla nascita del packager era quello di Arena Rubra Digital: un gioco web offline con una libreria locale di asset ampia e con l’esigenza di distinguere pacchetti FULL e LITE senza perdere file realmente referenziati.',
+        'Per questo la distribuzione include ancora un profilo Arena Rubra. Non è codice speciale nel motore: il sistema dei profili è data-driven e carica le stesse regole JSON usate anche da Generic Web Game e Generic HTML App.',
+      ],
+      originPoints: [
+        'Il profilo Arena Rubra richiede index.html, usa orientamento landscape e cerca assets-manifest.json oppure assets/manifest.json.',
+        'FULL non esclude cartelle di produzione e, per progetti compatibili, può tecnicamente funzionare anche fuori da Arena Rubra.',
+        'LITE è invece calibrato sulla struttura del gioco: esclude cartelle tipiche di musica, video e artwork high-resolution. Su un’app diversa potrebbe rimuovere contenuti necessari.',
+        'Per altri progetti è quindi preferibile partire da Generic Web Game o Generic HTML App. Il profilo Arena Rubra resta soprattutto un preset specifico e un esempio concreto dell’architettura profile-driven.',
+        'I profili sono definiti in JSON nel sorgente; l’authoring di profili personalizzati non è ancora presentato come workflow end-user rifinito nella v1.0.0.',
+      ],
+      arenaCta: 'Scopri Arena Rubra Digital',
+      profileSource: 'Vedi il profilo Arena Rubra',
       carouselEyebrow: 'Interfaccia reale',
       carouselTitle: 'La build v1.0.0 in uso.',
       carouselIntro: 'Schermate reali della build Windows corrente: registrazione progetti, preflight, packaging Windows, Python, Android e pagina About.',
@@ -62,7 +90,7 @@ const copy = locale === 'it'
         'Asset generati dinamicamente e nomi non rilevabili staticamente possono richiedere un manifest di progetto.',
         'La validazione Android v1 è orientata a build APK/device; pubblicazione sugli store e workflow di signing per distribuzione restano separati.',
         'Authenticode è opzionale e richiede una propria infrastruttura di certificati.',
-        'Setup Builder non compila sorgenti: crea installer a partire da artefatti Windows già costruiti e testati.',
+        'Setup Builder, preso da solo, non compila il sorgente: nel workflow Python l’EXE/ONEDIR viene creato prima da Python → Windows e poi trasformato in installer.',
       ],
       distributionEyebrow: 'Distribuzione',
       distributionTitle: 'Sorgente pubblico oggi; binari tramite release quando saranno pubblicati.',
@@ -80,19 +108,45 @@ const copy = locale === 'it'
       status: 'v1.0.0 · first stable public source release',
       repo: 'GitHub repository',
       overviewEyebrow: 'Local release engineering',
-      overviewTitle: 'One workstation for turning trusted source projects into distributable artifacts.',
+      overviewTitle: 'From source to Windows release — not only HTML → EXE.',
       overviewBody: [
-        'Rubra Packager is a Windows desktop release workshop for trusted local projects. It registers source projects, runs preflight checks, produces Windows or Android builds, and can turn already-built Windows applications into Inno Setup installers.',
+        'Rubra Packager is a Windows desktop release workshop for trusted local projects. Beyond turning offline/static web applications into EXE or APK builds, it can start directly from a Python application source tree, validate it, stage dependencies in isolation and build a Windows ONEFILE or ONEDIR artifact.',
+        'That artifact can then be passed to Setup Builder and turned into a real Inno Setup Windows installer. This Python source → EXE/ONEDIR → Setup chain is a core part of the product and sets it apart from a narrow HTML-to-EXE converter.',
         'The project started as an internal GVibeDev release tool and, after repeated real-world builds, was separated into an independent product with its own interface, private build runtime, security gates and release tooling.',
       ],
       features: [
         ['Projects', 'Register local web projects once and keep profile, variant and packaging metadata without duplicating the source.'],
         ['Web Preflight', 'Check UTF-8 readability, local references, profile-required files and included/excluded content before packaging.'],
         ['Web → Windows', 'Package offline/static web applications as one-file Windows executables using PyWebView and PyInstaller.'],
-        ['Python → Windows', 'Build Python applications as ONEFILE or ONEDIR, GUI or console, with icons, hidden imports, data files and controlled dependency staging.'],
+        ['Python → Windows', 'Start from Python source and build ONEFILE or ONEDIR, GUI or console, with icons, metadata, hidden imports, data files and isolated dependencies.'],
         ['Web → Android', 'Build device-oriented Android APKs for supported static web projects through Node/npm, Capacitor-style staging and Gradle/Android tooling.'],
-        ['Setup Builder', 'Turn an existing ONEFILE EXE or ONEDIR application folder into an Inno Setup installer with stable AppId, shortcuts and uninstall support.'],
+        ['Setup Builder', 'Take the built ONEFILE EXE or ONEDIR folder and turn it into an Inno Setup installer with stable AppId, shortcuts and uninstall support.'],
       ],
+      pythonEyebrow: 'The differentiating workflow',
+      pythonTitle: 'From a Python source project to Windows EXE and Setup.',
+      pythonIntro: 'The Python path is not an add-on to the web converter: it is a separate pipeline. Rubra Packager uses a private Python/PyInstaller engine, runs a dedicated preflight and keeps dependency staging isolated from the application runtime.',
+      pythonSteps: [
+        ['01 · Source', 'Select the project folder and Python entry point.'],
+        ['02 · Preflight', 'Check entry point, syntax, dependency metadata, hidden imports, data paths and search paths.'],
+        ['03 · Build EXE', 'Choose ONEFILE or ONEDIR, GUI or console, icon, version, publisher and description; PyInstaller produces the Windows artifact.'],
+        ['04 · Setup', 'Pass the EXE or ONEDIR folder to Setup Builder and generate an Inno Setup installer with shortcuts, stable AppId and uninstall support.'],
+      ],
+      pythonFootnote: 'Setup Builder is deliberately a second stage: it does not compile Python source directly, but packages the already-produced and tested Windows artifact. The complete user workflow is still source Python → EXE/ONEDIR → Setup.',
+      originEyebrow: 'Why is there an “Arena Rubra” profile?',
+      originTitle: 'Rubra Packager grew out of a real Arena Rubra Digital release problem.',
+      originBody: [
+        'The first workflow that drove the packager was Arena Rubra Digital: a large offline web game with a substantial local asset library and a need to separate FULL and LITE packages without silently dropping files that were actually referenced.',
+        'That is why the distribution still includes an Arena Rubra profile. It is not special-case code in the engine: the profile system is data-driven and loads the same JSON rule structure used by Generic Web Game and Generic HTML App.',
+      ],
+      originPoints: [
+        'The Arena Rubra profile requires index.html, assumes landscape orientation and looks for assets-manifest.json or assets/manifest.json.',
+        'FULL excludes no production folders and can technically work with other compatible static applications.',
+        'LITE is project-specific: it excludes common Arena Rubra music, video and high-resolution artwork paths. On another app those rules could remove required content.',
+        'For unrelated projects, Generic Web Game or Generic HTML App is therefore the safer starting point. Arena Rubra remains a specific preset and a concrete example of the profile-driven architecture.',
+        'Profiles are JSON-defined in the source tree; custom-profile authoring is not yet presented as a polished end-user workflow in v1.0.0.',
+      ],
+      arenaCta: 'Explore Arena Rubra Digital',
+      profileSource: 'View the Arena Rubra profile',
       carouselEyebrow: 'Real interface',
       carouselTitle: 'The v1.0.0 build in use.',
       carouselIntro: 'Current Windows captures covering project registration, preflight, Windows, Python and Android packaging, plus the About workspace.',
@@ -123,7 +177,7 @@ const copy = locale === 'it'
         'Dynamically generated asset names that cannot be discovered statically may require a project manifest.',
         'The validated Android v1 scope is device-oriented APK production; store publishing and distribution-signing workflows remain separate.',
         'Authenticode signing is optional and requires your own certificate infrastructure.',
-        'Setup Builder does not compile source code: it creates installers from already-built and tested Windows artifacts.',
+        'Setup Builder by itself does not compile source code: in the Python workflow, Python → Windows creates the EXE/ONEDIR first and Setup Builder packages that artifact afterward.',
       ],
       distributionEyebrow: 'Distribution',
       distributionTitle: 'Public source today; binaries through Releases when they are published.',
@@ -232,6 +286,43 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
             </article>
           ))}
         </div>
+
+        <div class="rubra-python-pipeline">
+          <div class="rubra-section-heading rubra-section-heading--inside">
+            <span>{copy.pythonEyebrow}</span>
+            <h2>{copy.pythonTitle}</h2>
+            <p>{copy.pythonIntro}</p>
+          </div>
+
+          <ol class="rubra-pipeline-steps">
+            {copy.pythonSteps.map(([title, body]) => (
+              <li>
+                <strong>{title}</strong>
+                <p>{body}</p>
+              </li>
+            ))}
+          </ol>
+
+          <p class="rubra-pipeline-note">{copy.pythonFootnote}</p>
+        </div>
+
+        <article class="rubra-origin-card">
+          <div>
+            <span>{copy.originEyebrow}</span>
+            <h2>{copy.originTitle}</h2>
+            {copy.originBody.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+
+          <div class="rubra-origin-card__details">
+            <ul>
+              {copy.originPoints.map((point) => <li>{point}</li>)}
+            </ul>
+            <div class="rubra-origin-card__actions">
+              <a class="rubra-button rubra-button--primary" href={arenaRubraUrl}>{copy.arenaCta} →</a>
+              <a class="rubra-button" href={arenaProfileUrl} target="_blank" rel="noreferrer">{copy.profileSource} ↗</a>
+            </div>
+          </div>
+        </article>
       </Container>
     </section>
 
@@ -554,6 +645,126 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
     line-height: 1.65;
   }
 
+  .rubra-python-pipeline,
+  .rubra-origin-card {
+    margin-top: clamp(2rem, 5vw, 4rem);
+    border: 1px solid var(--rubra-line);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(circle at 92% 8%, rgba(231,184,66,.09), transparent 22rem),
+      rgba(5, 18, 34, .86);
+    box-shadow: 0 22px 60px rgba(0,0,0,.18);
+  }
+
+  .rubra-python-pipeline {
+    padding: clamp(1.35rem, 3vw, 2.25rem);
+  }
+
+  .rubra-section-heading--inside {
+    margin-bottom: 1.5rem;
+  }
+
+  .rubra-section-heading--inside h2 {
+    max-width: 22ch;
+  }
+
+  .rubra-pipeline-steps {
+    display: grid;
+    gap: .85rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .rubra-pipeline-steps li {
+    position: relative;
+    display: grid;
+    gap: .45rem;
+    padding: 1rem 1rem 1rem 1.15rem;
+    border: 1px solid rgba(231,184,66,.18);
+    border-radius: var(--radius-md);
+    background: rgba(13,35,62,.72);
+  }
+
+  .rubra-pipeline-steps li::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    background: linear-gradient(var(--rubra-gold-bright), var(--rubra-red));
+    content: '';
+  }
+
+  .rubra-pipeline-steps strong {
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: .76rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .rubra-pipeline-steps p,
+  .rubra-pipeline-note,
+  .rubra-origin-card p,
+  .rubra-origin-card li {
+    margin: 0;
+    color: var(--rubra-muted);
+    line-height: 1.68;
+  }
+
+  .rubra-pipeline-note {
+    margin-top: 1rem;
+    padding: .95rem 1rem;
+    border-left: 3px solid var(--rubra-gold);
+    background: rgba(231,184,66,.045);
+  }
+
+  .rubra-origin-card {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(1.35rem, 3vw, 2.25rem);
+  }
+
+  .rubra-origin-card > div:first-child {
+    display: grid;
+    gap: .75rem;
+  }
+
+  .rubra-origin-card > div:first-child > span {
+    color: var(--rubra-gold-bright);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .rubra-origin-card h2 {
+    margin: 0;
+    max-width: 22ch;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -.04em;
+  }
+
+  .rubra-origin-card__details {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .rubra-origin-card__details ul {
+    display: grid;
+    gap: .65rem;
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .rubra-origin-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+  }
+
   .rubra-carousel-shell,
   .rubra-splash,
   .rubra-safety {
@@ -665,6 +876,10 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
     .rubra-dependency-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .rubra-pipeline-steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (min-width: 64rem) {
@@ -674,6 +889,15 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
 
     .rubra-dependency-grid {
       grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .rubra-pipeline-steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .rubra-origin-card {
+      grid-template-columns: minmax(0, .9fr) minmax(28rem, 1.1fr);
+      align-items: start;
     }
 
     .rubra-safety__grid {

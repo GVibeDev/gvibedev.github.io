@@ -21,8 +21,8 @@ export type SupportEndpointKind = 'donate-page' | 'paypal-me';
 
 export const ecosystemConfig = {
   release: {
-    version: '0.27',
-    milestone: 'Rubra Packager v1.0.0 Public Page Refresh',
+    version: '0.27a',
+    milestone: 'Rubra Packager Python Pipeline & Arena Rubra Profile Context',
   },
 
   contact: {

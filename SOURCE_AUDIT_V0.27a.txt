@@ -1,0 +1,33 @@
+GVibeDev.cc V0.27a — SOURCE AUDIT
+==========================================
+
+Checks: 15
+Issues: 0
+
+PASS — EN Python differentiator
+PASS — IT Python differentiator
+PASS — Python pipeline four steps
+PASS — Arena Rubra EN context
+PASS — Arena Rubra IT context
+PASS — Arena internal EN/IT link
+PASS — Arena profile source link
+PASS — FULL/LITE caveat EN
+PASS — FULL/LITE caveat IT
+PASS — Generic profiles mentioned
+PASS — Setup stage accuracy
+PASS — Project summary updated
+PASS — Italian preserved card summary updated
+PASS — Version marker
+PASS — No itch reference in layout/data
+
+Repository facts used for this refinement:
+- README v1.0.0: Python → Windows and Setup Builder are separate supported workflows.
+- build_python.py: source project → preflight → ONEFILE/ONEDIR via PyInstaller with dependency staging.
+- build_setup.py: Setup Builder consumes an existing ONEFILE EXE or ONEDIR folder.
+- profiles.py/config.py: profiles are loaded from JSON profile directories using the same BuildProfile structure.
+- profiles/arena-rubra.json: index.html, landscape, FULL with no exclusions, LITE with Arena-specific media/highres exclusions.
+- profiles/generic-web-game.json and generic-html-app.json: safer generic presets for unrelated web apps.
+
+Local build attempt:
+- `npm run build` could not start in this environment because the local Astro executable is missing (`astro: not found`).
+- Windows `npm run build` remains the release gate.

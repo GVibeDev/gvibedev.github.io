@@ -1,0 +1,19 @@
+GVibeDev.cc V0.27a — RUBRA PACKAGER PYTHON PIPELINE & ARENA RUBRA PROFILE CONTEXT
+================================================================================
+
+Target:
+V0.27 Rubra Packager page candidate, based on the frozen V0.26f site baseline.
+
+Apply this ZIP as an overlay at repository root.
+No files need to be deleted.
+
+Then run:
+
+    npm run build
+
+Validate both:
+
+    /projects/rubra-composer/
+    /it/projects/rubra-composer/
+
+Focus on the new Python source → EXE/ONEDIR → Setup section and the Arena Rubra profile explanation.

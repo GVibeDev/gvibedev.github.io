@@ -1,8 +1,8 @@
 ---
 title: Rubra Packager
 slug: rubra-composer
-summary: A Windows release workshop for trusted local web and Python projects, covering preflight, Windows EXE, Android APK and Setup packaging workflows.
-summaryIt: Una workstation Windows per progetti web e Python locali fidati, con preflight, build EXE Windows, APK Android e creazione di installer Setup.
+summary: A Windows release workshop that packages trusted web projects and can take Python source through preflight, Windows EXE/ONEDIR build and Inno Setup installer creation.
+summaryIt: Una workstation Windows che confeziona progetti web fidati e può portare il sorgente Python dal preflight alla build EXE/ONEDIR fino all’installer Inno Setup.
 kind: tool
 section: tools
 owner: gvibedev
@@ -34,7 +34,7 @@ links:
 pageReady: true
 logo: /assets/projects/rubra-packager/logo-extended.webp
 socialImage: /assets/projects/rubra-packager/splash.webp
-seoDescription: Rubra Packager v1.0.0 is a Windows desktop release workshop for trusted local web and Python projects, with preflight, Windows EXE, Android APK and Inno Setup packaging workflows.
+seoDescription: Rubra Packager v1.0.0 packages trusted web projects and provides a Python source to Windows EXE/ONEDIR to Inno Setup release pipeline, alongside Android APK packaging and preflight validation.
 endcapImage: /assets/projects/rubra-packager/splash.webp
 endcapAlt: Rubra Packager splash artwork with the Package, Protect and Deploy release workflow.
 toolCategory: Local release engineering
@@ -88,7 +88,7 @@ gallery:
   - src: /assets/projects/rubra-packager/python-windows-v1.webp
     thumb: /assets/projects/rubra-packager/thumbs/python-windows-v1.webp
     alt: Rubra Packager Python to Windows workspace with dependency controls and PyInstaller build output.
-    caption: Python → Windows — ONEFILE or ONEDIR builds with GUI or console mode, metadata, icons and controlled dependency staging.
+    caption: Python → Windows — start from Python source, build ONEFILE or ONEDIR with controlled dependency staging, then use the result as input for Setup Builder.
   - src: /assets/projects/rubra-packager/about-v1.webp
     thumb: /assets/projects/rubra-packager/thumbs/about-v1.webp
     alt: Rubra Packager About workspace with v1.0.0 status and the product splash artwork.

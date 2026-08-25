@@ -1,5 +1,20 @@
 # Changelog
 
+## GV-PORTFOLIO V0.27a — Rubra Packager Python Pipeline & Arena Rubra Profile Context
+
+- Promoted the Python → Windows workflow from a secondary feature to a primary product differentiator.
+- Added an explicit source-to-release pipeline: Python source → dedicated preflight → ONEFILE/ONEDIR Windows artifact → Inno Setup installer.
+- Clarified that Setup Builder is a second packaging stage: Python → Windows compiles the source first, then Setup Builder wraps the built EXE/ONEDIR artifact.
+- Expanded the Python workflow description with GUI/console mode, metadata, icons, hidden imports, data/search paths and isolated dependency staging.
+- Added a dedicated “Why Arena Rubra?” section explaining that Rubra Packager originated from the Arena Rubra Digital release workflow.
+- Documented the actual Arena Rubra profile rules: index.html, landscape orientation, manifest candidates, FULL behavior and project-specific LITE exclusions.
+- Clarified that the Arena Rubra FULL profile can technically fit other compatible static apps, while the LITE rules are specific enough that unrelated projects should normally use Generic Web Game or Generic HTML App.
+- Clarified that the profile engine is JSON/data-driven and that custom-profile authoring is not yet presented as a polished v1 end-user workflow.
+- Added a direct internal link from the Rubra Packager page to Arena Rubra Digital plus a source link to the Arena Rubra profile JSON.
+- Updated EN/IT project-card summaries to foreground the Python source → EXE/ONEDIR → Setup capability.
+- Kept the V0.27 screenshot carousel, dependency section, splash, security/distribution policy and supplied assets unchanged.
+
+
 ## GV-PORTFOLIO V0.27 — Rubra Packager v1.0.0 Public Page Refresh
 
 - Rebuilt the Rubra Packager project page around the current public `GVibeDev/Rubra-Packager` repository and stable v1.0.0 source state.
