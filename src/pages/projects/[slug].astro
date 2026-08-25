@@ -7,6 +7,7 @@ import BiggityKotProjectLayout from '../../layouts/BiggityKotProjectLayout.astro
 import BoardGameProjectLayout from '../../layouts/BoardGameProjectLayout.astro';
 import ArenaRubraDigitalLayout from '../../layouts/ArenaRubraDigitalLayout.astro';
 import SpriteStudioProjectLayout from '../../layouts/SpriteStudioProjectLayout.astro';
+import RubraPackagerProjectLayout from '../../layouts/RubraPackagerProjectLayout.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -20,19 +21,24 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
-const Layout = project.data.slug === 'arena-rubra-board-game'
-  ? BoardGameProjectLayout
-  : project.data.slug === 'arena-rubra-digital'
-    ? ArenaRubraDigitalLayout
-    : project.data.slug === 'unum-sunt-sprite-studio'
-      ? SpriteStudioProjectLayout
-      : project.data.owner === 'biggitykot'
-      ? BiggityKotProjectLayout
-      : project.data.kind === 'tool'
-        ? ToolProjectLayout
-        : project.data.kind === 'world'
-          ? EditorialProjectLayout
-          : ProjectLayout;
+
+let Layout: any = ProjectLayout;
+
+if (project.data.slug === 'arena-rubra-board-game') {
+  Layout = BoardGameProjectLayout;
+} else if (project.data.slug === 'arena-rubra-digital') {
+  Layout = ArenaRubraDigitalLayout;
+} else if (project.data.slug === 'unum-sunt-sprite-studio') {
+  Layout = SpriteStudioProjectLayout;
+} else if (project.data.slug === 'rubra-composer') {
+  Layout = RubraPackagerProjectLayout;
+} else if (project.data.owner === 'biggitykot') {
+  Layout = BiggityKotProjectLayout;
+} else if (project.data.kind === 'tool') {
+  Layout = ToolProjectLayout;
+} else if (project.data.kind === 'world') {
+  Layout = EditorialProjectLayout;
+}
 ---
 
 <Layout project={project}>

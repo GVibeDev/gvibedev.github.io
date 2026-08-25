@@ -1,8 +1,13 @@
 ---
-import LocalizedContentPage from '../../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import RubraPackagerProjectLayout from '../../../../layouts/RubraPackagerProjectLayout.astro';
 
-const page = getItalianContentPage('projects--rubra-composer');
+const projects = await getCollection('projects');
+const project = projects.find((entry) => entry.data.slug === 'rubra-composer');
+
+if (!project) {
+  throw new Error('Rubra Packager project data not found.');
+}
 ---
 
-<LocalizedContentPage page={page} />
+<RubraPackagerProjectLayout project={project} locale="it" />

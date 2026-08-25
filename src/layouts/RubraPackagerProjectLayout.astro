@@ -1,0 +1,688 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import ScreenshotCarousel from '../components/project/ScreenshotCarousel.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locale?: 'en' | 'it';
+}
+
+const { project, locale = 'en' } = Astro.props;
+const { data } = project;
+const repositoryUrl = data.links.repositoryUrl ?? 'https://github.com/GVibeDev/Rubra-Packager';
+
+const copy = locale === 'it'
+  ? {
+      subtitle: 'Package. Build. Deploy.',
+      status: 'v1.0.0 · prima release sorgente stabile',
+      repo: 'Repository GitHub',
+      overviewEyebrow: 'Release engineering locale',
+      overviewTitle: 'Un unico banco di lavoro per trasformare sorgenti fidati in artefatti distribuibili.',
+      overviewBody: [
+        'Rubra Packager è una workstation desktop Windows pensata per progetti locali fidati. Registra i sorgenti, esegue il preflight, prepara build Windows o Android e può trasformare applicazioni Windows già compilate in installer Inno Setup.',
+        'Il progetto è nato come strumento interno per il workflow di GVibeDev e, dopo molte build reali, è stato separato in un prodotto autonomo con interfaccia, runtime di build privato, controlli di sicurezza e tooling di release dedicati.',
+      ],
+      features: [
+        ['Projects', 'Registra i progetti web locali e conserva profilo, variante e metadati di packaging senza duplicare i sorgenti.'],
+        ['Web Preflight', 'Controlla leggibilità UTF-8, riferimenti locali, file richiesti dal profilo e contenuti inclusi/esclusi prima della compilazione.'],
+        ['Web → Windows', 'Confeziona applicazioni web statiche/offline come EXE Windows one-file tramite PyWebView e PyInstaller.'],
+        ['Python → Windows', 'Compila applicazioni Python in ONEFILE o ONEDIR, GUI o console, con icone, hidden imports, data files e staging controllato delle dipendenze.'],
+        ['Web → Android', 'Prepara APK Android per progetti web statici supportati usando Node/npm, staging Capacitor-style e toolchain Gradle/Android.'],
+        ['Setup Builder', 'Trasforma un EXE ONEFILE o una cartella ONEDIR già compilata in un installer Inno Setup con AppId stabile, shortcut e disinstallazione.'],
+      ],
+      carouselEyebrow: 'Interfaccia reale',
+      carouselTitle: 'La build v1.0.0 in uso.',
+      carouselIntro: 'Schermate reali della build Windows corrente: registrazione progetti, preflight, packaging Windows, Python, Android e pagina About.',
+      dependenciesEyebrow: 'Dipendenze e toolchain',
+      dependenciesTitle: 'Installa solo ciò che serve al target che vuoi produrre.',
+      dependenciesIntro: 'Rubra Packager separa l’app desktop dal motore di build. Il runtime Python privato vive sotto %LOCALAPPDATA%\\RubraPackager\\runtime\\.venv; le toolchain esterne restano dipendenze esplicite del sistema.',
+      sourceOnly: 'Per eseguire Rubra Packager direttamente dal repository serve Python 3.11 o superiore. Lo script di bootstrap crea o ripara il runtime privato e installa pywebview, PyInstaller e Pillow.',
+      setupOnly: 'Inno Setup 6 o 7 è necessario per Setup Builder e per costruire la release Setup di Rubra Packager. Se manca, l’app può proporre un bootstrap tramite winget, sempre dopo un’azione esplicita.',
+      androidOnly: 'Per Android servono JDK 17+, Android SDK e Node.js/npm. Android Studio è il percorso più semplice per installare e mantenere l’SDK.',
+      dependencyLinks: 'Download ufficiali',
+      splashEyebrow: 'Identità del prodotto',
+      splashTitle: 'Package. Protect. Deploy.',
+      safetyEyebrow: 'Limiti e sicurezza',
+      safetyTitle: 'È un tool di build, non una sandbox.',
+      safetyBody: 'Quando abiliti installazione o build delle dipendenze, il progetto selezionato può eseguire codice con i permessi del tuo utente Windows. Usa queste funzioni soltanto con sorgenti che conosci e di cui ti fidi.',
+      safetyPoints: [
+        'npm install, npm run build, pip install -r requirements.txt e pip install . possono eseguire codice controllato dal progetto.',
+        'Il preflight Python non esegue l’entry point selezionato.',
+        'Entry point, data path e search path Python sono confinati alla root del progetto; i percorsi che ne escono vengono rifiutati.',
+        'L’API locale dell’interfaccia ascolta solo in loopback, usa un token casuale per ogni avvio e rifiuta origini browser esterne.',
+        'Il sorgente Python non usa shell=True per i processi di build.',
+        'Rubra Packager va eseguito come utente normale, non come Administrator.',
+      ],
+      limitsTitle: 'Cosa non fa la v1.0.0',
+      limits: [
+        'Non pacchettizza applicazioni macOS o Linux.',
+        'Il packaging web è destinato ad applicazioni statiche/offline: backend server, SSR server e API runtime non vengono incorporati.',
+        'Asset generati dinamicamente e nomi non rilevabili staticamente possono richiedere un manifest di progetto.',
+        'La validazione Android v1 è orientata a build APK/device; pubblicazione sugli store e workflow di signing per distribuzione restano separati.',
+        'Authenticode è opzionale e richiede una propria infrastruttura di certificati.',
+        'Setup Builder non compila sorgenti: crea installer a partire da artefatti Windows già costruiti e testati.',
+      ],
+      distributionEyebrow: 'Distribuzione',
+      distributionTitle: 'Sorgente pubblico oggi; binari tramite release quando saranno pubblicati.',
+      distributionBody: [
+        'Il repository GitHub contiene il codice sorgente, documentazione, test, branding e gli strumenti necessari per assemblare una release Portable + Setup. Gli artefatti generati — EXE, Setup, APK, wheel e archivi di release — non vengono committati nel repository.',
+        'La prossima fase di distribuzione prevede una GitHub Release con binari testati. Fino a quando quella release non esisterà, questa pagina mostra il repository e la documentazione di build senza simulare un pulsante Download.',
+      ],
+      buildTools: 'Per costruire Rubra Packager localmente, il repository fornisce build_release_windows.cmd: prepara il runtime, costruisce l’app ONEDIR, crea il Portable ZIP e compila il Setup Inno, quindi genera manifest e checksum SHA-256.',
+      userGuide: 'Guida utente',
+      building: 'Build dal sorgente',
+      security: 'Security policy',
+    }
+  : {
+      subtitle: 'Package. Build. Deploy.',
+      status: 'v1.0.0 · first stable public source release',
+      repo: 'GitHub repository',
+      overviewEyebrow: 'Local release engineering',
+      overviewTitle: 'One workstation for turning trusted source projects into distributable artifacts.',
+      overviewBody: [
+        'Rubra Packager is a Windows desktop release workshop for trusted local projects. It registers source projects, runs preflight checks, produces Windows or Android builds, and can turn already-built Windows applications into Inno Setup installers.',
+        'The project started as an internal GVibeDev release tool and, after repeated real-world builds, was separated into an independent product with its own interface, private build runtime, security gates and release tooling.',
+      ],
+      features: [
+        ['Projects', 'Register local web projects once and keep profile, variant and packaging metadata without duplicating the source.'],
+        ['Web Preflight', 'Check UTF-8 readability, local references, profile-required files and included/excluded content before packaging.'],
+        ['Web → Windows', 'Package offline/static web applications as one-file Windows executables using PyWebView and PyInstaller.'],
+        ['Python → Windows', 'Build Python applications as ONEFILE or ONEDIR, GUI or console, with icons, hidden imports, data files and controlled dependency staging.'],
+        ['Web → Android', 'Build device-oriented Android APKs for supported static web projects through Node/npm, Capacitor-style staging and Gradle/Android tooling.'],
+        ['Setup Builder', 'Turn an existing ONEFILE EXE or ONEDIR application folder into an Inno Setup installer with stable AppId, shortcuts and uninstall support.'],
+      ],
+      carouselEyebrow: 'Real interface',
+      carouselTitle: 'The v1.0.0 build in use.',
+      carouselIntro: 'Current Windows captures covering project registration, preflight, Windows, Python and Android packaging, plus the About workspace.',
+      dependenciesEyebrow: 'Dependencies and toolchains',
+      dependenciesTitle: 'Install only the toolchain required by the target you want to build.',
+      dependenciesIntro: 'Rubra Packager separates the frozen desktop GUI from its private Python build engine. The private runtime lives under %LOCALAPPDATA%\\RubraPackager\\runtime\\.venv, while external platform toolchains remain explicit system dependencies.',
+      sourceOnly: 'Running Rubra Packager directly from the source repository requires Python 3.11 or newer. The bootstrap helper creates or repairs the private runtime and installs pywebview, PyInstaller and Pillow.',
+      setupOnly: 'Inno Setup 6 or 7 is required for Setup Builder and for building Rubra Packager’s Setup release. If it is missing, the application can offer an explicit winget bootstrap after user confirmation.',
+      androidOnly: 'Android builds require JDK 17+, Android SDK and Node.js/npm. Android Studio is the simplest supported route for installing and maintaining the SDK.',
+      dependencyLinks: 'Official downloads',
+      splashEyebrow: 'Product identity',
+      splashTitle: 'Package. Protect. Deploy.',
+      safetyEyebrow: 'Limits and security',
+      safetyTitle: 'It is a build tool, not a sandbox.',
+      safetyBody: 'When dependency installation or source builds are enabled, the selected project can execute code with your Windows user permissions. Use those operations only for sources you know and trust.',
+      safetyPoints: [
+        'npm install, npm run build, pip install -r requirements.txt and pip install . can execute project-controlled code.',
+        'Python preflight does not execute the selected entry point.',
+        'Python entry points, data paths and search paths are confined to the selected project root; escaping paths are rejected.',
+        'The local UI API is loopback-only, protected by a random per-launch token and rejects foreign browser origins.',
+        'The Python source does not use shell=True for build execution.',
+        'Rubra Packager should be run as a normal user, not as Administrator.',
+      ],
+      limitsTitle: 'What v1.0.0 does not do',
+      limits: [
+        'It does not package macOS or Linux desktop applications.',
+        'Web packaging targets offline/static applications; server backends, SSR servers and runtime APIs are not bundled.',
+        'Dynamically generated asset names that cannot be discovered statically may require a project manifest.',
+        'The validated Android v1 scope is device-oriented APK production; store publishing and distribution-signing workflows remain separate.',
+        'Authenticode signing is optional and requires your own certificate infrastructure.',
+        'Setup Builder does not compile source code: it creates installers from already-built and tested Windows artifacts.',
+      ],
+      distributionEyebrow: 'Distribution',
+      distributionTitle: 'Public source today; binaries through Releases when they are published.',
+      distributionBody: [
+        'The GitHub repository contains source code, documentation, tests, branding and the tools required to assemble Portable + Setup releases. Generated EXE, Setup, APK, wheel and release archives are intentionally not committed to the source repository.',
+        'The next distribution step is a GitHub Release containing tested binaries. Until that Release exists, this page exposes the repository and build documentation without pretending a binary Download is already available.',
+      ],
+      buildTools: 'To build Rubra Packager locally, the repository provides build_release_windows.cmd: it prepares the runtime, builds the ONEDIR application, creates the Portable ZIP and compiles the Inno Setup package, then writes the release manifest and SHA-256 checksums.',
+      userGuide: 'User guide',
+      building: 'Build from source',
+      security: 'Security policy',
+    };
+
+const dependencies = [
+  {
+    name: 'Python 3.11+',
+    scope: locale === 'it' ? 'Sorgente + motore di build privato' : 'Source + private build engine',
+    body: copy.sourceOnly,
+    href: 'https://www.python.org/downloads/windows/',
+    label: 'python.org',
+  },
+  {
+    name: 'Inno Setup 6 / 7',
+    scope: 'Setup Builder',
+    body: copy.setupOnly,
+    href: 'https://jrsoftware.org/isdl.php',
+    label: 'jrsoftware.org',
+  },
+  {
+    name: 'JDK 17+',
+    scope: 'Android',
+    body: copy.androidOnly,
+    href: 'https://adoptium.net/temurin/releases/?version=17',
+    label: 'Eclipse Temurin',
+  },
+  {
+    name: 'Android SDK',
+    scope: 'Android',
+    body: locale === 'it'
+      ? 'Installa Android Studio e usa il suo SDK Manager, oppure i command-line tools ufficiali, per configurare SDK e piattaforme richieste.'
+      : 'Install Android Studio and use its SDK Manager, or the official command-line tools, to configure the required SDK platforms and tools.',
+    href: 'https://developer.android.com/studio',
+    label: 'Android Developers',
+  },
+  {
+    name: 'Node.js + npm',
+    scope: 'Android / web source builds',
+    body: locale === 'it'
+      ? 'Necessari per il workflow Android e per progetti web che devono eseguire un build npm prima del packaging.'
+      : 'Required by the Android workflow and by web projects that need an npm build step before packaging.',
+    href: 'https://nodejs.org/en/download',
+    label: 'nodejs.org',
+  },
+];
+
+const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.seoDescription ?? data.summary}
+  image={data.socialImage ?? data.cover}
+  locale={locale}
+>
+  <div class="rubra-page">
+    <section class="rubra-hero">
+      <Container>
+        <div class="rubra-hero__copy">
+          <div class="rubra-kicker">Rubra Packager · {copy.status}</div>
+          <h1>{data.title}</h1>
+          <p class="rubra-subtitle">{copy.subtitle}</p>
+          <div class="rubra-actions">
+            <a class="rubra-button rubra-button--primary" href={repositoryUrl} target="_blank" rel="noreferrer">{copy.repo} ↗</a>
+            <a class="rubra-button" href={`${docsBase}/docs/USER_GUIDE.md`} target="_blank" rel="noreferrer">{copy.userGuide} ↗</a>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    {data.logo && (
+      <section class="rubra-logo-strip" aria-label="Rubra Packager logo">
+        <Container>
+          <figure>
+            <img src={data.logo} alt="Rubra Packager" width="2048" height="512" />
+          </figure>
+        </Container>
+      </section>
+    )}
+
+    <section class="rubra-overview">
+      <Container>
+        <div class="rubra-section-heading">
+          <span>{copy.overviewEyebrow}</span>
+          <h2>{copy.overviewTitle}</h2>
+        </div>
+
+        <div class="rubra-overview__body">
+          {copy.overviewBody.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <div class="rubra-feature-grid">
+          {copy.features.map(([title, body]) => (
+            <article>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    {data.gallery.length > 0 && (
+      <section class="rubra-carousel-shell">
+        <Container>
+          <ScreenshotCarousel
+            items={data.gallery}
+            locale={locale}
+            eyebrow={copy.carouselEyebrow}
+            title={copy.carouselTitle}
+            intro={copy.carouselIntro}
+            ariaLabel={locale === 'it' ? 'Screenshot di Rubra Packager' : 'Rubra Packager screenshots'}
+            dialogAriaLabel={locale === 'it' ? 'Screenshot Rubra Packager ingrandito' : 'Expanded Rubra Packager screenshot'}
+          />
+        </Container>
+      </section>
+    )}
+
+    <section class="rubra-dependencies" id="requirements">
+      <Container>
+        <div class="rubra-section-heading">
+          <span>{copy.dependenciesEyebrow}</span>
+          <h2>{copy.dependenciesTitle}</h2>
+          <p>{copy.dependenciesIntro}</p>
+        </div>
+
+        <div class="rubra-dependency-grid">
+          {dependencies.map((dependency) => (
+            <article>
+              <div class="rubra-dependency__topline">
+                <strong>{dependency.name}</strong>
+                <span>{dependency.scope}</span>
+              </div>
+              <p>{dependency.body}</p>
+              <a href={dependency.href} target="_blank" rel="noreferrer">{copy.dependencyLinks}: {dependency.label} ↗</a>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    {data.endcapImage && (
+      <section class="rubra-splash">
+        <Container>
+          <div class="rubra-section-heading rubra-section-heading--compact">
+            <span>{copy.splashEyebrow}</span>
+            <h2>{copy.splashTitle}</h2>
+          </div>
+          <figure>
+            <img src={data.endcapImage} alt={data.endcapAlt ?? 'Rubra Packager splash screen'} width="1672" height="941" loading="lazy" decoding="async" />
+          </figure>
+        </Container>
+      </section>
+    )}
+
+    <section class="rubra-safety">
+      <Container>
+        <div class="rubra-safety__grid">
+          <div class="rubra-warning">
+            <span>{copy.safetyEyebrow}</span>
+            <h2>{copy.safetyTitle}</h2>
+            <p>{copy.safetyBody}</p>
+            <ul>
+              {copy.safetyPoints.map((point) => <li>{point}</li>)}
+            </ul>
+          </div>
+
+          <div class="rubra-limits">
+            <h3>{copy.limitsTitle}</h3>
+            <ul>
+              {copy.limits.map((limit) => <li>{limit}</li>)}
+            </ul>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="rubra-distribution">
+      <Container>
+        <div class="rubra-section-heading">
+          <span>{copy.distributionEyebrow}</span>
+          <h2>{copy.distributionTitle}</h2>
+        </div>
+
+        <div class="rubra-distribution__body">
+          <div>
+            {copy.distributionBody.map((paragraph) => <p>{paragraph}</p>)}
+            <p>{copy.buildTools}</p>
+          </div>
+
+          <aside>
+            <a href={repositoryUrl} target="_blank" rel="noreferrer">{copy.repo} ↗</a>
+            <a href={`${docsBase}/docs/BUILDING.md`} target="_blank" rel="noreferrer">{copy.building} ↗</a>
+            <a href={`${docsBase}/SECURITY.md`} target="_blank" rel="noreferrer">{copy.security} ↗</a>
+          </aside>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .rubra-page {
+    --rubra-navy: #061224;
+    --rubra-navy-soft: #0b1d35;
+    --rubra-panel: #0d233e;
+    --rubra-gold: #e7b842;
+    --rubra-gold-bright: #f7cf68;
+    --rubra-red: #c61f3b;
+    --rubra-line: rgba(231, 184, 66, .25);
+    --rubra-copy: #dbe7f7;
+    --rubra-muted: #91acd0;
+
+    --color-blue: #b47a19;
+    --color-blue-bright: var(--rubra-gold-bright);
+    --color-blue-soft: var(--rubra-gold-bright);
+    --color-red: #8f1228;
+    --color-red-bright: #e24158;
+    --color-red-soft: #f08a9a;
+    --color-surface-1: #0a1a30;
+    --color-surface-2: #0d223d;
+    --color-border: rgba(231, 184, 66, .2);
+    --color-border-strong: rgba(231, 184, 66, .42);
+    --color-text: #f4f7fb;
+    --color-text-muted: #9db5d5;
+
+    color: var(--rubra-copy);
+    background: var(--rubra-navy);
+  }
+
+  .rubra-hero,
+  .rubra-overview,
+  .rubra-dependencies,
+  .rubra-safety,
+  .rubra-distribution,
+  .rubra-carousel-shell,
+  .rubra-splash,
+  .rubra-logo-strip {
+    padding-block: var(--section-space);
+  }
+
+  .rubra-hero {
+    padding-top: clamp(3.5rem, 8vw, 7rem);
+    background:
+      radial-gradient(circle at 82% 18%, rgba(231,184,66,.12), transparent 30rem),
+      linear-gradient(180deg, #061224, #071426);
+  }
+
+  .rubra-hero__copy {
+    display: grid;
+    gap: 1rem;
+    max-width: 72rem;
+  }
+
+  .rubra-kicker,
+  .rubra-section-heading > span,
+  .rubra-warning > span {
+    color: var(--rubra-gold-bright);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .rubra-hero h1 {
+    margin: 0;
+    max-width: 12ch;
+    font-size: clamp(3.4rem, 9vw, 8rem);
+    line-height: .9;
+    letter-spacing: -.065em;
+  }
+
+  .rubra-subtitle {
+    margin: 0;
+    color: var(--rubra-gold-bright);
+    font-size: clamp(1.35rem, 2.6vw, 2.25rem);
+    letter-spacing: -.025em;
+  }
+
+  .rubra-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: .5rem;
+  }
+
+  .rubra-button {
+    padding: .85rem 1rem;
+    border: 1px solid var(--rubra-line);
+    border-radius: .65rem;
+    color: var(--rubra-copy);
+    background: rgba(255,255,255,.025);
+    font-family: var(--font-mono);
+    font-size: .74rem;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .rubra-button:hover,
+  .rubra-button:focus-visible {
+    border-color: var(--rubra-gold);
+  }
+
+  .rubra-button--primary {
+    color: #07101e;
+    border-color: var(--rubra-gold);
+    background: linear-gradient(180deg, var(--rubra-gold-bright), var(--rubra-gold));
+  }
+
+  .rubra-logo-strip {
+    padding-block: clamp(2rem, 5vw, 4rem);
+    border-top: 1px solid var(--rubra-line);
+    border-bottom: 1px solid var(--rubra-line);
+    background: #020b19;
+  }
+
+  .rubra-logo-strip figure,
+  .rubra-splash figure {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--rubra-line);
+    border-radius: var(--radius-lg);
+    background: #031027;
+    box-shadow: 0 24px 70px rgba(0,0,0,.25);
+  }
+
+  .rubra-logo-strip img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .rubra-section-heading {
+    display: grid;
+    gap: .75rem;
+    max-width: 70rem;
+    margin-bottom: clamp(1.8rem, 4vw, 3rem);
+  }
+
+  .rubra-section-heading--compact {
+    margin-bottom: 1.5rem;
+  }
+
+  .rubra-section-heading h2,
+  .rubra-warning h2 {
+    margin: 0;
+    max-width: 18ch;
+    font-size: clamp(2.1rem, 4.8vw, 4rem);
+    line-height: .98;
+    letter-spacing: -.045em;
+  }
+
+  .rubra-section-heading > p {
+    max-width: 64rem;
+    margin: 0;
+    color: var(--rubra-muted);
+    line-height: 1.7;
+  }
+
+  .rubra-overview {
+    background:
+      linear-gradient(180deg, rgba(12,37,67,.7), transparent 22rem),
+      var(--rubra-navy);
+  }
+
+  .rubra-overview__body {
+    display: grid;
+    gap: 1rem;
+    max-width: 66rem;
+    margin-bottom: 2rem;
+  }
+
+  .rubra-overview__body p,
+  .rubra-distribution__body p {
+    margin: 0;
+    color: var(--rubra-muted);
+    font-size: clamp(1rem, .96rem + .16vw, 1.08rem);
+    line-height: 1.8;
+  }
+
+  .rubra-feature-grid,
+  .rubra-dependency-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .rubra-feature-grid article,
+  .rubra-dependency-grid article,
+  .rubra-warning,
+  .rubra-limits,
+  .rubra-distribution__body > aside {
+    border: 1px solid var(--rubra-line);
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(180deg, rgba(231,184,66,.035), transparent 50%),
+      rgba(10, 28, 50, .92);
+  }
+
+  .rubra-feature-grid article,
+  .rubra-dependency-grid article {
+    padding: 1.15rem;
+  }
+
+  .rubra-feature-grid h3,
+  .rubra-dependency-grid strong,
+  .rubra-limits h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .rubra-feature-grid p,
+  .rubra-dependency-grid p {
+    margin: .55rem 0 0;
+    color: var(--rubra-muted);
+    font-size: .94rem;
+    line-height: 1.65;
+  }
+
+  .rubra-carousel-shell,
+  .rubra-splash,
+  .rubra-safety {
+    border-top: 1px solid var(--rubra-line);
+    background: #020b19;
+  }
+
+  .rubra-dependencies,
+  .rubra-distribution {
+    border-top: 1px solid var(--rubra-line);
+    background: var(--rubra-navy);
+  }
+
+  .rubra-dependency__topline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: .6rem 1rem;
+  }
+
+  .rubra-dependency__topline span {
+    color: var(--rubra-gold-bright);
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .rubra-dependency-grid a,
+  .rubra-distribution aside a {
+    display: inline-flex;
+    margin-top: .9rem;
+    color: var(--rubra-gold-bright);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .rubra-splash img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .rubra-safety__grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .rubra-warning,
+  .rubra-limits {
+    padding: clamp(1.25rem, 2.6vw, 2rem);
+  }
+
+  .rubra-warning {
+    border-color: rgba(226, 65, 88, .42);
+    background:
+      linear-gradient(180deg, rgba(198,31,59,.09), transparent 50%),
+      rgba(10, 28, 50, .94);
+  }
+
+  .rubra-warning > p {
+    max-width: 56rem;
+    margin: 1rem 0 0;
+    color: #d9e4f4;
+    line-height: 1.72;
+  }
+
+  .rubra-warning ul,
+  .rubra-limits ul {
+    display: grid;
+    gap: .65rem;
+    margin: 1.2rem 0 0;
+    padding-left: 1.2rem;
+    color: var(--rubra-muted);
+    line-height: 1.65;
+  }
+
+  .rubra-limits h3 {
+    font-size: 1.35rem;
+  }
+
+  .rubra-distribution__body {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .rubra-distribution__body > div {
+    display: grid;
+    gap: 1rem;
+    max-width: 62rem;
+  }
+
+  .rubra-distribution__body > aside {
+    display: grid;
+    align-content: start;
+    gap: .75rem;
+    padding: 1.1rem;
+  }
+
+  .rubra-distribution aside a {
+    margin-top: 0;
+  }
+
+  @media (min-width: 44rem) {
+    .rubra-feature-grid,
+    .rubra-dependency-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .rubra-feature-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .rubra-dependency-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .rubra-safety__grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(22rem, .8fr);
+    }
+
+    .rubra-distribution__body {
+      grid-template-columns: minmax(0, 1fr) 18rem;
+      align-items: start;
+    }
+  }
+</style>

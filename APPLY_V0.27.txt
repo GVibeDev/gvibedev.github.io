@@ -1,0 +1,13 @@
+GVibeDev.cc V0.27 — RUBRA PACKAGER v1.0.0 PUBLIC PAGE REFRESH
+=============================================================
+
+Apply this ZIP as an overlay at repository root on top of the validated V0.26f baseline.
+No deletions are required.
+
+Then run:
+
+    npm run build
+
+Validate EN and IT Rubra Packager routes using VALIDATION_V0.27.md.
+
+This patch does not add a binary Release URL. When an actual GitHub Release is published, add the real release endpoint in a later activation patch.

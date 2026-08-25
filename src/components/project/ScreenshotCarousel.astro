@@ -12,6 +12,8 @@ interface Props {
   eyebrow?: string;
   title?: string;
   intro?: string;
+  ariaLabel?: string;
+  dialogAriaLabel?: string;
 }
 
 const {
@@ -22,6 +24,8 @@ const {
   intro = locale === 'it'
     ? 'Catture reali di sviluppo. Scorri lateralmente oppure scegli una miniatura.'
     : 'Real development captures. Scroll sideways or choose a thumbnail.',
+  ariaLabel,
+  dialogAriaLabel,
 } = Astro.props;
 
 const previousLabel = locale === 'it' ? 'Screenshot precedente' : 'Previous screenshot';
@@ -29,8 +33,8 @@ const nextLabel = locale === 'it' ? 'Screenshot successivo' : 'Next screenshot';
 const openLabel = locale === 'it' ? 'Apri immagine completa' : 'Open full image';
 const closeLabel = locale === 'it' ? 'Chiudi' : 'Close';
 const stripLabel = locale === 'it' ? 'Seleziona screenshot' : 'Select screenshot';
-const carouselLabel = locale === 'it' ? 'Screenshot di Unum Sunt Sprite Studio' : 'Unum Sunt Sprite Studio screenshots';
-const dialogLabel = locale === 'it' ? 'Screenshot del progetto ingrandito' : 'Expanded project screenshot';
+const carouselLabel = ariaLabel ?? (locale === 'it' ? 'Screenshot di Unum Sunt Sprite Studio' : 'Unum Sunt Sprite Studio screenshots');
+const dialogLabel = dialogAriaLabel ?? (locale === 'it' ? 'Screenshot del progetto ingrandito' : 'Expanded project screenshot');
 ---
 
 {items.length > 0 && (

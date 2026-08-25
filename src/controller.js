@@ -1,0 +1,347 @@
+"use strict";
+
+// Arena Rubra – Fase B8c
+// Input/controller extraction.
+// Contiene click mappa, modalità abilità, pass unità, clear selection
+// e helper target per attacco/abilità.
+// Non contiene AI, turn flow, economia, combat rules o rendering.
+
+function handleCellClick(coord) {
+      if (!state || state.winner) return;
+      const unit = getUnitAt(coord);
+      const humanTurn = state.modes[state.currentPlayer] === "human";
+
+      // F9O2b: durante il turno bot il click resta disponibile come ispezione UI.
+      // Non usa selectedId e non modifica mode/pending, quindi non può interferire con l'IA.
+      if (!humanTurn || botRunning) {
+        if (unit && typeof gameScreenInspectUnit === "function" && gameScreenInspectUnit(unit)) {
+          if (typeof renderAll === "function") renderAll();
+          if (typeof gameScreenRevealInspectionPanels === "function") gameScreenRevealInspectionPanels();
+        }
+        return;
+      }
+
+      if (typeof missionInteractionBlocked === "function" && missionInteractionBlocked()) return;
+      if (typeof tutorialRuntimeGateInteraction === "function") {
+        const tutorialInteraction = unit
+          ? { action:"unit_click", data:{ coord:[...coord], uid:unit.uid, side:unit.side, blueprintId:unit.id, player:state.currentPlayer } }
+          : { action:"cell_click", data:{ coord:[...coord], player:state.currentPlayer } };
+        const gate = tutorialRuntimeGateInteraction(tutorialInteraction.action, tutorialInteraction.data);
+        if (gate && gate.handled && gate.allowed === false) return;
+      }
+      if (typeof gameScreenClearInspection === "function") gameScreenClearInspection();
+
+      if (mode === "spawn") {
+        const bp = pendingPurchaseBlueprintId ? pendingBlueprintForHandOrMarket(state.currentPlayer, pendingPurchaseBlueprintId) : null;
+        if (bp && spawnCellsFor(state.currentPlayer, bp).some(c => sameCoord(c, coord))) {
+          const playedHandCardUid = pendingHandCardUid;
+          const deployOptions = pendingDeploymentContext && pendingDeploymentContext.side === state.currentPlayer ? { ...pendingDeploymentContext, spawnSource:pendingDeploymentContext.source } : {};
+          const spawned = spawnUnit(bp, state.currentPlayer, coord, deployOptions);
+          if (spawned) {
+            if (playedHandCardUid && typeof completeHandCardUnitPlay === "function") completeHandCardUnitPlay(state.currentPlayer, playedHandCardUid, bp);
+            clearSelection();
+            postActionChecks(false);
+          } else {
+            renderAll();
+          }
+          return;
+        }
+      }
+
+      if (mode === "move") {
+        const selected = getSelectedUnit();
+        if (selected && movableCells(selected).some(c => sameCoord(c, coord))) {
+          moveUnit(selected, coord);
+          if (selected.c2c5bPassageContinue) {
+            selected.c2c5bPassageContinue = false;
+            mode = "idle";
+            pendingTacticId = null;
+            selectedId = selected.uid;
+            log(`${selected.name} può muovere ancora grazie a Passaggio tattico.`);
+            postActionChecks(false);
+          } else if (selected.c2c5bMoveOnlyExhaustAfterMove) {
+            log(`${selected.name} completa il movimento tattico e viene considerata agita.`);
+            endUnitAction(selected);
+            clearSelection();
+            postActionChecks();
+          } else if (selected.warPush) {
+            selected.warPush = false;
+            mode = "idle";
+            pendingTacticId = null;
+            log(`${selected.name} sfrutta Spinta di Guerra: può ancora agire.`);
+            postActionChecks(false);
+          } else if (isInfantryActionLike(selected)) {
+            mode = "idle";
+            pendingTacticId = null;
+            log(`${selected.name} ha mosso e può ancora agire: attacco o abilità${canBuildStructures(selected) ? " o costruzione" : ""}.`);
+            selectedId = selected.uid;
+            postActionChecks(false);
+          } else if (selected.moveAttack) {
+            mode = "idle";
+            pendingTacticId = null;
+            log(`${selected.name} ha mosso e può ancora attaccare.`);
+            selectedId = selected.uid;
+            postActionChecks(false);
+          } else {
+            endUnitAction(selected);
+            clearSelection();
+            postActionChecks();
+          }
+          return;
+        }
+      }
+
+      if (mode === "ability") {
+        const selected = getSelectedUnit();
+        if (selected && pendingAbility) {
+          const target = abilityTargets(selected, pendingAbility).find(t => sameCoord(t.pos, coord));
+          if (target) {
+            if (["cell_group","cell_line"].includes(pendingAbility.target)) {
+              pendingAbilityCoords.push([...coord]);
+              const required = Math.max(1, Number(pendingAbility.selectionCount) || 1);
+              if (pendingAbilityCoords.length < required) {
+                log(`${pendingAbility.name}: scegli la cella ${pendingAbilityCoords.length + 1}/${required}.`);
+                renderAll();
+                return;
+              }
+              target.selectedCoords = pendingAbilityCoords.map(c => [...c]);
+            }
+            useAbility(selected, target, pendingAbility);
+            if (shouldEndAfterAbility(selected)) {
+              endUnitAction(selected);
+              clearSelection();
+              postActionChecks();
+            } else {
+              mode = selected.c2c5bDoubleMove ? "move" : "idle";
+              pendingAbility = null;
+              pendingAbilityCoords = [];
+              selectedId = selected.uid;
+              log(`${selected.name} può ancora ${selected.c2c5bDoubleMove ? "muovere" : "agire"} dopo l'abilità.`);
+              postActionChecks(false);
+            }
+            return;
+          }
+        }
+      }
+
+      if (mode === "tactic") {
+        if (pendingHandCardUid) {
+          const card = handCardByUid(state.currentPlayer, pendingHandCardUid);
+          if (card) {
+            const target = handTacticTargets(state.currentPlayer, card).find(t => t.pos && sameCoord(t.pos, coord));
+            if (target) {
+              const normalized = normalizeHandTacticCard(card);
+              const required = Math.max(1, Number(normalized.selectionCount) || 1);
+              if (required > 1) {
+                pendingTacticCoords.push([...coord]);
+                if (pendingTacticCoords.length < required) {
+                  log(`${card.name}: scegli la cella ${pendingTacticCoords.length + 1}/${required}.`);
+                  renderAll();
+                  return;
+                }
+                target.selectedCoords = pendingTacticCoords.map(c => [...c]);
+              }
+              const used = useHandTacticCard(state.currentPlayer, card, target);
+              clearSelection();
+              postActionChecks(false);
+              return;
+            }
+          }
+        } else {
+          const tactic = tacticById(pendingTacticId);
+          if (tactic) {
+            const valid = tacticTargets(state.currentPlayer, tactic).some(t => t.pos && sameCoord(t.pos, coord));
+            if (valid) {
+              const target = getUnitAt(coord);
+              useTactic(state.currentPlayer, tactic, target);
+              clearSelection();
+              postActionChecks(false);
+              return;
+            }
+          }
+        }
+      }
+
+      if (mode === "build") {
+        const selected = getSelectedUnit();
+        const bp = pendingBuildBlueprintId ? pendingBlueprintForHandOrMarket(state.currentPlayer, pendingBuildBlueprintId) : null;
+        const hqBuild = Boolean(pendingBuildSource && pendingBuildSource.type === "own_hq");
+        const validUnitCell = Boolean(selected && buildableCells(selected).some(c => sameCoord(c, coord)));
+        const validHqCell = Boolean(hqBuild && typeof ownHqBuildCell === "function" && ownHqBuildCell(state.currentPlayer) && sameCoord(ownHqBuildCell(state.currentPlayer), coord));
+        if (bp && (validUnitCell || validHqCell)) {
+          const playedHandCardUid = pendingHandCardUid;
+          const deployOptions = pendingDeploymentContext && pendingDeploymentContext.side === state.currentPlayer ? { ...pendingDeploymentContext, spawnSource:pendingDeploymentContext.source } : {};
+          const built = buildStructure(hqBuild ? null : selected, bp, coord, hqBuild ? { ...deployOptions, buildSource:"own_hq", side:state.currentPlayer } : { ...deployOptions, buildSource:"unit" });
+          if (built) {
+            if (playedHandCardUid && typeof completeHandCardUnitPlay === "function") completeHandCardUnitPlay(state.currentPlayer, playedHandCardUid, bp);
+            if (!hqBuild && selected) endUnitAction(selected);
+            clearSelection();
+            postActionChecks();
+          } else {
+            renderAll();
+          }
+          return;
+        }
+      }
+
+      if (selectedId) {
+        const selected = getSelectedUnit();
+        if (selected && unit && unit.side !== selected.side && !isUntargetableTo(unit, selected.side) && selected.type !== "QG" && canAttack(selected) && areAdjacent(selected.pos, unit.pos) && selected.side === state.currentPlayer) {
+          attackUnit(selected, unit);
+          if (selected.postAttackMove && selected.f9s1aPostAttackMoveReady) {
+            selected.f9s1aPostAttackMoveReady = false;
+            selected.f9s1aPostAttackMoveUsed = true;
+            selected.movedThisTurn = false;
+            selected.acted = false;
+            selected.c2c5bMoveOnlyExhaustAfterMove = true;
+            selectedId = selected.uid;
+            mode = "move";
+            log(`${selected.name} attiva Disimpegno: può effettuare un movimento completo, poi termina l'azione.`);
+            postActionChecks(false);
+          } else if (!shouldEndAfterAttack(selected)) {
+            selectedId = selected.uid;
+            mode = "idle";
+            const follow = (selected.attacksMade < selected.attacksPerTurn && adjacentAttackTargets(selected).length > 0) ? "può attaccare ancora" : "può ancora usare l'abilità attiva";
+            log(`${selected.name} ${follow}.`);
+            postActionChecks(false);
+          } else {
+            endUnitAction(selected);
+            clearSelection();
+            postActionChecks();
+          }
+          return;
+        }
+      }
+
+      if (unit && unit.side === state.currentPlayer && unit.alive && !unit.acted && unit.type !== "QG") {
+        selectUnitAndPrimeMovement(unit);
+      } else if (unit) {
+        selectedId = unit.uid;
+        mode = "idle";
+        pendingAbility = null;
+        pendingBuildBlueprintId = null;
+        pendingPurchaseBlueprintId = null;
+        pendingHandCardUid = null;
+      } else {
+        clearSelection();
+      }
+      renderAll();
+    }
+
+function selectUnitAndPrimeMovement(unit) {
+      if (typeof gameScreenClearInspection === "function") gameScreenClearInspection();
+      selectedId = unit.uid;
+      pendingAbility = null;
+      pendingAbilityCoords = [];
+      pendingTacticCoords = [];
+      pendingPlayerTargetContext = null;
+      if (typeof closePlayerTargetSelector === "function") closePlayerTargetSelector({ silent:true });
+      pendingBuildBlueprintId = null;
+      pendingPurchaseBlueprintId = null;
+      pendingTacticId = null;
+      pendingHandCardUid = null;
+      const canPrimeMove = Boolean(
+        unit
+        && unit.side === state.currentPlayer
+        && unit.alive
+        && !unit.acted
+        && unit.type !== "QG"
+        && typeof canMove === "function"
+        && canMove(unit)
+        && typeof movableCells === "function"
+        && movableCells(unit).length > 0
+      );
+      mode = canPrimeMove ? "move" : "idle";
+    }
+
+function completeAbilityActivation(unit) {
+      if (shouldEndAfterAbility(unit)) {
+        endUnitAction(unit);
+        clearSelection();
+        postActionChecks();
+      } else {
+        mode = unit.c2c5bDoubleMove ? "move" : "idle";
+        pendingAbility = null;
+        pendingAbilityCoords = [];
+        selectedId = unit.uid;
+        log(`${unit.name} può ancora ${unit.c2c5bDoubleMove ? "muovere" : "agire"} dopo l'abilità.`);
+        postActionChecks(false);
+      }
+    }
+
+function toggleAbilityMode(unit) {
+      if (typeof missionInteractionBlocked === "function" && missionInteractionBlocked()) return;
+      if (!unit.ability) return;
+      if (typeof tutorialRuntimeGateInteraction === "function") {
+        const gate = tutorialRuntimeGateInteraction("ability_toggle", { player:state && state.currentPlayer, side:unit.side, uid:unit.uid, blueprintId:unit.id, abilityName:unit.ability.name || "" });
+        if (gate && gate.handled && gate.allowed === false) return false;
+      }
+      if (typeof abilityRequiresPlayerTarget === "function" && abilityRequiresPlayerTarget(unit.ability)) {
+        const targets = abilityTargets(unit, unit.ability);
+        if (!targets.length) { log(`${unit.ability.name}: nessun avversario attivo valido.`); renderAll(); return; }
+        return requestPlayerTargetSelection({
+          casterSide:unit.side,
+          targets,
+          sourceName:unit.ability.name,
+          context:{ kind:unit.ability.kind, ability:unit.ability, unitUid:unit.uid },
+          onSelect:target => {
+            const liveUnit = state && Array.isArray(state.units) ? (state.units.find(candidate => candidate.uid === unit.uid) || unit) : unit;
+            useAbility(liveUnit, target, liveUnit.ability);
+            completeAbilityActivation(liveUnit);
+          }
+        });
+      }
+      if (unit.ability.target === "self") {
+        if (!abilityTargets(unit, unit.ability).length) { log(`${unit.ability.name}: nessun uso valido in questo momento.`); renderAll(); return; }
+        useAbility(unit, unit, unit.ability);
+        completeAbilityActivation(unit);
+        return;
+      }
+      mode = mode === "ability" ? "idle" : "ability";
+      pendingAbility = mode === "ability" ? unit.ability : null;
+      pendingAbilityCoords = [];
+      pendingBuildBlueprintId = null;
+      pendingPurchaseBlueprintId = null;
+      renderAll();
+    }
+
+function passUnit(unit) {
+      if (typeof missionInteractionBlocked === "function" && missionInteractionBlocked()) return;
+      if (typeof tutorialRuntimeGateInteraction === "function") {
+        const gate = tutorialRuntimeGateInteraction("pass_unit", { player:state && state.currentPlayer, side:unit && unit.side, uid:unit && unit.uid, blueprintId:unit && unit.id });
+        if (gate && gate.handled && gate.allowed === false) return false;
+      }
+      log(`${unit.name} passa l'azione.`);
+      endUnitAction(unit);
+      clearSelection();
+      postActionChecks();
+    }
+
+function clearSelection() {
+      selectedId = null;
+      mode = "idle";
+      pendingAbility = null;
+      pendingAbilityCoords = [];
+      pendingTacticCoords = [];
+      pendingPlayerTargetContext = null;
+      if (typeof closePlayerTargetSelector === "function") closePlayerTargetSelector({ silent:true });
+      pendingBuildBlueprintId = null;
+      pendingPurchaseBlueprintId = null;
+      pendingTacticId = null;
+      pendingHandCardUid = null;
+      pendingStarterCardUid = null;
+      pendingDeploymentContext = null;
+      pendingBuildSource = null;
+    }
+
+function isAttackTarget(coord) {
+      const u = getSelectedUnit();
+      const target = getUnitAt(coord);
+      return mode === "idle" && u && target && target.side !== u.side && !isUntargetableTo(target, u.side) && u.side === state.currentPlayer && u.type !== "QG" && canAttack(u) && areAdjacent(u.pos, target.pos);
+    }
+
+function isAbilityTarget(coord) {
+      const u = getSelectedUnit();
+      if (mode !== "ability" || !u || !pendingAbility) return false;
+      return abilityTargets(u, pendingAbility).some(t => sameCoord(t.pos, coord));
+    }

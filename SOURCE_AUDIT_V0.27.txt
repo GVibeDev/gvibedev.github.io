@@ -1,0 +1,54 @@
+GVibeDev.cc V0.27 — SOURCE AUDIT
+================================
+
+Rubra Packager source inspected through the connected GitHub repository:
+  GVibeDev/Rubra-Packager
+  stable source commit: 89c505ebf2b5abd437ebd51eb70b2a5e201991ea
+
+Verified source facts represented on the page:
+- stable public source version is v1.0.0;
+- Windows desktop host;
+- Web -> Windows uses PyWebView + PyInstaller;
+- Python -> Windows supports ONEFILE/ONEDIR and GUI/console modes;
+- Web -> Android v1 is device-oriented APK packaging;
+- Setup Builder consumes already-built ONEFILE/ONEDIR Windows artifacts;
+- source checkout requires Python 3.11+;
+- core engine requirements are pywebview>=5.0, pyinstaller>=6.10, Pillow>=10.0;
+- Inno Setup 6/7 is required for Setup Builder/full self-release;
+- Android requires JDK 17+, Android SDK and Node.js/npm;
+- build runtime is separated into %LOCALAPPDATA%\RubraPackager\runtime\.venv;
+- explicit trust is required before project-controlled npm/pip build/install execution;
+- loopback local API uses a per-launch token and origin checks;
+- Python entry/data/search paths are confined to the selected project root;
+- Python source does not use shell=True for build execution;
+- public source repository intentionally excludes generated binaries/artifacts.
+
+User-directed public distribution wording in this site candidate:
+- GitHub source + build tooling are public now;
+- a tested GitHub Release is planned next;
+- no binary download CTA is rendered until the real Release exists;
+- itch.io is intentionally not mentioned at this stage.
+
+Supplied visual assets integrated:
+- square application mark;
+- extended Rubra Packager logo;
+- splash/marketing artwork;
+- six current application screenshots.
+
+Carousel reuse:
+- existing ScreenshotCarousel.astro retained;
+- only optional accessibility-label props were added;
+- existing Sprite Studio defaults remain unchanged.
+
+Source-level checks:
+- required new image files exist: PASS
+- six full screenshots + six thumbnails: PASS
+- old Rubra-Composer repository URL removed from active project data: PASS
+- v0.5.0 removed from active Rubra Packager project data: PASS
+- no itch.io string in RubraPackagerProjectLayout.astro: PASS
+- EN route selects dedicated Rubra layout: PASS
+- IT route uses dedicated Rubra layout with locale=it: PASS
+
+Build note:
+- A complete Astro production build was not obtained in this Linux runtime because the local Astro dependency set was not available after package installation timed out.
+- The project's established Windows `npm run build` remains the release gate.
