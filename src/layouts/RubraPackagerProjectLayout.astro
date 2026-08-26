@@ -14,12 +14,20 @@ const { data } = project;
 const repositoryUrl = data.links.repositoryUrl ?? 'https://github.com/GVibeDev/Rubra-Packager';
 const arenaRubraUrl = locale === 'it' ? '/it/projects/arena-rubra-digital/' : '/projects/arena-rubra-digital/';
 const arenaProfileUrl = 'https://github.com/GVibeDev/Rubra-Packager/blob/main/profiles/arena-rubra.json';
+const itchUrl = 'https://gvibedev.itch.io/rubra-packager';
+const itchUser = 'gvibedev';
+const itchGame = 'rubra-packager';
+const itchFallbackPrice = '$3.99';
 
 const copy = locale === 'it'
   ? {
       subtitle: 'Package. Build. Deploy.',
-      status: 'v1.0.0 · prima release sorgente stabile',
+      status: 'v1.0.0 · disponibile su itch.io',
       repo: 'Repository GitHub',
+      buyCta: 'Get Rubra Packager — $3.99+',
+      buyAria: 'Acquista Rubra Packager su itch.io — prezzo minimo $3.99',
+      buyMicrocopy: 'Checkout sicuro e download tramite itch.io. $3.99 minimo — puoi pagare di più se vuoi.',
+      viewItch: 'Vedi Rubra Packager su itch.io',
       overviewEyebrow: 'Release engineering locale',
       overviewTitle: 'Dal sorgente alla release Windows: non soltanto HTML → EXE.',
       overviewBody: [
@@ -93,10 +101,10 @@ const copy = locale === 'it'
         'Setup Builder, preso da solo, non compila il sorgente: nel workflow Python l’EXE/ONEDIR viene creato prima da Python → Windows e poi trasformato in installer.',
       ],
       distributionEyebrow: 'Distribuzione',
-      distributionTitle: 'Sorgente pubblico oggi; binari tramite release quando saranno pubblicati.',
+      distributionTitle: 'Sorgente pubblico su GitHub. Acquisto e download ufficiali su itch.io.',
       distributionBody: [
-        'Il repository GitHub contiene il codice sorgente, documentazione, test, branding e gli strumenti necessari per assemblare una release Portable + Setup. Gli artefatti generati — EXE, Setup, APK, wheel e archivi di release — non vengono committati nel repository.',
-        'La prossima fase di distribuzione prevede una GitHub Release con binari testati. Fino a quando quella release non esisterà, questa pagina mostra il repository e la documentazione di build senza simulare un pulsante Download.',
+        'Il repository GitHub resta il riferimento pubblico per codice sorgente, documentazione, test, branding e strumenti necessari ad assemblare Rubra Packager. Gli artefatti compilati non vengono committati nel source tree.',
+        'La distribuzione binaria ufficiale è ora attiva su itch.io: il checkout, la libreria dell’acquirente e i download di Setup/Portable sono gestiti direttamente dalla piattaforma. Una GitHub Release con binari testati resta prevista come canale aggiuntivo futuro.',
       ],
       buildTools: 'Per costruire Rubra Packager localmente, il repository fornisce build_release_windows.cmd: prepara il runtime, costruisce l’app ONEDIR, crea il Portable ZIP e compila il Setup Inno, quindi genera manifest e checksum SHA-256.',
       userGuide: 'Guida utente',
@@ -105,8 +113,12 @@ const copy = locale === 'it'
     }
   : {
       subtitle: 'Package. Build. Deploy.',
-      status: 'v1.0.0 · first stable public source release',
+      status: 'v1.0.0 · available on itch.io',
       repo: 'GitHub repository',
+      buyCta: 'Get Rubra Packager — $3.99+',
+      buyAria: 'Get Rubra Packager on itch.io — minimum price $3.99',
+      buyMicrocopy: 'Secure checkout and downloads via itch.io. $3.99 minimum — pay more if you wish.',
+      viewItch: 'View Rubra Packager on itch.io',
       overviewEyebrow: 'Local release engineering',
       overviewTitle: 'From source to Windows release — not only HTML → EXE.',
       overviewBody: [
@@ -180,10 +192,10 @@ const copy = locale === 'it'
         'Setup Builder by itself does not compile source code: in the Python workflow, Python → Windows creates the EXE/ONEDIR first and Setup Builder packages that artifact afterward.',
       ],
       distributionEyebrow: 'Distribution',
-      distributionTitle: 'Public source today; binaries through Releases when they are published.',
+      distributionTitle: 'Public source on GitHub. Official purchase and downloads on itch.io.',
       distributionBody: [
-        'The GitHub repository contains source code, documentation, tests, branding and the tools required to assemble Portable + Setup releases. Generated EXE, Setup, APK, wheel and release archives are intentionally not committed to the source repository.',
-        'The next distribution step is a GitHub Release containing tested binaries. Until that Release exists, this page exposes the repository and build documentation without pretending a binary Download is already available.',
+        'GitHub remains the public home for source code, documentation, tests, branding and the tooling required to assemble Rubra Packager. Compiled artifacts are intentionally kept out of the source tree.',
+        'Official binary distribution is now active on itch.io: checkout, the buyer library and Setup/Portable downloads are handled directly by the platform. A GitHub Release with tested binaries remains planned as an additional future channel.',
       ],
       buildTools: 'To build Rubra Packager locally, the repository provides build_release_windows.cmd: it prepares the runtime, builds the ONEDIR application, creates the Portable ZIP and compiles the Inno Setup package, then writes the release manifest and SHA-256 checksums.',
       userGuide: 'User guide',
@@ -252,6 +264,22 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
           <div class="rubra-actions">
             <a class="rubra-button rubra-button--primary" href={repositoryUrl} target="_blank" rel="noreferrer">{copy.repo} ↗</a>
             <a class="rubra-button" href={`${docsBase}/docs/USER_GUIDE.md`} target="_blank" rel="noreferrer">{copy.userGuide} ↗</a>
+          </div>
+
+          <div class="rubra-purchase">
+            <a
+              id="rubra-packager-itch-buy"
+              class="rubra-itch-buy"
+              data-rubra-itch-buy
+              href={itchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={copy.buyAria}
+            >
+              {copy.buyCta}
+            </a>
+            <p>{copy.buyMicrocopy}</p>
+            <a class="rubra-itch-link" href={itchUrl} target="_blank" rel="noopener noreferrer">{copy.viewItch} →</a>
           </div>
         </div>
       </Container>
@@ -415,6 +443,19 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
           </div>
 
           <aside>
+            <a
+              id="rubra-packager-itch-buy-secondary"
+              class="rubra-itch-buy rubra-itch-buy--compact"
+              data-rubra-itch-buy
+              href={itchUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={copy.buyAria}
+            >
+              {copy.buyCta}
+            </a>
+            <span class="rubra-distribution__itch-note">{copy.buyMicrocopy}</span>
+            <a class="rubra-itch-link" href={itchUrl} target="_blank" rel="noopener noreferrer">{copy.viewItch} →</a>
             <a href={repositoryUrl} target="_blank" rel="noreferrer">{copy.repo} ↗</a>
             <a href={`${docsBase}/docs/BUILDING.md`} target="_blank" rel="noreferrer">{copy.building} ↗</a>
             <a href={`${docsBase}/SECURITY.md`} target="_blank" rel="noreferrer">{copy.security} ↗</a>
@@ -424,6 +465,43 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
     </section>
   </div>
 </BaseLayout>
+
+<script is:inline src="https://static.itch.io/api.js"></script>
+<script is:inline define:vars={{ itchUser, itchGame, itchFallbackPrice }}>
+(() => {
+  const buyButtons = Array.from(document.querySelectorAll('[data-rubra-itch-buy]'));
+  if (!buyButtons.length || typeof Itch === 'undefined') return;
+
+  const itchProduct = { user: itchUser, game: itchGame };
+
+  buyButtons.forEach((buyButton) => {
+    Itch.attachBuyButton(buyButton, itchProduct);
+  });
+
+  Itch.getGameData({
+    ...itchProduct,
+    onComplete: function(data) {
+      if (!data || !data.price) return;
+
+      buyButtons.forEach((buyButton) => {
+        if (data.sale && data.original_price) {
+          buyButton.textContent = `Get Rubra Packager — ${data.price}`;
+          buyButton.setAttribute(
+            'aria-label',
+            `Get Rubra Packager on itch.io for ${data.price}, currently on sale`
+          );
+        } else {
+          buyButton.textContent = `Get Rubra Packager — ${data.price}+`;
+          buyButton.setAttribute(
+            'aria-label',
+            `Get Rubra Packager on itch.io — minimum price ${data.price || itchFallbackPrice}`
+          );
+        }
+      });
+    }
+  });
+})();
+</script>
 
 <style>
   .rubra-page {
@@ -509,6 +587,80 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
     flex-wrap: wrap;
     gap: .75rem;
     margin-top: .5rem;
+  }
+
+
+  .rubra-purchase {
+    display: grid;
+    justify-items: start;
+    gap: .55rem;
+    margin-top: .6rem;
+  }
+
+  .rubra-purchase p,
+  .rubra-distribution__itch-note {
+    margin: 0;
+    max-width: 42rem;
+    color: var(--rubra-muted);
+    font-size: .84rem;
+    line-height: 1.55;
+  }
+
+  .rubra-itch-buy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: .85rem 1.4rem;
+    border: 1px solid rgba(224, 178, 74, .75);
+    border-radius: 10px;
+    background: linear-gradient(135deg, #17294a 0%, #0d172b 100%);
+    color: #f0c45a;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, .22),
+      inset 0 0 0 1px rgba(255, 255, 255, .025);
+    transition:
+      transform 160ms ease,
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      color 160ms ease;
+  }
+
+  .rubra-itch-buy:hover {
+    transform: translateY(-2px);
+    border-color: #efc35a;
+    color: #ffd873;
+    box-shadow:
+      0 12px 30px rgba(0, 0, 0, .30),
+      0 0 18px rgba(224, 178, 74, .14);
+  }
+
+  .rubra-itch-buy:focus-visible {
+    outline: 2px solid #efc35a;
+    outline-offset: 3px;
+  }
+
+  .rubra-itch-buy--compact {
+    width: 100%;
+    min-height: 48px;
+    padding-inline: .9rem;
+    text-align: center;
+  }
+
+  .rubra-itch-link {
+    color: var(--rubra-gold-bright);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .rubra-itch-link:hover,
+  .rubra-itch-link:focus-visible {
+    color: #fff;
   }
 
   .rubra-button {
@@ -869,6 +1021,18 @@ const docsBase = 'https://github.com/GVibeDev/Rubra-Packager/blob/main';
 
   .rubra-distribution aside a {
     margin-top: 0;
+  }
+
+  .rubra-distribution aside .rubra-itch-buy {
+    display: inline-flex;
+    color: #f0c45a;
+    font-family: inherit;
+    font-size: .78rem;
+    text-transform: none;
+  }
+
+  .rubra-distribution aside .rubra-itch-link {
+    color: var(--rubra-gold-bright);
   }
 
   @media (min-width: 44rem) {

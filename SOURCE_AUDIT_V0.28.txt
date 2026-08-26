@@ -1,0 +1,27 @@
+GVibeDev.cc V0.28 — SOURCE AUDIT
+==================================
+
+Target baseline: V0.27a (validated/frozen)
+Checks: 16
+Issues: 0
+
+PASS
+
+Verified source constraints:
+- Rubra Packager purchase endpoint is the user-confirmed `https://gvibedev.itch.io/rubra-packager`.
+- The official itch.io JavaScript API script is loaded once on the Rubra Packager page.
+- Both hero and distribution CTAs use normal anchor fallbacks and are attached through `Itch.attachBuyButton`.
+- `Itch.getGameData` is used to synchronize price/sale state.
+- Initial fallback label remains `Get Rubra Packager — $3.99+`.
+- No standard itch iframe widget is embedded.
+- No API key, OAuth token, purchase secret or server-side credential is present.
+- The new corrected 1672×941 banner replaces the previous Rubra Packager splash asset.
+- GitHub remains the source/build-tooling repository; itch.io is recorded as current official binary purchase/download channel.
+- The generic site-wide itch ecosystem channel remains inactive because only the Rubra Packager product URL was explicitly supplied.
+- No Content Security Policy directive was found in current site source, so no CSP source list needed modification in this patch.
+- EN/IT share the same custom Rubra Packager layout; preserved Italian card status was updated for consistency.
+
+Official itch.io API documentation was checked for `Itch.attachBuyButton` and `Itch.getGameData`; both match this implementation pattern.
+
+Build gate:
+`npm run build` was attempted in the container but could not start because the local project copy does not have the Astro CLI installed (`astro: not found`). Windows/local CI build plus browser checkout smoke test remain required before validation/freeze.

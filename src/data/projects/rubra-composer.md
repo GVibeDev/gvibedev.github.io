@@ -22,8 +22,8 @@ tagsIt:
   - APK Android
   - Setup Builder
   - Preflight
-status: v1.0.0 — Stable Public Source
-statusIt: v1.0.0 — Sorgente pubblico stabile
+status: v1.0.0 — Available on itch.io
+statusIt: v1.0.0 — Disponibile su itch.io
 cover: /assets/projects/rubra-packager/brand-icon.webp
 coverAlt: Rubra Packager navy-and-gold application icon.
 cardImage: /assets/projects/rubra-packager/projects-v1.webp
@@ -31,6 +31,32 @@ cardImageAlt: Rubra Packager Projects workspace showing registered local project
 cardImagePosition: center
 links:
   repositoryUrl: https://github.com/GVibeDev/Rubra-Packager
+  actions:
+    - type: buy
+      label: Get Rubra Packager — $3.99+
+      href: https://gvibedev.itch.io/rubra-packager
+      primary: true
+      newTab: true
+distribution:
+  currentVersion: v1.0.0
+  currentVersionIt: v1.0.0
+  summary: Source and build tooling are public on GitHub; official binary purchase and downloads are handled by itch.io.
+  summaryIt: Sorgente e strumenti di build sono pubblici su GitHub; acquisto e download binari ufficiali sono gestiti da itch.io.
+  items:
+    - id: download
+      stage: current
+      state: available
+      href: https://gvibedev.itch.io/rubra-packager
+      newTab: true
+      note: Official purchase, buyer library and binary downloads via itch.io.
+      noteIt: Acquisto ufficiale, libreria dell’acquirente e download binari tramite itch.io.
+    - id: github
+      stage: current
+      state: available
+      href: https://github.com/GVibeDev/Rubra-Packager
+      newTab: true
+      note: Public source code, documentation and release-building tools.
+      noteIt: Codice sorgente pubblico, documentazione e strumenti per assemblare le release.
 pageReady: true
 logo: /assets/projects/rubra-packager/logo-extended.webp
 socialImage: /assets/projects/rubra-packager/splash.webp

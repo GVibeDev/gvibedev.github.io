@@ -1,5 +1,21 @@
 # Changelog
 
+## GV-PORTFOLIO V0.28 — Rubra Packager itch.io Distribution Activation
+
+- Built on the validated/frozen V0.27a Rubra Packager page.
+- Replaced the Rubra Packager splash/banner asset with the new corrected `RUBPAC-Banner-big` artwork.
+- Activated the official Rubra Packager product page at `https://gvibedev.itch.io/rubra-packager` as the current binary purchase/download channel.
+- Added a branded primary CTA in the Rubra Packager hero with a normal itch.io URL fallback.
+- Integrated the official itch.io JavaScript API (`https://static.itch.io/api.js`) with `Itch.attachBuyButton` so the site button opens the itch checkout without embedding the standard iframe widget.
+- Added `Itch.getGameData` synchronization so the CTA can reflect the current itch.io price and active sales while retaining `$3.99+` as the initial minimum-price fallback.
+- Repeated the purchase CTA in the distribution section and added discreet checkout/download microcopy plus a secondary product-page link.
+- Updated EN/IT distribution copy: GitHub remains source/documentation/build tooling, while itch.io now handles checkout, buyer library and official Setup/Portable downloads.
+- Recorded the product purchase URL and current distribution state in the Rubra Packager content data.
+- Updated preserved Italian cards from “stable public source” to “available on itch.io” for status consistency.
+- No API key, secret, token or server-side itch credential is present in the frontend.
+- No global itch.io channel URL was invented or activated; the integration is scoped to the confirmed Rubra Packager product URL.
+
+
 ## GV-PORTFOLIO V0.27a — Rubra Packager Python Pipeline & Arena Rubra Profile Context
 
 - Promoted the Python → Windows workflow from a secondary feature to a primary product differentiator.
