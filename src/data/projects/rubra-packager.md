@@ -1,6 +1,6 @@
 ---
 title: Rubra Packager
-slug: rubra-composer
+slug: rubra-packager
 summary: A Windows release workshop that packages trusted web projects and can take Python source through preflight, Windows EXE/ONEDIR build and Inno Setup installer creation.
 summaryIt: Una workstation Windows che confeziona progetti web fidati e può portare il sorgente Python dal preflight alla build EXE/ONEDIR fino all’installer Inno Setup.
 kind: tool
