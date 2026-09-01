@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import RubraPackagerProjectLayout from '../../../../layouts/RubraPackagerProjectLayout.astro';
+
+const projects = await getCollection('projects');
+const project = projects.find((entry) => entry.data.slug === 'rubra-packager');
+
+if (!project) {
+  throw new Error('Rubra Packager project data not found.');
+}
+---
+
+<RubraPackagerProjectLayout project={project} locale="it" />

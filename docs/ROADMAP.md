@@ -2,26 +2,40 @@
 
 ## Validated baseline
 
-### V0.26c — Mo2 Projects Branding Fix ✅
+### V0.28 — Rubra Packager itch.io Distribution Activation ✅
 
-The public BiggityKot identity has been replaced by **Mo2 Projects** while the historical `/biggitykot/` route remains stable.
+The current public baseline includes the validated Sprite Studio carousel work, the Mo2 Projects visual expansion, the Rubra Packager v1 public-page refresh and the confirmed Rubra Packager itch.io distribution endpoint.
 
 ## Current candidate
 
-### V0.26d — Mo2 Projects Visual Expansion
+### V0.29 — About Editorial Rewrite
+
+Replace the older explanatory About page with the new first-person EN/IT editorial copy supplied by the author.
 
 Scope:
-- complete black / lime / dark-purple MO2 identity;
-- Silkscreen headings;
-- EN/IT MO2 landing parity;
-- two public GitHub profile links;
-- WarTanks, Half-Life Weapon Checker and Team.io screenshot integration;
-- MO2-styled home section;
-- no global theme changes outside MO2 surfaces.
+- one shared bilingual About implementation;
+- supplied English copy preserved verbatim;
+- supplied Italian copy preserved verbatim;
+- remove the older Manuale LLM / shared-workbench / public-record sections from About;
+- preserve Projects and Contact navigation;
+- preserve existing `/about/` and `/it/about/` routes;
+- no sitemap change;
+- no commercial or distribution endpoint change.
 
-## Deferred / unchanged
+## After V0.29
 
-- activation/commercial patches remain frozen;
-- MO2 internal data keys and route slug remain unchanged;
-- no individual project page is created for the three new projects in this milestone;
-- Sprite Studio and Arena Rubra remain outside this patch.
+### Editorial maintenance
+
+Future About changes should normally be copy-only updates in `src/i18n/about.ts`, with the shared layout remaining stable.
+
+### Product-specific work
+
+Continue product-page, release and distribution updates only when real project material or endpoints exist.
+
+## Cross-cutting maintenance
+
+- EN/IT parity;
+- stale status cleanup;
+- accessibility and mobile validation;
+- production `dist/` inspection before deployment;
+- no invented provider, store or crowdfunding endpoint.

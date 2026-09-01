@@ -25,7 +25,7 @@ const translatedEnglishRoutes = new Set([
   '/projects/arena-rubra-card-composer/',
   '/projects/unum-sunt/',
   '/projects/unum-sunt-sprite-studio/',
-  '/projects/rubra-composer/',
+  '/projects/rubra-packager/',
   '/projects/rubra-image-forge/',
   '/projects/bw-survivors/',
   '/projects/manuale-llm/',

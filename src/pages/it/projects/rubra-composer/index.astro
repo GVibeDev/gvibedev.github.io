@@ -1,13 +1,14 @@
----
-import { getCollection } from 'astro:content';
-import RubraPackagerProjectLayout from '../../../../layouts/RubraPackagerProjectLayout.astro';
-
-const projects = await getCollection('projects');
-const project = projects.find((entry) => entry.data.slug === 'rubra-composer');
-
-if (!project) {
-  throw new Error('Rubra Packager project data not found.');
-}
----
-
-<RubraPackagerProjectLayout project={project} locale="it" />
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="refresh" content="0; url=/it/projects/rubra-packager/">
+  <link rel="canonical" href="/it/projects/rubra-packager/">
+  <meta name="robots" content="noindex, follow">
+  <title>Rubra Packager — pagina spostata</title>
+  <script is:inline>window.location.replace('/it/projects/rubra-packager/');</script>
+</head>
+<body>
+  <p>Rubra Packager è stato spostato alla <a href="/it/projects/rubra-packager/">nuova pagina progetto</a>.</p>
+</body>
+</html>

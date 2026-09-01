@@ -21,8 +21,8 @@ export type SupportEndpointKind = 'donate-page' | 'paypal-me';
 
 export const ecosystemConfig = {
   release: {
-    version: '0.28',
-    milestone: 'Rubra Packager itch.io Distribution Activation',
+    version: '0.29',
+    milestone: 'About Editorial Rewrite',
   },
 
   contact: {

@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../ui/Container.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getAboutCopy } from '../../i18n/about';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const copy = getAboutCopy(locale);
+---
+
+<BaseLayout title={copy.title} description={copy.description} locale={locale}>
+  <article class="about-editorial">
+    <header class="about-intro">
+      <Container>
+        <div class="about-intro__grid">
+          <div class="about-intro__title">
+            <span>GVibeDev</span>
+            <h1>{copy.title}</h1>
+          </div>
+
+          <div class="about-intro__copy">
+            {copy.intro.map((paragraph, index) => (
+              <p class:list={[index === 0 && 'about-intro__lead']}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+
+        <div class="about-intro__actions">
+          <a class="about-link about-link--primary" href={getNavigationPath('/projects/', locale)}>
+            {copy.projectsLabel}
+          </a>
+          <a class="about-link" href={getNavigationPath('/contact/', locale)}>
+            {copy.contactLabel}
+          </a>
+        </div>
+      </Container>
+    </header>
+
+    {copy.sections.map((section, index) => (
+      <section class:list={['about-section', index % 2 === 0 && 'about-section--deep']}>
+        <Container>
+          <div class="about-section__grid">
+            <header>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h2>{section.title}</h2>
+            </header>
+
+            <div class="about-section__copy">
+              {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+          </div>
+        </Container>
+      </section>
+    ))}
+  </article>
+</BaseLayout>
+
+<style>
+  .about-editorial {
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+
+  .about-intro {
+    padding-block: clamp(3rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 86% 8%, color-mix(in srgb, var(--color-blue-bright) 9%, transparent), transparent 28rem),
+      var(--color-bg-deep);
+  }
+
+  .about-intro__grid,
+  .about-section__grid {
+    display: grid;
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .about-intro__title,
+  .about-section header,
+  .about-intro__copy,
+  .about-section__copy {
+    display: grid;
+    align-content: start;
+  }
+
+  .about-intro__title,
+  .about-section header {
+    gap: .8rem;
+  }
+
+  .about-intro__copy,
+  .about-section__copy {
+    gap: 1.15rem;
+  }
+
+  .about-intro__title > span,
+  .about-section header > span {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .about-intro h1 {
+    max-width: 10ch;
+    margin: 0;
+    font-size: clamp(3.4rem, 9vw, 8rem);
+    line-height: .86;
+    letter-spacing: -.07em;
+  }
+
+  .about-section h2 {
+    max-width: 13ch;
+    margin: 0;
+    font-size: clamp(2rem, 4.7vw, 4.4rem);
+    line-height: .96;
+    letter-spacing: -.05em;
+  }
+
+  .about-intro__copy p,
+  .about-section__copy p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    line-height: 1.82;
+  }
+
+  .about-intro__copy .about-intro__lead {
+    color: var(--color-text);
+    font-size: clamp(1.12rem, 1rem + .45vw, 1.42rem);
+    line-height: 1.7;
+  }
+
+  .about-intro__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .about-link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: .75rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: .74rem;
+    font-weight: 800;
+    letter-spacing: .045em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .about-link--primary {
+    border-color: color-mix(in srgb, var(--color-blue-bright) 70%, var(--color-border));
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-blue) 78%, white 6%),
+      var(--color-blue-deep)
+    );
+  }
+
+  .about-link:hover,
+  .about-link:focus-visible {
+    border-color: var(--color-blue-soft);
+  }
+
+  .about-section {
+    padding-block: clamp(3rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .about-section--deep {
+    background: var(--color-bg-deep);
+  }
+
+  .about-section__copy {
+    max-width: 50rem;
+  }
+
+  @media (min-width: 64rem) {
+    .about-intro__grid,
+    .about-section__grid {
+      grid-template-columns: minmax(18rem, .8fr) minmax(0, 1.2fr);
+    }
+
+    .about-intro__title,
+    .about-section header {
+      position: sticky;
+      top: 7rem;
+    }
+  }
+</style>

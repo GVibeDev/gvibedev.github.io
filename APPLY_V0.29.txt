@@ -1,0 +1,24 @@
+GVibeDev.cc V0.29 — ABOUT EDITORIAL REWRITE
+============================================
+
+Target repository:
+GVibeDev/gvibedev.github.io
+
+Observed public baseline before this patch:
+V0.28 — Rubra Packager itch.io Distribution Activation
+
+Apply:
+1. Extract this ZIP at repository root.
+2. Overwrite matching files.
+3. No deletion is required.
+4. Run:
+
+   npm run build
+
+5. Validate `/about/` and `/it/about/` using `VALIDATION_V0.29.md`.
+
+Notes:
+- The supplied EN/IT About body copy is preserved verbatim.
+- The Italian About route no longer renders the legacy preserved HTML body.
+- The old `about` entry may remain in `src/i18n/it-pages.json`; it is inert after this route change and is intentionally not rewritten in this focused patch.
+- No route, sitemap, provider, store or distribution endpoint is added or removed.
