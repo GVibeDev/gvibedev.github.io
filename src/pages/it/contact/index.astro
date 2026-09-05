@@ -1,8 +1,114 @@
 ---
-import LocalizedContentPage from '../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../i18n/pages';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/ui/Container.astro';
+import { ecosystemConfig, getVisibleChannels } from '../../../config/ecosystem';
+import { getCorePageCopy } from '../../../i18n/core-pages';
+import { getNavigationPath } from '../../../i18n/config';
 
-const page = getItalianContentPage('contact');
+const locale = 'it' as const;
+const copy = getCorePageCopy(locale).contact;
+const publicChannels = getVisibleChannels();
+const email = ecosystemConfig.contact.email;
 ---
 
-<LocalizedContentPage page={page} />
+<BaseLayout title={copy.title} description={copy.description} locale={locale}>
+  <div class="contact-page">
+    <section class="contact-hero">
+      <Container>
+        <div class="contact-hero__copy">
+          <span class="eyebrow">{copy.eyebrow}</span>
+          <h1>{copy.heading}</h1>
+          <p class="lead">{copy.lead}</p>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block">
+      <Container>
+        <div class="contact-grid">
+          {publicChannels.map((channel) => (
+            <article class="contact-card">
+              <span class="eyebrow">{channel.label}</span>
+              <h2>{channel.id === 'github' ? copy.githubTitle : copy.publicTitle}</h2>
+              <p>{channel.id === 'github' ? copy.githubBody : copy.publicBody}</p>
+              <a
+                href={channel.url!}
+                class="button button--primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-analytics-event="social"
+                data-analytics-channel={channel.id}
+              >
+                {channel.label}
+              </a>
+            </article>
+          ))}
+
+          <article class="contact-card">
+            <span class="eyebrow">Email</span>
+            <h2>{copy.emailTitle}</h2>
+            <p>{copy.emailBody}</p>
+            <a href={`mailto:${email}`} class="button button--primary">{email}</a>
+          </article>
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block section-block--deep">
+      <Container>
+        <div class="usage-grid">
+          {copy.cases.map(([eyebrow, title, body]) => (
+            <article>
+              <span class="eyebrow">{eyebrow}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="section-block">
+      <Container>
+        <div class="contact-note">
+          <span class="eyebrow">{copy.noteEyebrow}</span>
+          <h2>{copy.noteTitle}</h2>
+          <p>{copy.noteBody}</p>
+          <div class="note-actions">
+            <a href={`mailto:${email}`} class="button button--secondary">{copy.emailAction}</a>
+            <a href={getNavigationPath('/community/', locale)} class="button button--secondary">{copy.communityAction}</a>
+            <a href={getNavigationPath('/about/', locale)} class="button button--secondary">{copy.aboutAction}</a>
+            <a href={getNavigationPath('/support/', locale)} class="button button--secondary">{copy.supportAction}</a>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact-page { color: var(--color-text); background: var(--color-bg); }
+  .section-block { padding-block: var(--section-space); }
+  .section-block--deep { background: var(--color-bg-deep); border-block: 1px solid var(--color-border); }
+  .eyebrow { color: var(--color-blue-soft); font-family: var(--font-mono); font-size: .72rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+  .contact-hero { padding-block: clamp(2.2rem, 6vw, 5rem) clamp(3rem, 7vw, 5rem); border-bottom: 1px solid var(--color-border); background: var(--color-bg-deep); }
+  .contact-hero__copy { display: grid; gap: 1rem; max-width: 54rem; }
+  .contact-hero h1, .contact-note h2 { margin: 0; font-size: clamp(2.4rem, 6vw, 5.4rem); line-height: .95; letter-spacing: -.055em; }
+  .contact-note h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
+  .lead, .contact-card p, .usage-grid p, .contact-note p { margin: 0; color: var(--color-text-muted); line-height: 1.8; }
+  .lead { color: var(--color-text); font-size: clamp(1.08rem, 1rem + .35vw, 1.3rem); }
+  .contact-grid, .usage-grid { display: grid; gap: 1rem; }
+  .contact-card, .usage-grid article, .contact-note { display: grid; gap: .9rem; padding: 1.2rem; border: 1px solid var(--color-border); background: var(--color-surface-1); }
+  .contact-card h2, .usage-grid h3 { margin: 0; color: var(--color-text); }
+  .contact-card h2 { font-size: 1.3rem; }
+  .usage-grid h3 { font-size: 1.08rem; }
+  .button { display: inline-flex; align-items: center; justify-content: center; width: fit-content; min-height: 2.8rem; padding: .8rem 1.05rem; border: 1px solid var(--color-border-strong); text-decoration: none; font-family: var(--font-mono); font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; transition: transform .2s ease, border-color .2s ease, background-color .2s ease; }
+  .button:hover { transform: translateY(-1px); }
+  .button--primary { color: #08111e; background: var(--color-blue-soft); border-color: var(--color-blue-soft); }
+  .button--secondary { color: var(--color-text); background: var(--color-surface-1); }
+  .note-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: .4rem; }
+  @media (min-width: 48rem) {
+    .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .usage-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>

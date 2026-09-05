@@ -1,8 +1,65 @@
 ---
-import LocalizedContentPage from '../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../i18n/pages';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/home/Hero.astro';
+import FeaturedProjects from '../../components/home/FeaturedProjects.astro';
+import ProjectSection from '../../components/home/ProjectSection.astro';
+import ManifestoStrip from '../../components/home/ManifestoStrip.astro';
+import GitHubPanel from '../../components/home/GitHubPanel.astro';
+import { getCorePageCopy } from '../../i18n/core-pages';
 
-const page = getItalianContentPage('home');
+const locale = 'it' as const;
+const copy = getCorePageCopy(locale).home;
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder,
+);
+
+const featured = projects.filter((project) => project.data.featured);
+const webApps = projects.filter((project) => project.data.section === 'web-apps');
+const tools = projects.filter((project) => project.data.section === 'tools');
+const worlds = projects.filter((project) => project.data.section === 'worlds');
+const biggityKot = projects.filter((project) => project.data.section === 'biggitykot');
 ---
 
-<LocalizedContentPage page={page} />
+<BaseLayout locale={locale}>
+  <Hero locale={locale} />
+
+  <FeaturedProjects projects={featured} locale={locale} />
+
+  <ProjectSection
+    id="web-apps"
+    eyebrow={copy.sections.webApps.eyebrow}
+    title={copy.sections.webApps.title}
+    description={copy.sections.webApps.description}
+    projects={webApps}
+  />
+
+  <ProjectSection
+    id="tools"
+    eyebrow={copy.sections.tools.eyebrow}
+    title={copy.sections.tools.title}
+    description={copy.sections.tools.description}
+    projects={tools}
+  />
+
+  <ProjectSection
+    id="worlds"
+    eyebrow={copy.sections.worlds.eyebrow}
+    title={copy.sections.worlds.title}
+    description={copy.sections.worlds.description}
+    projects={worlds}
+  />
+
+  <ProjectSection
+    id="biggitykot"
+    eyebrow={copy.sections.mo2.eyebrow}
+    title={copy.sections.mo2.title}
+    description={copy.sections.mo2.description}
+    projects={biggityKot}
+    variant="biggitykot"
+  />
+
+  <ManifestoStrip locale={locale} />
+  <GitHubPanel locale={locale} />
+</BaseLayout>

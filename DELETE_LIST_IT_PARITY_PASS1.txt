@@ -1,0 +1,11 @@
+Files to remove after applying the overlay:
+
+src/pages/it/index.html
+src/pages/it/about/index.html
+src/pages/it/biggitykot/index.html
+src/pages/it/contact/index.html
+src/pages/it/manifesto/index.html
+src/pages/it/projects/index.html
+src/pages/it/tools/index.html
+src/pages/it/web-apps/index.html
+src/pages/it/worlds/index.html

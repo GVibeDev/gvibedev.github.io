@@ -1,8 +1,40 @@
 ---
-import LocalizedContentPage from '../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/ui/Container.astro';
+import ProjectCard from '../../../components/cards/ProjectCard.astro';
+import { getCorePageCopy } from '../../../i18n/core-pages';
 
-const page = getItalianContentPage('tools');
+const locale = 'it' as const;
+const copy = getCorePageCopy(locale).tools;
+const tools = (await getCollection('projects'))
+  .filter((project) => project.data.section === 'tools')
+  .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
-<LocalizedContentPage page={page} />
+<BaseLayout title={copy.title} description={copy.description} locale={locale}>
+  <section class="tools-index">
+    <Container>
+      <div class="tools-index__hero">
+        <span>{copy.eyebrow}</span>
+        <h1>{copy.heading}</h1>
+        <p>{copy.intro}</p>
+      </div>
+
+      <div class="tools-index__grid">
+        {tools.map((tool) => <ProjectCard project={tool} featured={tool.data.featured} />)}
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .tools-index { padding-block: clamp(3rem, 8vw, 7rem) var(--section-space); }
+  .tools-index__hero { display: grid; gap: 1rem; max-width: 58rem; margin-bottom: clamp(3rem, 7vw, 6rem); }
+  .tools-index__hero > span { color: var(--color-blue-soft); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+  h1 { margin: 0; font-size: clamp(3.5rem, 10vw, 8rem); line-height: 0.86; letter-spacing: -0.07em; }
+  .tools-index__hero p { max-width: 52rem; margin: 0; color: var(--color-text-muted); font-size: clamp(1.05rem, 1rem + 0.3vw, 1.3rem); line-height: 1.7; }
+  .tools-index__grid { display: grid; gap: 1rem; }
+  @media (min-width: 40rem) { .tools-index__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 70rem) { .tools-index__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>

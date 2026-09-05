@@ -1,0 +1,23 @@
+GVibeDev.cc — ITALIAN PARITY PASS 1 SOURCE AUDIT
+================================================
+
+Files in patch: 19
+Source-level issues: 0
+
+PASS
+
+Confirmed:
+- Core Italian routes no longer use LocalizedContentPage / it-pages.json.
+- Home uses the same current component chain as English.
+- Home copy-bearing components accept locale while preserving EN defaults.
+- ProjectCard uses summaryIt / tagsIt / statusIt when available.
+- Italian project-card links resolve through the bilingual route registry.
+- Projects, Web Apps, Tools, Worlds and MO2 indexes mirror current EN structures.
+- Italian Manifesto mirrors the current EN section structure and eight principles.
+- Italian Contact mirrors the current EN contact structure.
+- No analytics/provider configuration is included or changed.
+- Cleanup scripts target exactly the nine obsolete legacy HTML files migrated in Pass 1.
+
+Not claimed:
+- Project-detail parity. Those routes remain for Pass 2.
+- Production build success. Run the repository's real `npm run build` after overlay + cleanup.

@@ -1,0 +1,62 @@
+GVibeDev.cc — ITALIAN PARITY PASS 1 / CORE PAGES
+=================================================
+
+Purpose
+-------
+Align the main Italian public pages with the CURRENT English Astro pages,
+instead of rendering preserved historical HTML snapshots from it-pages.json.
+
+This is intentionally PASS 1.
+
+Aligned in this patch:
+- Home
+- Projects index
+- Web Apps index
+- Tools index
+- Worlds index
+- MO2 Projects index
+- Manifesto
+- Contact
+- About legacy HTML cleanup (About itself is already shared EN/IT)
+
+Also:
+- ProjectCard now detects the current locale and uses summaryIt/tagsIt/statusIt
+  when available.
+- Project-card internal links resolve to the Italian project route when an
+  Italian equivalent is registered; otherwise they safely fall back to English.
+- Home Hero / Featured / Manifesto strip / GitHub panel now accept locale and
+  share the same component implementation between EN and IT.
+
+NOT YET INCLUDED
+----------------
+Project DETAIL pages that still use LocalizedContentPage + it-pages.json.
+Those belong to IT Parity Pass 2 so they can be migrated project-by-project
+without weakening the current specialised layouts (Arena Rubra, Sprite Studio,
+Rubra Packager, Editorial, Board Game, MO2).
+
+Apply
+-----
+1. Extract this ZIP at the repository root and overwrite matching files.
+2. Run the cleanup script:
+   Windows:
+       CLEANUP_IT_PARITY_PASS1.cmd
+
+   macOS/Linux/Git Bash:
+       sh CLEANUP_IT_PARITY_PASS1.sh
+
+3. Run:
+       npm run build
+
+4. Check:
+   /it/
+   /it/projects/
+   /it/web-apps/
+   /it/tools/
+   /it/worlds/
+   /it/biggitykot/
+   /it/manifesto/
+   /it/contact/
+   /it/about/
+
+5. Do not freeze the whole Italian parity work yet: project detail pages remain
+   for Pass 2.

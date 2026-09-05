@@ -2,17 +2,21 @@
 import Button from '../ui/Button.astro';
 import Container from '../ui/Container.astro';
 import { siteConfig } from '../../config/site';
+import type { Locale } from '../../i18n/config';
+import { getCorePageCopy } from '../../i18n/core-pages';
+
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const copy = getCorePageCopy(locale).home.github;
 ---
 
 <section class="github-panel" aria-labelledby="github-title">
   <Container class="github-panel__inner">
     <div class="github-panel__copy">
-      <p class="github-panel__eyebrow">Open the workshop</p>
-      <h2 id="github-title">The repositories are part of the story.</h2>
-      <p>
-        Public code, experiments and project history live on GitHub. The portfolio is the map; the repositories are where the work can be inspected.
-      </p>
-      <Button href={siteConfig.github} external>Visit GitHub</Button>
+      <p class="github-panel__eyebrow">{copy.eyebrow}</p>
+      <h2 id="github-title">{copy.title}</h2>
+      <p>{copy.body}</p>
+      <Button href={siteConfig.github} external>{copy.action}</Button>
     </div>
 
     <div class="github-panel__visual" aria-hidden="true">
@@ -59,10 +63,7 @@ import { siteConfig } from '../../config/site';
     line-height: 1.7;
   }
 
-  .github-panel__visual {
-    position: relative;
-    min-height: 280px;
-  }
+  .github-panel__visual { position: relative; min-height: 280px; }
 
   .github-panel__visual::before {
     position: absolute;

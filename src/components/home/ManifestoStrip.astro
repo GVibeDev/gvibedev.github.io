@@ -1,18 +1,21 @@
 ---
 import Container from '../ui/Container.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getCorePageCopy } from '../../i18n/core-pages';
+
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const copy = getCorePageCopy(locale).home.manifesto;
 ---
 
 <section class="manifesto" id="manifesto" aria-labelledby="manifesto-title">
   <Container class="manifesto__inner">
     <p class="manifesto__code">// MANIFESTO_01</p>
     <div class="manifesto__copy">
-      <h2 id="manifesto-title">AI is leverage, not autopilot.</h2>
-      <p>
-        The point is not to pretend that one prompt replaces a craft. The point is to use new tools
-        to attempt more, learn faster, and keep the human work visible: choosing, correcting,
-        testing, verifying and deciding what deserves to survive the next iteration.
-      </p>
-      <a href="/manifesto/">Read the full manifesto →</a>
+      <h2 id="manifesto-title">{copy.title}</h2>
+      <p>{copy.body}</p>
+      <a href={getNavigationPath('/manifesto/', locale)}>{copy.link}</a>
     </div>
   </Container>
 </section>
@@ -28,10 +31,7 @@ import Container from '../ui/Container.astro';
       var(--color-surface-1);
   }
 
-  :global(.manifesto__inner) {
-    display: grid;
-    gap: 1.5rem;
-  }
+  :global(.manifesto__inner) { display: grid; gap: 1.5rem; }
 
   .manifesto__code {
     margin: 0;
@@ -42,9 +42,7 @@ import Container from '../ui/Container.astro';
     letter-spacing: 0.1em;
   }
 
-  .manifesto__copy {
-    max-width: 920px;
-  }
+  .manifesto__copy { max-width: 920px; }
 
   h2 {
     margin: 0;

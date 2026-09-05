@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Tag from '../ui/Tag.astro';
+import { getEquivalentPath, getLocaleFromPath } from '../../i18n/config';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -9,23 +10,60 @@ interface Props {
 
 const { project, featured = false } = Astro.props;
 const { data } = project;
+const locale = getLocaleFromPath(Astro.url.pathname);
+const isItalian = locale === 'it';
 
 const cardImage = data.cardImage ?? data.cover;
 const cardImageAlt = data.cardImageAlt ?? data.coverAlt ?? '';
 const cardImagePosition = data.cardImagePosition ?? 'center';
 
-const kindLabels = {
-  'web-app': 'Web App',
-  tool: 'Tool',
-  world: 'World',
-  game: 'Game',
-  experiment: 'Experiment',
-} as const;
+const summary = isItalian ? (data.summaryIt ?? data.summary) : data.summary;
+const tags = isItalian ? (data.tagsIt ?? data.tags) : data.tags;
+const status = isItalian ? (data.statusIt ?? data.status) : data.status;
+
+const kindLabels = isItalian
+  ? {
+      'web-app': 'Web App',
+      tool: 'Strumento',
+      world: 'Mondo',
+      game: 'Gioco',
+      experiment: 'Esperimento',
+    }
+  : {
+      'web-app': 'Web App',
+      tool: 'Tool',
+      world: 'World',
+      game: 'Game',
+      experiment: 'Experiment',
+    };
+
+const actionLabels = isItalian
+  ? {
+      launch: 'Avvia app',
+      repository: 'Repository',
+      release: 'Release',
+      project: 'Apri progetto',
+      tags: 'Tag del progetto',
+      viewAria: `Apri la pagina progetto di ${data.title}`,
+    }
+  : {
+      launch: 'Launch App',
+      repository: 'Repository',
+      release: 'Release',
+      project: 'View project',
+      tags: 'Project tags',
+      viewAria: `View ${data.title} project page`,
+    };
+
+const englishProjectPath = `/projects/${data.slug}/`;
+const localizedProjectPath = isItalian
+  ? (getEquivalentPath(englishProjectPath, 'it') ?? englishProjectPath)
+  : englishProjectPath;
 
 const externalActions = [
-  data.links.launchUrl && { label: 'Launch App', href: data.links.launchUrl },
-  data.links.repositoryUrl && { label: 'Repository', href: data.links.repositoryUrl },
-  data.links.releaseUrl && { label: 'Release', href: data.links.releaseUrl },
+  data.links.launchUrl && { label: actionLabels.launch, href: data.links.launchUrl },
+  data.links.repositoryUrl && { label: actionLabels.repository, href: data.links.repositoryUrl },
+  data.links.releaseUrl && { label: actionLabels.release, href: data.links.releaseUrl },
 ].filter(Boolean) as { label: string; href: string }[];
 ---
 
@@ -34,8 +72,8 @@ const externalActions = [
     data.pageReady ? (
       <a
         class="project-card__media"
-        href={`/projects/${data.slug}/`}
-        aria-label={`View ${data.title} project page`}
+        href={localizedProjectPath}
+        aria-label={actionLabels.viewAria}
       >
         <img
           src={cardImage}
@@ -64,25 +102,25 @@ const externalActions = [
 
   <div class="project-card__topline">
     <span class="project-card__kind">{kindLabels[data.kind]}</span>
-    {data.status && <span class="project-card__status">{data.status}</span>}
+    {status && <span class="project-card__status">{status}</span>}
   </div>
 
   <div class="project-card__body">
     <h3>{data.title}</h3>
-    <p>{data.summary}</p>
+    <p>{summary}</p>
   </div>
 
-  {data.tags.length > 0 && (
-    <div class="project-card__tags" aria-label="Project tags">
-      {data.tags.map((tag) => <Tag tone={data.owner === 'biggitykot' ? 'default' : 'blue'}>{tag}</Tag>)}
+  {tags.length > 0 && (
+    <div class="project-card__tags" aria-label={actionLabels.tags}>
+      {tags.map((tag) => <Tag tone={data.owner === 'biggitykot' ? 'default' : 'blue'}>{tag}</Tag>)}
     </div>
   )}
 
   {(data.pageReady || externalActions.length > 0) && (
     <div class="project-card__actions">
       {data.pageReady && (
-        <a class="project-card__internal" href={`/projects/${data.slug}/`}>
-          View project <span aria-hidden="true">→</span>
+        <a class="project-card__internal" href={localizedProjectPath}>
+          {actionLabels.project} <span aria-hidden="true">→</span>
         </a>
       )}
       {externalActions.map((action) => (

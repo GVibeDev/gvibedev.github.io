@@ -1,8 +1,222 @@
 ---
-import LocalizedContentPage from '../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../i18n/pages';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Container from '../../../components/ui/Container.astro';
+import { getCorePageCopy } from '../../../i18n/core-pages';
+import { getNavigationPath } from '../../../i18n/config';
 
-const page = getItalianContentPage('manifesto');
+const locale = 'it' as const;
+const copy = getCorePageCopy(locale).manifesto;
+const [heroLine1, heroLine2] = copy.hero.split('\n');
 ---
 
-<LocalizedContentPage page={page} />
+<BaseLayout title={copy.title} description={copy.description} locale={locale}>
+  <div class="manifesto-page">
+    <section class="manifesto-hero">
+      <Container>
+        <span class="manifesto-code">// MANIFESTO_FULL</span>
+        <div class="manifesto-hero__copy">
+          <h1>{heroLine1}<br />{heroLine2}</h1>
+          <p>{copy.heroBody}</p>
+        </div>
+      </Container>
+    </section>
+
+    <section class="manifesto-intro section-block">
+      <Container>
+        <div class="split">
+          <div>
+            <span class="eyebrow">{copy.positionEyebrow}</span>
+            <h2>{copy.positionTitle}</h2>
+          </div>
+          <div class="prose">
+            {copy.positionBody.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="principles section-block">
+      <Container>
+        <div class="section-heading">
+          <span class="eyebrow">{copy.principlesEyebrow}</span>
+          <h2>{copy.principlesTitle}</h2>
+          <p>{copy.principlesIntro}</p>
+        </div>
+
+        <div class="principle-grid">
+          {copy.principles.map(([code, title, body]) => (
+            <article>
+              <span>{code}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+
+    <section class="practice section-block">
+      <Container>
+        <div class="split">
+          <div>
+            <span class="eyebrow">{copy.practiceEyebrow}</span>
+            <h2>{copy.practiceTitle}</h2>
+          </div>
+          <div class="prose">
+            {copy.practiceBody.map((paragraph) => <p>{paragraph}</p>)}
+            <blockquote>{copy.quote}</blockquote>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="responsibility section-block">
+      <Container>
+        <div class="split">
+          <div>
+            <span class="eyebrow">{copy.responsibilityEyebrow}</span>
+            <h2>{copy.responsibilityTitle}</h2>
+          </div>
+          <div class="prose">
+            {copy.responsibilityBody.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="evidence section-block">
+      <Container>
+        <div class="evidence-card">
+          <div>
+            <span class="eyebrow">{copy.archiveEyebrow}</span>
+            <h2>{copy.archiveTitle}</h2>
+            <p>{copy.archiveBody}</p>
+          </div>
+          <div class="evidence-actions">
+            <a href={getNavigationPath('/projects/', locale)} class="button button--primary">{copy.projectsAction}</a>
+            <a href={getNavigationPath('/projects/manuale-llm/', locale)} class="button button--secondary">Manuale LLM</a>
+            <a href={getNavigationPath('/about/', locale)} class="button button--secondary">{copy.aboutAction}</a>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .manifesto-page { color: var(--color-text); background: var(--color-bg); }
+  .section-block { padding-block: var(--section-space); }
+  .eyebrow, .manifesto-code {
+    color: var(--color-red-bright);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .manifesto-hero {
+    padding-block: clamp(3.5rem, 9vw, 8rem);
+    border-bottom: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 8% 20%, color-mix(in srgb, var(--color-red) 13%, transparent), transparent 34%),
+      radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--color-blue) 15%, transparent), transparent 40%),
+      var(--color-bg-deep);
+  }
+  .manifesto-hero :global(.container) { display: grid; gap: 1.5rem; }
+  .manifesto-hero__copy { display: grid; gap: 1.4rem; max-width: 65rem; }
+  .manifesto-hero h1 {
+    margin: 0;
+    max-width: 12ch;
+    font-size: clamp(3rem, 9vw, 8rem);
+    line-height: .9;
+    letter-spacing: -.07em;
+  }
+  .manifesto-hero p, .section-heading > p, .prose p, .evidence-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+  .manifesto-hero p {
+    max-width: 58rem;
+    color: var(--color-text);
+    font-size: clamp(1.08rem, 1rem + .35vw, 1.35rem);
+  }
+  .split { display: grid; gap: 2rem; }
+  .split > div:first-child, .section-heading, .prose { display: grid; gap: 1rem; align-content: start; }
+  .split h2, .section-heading h2, .evidence-card h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4.8vw, 4.4rem);
+    line-height: .98;
+    letter-spacing: -.05em;
+  }
+  .manifesto-intro, .responsibility { border-bottom: 1px solid var(--color-border); }
+  .principles, .practice { border-bottom: 1px solid var(--color-border); background: var(--color-bg-deep); }
+  .section-heading { max-width: 60rem; margin-bottom: 2rem; }
+  .principle-grid { display: grid; gap: 1px; border: 1px solid var(--color-border); background: var(--color-border); }
+  .principle-grid article {
+    display: grid;
+    gap: .7rem;
+    padding: 1.1rem;
+    background: var(--color-surface-1);
+  }
+  .principle-grid article > span {
+    color: var(--color-blue-soft);
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    font-weight: 800;
+  }
+  .principle-grid h3 { margin: 0; color: var(--color-text); font-size: 1.05rem; }
+  .principle-grid p { margin: 0; color: var(--color-text-muted); font-size: .92rem; line-height: 1.65; }
+  .prose blockquote {
+    margin: .4rem 0 0;
+    padding: 1rem 1.1rem;
+    border-left: 2px solid var(--color-red-soft);
+    color: var(--color-text);
+    background: var(--color-surface-1);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.08rem;
+    line-height: 1.7;
+  }
+  .evidence { background: var(--color-bg-deep); }
+  .evidence-card {
+    display: grid;
+    gap: 2rem;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface-1);
+  }
+  .evidence-card > div:first-child { display: grid; gap: 1rem; }
+  .evidence-actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.8rem;
+    padding: .8rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .045em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .button--primary {
+    color: #08111e;
+    background: var(--color-blue-soft);
+    border-color: var(--color-blue-soft);
+  }
+
+  @media (min-width: 40rem) {
+    .principle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 60rem) {
+    .split { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 4rem; }
+    .principle-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .evidence-card { grid-template-columns: minmax(0, 1.2fr) minmax(18rem, .8fr); gap: 4rem; align-items: center; }
+    .evidence-actions { justify-content: flex-end; }
+  }
+</style>

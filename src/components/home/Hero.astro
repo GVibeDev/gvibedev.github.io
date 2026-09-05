@@ -2,33 +2,37 @@
 import Button from '../ui/Button.astro';
 import Container from '../ui/Container.astro';
 import { siteConfig } from '../../config/site';
+import type { Locale } from '../../i18n/config';
+import { getCorePageCopy } from '../../i18n/core-pages';
+
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const copy = getCorePageCopy(locale).home.hero;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   <Container>
     <div class="hero__intro">
       <div class="hero__copy">
-        <p class="hero__eyebrow">Independent digital workshop</p>
-        <h1 id="hero-title">Ideas become things here.</h1>
-        <p class="hero__lead">
-          Games, tools, worlds and experiments built with AI-assisted development — with design, iteration, testing and human decisions left visible.
-        </p>
+        <p class="hero__eyebrow">{copy.eyebrow}</p>
+        <h1 id="hero-title">{copy.title}</h1>
+        <p class="hero__lead">{copy.lead}</p>
         <div class="hero__actions">
-          <Button href="#projects">Explore projects</Button>
+          <Button href="#projects">{copy.explore}</Button>
           <Button href={siteConfig.github} variant="secondary" external>GitHub</Button>
         </div>
       </div>
 
-      <div class="hero__principles" aria-label="Working principles">
-        <span>AI_ASSISTED ≠ AUTOPILOT</span>
-        <p>design / iterate / test / verify / ship</p>
+      <div class="hero__principles" aria-label={copy.principlesLabel}>
+        <span>{copy.principlesCode}</span>
+        <p>{copy.principlesFlow}</p>
       </div>
     </div>
 
     <figure class="hero__visual">
       <img
         src="/assets/home/hero-gvibedev.webp"
-        alt="A person relaxing at a retro computer displaying the G Vibe Dev logo"
+        alt={copy.imageAlt}
         width="1672"
         height="857"
         fetchpriority="high"
@@ -69,9 +73,7 @@ import { siteConfig } from '../../config/site';
     margin-bottom: clamp(2.4rem, 5vw, 4rem);
   }
 
-  .hero__copy {
-    max-width: 850px;
-  }
+  .hero__copy { max-width: 850px; }
 
   .hero__eyebrow {
     margin: 0 0 1rem;

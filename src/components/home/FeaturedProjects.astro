@@ -3,25 +3,30 @@ import type { CollectionEntry } from 'astro:content';
 import Container from '../ui/Container.astro';
 import SectionHeading from '../ui/SectionHeading.astro';
 import ProjectCard from '../cards/ProjectCard.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getCorePageCopy } from '../../i18n/core-pages';
 
 interface Props {
   projects: CollectionEntry<'projects'>[];
+  locale?: Locale;
 }
 
-const { projects } = Astro.props;
+const { projects, locale = 'en' } = Astro.props;
+const copy = getCorePageCopy(locale).home.featured;
 ---
 
 <section class="featured" id="projects">
   <Container>
     <SectionHeading
-      eyebrow="Selected work"
-      title="Projects worth opening first."
-      description="A cross-section of the workshop: a playable system, a production tool, and an evolving narrative world."
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      description={copy.description}
     />
     <div class="featured__grid">
       {projects.map((project) => <ProjectCard project={project} featured />)}
     </div>
-    <a class="featured__all" href="/projects/">Browse all projects →</a>
+    <a class="featured__all" href={getNavigationPath('/projects/', locale)}>{copy.all}</a>
   </Container>
 </section>
 
@@ -49,8 +54,6 @@ const { projects } = Astro.props;
   }
 
   @media (min-width: 48rem) {
-    .featured__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .featured__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 </style>
