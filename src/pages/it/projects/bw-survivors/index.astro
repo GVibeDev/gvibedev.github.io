@@ -1,8 +1,18 @@
 ---
-import LocalizedContentPage from '../../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import BiggityKotProjectLayout from '../../../../layouts/BiggityKotProjectLayout.astro';
+import LocalizedProjectBody from '../../../../components/project/LocalizedProjectBody.astro';
 
-const page = getItalianContentPage('projects--bw-survivors');
+const locale = 'it' as const;
+const project = (await getCollection('projects')).find(
+  (entry) => entry.data.slug === 'bw-survivors',
+);
+
+if (!project) {
+  throw new Error('B&W Survivors project data not found.');
+}
 ---
 
-<LocalizedContentPage page={page} />
+<BiggityKotProjectLayout project={project} locale={locale}>
+  <LocalizedProjectBody slug="bw-survivors" locale={locale} />
+</BiggityKotProjectLayout>

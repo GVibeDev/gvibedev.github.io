@@ -1,12 +1,21 @@
 ---
-interface Props { themes: string[]; }
-const { themes } = Astro.props;
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  themes: string[];
+  locale?: Locale;
+}
+
+const { themes, locale = 'en' } = Astro.props;
+const copy = locale === 'it'
+  ? { eyebrow: 'Segnali', title: 'Temi che attraversano l’anteprima.' }
+  : { eyebrow: 'Signals', title: 'Themes running through the preview.' };
 ---
 
 {themes.length > 0 && (
   <section class="theme-signals" aria-labelledby="theme-signals-title">
-    <p>Signals</p>
-    <h2 id="theme-signals-title">Themes running through the preview.</h2>
+    <p>{copy.eyebrow}</p>
+    <h2 id="theme-signals-title">{copy.title}</h2>
     <ul>
       {themes.map((theme) => <li>{theme}</li>)}
     </ul>

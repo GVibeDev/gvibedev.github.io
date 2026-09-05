@@ -1,8 +1,18 @@
 ---
-import LocalizedContentPage from '../../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import ArenaRubraDigitalLayout from '../../../../layouts/ArenaRubraDigitalLayout.astro';
+import LocalizedProjectBody from '../../../../components/project/LocalizedProjectBody.astro';
 
-const page = getItalianContentPage('projects--arena-rubra-digital');
+const locale = 'it' as const;
+const project = (await getCollection('projects')).find(
+  (entry) => entry.data.slug === 'arena-rubra-digital',
+);
+
+if (!project) {
+  throw new Error('Arena Rubra Digital project data not found.');
+}
 ---
 
-<LocalizedContentPage page={page} />
+<ArenaRubraDigitalLayout project={project} locale={locale}>
+  <LocalizedProjectBody slug="arena-rubra-digital" locale={locale} />
+</ArenaRubraDigitalLayout>

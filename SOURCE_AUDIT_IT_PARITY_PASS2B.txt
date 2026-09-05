@@ -1,0 +1,35 @@
+GVibeDev.cc — ITALIAN PARITY PASS 2B SOURCE AUDIT
+=================================================
+
+Patch files checked: 31
+Issues: 0
+
+PASS
+
+Confirmed at source level:
+- Pass 2A project-detail source is bundled again for safety;
+- Arena Rubra Digital, Arena Rubra Tabletop and Unum Sunt Italian routes now target the same live layout families as English;
+- all seven migrated project-detail routes use structured Italian copy rather than V0.20 HTML snapshots;
+- the canonical English Arena Rubra shared-data file is not modified;
+- a locale projection supplies Italian universe, systems, factions, testing and related-project copy;
+- the validated `1000+` Arena Rubra test-match fact is preserved;
+- the stale “Hundreds of full test matches” wording is not carried into the new shared copy;
+- Arena faction and ecosystem components are locale-aware;
+- EditorialProjectLayout / Hero / ThemeSignals / PreviewLibrary are locale-aware;
+- generic Project / Tool / MO2 galleries receive the page locale;
+- the apply transformer makes Arena Rubra Digital, Board Game and ToolInstallGuide shared EN/IT rather than forking layouts;
+- cleanup targets all 18 obsolete Italian generated HTML snapshots plus the three retired V0.20 bridge files;
+- no analytics, provider, commercial or canonical Arena-data configuration is included;
+- no B&W Survivors repository or other public endpoint is invented.
+
+Static syntax gates already run in the artifact environment:
+- Node `--check` on the Pass 2B transformer: PASS;
+- TypeScript transpile syntax check for `projects-it.ts`: PASS;
+- TypeScript transpile syntax check for `arena-rubra.ts`: PASS;
+- Astro frontmatter syntax check across overlay `.astro` files: PASS.
+
+Not claimed:
+- production `npm run build` success, because the full repository/runtime is not mounted in this artifact environment;
+- visual parity until the user compares generated EN/IT pages after applying the transformer.
+
+A real repository build and the supplied validation checklist remain the freeze gate.

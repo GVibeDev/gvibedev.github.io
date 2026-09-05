@@ -1,8 +1,18 @@
 ---
-import LocalizedContentPage from '../../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import ProjectLayout from '../../../../layouts/ProjectLayout.astro';
+import LocalizedProjectBody from '../../../../components/project/LocalizedProjectBody.astro';
 
-const page = getItalianContentPage('projects--arena-rubra-card-composer');
+const locale = 'it' as const;
+const project = (await getCollection('projects')).find(
+  (entry) => entry.data.slug === 'arena-rubra-card-composer',
+);
+
+if (!project) {
+  throw new Error('Arena Rubra Card Composer project data not found.');
+}
 ---
 
-<LocalizedContentPage page={page} />
+<ProjectLayout project={project} locale={locale}>
+  <LocalizedProjectBody slug="arena-rubra-card-composer" locale={locale} />
+</ProjectLayout>

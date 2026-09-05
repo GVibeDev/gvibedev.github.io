@@ -5,32 +5,43 @@ import Container from '../components/ui/Container.astro';
 import ProjectHero from '../components/project/ProjectHero.astro';
 import ProjectGallery from '../components/project/ProjectGallery.astro';
 import ProjectActions from '../components/project/ProjectActions.astro';
+import type { Locale } from '../i18n/config';
+import { getProjectView } from '../i18n/projects-it';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
-const { data } = project;
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
+
+const note = locale === 'it'
+  ? {
+      eyebrow: 'Nota sul progetto',
+      body: 'Questa pagina descrive un progetto di sviluppo vivo. Funzioni, grafica e dettagli dell’interfaccia possono cambiare mentre nuove baseline vengono testate e validate.',
+    }
+  : {
+      eyebrow: 'Project note',
+      body: 'This page describes a live development project. Features, visuals and interface details can change as new baselines are tested and validated.',
+    };
 ---
 
 <BaseLayout
   title={data.title}
   description={data.seoDescription ?? data.summary}
   image={data.socialImage ?? data.cover}
+  locale={locale}
 >
-  <ProjectHero project={project} />
+  <ProjectHero project={project} locale={locale} />
 
   <section class="project-story">
     <Container>
       <div class="project-story__grid">
         <aside class="project-story__aside">
-          <span class="project-story__eyebrow">Project note</span>
-          <p>
-            This page describes a live development project. Features, visuals and interface details can change as
-            new baselines are tested and validated.
-          </p>
-          <ProjectActions links={data.links} />
+          <span class="project-story__eyebrow">{note.eyebrow}</span>
+          <p>{note.body}</p>
+          <ProjectActions links={data.links} locale={locale} />
         </aside>
 
         <article class="project-prose">
@@ -43,7 +54,7 @@ const { data } = project;
   {data.gallery.length > 0 && (
     <section class="project-gallery-shell">
       <Container>
-        <ProjectGallery items={data.gallery} />
+        <ProjectGallery items={data.gallery} locale={locale} />
       </Container>
     </section>
   )}
@@ -118,7 +129,7 @@ const { data } = project;
   }
 
   :global(.project-prose h3) {
-    margin: 2.5rem 0 0.7rem;
+    margin: 2.4rem 0 0.65rem;
     color: var(--color-blue-soft);
     font-family: var(--font-mono);
     font-size: 0.86rem;
@@ -137,22 +148,27 @@ const { data } = project;
     color: var(--color-text);
   }
 
-  .project-gallery-shell {
+  :global(.project-prose ul) {
+    display: grid;
+    gap: 0.65rem;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
+
+  .project-gallery-shell,
+  .project-endcap {
     padding-block: var(--section-space);
     border-top: 1px solid var(--color-border);
     background: var(--color-bg-deep);
   }
 
-  .project-endcap {
-    padding-block: 0 var(--section-space);
-    background: var(--color-bg-deep);
-  }
-
   .project-endcap figure {
-    overflow: hidden;
     margin: 0;
+    overflow: hidden;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+    background: var(--color-surface-1);
   }
 
   .project-endcap img {
@@ -163,14 +179,14 @@ const { data } = project;
 
   @media (min-width: 60rem) {
     .project-story__grid {
-      grid-template-columns: 17rem minmax(0, 1fr);
-      gap: clamp(3rem, 7vw, 6rem);
+      grid-template-columns: minmax(15rem, 0.4fr) minmax(0, 1fr);
+      gap: 4rem;
       align-items: start;
     }
 
     .project-story__aside {
       position: sticky;
-      top: 6.5rem;
+      top: 7rem;
     }
   }
 </style>

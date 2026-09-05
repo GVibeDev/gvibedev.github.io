@@ -1,9 +1,32 @@
 ---
-import { arenaRubraFactions } from '../../data/shared/arena-rubra';
+import type { Locale } from '../../i18n/config';
+import { getArenaRubraShared } from '../../i18n/arena-rubra';
+
+interface Props { locale?: Locale; }
+const { locale = 'en' } = Astro.props;
+const { factions } = getArenaRubraShared(locale);
+
+const labels = locale === 'it'
+  ? {
+      keywords: 'parole chiave',
+      battlefield: 'Identità sul campo',
+      philosophy: 'Filosofia strategica',
+      controls: 'Vuole controllare',
+      pressure: 'Crea pressione attraverso',
+      plays: 'Gioca come:',
+    }
+  : {
+      keywords: 'keywords',
+      battlefield: 'Battlefield identity',
+      philosophy: 'Strategic philosophy',
+      controls: 'Wants to control',
+      pressure: 'Creates pressure through',
+      plays: 'Plays like:',
+    };
 ---
 
 <div class="arena-factions">
-  {arenaRubraFactions.map((faction) => (
+  {factions.map((faction) => (
     <article
       class:list={['arena-faction', `arena-faction--${faction.id}`]}
       style={`--faction-accent:${faction.accent}; --faction-texture:url('${faction.texture}');`}
@@ -14,31 +37,31 @@ import { arenaRubraFactions } from '../../data/shared/arena-rubra';
       <div class="arena-faction__body">
         <div class="arena-faction__heading">
           <span>{faction.name}</span>
-          <div class="arena-faction__keywords" aria-label={`${faction.name} keywords`}>
+          <div class="arena-faction__keywords" aria-label={`${faction.name} ${labels.keywords}`}>
             {faction.keywords.map((keyword) => <small>{keyword}</small>)}
           </div>
         </div>
         <p class="arena-faction__summary">{faction.summary}</p>
         <dl>
           <div>
-            <dt>Battlefield identity</dt>
+            <dt>{labels.battlefield}</dt>
             <dd>{faction.battlefieldIdentity}</dd>
           </div>
           <div>
-            <dt>Strategic philosophy</dt>
+            <dt>{labels.philosophy}</dt>
             <dd>{faction.philosophy}</dd>
           </div>
           <div>
-            <dt>Wants to control</dt>
+            <dt>{labels.controls}</dt>
             <dd>{faction.controls}</dd>
           </div>
           <div>
-            <dt>Creates pressure through</dt>
+            <dt>{labels.pressure}</dt>
             <dd>{faction.pressure}</dd>
           </div>
         </dl>
         <p class="arena-faction__lore">{faction.loreTone}</p>
-        <p class="arena-faction__plays"><strong>Plays like:</strong> {faction.playsLike}</p>
+        <p class="arena-faction__plays"><strong>{labels.plays}</strong> {faction.playsLike}</p>
       </div>
     </article>
   ))}
@@ -68,7 +91,6 @@ import { arenaRubraFactions } from '../../data/shared/arena-rubra';
   .arena-faction__media { min-height: 14rem; overflow: hidden; background: #030303; }
   .arena-faction__media img { display: block; width: 100%; height: 100%; min-height: 14rem; object-fit: cover; object-position: center; }
 
-  /* V0.12 polish: the supplied Fabeot portrait is framed higher than the other faction art. */
   .arena-faction--fabeot .arena-faction__media img { object-position: center top; }
 
   .arena-faction__body { display: grid; gap: 1rem; padding: 1.25rem; }
@@ -86,7 +108,6 @@ import { arenaRubraFactions } from '../../data/shared/arena-rubra';
   .arena-faction__plays { color: var(--color-text-muted); font-size: .9rem; line-height: 1.6; }
   .arena-faction__plays strong { color: var(--color-text); }
 
-  /* Board-game V0.12 polish: simplify the testing block and remove the oversized legacy statistic. */
   :global(.tabletop-page .testing-stat) { display: none; }
   :global(.tabletop-page .testing-hero) {
     grid-template-columns: minmax(0, 1fr) !important;
@@ -103,8 +124,6 @@ import { arenaRubraFactions } from '../../data/shared/arena-rubra';
     max-width: 64rem;
     line-height: 1.8;
   }
-  /* The old status row still contains the pre-1000+ wording; hide it until status content is data-driven. */
-  :global(.tabletop-page .status-grid dl > div:nth-child(3)) { display: none; }
 
   @media (min-width: 48rem) {
     .arena-faction { grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.2fr); }

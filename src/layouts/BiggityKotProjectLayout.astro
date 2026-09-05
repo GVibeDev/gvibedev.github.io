@@ -3,47 +3,82 @@ import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import Container from '../components/ui/Container.astro';
 import ProjectGallery from '../components/project/ProjectGallery.astro';
+import type { Locale } from '../i18n/config';
+import { getNavigationPath } from '../i18n/config';
+import { getProjectView } from '../i18n/projects-it';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
-const { data } = project;
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
 const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
+
+const copy = locale === 'it'
+  ? {
+      back: '← MO2 Projects',
+      kindGame: 'Gioco',
+      kindProject: 'Progetto',
+      actions: 'Azioni del progetto',
+      play: 'Gioca online',
+      download: 'Scarica build',
+      profile: 'Profilo GitHub',
+      snapshot: 'Snapshot della build',
+      archive: 'L’archivio scaricabile è la build fornita dall’autore e usata come sorgente per questa pagina.',
+      material: 'Materiale della build',
+      inside: 'Dentro il progetto.',
+      prototype: 'Prototipo',
+    }
+  : {
+      back: '← MO2 Projects',
+      kindGame: 'Game',
+      kindProject: 'Project',
+      actions: 'Project actions',
+      play: 'Play online',
+      download: 'Download build',
+      profile: 'GitHub profile',
+      snapshot: 'Build snapshot',
+      archive: 'The downloadable archive is the author-provided build used as the source for this page.',
+      material: 'Build material',
+      inside: 'Inside the project.',
+      prototype: 'Prototype',
+    };
 ---
 
 <BaseLayout
   title={data.title}
   description={data.seoDescription ?? data.summary}
   image={data.socialImage ?? data.cover}
+  locale={locale}
 >
   <div class="bk-project">
     <section class="bk-hero">
       <Container>
-        <a class="bk-back" href="/biggitykot/">← MO2 Projects</a>
+        <a class="bk-back" href={getNavigationPath('/biggitykot/', locale)}>{copy.back}</a>
 
         <div class="bk-hero__top">
           <div class="bk-hero__copy bk-glass-panel">
             <div class="bk-meta">
-              <span>MO2 Projects / {data.kind === 'game' ? 'Game' : 'Project'}</span>
+              <span>MO2 Projects / {data.kind === 'game' ? copy.kindGame : copy.kindProject}</span>
               {data.status && <span>{data.status}</span>}
             </div>
             <h1>{data.title}</h1>
             <p>{data.summary}</p>
-            <div class="bk-actions" aria-label="Project actions">
+            <div class="bk-actions" aria-label={copy.actions}>
               {data.launchPath && (
                 <a class="bk-action bk-action--primary" href={data.launchPath} target="_blank">
-                  {data.launchLabel ?? 'Play online'} ↗
+                  {data.launchLabel ?? copy.play} ↗
                 </a>
               )}
               {data.downloadPath && (
                 <a class:list={["bk-action", !data.launchPath && "bk-action--primary"]} href={data.downloadPath} download>
-                  {data.downloadLabel ?? 'Download build'} ↓
+                  {data.downloadLabel ?? copy.download} ↓
                 </a>
               )}
               <a class="bk-action" href={profileUrl} target="_blank" rel="noreferrer">
-                GitHub profile ↗
+                {copy.profile} ↗
               </a>
             </div>
           </div>
@@ -67,9 +102,9 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
       <Container>
         <div class="bk-story__grid">
           <aside class="bk-build bk-glass-panel">
-            <span>Build snapshot</span>
-            <strong>{data.status ?? 'Prototype'}</strong>
-            <p>The downloadable archive is the author-provided build used as the source for this page.</p>
+            <span>{copy.snapshot}</span>
+            <strong>{data.status ?? copy.prototype}</strong>
+            <p>{copy.archive}</p>
             {data.buildSha256 && (
               <details>
                 <summary>SHA-256</summary>
@@ -77,9 +112,9 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
               </details>
             )}
             <div class="bk-build__links">
-              {data.launchPath && <a href={data.launchPath} target="_blank">Play online ↗</a>}
-              {data.downloadPath && <a href={data.downloadPath} download>Download build ↓</a>}
-              <a href={profileUrl} target="_blank" rel="noreferrer">GitHub profile ↗</a>
+              {data.launchPath && <a href={data.launchPath} target="_blank">{data.launchLabel ?? copy.play} ↗</a>}
+              {data.downloadPath && <a href={data.downloadPath} download>{data.downloadLabel ?? copy.download} ↓</a>}
+              <a href={profileUrl} target="_blank" rel="noreferrer">{copy.profile} ↗</a>
             </div>
           </aside>
 
@@ -94,10 +129,10 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
       <section class="bk-gallery">
         <Container>
           <div class="bk-gallery__heading bk-glass-panel">
-            <span>Build material</span>
-            <h2>Inside the project.</h2>
+            <span>{copy.material}</span>
+            <h2>{copy.inside}</h2>
           </div>
-          <ProjectGallery items={data.gallery} />
+          <ProjectGallery items={data.gallery} locale={locale} />
         </Container>
       </section>
     )}
@@ -372,9 +407,7 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
     letter-spacing: -0.04em;
   }
 
-  :global(.bk-prose h2:not(:first-child)) {
-    margin-top: 4rem;
-  }
+  :global(.bk-prose h2:not(:first-child)) { margin-top: 4rem; }
 
   :global(.bk-prose h3) {
     margin: 2.4rem 0 0.7rem;
@@ -393,13 +426,16 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
     line-height: 1.82;
   }
 
-  :global(.bk-prose strong) {
-    color: var(--bk-text);
+  :global(.bk-prose strong) { color: var(--bk-text); }
+
+  :global(.bk-prose ul) {
+    display: grid;
+    gap: 0.55rem;
+    color: var(--bk-text-soft);
+    line-height: 1.65;
   }
 
-  .bk-gallery {
-    padding-top: 0;
-  }
+  .bk-gallery { padding-top: 0; }
 
   .bk-gallery__heading {
     display: grid;
@@ -441,15 +477,11 @@ const profileUrl = data.creatorProfileUrl ?? 'https://github.com/pizza-990';
   }
 
   @media (max-width: 51.99rem) {
-    .bk-logo {
-      width: min(10rem, 40vw);
-    }
+    .bk-logo { width: min(10rem, 40vw); }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .bk-back,
-    .bk-action {
-      transition: none;
-    }
+    .bk-action { transition: none; }
   }
 </style>

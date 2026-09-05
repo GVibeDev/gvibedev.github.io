@@ -1,0 +1,31 @@
+---
+import { getProjectBody } from '../../i18n/projects-it';
+import type { Locale } from '../../i18n/config';
+
+interface Props {
+  slug: string;
+  locale?: Locale;
+}
+
+const { slug, locale = 'it' } = Astro.props;
+const sections = getProjectBody(slug, locale);
+
+if (!sections) {
+  throw new Error(`No localized project body found for ${slug} (${locale}).`);
+}
+---
+
+{sections.map((section) => (
+  <>
+    <h2>{section.title}</h2>
+    {section.blocks.map((block) => (
+      block.type === 'p'
+        ? <p>{block.text}</p>
+        : (
+          <ul>
+            {block.items.map((item) => <li>{item}</li>)}
+          </ul>
+        )
+    ))}
+  </>
+))}

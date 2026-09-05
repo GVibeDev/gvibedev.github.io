@@ -4,6 +4,7 @@ import {
   type CommercialAction,
   type CommercialProviderId,
 } from '../../config/commercial';
+import type { Locale } from '../../i18n/config';
 
 type ActionType =
   | 'play'
@@ -40,33 +41,58 @@ interface Props {
     releaseUrl?: string;
     actions?: DataAction[];
   };
+  locale?: Locale;
 }
 
-const { links } = Astro.props;
+const { links, locale = 'en' } = Astro.props;
 
-const defaultLabels: Record<ActionType, string> = {
-  play: 'Play',
-  download: 'Download',
-  support: 'Support',
-  wishlist: 'Wishlist',
-  buy: 'Buy',
-  'follow-development': 'Follow development',
-  github: 'View on GitHub',
-  'join-playtest': 'Join playtest',
-  kickstarter: 'Back on Kickstarter',
-  documentation: 'Documentation',
-  tutorials: 'Tutorials',
-  changelog: 'Changelog',
-  community: 'Community',
-  cards: 'Cards',
-  decks: 'Decks',
-  maps: 'Maps',
+const defaultLabels: Record<Locale, Record<ActionType, string>> = {
+  en: {
+    play: 'Play',
+    download: 'Download',
+    support: 'Support',
+    wishlist: 'Wishlist',
+    buy: 'Buy',
+    'follow-development': 'Follow development',
+    github: 'View on GitHub',
+    'join-playtest': 'Join playtest',
+    kickstarter: 'Back on Kickstarter',
+    documentation: 'Documentation',
+    tutorials: 'Tutorials',
+    changelog: 'Changelog',
+    community: 'Community',
+    cards: 'Cards',
+    decks: 'Decks',
+    maps: 'Maps',
+  },
+  it: {
+    play: 'Gioca',
+    download: 'Download',
+    support: 'Supporta',
+    wishlist: 'Wishlist',
+    buy: 'Acquista',
+    'follow-development': 'Segui lo sviluppo',
+    github: 'Apri su GitHub',
+    'join-playtest': 'Partecipa al playtest',
+    kickstarter: 'Sostieni su Kickstarter',
+    documentation: 'Documentazione',
+    tutorials: 'Tutorial',
+    changelog: 'Changelog',
+    community: 'Community',
+    cards: 'Carte',
+    decks: 'Mazzi',
+    maps: 'Mappe',
+  },
 };
 
+const legacyLabels = locale === 'it'
+  ? { launch: 'Avvia app', github: 'Apri su GitHub', release: 'Scarica release' }
+  : { launch: 'Launch App', github: 'View on GitHub', release: 'Download release' };
+
 const legacy = [
-  links.launchUrl && { label: 'Launch App', href: links.launchUrl, primary: true, newTab: true, type: 'play' as ActionType },
-  links.repositoryUrl && { label: 'View on GitHub', href: links.repositoryUrl, primary: !links.launchUrl, newTab: true, type: 'github' as ActionType },
-  links.releaseUrl && { label: 'Download release', href: links.releaseUrl, primary: false, newTab: true, type: 'download' as ActionType },
+  links.launchUrl && { label: legacyLabels.launch, href: links.launchUrl, primary: true, newTab: true, type: 'play' as ActionType },
+  links.repositoryUrl && { label: legacyLabels.github, href: links.repositoryUrl, primary: !links.launchUrl, newTab: true, type: 'github' as ActionType },
+  links.releaseUrl && { label: legacyLabels.release, href: links.releaseUrl, primary: false, newTab: true, type: 'download' as ActionType },
 ].filter(Boolean) as { label: string; href: string; primary: boolean; newTab: boolean; type: ActionType }[];
 
 const configured = (links.actions ?? [])
@@ -76,7 +102,7 @@ const configured = (links.actions ?? [])
     if (!href) return null;
 
     return {
-      label: action.label ?? defaultLabels[action.type],
+      label: action.label ?? defaultLabels[locale][action.type],
       href,
       primary: Boolean(action.primary),
       newTab: action.provider ? true : Boolean(action.newTab),

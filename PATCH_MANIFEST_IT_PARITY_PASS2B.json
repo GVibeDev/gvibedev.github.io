@@ -1,0 +1,165 @@
+{
+  "name": "GVibeDev.cc Italian Parity Pass 2B — Full Project Parity",
+  "files": [
+    {
+      "path": "APPLY_IT_PARITY_PASS2B.cmd",
+      "bytes": 427,
+      "sha256": "5ea5376f7961fe32859da1d0516a8d508cd7d5d192eba739426c70616a91bb7f"
+    },
+    {
+      "path": "APPLY_IT_PARITY_PASS2B.sh",
+      "bytes": 238,
+      "sha256": "789d09d1b340b1c88434edcd33c0280edc588e10fc6b67847d637e178dad4b7d"
+    },
+    {
+      "path": "APPLY_IT_PARITY_PASS2B.txt",
+      "bytes": 2918,
+      "sha256": "a887c4a481975417170e0f2026883b9a3f3bfd728dd9ac16615f2bf4867e35a1"
+    },
+    {
+      "path": "CLEANUP_IT_PARITY_PASS2B.cmd",
+      "bytes": 2251,
+      "sha256": "27d589125a5cbbae552ba67f31bf42bb7096f7ec1364e8291065678159252c93"
+    },
+    {
+      "path": "CLEANUP_IT_PARITY_PASS2B.sh",
+      "bytes": 1153,
+      "sha256": "b8a5e872eebe18703f4698e475fcb7a388dc52ac68109ed37942a8c76a82c222"
+    },
+    {
+      "path": "DELETE_LIST_IT_PARITY_PASS2B.txt",
+      "bytes": 1016,
+      "sha256": "eb345d002bf38441e543b5d1bd4c4199d365f7d1aef48a0277f3aaeee8064859"
+    },
+    {
+      "path": "SOURCE_AUDIT_IT_PARITY_PASS2B.txt",
+      "bytes": 2021,
+      "sha256": "44ea2baef78bd1abd73802a9bfd660966269b03298131ac8bd28ea9f13c1944c"
+    },
+    {
+      "path": "VALIDATION_IT_PARITY_PASS2B.md",
+      "bytes": 4403,
+      "sha256": "2de6ea6e20fd1cbc98b5ae8812501c52ea09a0ef5d8a7bbe053704def4c12674"
+    },
+    {
+      "path": "docs/IT_PARITY_PASS2B_IMPLEMENTATION.md",
+      "bytes": 2551,
+      "sha256": "3b9fb70a6b8101607d64e37433edbbb9a42c7e5be332498d0afd54ad189d51f3"
+    },
+    {
+      "path": "scripts/apply-it-parity-pass2b.mjs",
+      "bytes": 23546,
+      "sha256": "041107b38ef2a4fefa2fd16268d134180a55da2b22475aecd973d01fc8a0f541"
+    },
+    {
+      "path": "src/components/arena-rubra/ArenaRubraEcosystemLinks.astro",
+      "bytes": 2261,
+      "sha256": "91e9d9ba636207766ba28c44f54113c40b5ce24cdf3f03b9d4241b7462edfc0d"
+    },
+    {
+      "path": "src/components/arena-rubra/ArenaRubraFactionGrid.astro",
+      "bytes": 5718,
+      "sha256": "d1b7ee29f76fbe54146d6c1db347756b9ae70acc7561f55627f811f2abf160f5"
+    },
+    {
+      "path": "src/components/editorial/EditorialHero.astro",
+      "bytes": 4414,
+      "sha256": "c1fa444fb4497de0aa9e5ee005f50a0de29a981515876995dbead9760c253fdc"
+    },
+    {
+      "path": "src/components/editorial/PreviewLibrary.astro",
+      "bytes": 4937,
+      "sha256": "6160734bfafd3fca77303dc62b8aeebac832730a3347b2bcc1337d842f0b3fe6"
+    },
+    {
+      "path": "src/components/editorial/ThemeSignals.astro",
+      "bytes": 1414,
+      "sha256": "95a85aa1354162b86c49604cbc2f3a8e776fab3ce7d85b7477ccf4d8837e82d2"
+    },
+    {
+      "path": "src/components/project/LocalizedProjectBody.astro",
+      "bytes": 646,
+      "sha256": "735fa7c7ceddf2c39251674fa0dba0f0afe419016b4bd184f8a88a592cc3d5fd"
+    },
+    {
+      "path": "src/components/project/ProjectActions.astro",
+      "bytes": 5221,
+      "sha256": "f7ab509ac6212dce0831d583a3655c418365e3f9b32e813a960df441b5a86e72"
+    },
+    {
+      "path": "src/components/project/ProjectHero.astro",
+      "bytes": 4763,
+      "sha256": "b28276d9ed6269108b9f6db97f4f4653d0035bf242dfec138677c38b74a10c88"
+    },
+    {
+      "path": "src/components/tool/ToolProjectHero.astro",
+      "bytes": 4068,
+      "sha256": "0f16b9265c511348b608c6b873e91dd47ee0fed8ddedba4f524474a326bd69a0"
+    },
+    {
+      "path": "src/i18n/arena-rubra.ts",
+      "bytes": 34192,
+      "sha256": "620cefaeb85dc23e73e8ab5b9d3614cabf4932314e852014aa8fb19923060cb4"
+    },
+    {
+      "path": "src/i18n/projects-it.ts",
+      "bytes": 47267,
+      "sha256": "cf038fe561d5896e11682ad794319d30fa2991f21c4e3c5ca355345bb42a5576"
+    },
+    {
+      "path": "src/layouts/BiggityKotProjectLayout.astro",
+      "bytes": 12990,
+      "sha256": "196f0789415a741146c211daeb730d071182b4535ddd1c54f46628de917d8608"
+    },
+    {
+      "path": "src/layouts/EditorialProjectLayout.astro",
+      "bytes": 3298,
+      "sha256": "8fbb9013c677c3cd19b4841cdacd06a2d7ad79afd52a2939f69e5eee2b079dc7"
+    },
+    {
+      "path": "src/layouts/ProjectLayout.astro",
+      "bytes": 4686,
+      "sha256": "b8cd77df09126f59299eea2164b711e1eab2815b7db16a652004d2a440addf75"
+    },
+    {
+      "path": "src/layouts/ToolProjectLayout.astro",
+      "bytes": 6684,
+      "sha256": "f58709904679af3b8f7387e2465bb68496f74002ac0bc67a28b2af7c8465840f"
+    },
+    {
+      "path": "src/pages/it/projects/arena-rubra-board-game/index.astro",
+      "bytes": 632,
+      "sha256": "9565e3d03b41526fd68e6ad24781321d725526f5c885c9f9de6ca869bc1f241f"
+    },
+    {
+      "path": "src/pages/it/projects/arena-rubra-card-composer/index.astro",
+      "bytes": 605,
+      "sha256": "0781d25e812b8cd5be1ca246dbdf531104acf72be2a11615fb2a0878e6826a8e"
+    },
+    {
+      "path": "src/pages/it/projects/arena-rubra-digital/index.astro",
+      "bytes": 627,
+      "sha256": "5fe914465b6636ae5b38154205bc20cb278a5d3724aae8a00685d996a761f3ef"
+    },
+    {
+      "path": "src/pages/it/projects/bw-survivors/index.astro",
+      "bytes": 607,
+      "sha256": "8a2ed8f2ca5112e1801849f3c601f037e98d8918ad2e01c45ddd83b7ef820b80"
+    },
+    {
+      "path": "src/pages/it/projects/manuale-llm/index.astro",
+      "bytes": 563,
+      "sha256": "4b31d55bb832e856df137795aafa60453e8c6ded12a73e8b75d89fd336719a63"
+    },
+    {
+      "path": "src/pages/it/projects/rubra-image-forge/index.astro",
+      "bytes": 597,
+      "sha256": "5711e846827700fff9aeb8e11f9a193106fdfb876cc6f568041bdad2b9795248"
+    },
+    {
+      "path": "src/pages/it/projects/unum-sunt/index.astro",
+      "bytes": 593,
+      "sha256": "75cbb327798291661cb6947df4e1f4f15b9c2b137d20e958cf697029f638c75f"
+    }
+  ]
+}

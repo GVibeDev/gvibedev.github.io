@@ -38,30 +38,65 @@ interface Props {
     footnote?: string;
     steps: InstallStep[];
   };
+  locale?: 'en' | 'it';
 }
 
-const { platforms, category, requirements, setupCopy, guide } = Astro.props;
+const { platforms, category, requirements, setupCopy, guide, locale = 'en' } = Astro.props;
 const coreRequirements = requirements.filter((item) => item.scope === 'core');
 const secondaryRequirements = requirements.filter((item) => item.scope === 'generation');
 
-const setupHeading = setupCopy?.heading ?? 'Know what the tool needs before you install it.';
-const setupIntro =
-  setupCopy?.intro ??
-  'Sprite Studio can be used as a production workflow, while local AI generation adds a separate WanGP runtime stack. The two layers are documented independently so the Python environment is not hidden behind a generic “install” button.';
-const coreLabel = setupCopy?.coreLabel ?? 'Core';
+const ui = locale === 'it'
+  ? {
+      setup: 'Setup / dipendenze',
+      category: 'Categoria',
+      publicPackage: 'Pacchetto pubblico',
+      required: 'Obbligatorio',
+      optional: 'Opzionale',
+      setupHeading: 'Conosci ciò che serve allo strumento prima di installarlo.',
+      setupIntro: 'Le dipendenze e i livelli opzionali vengono documentati separatamente, così il setup non viene nascosto dietro un pulsante generico.',
+      core: 'Principale',
+      localGeneration: 'Generazione locale',
+      notPublished: 'Non ancora pubblicato',
+      platform: 'Piattaforma',
+      requiredForGeneration: 'Richiesto per la generazione',
+      validatedSetup: 'Setup di sviluppo validato',
+      warningTitle: 'La versione di Python conta.',
+      footnote: 'Questa configurazione documenta un ambiente noto e validato per lo sviluppo GVibeDev; non implica che lo strumento possa funzionare soltanto con queste versioni esatte.',
+    }
+  : {
+      setup: 'Setup / dependencies',
+      category: 'Category',
+      publicPackage: 'Public package',
+      required: 'Required',
+      optional: 'Optional',
+      setupHeading: 'Know what the tool needs before you install it.',
+      setupIntro: 'Sprite Studio can be used as a production workflow, while local AI generation adds a separate WanGP runtime stack. The two layers are documented independently so the Python environment is not hidden behind a generic “install” button.',
+      core: 'Core',
+      localGeneration: 'Local generation',
+      notPublished: 'Not published yet',
+      platform: 'Platform',
+      requiredForGeneration: 'Required for generation',
+      validatedSetup: 'Validated development setup',
+      warningTitle: 'Python version matters.',
+      footnote: 'This is the configuration validated for the GVibeDev development machine. It documents a known-good environment, not a claim that WanGP can only run with these exact versions. The final Sprite Studio installer/start command will be added when the first public repository and release are published.',
+    };
+
+const setupHeading = setupCopy?.heading ?? ui.setupHeading;
+const setupIntro = setupCopy?.intro ?? ui.setupIntro;
+const coreLabel = setupCopy?.coreLabel ?? ui.core;
 const coreTitle = setupCopy?.coreTitle ?? 'Sprite Studio';
-const secondaryLabel = setupCopy?.secondaryLabel ?? 'Local generation';
+const secondaryLabel = setupCopy?.secondaryLabel ?? ui.localGeneration;
 const secondaryTitle = setupCopy?.secondaryTitle ?? 'WanGP bridge';
-const publicPackage = setupCopy?.publicPackage ?? 'Not published yet';
-const platformLabel = setupCopy?.platformLabel ?? 'Platform';
-const secondaryRequiredLabel = setupCopy?.secondaryRequiredLabel ?? 'Required for generation';
-const guideEyebrow = guide?.eyebrow ?? 'Validated development setup';
-const warningTitle = guide?.warningTitle ?? 'Python version matters.';
+const publicPackage = setupCopy?.publicPackage ?? ui.notPublished;
+const platformLabel = setupCopy?.platformLabel ?? ui.platform;
+const secondaryRequiredLabel = setupCopy?.secondaryRequiredLabel ?? ui.requiredForGeneration;
+const guideEyebrow = guide?.eyebrow ?? ui.validatedSetup;
+const warningTitle = guide?.warningTitle ?? ui.warningTitle;
 ---
 
 <section class="tool-setup" aria-labelledby="tool-setup-title">
   <div class="tool-setup__heading">
-    <span>Setup / dependencies</span>
+    <span>{ui.setup}</span>
     <h2 id="tool-setup-title">{setupHeading}</h2>
     <p>{setupIntro}</p>
   </div>
@@ -69,7 +104,7 @@ const warningTitle = guide?.warningTitle ?? 'Python version matters.';
   <div class="tool-setup__facts">
     {category && (
       <div>
-        <span>Category</span>
+        <span>{ui.category}</span>
         <strong>{category}</strong>
       </div>
     )}
@@ -80,7 +115,7 @@ const warningTitle = guide?.warningTitle ?? 'Python version matters.';
       </div>
     )}
     <div>
-      <span>Public package</span>
+      <span>{ui.publicPackage}</span>
       <strong>{publicPackage}</strong>
     </div>
   </div>
@@ -97,7 +132,7 @@ const warningTitle = guide?.warningTitle ?? 'Python version matters.';
             <article class="dependency-card">
               <div>
                 <strong>{item.label}</strong>
-                <span>{item.required ? 'Required' : 'Optional'}</span>
+                <span>{item.required ? ui.required : ui.optional}</span>
               </div>
               <p>{item.detail}</p>
             </article>
@@ -117,7 +152,7 @@ const warningTitle = guide?.warningTitle ?? 'Python version matters.';
             <article class="dependency-card dependency-card--generation">
               <div>
                 <strong>{item.label}</strong>
-                <span>{item.required ? secondaryRequiredLabel : 'Optional'}</span>
+                <span>{item.required ? secondaryRequiredLabel : ui.optional}</span>
               </div>
               <p>{item.detail}</p>
             </article>
@@ -156,8 +191,7 @@ const warningTitle = guide?.warningTitle ?? 'Python version matters.';
       </ol>
 
       <p class="install-guide__footnote">
-        {guide.footnote ??
-          'This is the configuration validated for the GVibeDev development machine. It documents a known-good environment, not a claim that WanGP can only run with these exact versions. The final Sprite Studio installer/start command will be added when the first public repository and release are published.'}
+        {guide.footnote ?? ui.footnote}
       </p>
     </div>
   )}

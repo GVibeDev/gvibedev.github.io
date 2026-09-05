@@ -1,8 +1,18 @@
 ---
-import LocalizedContentPage from '../../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import ToolProjectLayout from '../../../../layouts/ToolProjectLayout.astro';
+import LocalizedProjectBody from '../../../../components/project/LocalizedProjectBody.astro';
 
-const page = getItalianContentPage('projects--rubra-image-forge');
+const locale = 'it' as const;
+const project = (await getCollection('projects')).find(
+  (entry) => entry.data.slug === 'rubra-image-forge',
+);
+
+if (!project) {
+  throw new Error('Rubra Image Forge project data not found.');
+}
 ---
 
-<LocalizedContentPage page={page} />
+<ToolProjectLayout project={project} locale={locale}>
+  <LocalizedProjectBody slug="rubra-image-forge" locale={locale} />
+</ToolProjectLayout>

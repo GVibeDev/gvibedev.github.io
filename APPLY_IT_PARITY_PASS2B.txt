@@ -1,0 +1,104 @@
+GVibeDev.cc — ITALIAN PARITY PASS 2B / FULL PROJECT PARITY
+============================================================
+
+BASELINE
+--------
+Italian Parity Pass 1: validated.
+Italian Parity Pass 2A: validated.
+
+The connected GitHub `main` still showed the pre-2A project-detail wrappers
+while this package was prepared, so Pass 2B deliberately includes the Pass 2A
+source files again. It assumes the already-validated Pass 1 core-page source
+that is present on main.
+
+GOAL
+----
+Finish the EN/IT structural alignment for the three remaining complex project
+families:
+
+- Arena Rubra Digital
+- Arena Rubra Board Game / Tabletop
+- Unum Sunt / Radix Machinae
+
+At the end of this pass the old V0.20 Italian HTML-snapshot bridge can be
+retired completely.
+
+WHAT THE ZIP OVERWRITES
+-----------------------
+- Pass 2A shared project/layout localization files (cumulative safety)
+- new Arena Rubra EN/IT shared-copy layer
+- localized Arena Rubra faction/ecosystem shared components
+- localized Editorial shared layout/components
+- Italian routes for the final three complex project pages
+- localized gallery chrome in generic Project / Tool / MO2 layouts
+
+WHAT THE APPLY SCRIPT TRANSFORMS
+--------------------------------
+Two very large current English-first layouts are patched in place rather than
+duplicated inside the ZIP:
+
+- src/layouts/ArenaRubraDigitalLayout.astro
+- src/layouts/BoardGameProjectLayout.astro
+
+It also makes the existing ToolInstallGuide component locale-aware.
+
+The transformation is deterministic and refuses to continue if the expected
+source fragments are no longer present.
+
+APPLY — WINDOWS
+---------------
+1. Extract this ZIP at repository root and overwrite matching files.
+2. From repository root run:
+
+   APPLY_IT_PARITY_PASS2B.cmd
+
+3. Then run:
+
+   npm run build
+
+APPLY — macOS / LINUX / GIT BASH
+--------------------------------
+1. Extract this ZIP at repository root and overwrite matching files.
+2. Run:
+
+   sh APPLY_IT_PARITY_PASS2B.sh
+
+3. Then:
+
+   npm run build
+
+CLEANUP PERFORMED
+-----------------
+The apply wrapper removes:
+- all 18 obsolete Italian `index.html` snapshots;
+- src/i18n/it-pages.json;
+- src/i18n/pages.ts;
+- src/components/pages/LocalizedContentPage.astro.
+
+The three bridge files are removed only because all Italian public routes have
+now been migrated away from that mechanism.
+
+IMPORTANT
+---------
+This pass does not touch:
+- analytics/provider configuration;
+- commercial endpoints;
+- canonical Arena Rubra shared EN data;
+- project repository/download/runtime URLs;
+- B&W Survivors repository state (none is invented).
+
+VALIDATION
+----------
+Use VALIDATION_IT_PARITY_PASS2B.md.
+
+Expected final structural result:
+
+EN route
+   ↓
+current shared layout/component/data
+   ↙                         ↘
+locale=en                  locale=it
+English copy               Italian copy
+
+No Italian full-page HTML snapshots remain.
+No LocalizedContentPage bridge remains.

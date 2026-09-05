@@ -5,17 +5,42 @@ import Container from '../components/ui/Container.astro';
 import ToolProjectHero from '../components/tool/ToolProjectHero.astro';
 import ToolInstallGuide from '../components/tool/ToolInstallGuide.astro';
 import ProjectGallery from '../components/project/ProjectGallery.astro';
+import type { Locale } from '../i18n/config';
+import { getProjectView } from '../i18n/projects-it';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
-const { data } = project;
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
+
+const copy = locale === 'it'
+  ? {
+      profile: 'Profilo dello strumento',
+      repoYes: 'Repository pubblico disponibile.',
+      repoNo: 'Repository pubblico non ancora pubblicato.',
+      releaseYes: 'Pacchetto di release pubblico collegato.',
+      releaseNo: 'Nessun pacchetto di release pubblico ancora collegato.',
+      output: 'Esempio di output',
+      outputTitle: 'Dalla sorgente all’asset pronto per il workflow.',
+      outputAria: `${data.title} esempio di output`,
+    }
+  : {
+      profile: 'Tool profile',
+      repoYes: 'Public repository available.',
+      repoNo: 'Public repository not published yet.',
+      releaseYes: 'Public release package linked.',
+      releaseNo: 'No public release package is linked yet.',
+      output: 'Output example',
+      outputTitle: 'From source motion to game-ready frames.',
+      outputAria: `${data.title} output example`,
+    };
 
 const publicationNotes = [
-  data.links.repositoryUrl ? 'Public repository available.' : 'Public repository not published yet.',
-  data.links.releaseUrl ? 'Public release package linked.' : 'No public release package is linked yet.',
+  data.links.repositoryUrl ? copy.repoYes : copy.repoNo,
+  data.links.releaseUrl ? copy.releaseYes : copy.releaseNo,
 ];
 ---
 
@@ -23,14 +48,15 @@ const publicationNotes = [
   title={data.title}
   description={data.seoDescription ?? data.summary}
   image={data.socialImage ?? data.cover}
+  locale={locale}
 >
-  <ToolProjectHero project={project} />
+  <ToolProjectHero project={project} locale={locale} />
 
   <section class="tool-story" id="documentation">
     <Container>
       <div class="tool-story__grid">
         <aside class="tool-story__aside">
-          <span>Tool profile</span>
+          <span>{copy.profile}</span>
           {data.toolCategory && <strong>{data.toolCategory}</strong>}
           {data.platforms.length > 0 && <p>{data.platforms.join(' · ')}</p>}
           <p>{publicationNotes.join(' ')}</p>
@@ -46,7 +72,7 @@ const publicationNotes = [
   {data.gallery.length > 0 && (
     <section class="tool-gallery-shell">
       <Container>
-        <ProjectGallery items={data.gallery} />
+        <ProjectGallery items={data.gallery} locale={locale} />
       </Container>
     </section>
   )}
@@ -60,17 +86,18 @@ const publicationNotes = [
           requirements={data.requirements}
           setupCopy={data.setupCopy}
           guide={data.installGuide}
+          locale={locale}
         />
       </Container>
     </section>
   )}
 
   {data.endcapImage && (
-    <section class="tool-endcap" aria-label={`${data.title} output example`}>
+    <section class="tool-endcap" aria-label={copy.outputAria}>
       <Container>
         <div class="tool-endcap__heading">
-          <span>Output example</span>
-          <h2>From source motion to game-ready frames.</h2>
+          <span>{copy.output}</span>
+          <h2>{copy.outputTitle}</h2>
         </div>
         <figure>
           <img
@@ -122,13 +149,16 @@ const publicationNotes = [
   .tool-story__aside p { margin: 0; color: var(--color-text-muted); font-size: 0.9rem; line-height: 1.6; }
 
   :global(.tool-prose) { max-width: 53rem; }
+
   :global(.tool-prose h2) {
     margin: 0 0 1.2rem;
     font-size: clamp(2rem, 4vw, 3.4rem);
     line-height: 1;
     letter-spacing: -0.045em;
   }
+
   :global(.tool-prose h2:not(:first-child)) { margin-top: 4.5rem; }
+
   :global(.tool-prose h3) {
     margin: 2.4rem 0 0.65rem;
     color: var(--color-blue-soft);
@@ -137,14 +167,23 @@ const publicationNotes = [
     letter-spacing: 0.07em;
     text-transform: uppercase;
   }
+
   :global(.tool-prose p) {
     margin: 0 0 1.3rem;
     color: var(--color-text-muted);
     font-size: clamp(1rem, 0.96rem + 0.15vw, 1.08rem);
     line-height: 1.8;
   }
+
   :global(.tool-prose strong) { color: var(--color-text); }
-  :global(.tool-prose ul) { display: grid; gap: 0.65rem; padding-left: 1.25rem; color: var(--color-text-muted); line-height: 1.65; }
+
+  :global(.tool-prose ul) {
+    display: grid;
+    gap: 0.65rem;
+    padding-left: 1.25rem;
+    color: var(--color-text-muted);
+    line-height: 1.65;
+  }
 
   .tool-gallery-shell,
   .tool-setup-shell,
@@ -157,8 +196,19 @@ const publicationNotes = [
   .tool-setup-shell { background: var(--color-bg); }
   .tool-endcap { padding-block: var(--section-space); }
 
-  .tool-endcap__heading { display: grid; gap: 0.6rem; margin-bottom: 2rem; }
-  .tool-endcap__heading h2 { max-width: 18ch; margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -0.045em; }
+  .tool-endcap__heading {
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .tool-endcap__heading h2 {
+    max-width: 18ch;
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+  }
 
   .tool-endcap figure {
     display: grid;
@@ -175,7 +225,12 @@ const publicationNotes = [
     background-size: 24px 24px;
   }
 
-  .tool-endcap img { display: block; width: min(100%, 42rem); height: auto; image-rendering: pixelated; }
+  .tool-endcap img {
+    display: block;
+    width: min(100%, 42rem);
+    height: auto;
+    image-rendering: pixelated;
+  }
 
   @media (min-width: 60rem) {
     .tool-story__grid {
@@ -183,6 +238,10 @@ const publicationNotes = [
       gap: clamp(3rem, 7vw, 6rem);
       align-items: start;
     }
-    .tool-story__aside { position: sticky; top: 6.5rem; }
+
+    .tool-story__aside {
+      position: sticky;
+      top: 6.5rem;
+    }
   }
 </style>

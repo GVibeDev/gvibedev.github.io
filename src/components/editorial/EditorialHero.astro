@@ -1,27 +1,47 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../../i18n/config';
+import { getProjectView } from '../../i18n/projects-it';
 
-interface Props { project: CollectionEntry<'projects'>; }
-const { project } = Astro.props;
-const { data } = project;
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locale?: Locale;
+}
+
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
+
+const copy = locale === 'it'
+  ? {
+      fallbackCategory: 'Progetto narrativo',
+      statusAria: 'Stato del progetto',
+      read: 'Leggi l’anteprima',
+      world: 'Entra nel mondo',
+    }
+  : {
+      fallbackCategory: 'Narrative project',
+      statusAria: 'Project status',
+      read: 'Read the preview',
+      world: 'Enter the world',
+    };
 ---
 
 <header class="editorial-hero">
   <div class="editorial-hero__copy">
-    <p class="editorial-hero__eyebrow">{data.editorialCategory ?? 'Narrative project'}</p>
+    <p class="editorial-hero__eyebrow">{data.editorialCategory ?? copy.fallbackCategory}</p>
     <h1>{data.title}</h1>
     {data.subtitle && <p class="editorial-hero__subtitle">{data.subtitle}</p>}
     <p class="editorial-hero__summary">{data.summary}</p>
 
-    <div class="editorial-hero__meta" aria-label="Project status">
+    <div class="editorial-hero__meta" aria-label={copy.statusAria}>
       {data.status && <span>{data.status}</span>}
       {data.editorialAvailability && <span>{data.editorialAvailability}</span>}
     </div>
 
     {data.documents.length > 0 && (
       <div class="editorial-hero__actions">
-        <a href="#preview-library" class="editorial-hero__primary">Read the preview</a>
-        <a href="#world">Enter the world</a>
+        <a href="#preview-library" class="editorial-hero__primary">{copy.read}</a>
+        <a href="#world">{copy.world}</a>
       </div>
     )}
   </div>

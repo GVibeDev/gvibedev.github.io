@@ -1,8 +1,18 @@
 ---
-import LocalizedContentPage from '../../../../components/pages/LocalizedContentPage.astro';
-import { getItalianContentPage } from '../../../../i18n/pages';
+import { getCollection } from 'astro:content';
+import ProjectLayout from '../../../../layouts/ProjectLayout.astro';
+import LocalizedProjectBody from '../../../../components/project/LocalizedProjectBody.astro';
 
-const page = getItalianContentPage('projects--manuale-llm');
+const locale = 'it' as const;
+const project = (await getCollection('projects')).find(
+  (entry) => entry.data.slug === 'manuale-llm',
+);
+
+if (!project) {
+  throw new Error('Manuale LLM project data not found.');
+}
 ---
 
-<LocalizedContentPage page={page} />
+<ProjectLayout project={project} locale={locale}>
+  <LocalizedProjectBody slug="manuale-llm" locale={locale} />
+</ProjectLayout>

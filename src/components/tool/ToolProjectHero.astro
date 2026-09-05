@@ -3,22 +3,40 @@ import type { CollectionEntry } from 'astro:content';
 import Container from '../ui/Container.astro';
 import Tag from '../ui/Tag.astro';
 import ProjectActions from '../project/ProjectActions.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getProjectView } from '../../i18n/projects-it';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
-const { data } = project;
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
+
+const copy = locale === 'it'
+  ? {
+      back: '← Tutti gli strumenti',
+      kind: 'Strumento desktop',
+      tags: 'Tag dello strumento',
+      logo: `${data.title} logo`,
+    }
+  : {
+      back: '← All tools',
+      kind: 'Desktop Tool',
+      tags: 'Tool tags',
+      logo: `${data.title} logo`,
+    };
 ---
 
 <section class="tool-hero">
   <Container>
-    <a class="tool-hero__back" href="/tools/">← All tools</a>
+    <a class="tool-hero__back" href={getNavigationPath('/tools/', locale)}>{copy.back}</a>
 
     <div class="tool-hero__intro">
       <div class="tool-hero__eyebrow">
-        <span>Desktop Tool</span>
+        <span>{copy.kind}</span>
         {data.status && <span class="tool-hero__status">{data.status}</span>}
       </div>
 
@@ -26,17 +44,17 @@ const { data } = project;
       <p class="tool-hero__summary">{data.summary}</p>
 
       {data.tags.length > 0 && (
-        <div class="tool-hero__tags" aria-label="Tool tags">
+        <div class="tool-hero__tags" aria-label={copy.tags}>
           {data.tags.map((tag) => <Tag tone="blue">{tag}</Tag>)}
         </div>
       )}
 
-      <ProjectActions links={data.links} />
+      <ProjectActions links={data.links} locale={locale} />
     </div>
 
     {data.logo && (
       <figure class="tool-hero__brand">
-        <img src={data.logo} alt={`${data.title} logo`} width="1357" height="371" fetchpriority="high" />
+        <img src={data.logo} alt={copy.logo} width="1357" height="371" fetchpriority="high" />
       </figure>
     )}
 

@@ -1,24 +1,40 @@
 ---
-import { arenaRubraRelatedProjects } from '../../data/shared/arena-rubra';
+import type { Locale } from '../../i18n/config';
+import { getEquivalentPath } from '../../i18n/config';
+import { getArenaRubraShared } from '../../i18n/arena-rubra';
 
-interface Props { currentSlug?: string; }
-const { currentSlug } = Astro.props;
+interface Props {
+  currentSlug?: string;
+  locale?: Locale;
+}
+
+const { currentSlug, locale = 'en' } = Astro.props;
+const { relatedProjects } = getArenaRubraShared(locale);
+
+const copy = locale === 'it'
+  ? { aria: 'Progetti collegati ad Arena Rubra', current: 'Corrente', explore: 'Esplora →' }
+  : { aria: 'Arena Rubra related projects', current: 'Current', explore: 'Explore →' };
+
+function localizedHref(href: string) {
+  if (locale !== 'it') return href;
+  return getEquivalentPath(href, 'it') ?? href;
+}
 ---
 
-<div class="arena-ecosystem" aria-label="Arena Rubra related projects">
-  {arenaRubraRelatedProjects.map((project) => (
+<div class="arena-ecosystem" aria-label={copy.aria}>
+  {relatedProjects.map((project) => (
     currentSlug === project.slug ? (
       <div class="arena-ecosystem__card arena-ecosystem__card--current" aria-current="page">
-        <span>{project.label} · Current</span>
+        <span>{project.label} · {copy.current}</span>
         <strong>{project.title}</strong>
         <p>{project.body}</p>
       </div>
     ) : (
-      <a class="arena-ecosystem__card" href={project.href}>
+      <a class="arena-ecosystem__card" href={localizedHref(project.href)}>
         <span>{project.label}</span>
         <strong>{project.title}</strong>
         <p>{project.body}</p>
-        <small>Explore →</small>
+        <small>{copy.explore}</small>
       </a>
     )
   ))}

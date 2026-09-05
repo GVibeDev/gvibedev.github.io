@@ -5,100 +5,80 @@ import Container from '../components/ui/Container.astro';
 import ProjectGallery from '../components/project/ProjectGallery.astro';
 import ArenaRubraFactionGrid from '../components/arena-rubra/ArenaRubraFactionGrid.astro';
 import ArenaRubraEcosystemLinks from '../components/arena-rubra/ArenaRubraEcosystemLinks.astro';
-import {
-  arenaRubraUniverse,
-  arenaRubraCorePrinciples,
-  arenaRubraMatchFlow,
-  arenaRubraSystems,
-  arenaRubraTestingSummary,
-  arenaRubraTestAreas,
-} from '../data/shared/arena-rubra';
+import { getNavigationPath, type Locale } from '../i18n/config';
+import { getProjectView } from '../i18n/projects-it';
+import { getArenaRubraShared, getArenaRubraTabletopCopy } from '../i18n/arena-rubra';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
-const { data } = project;
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
+const arena = getArenaRubraShared(locale);
+const copy = getArenaRubraTabletopCopy(locale);
 
-const facts = [
-  ['Players', '2'],
-  ['Deck', '30 cards'],
-  ['Core', 'Plan / Position / Pressure'],
-  ['Factions', '5'],
-];
+const arenaRubraUniverse = arena.universe;
+const arenaRubraCorePrinciples = arena.corePrinciples;
+const arenaRubraMatchFlow = arena.matchFlow;
+const arenaRubraSystems = arena.systems;
+const arenaRubraTestingSummary = arena.testingSummary;
+const arenaRubraTestAreas = arena.testAreas;
 
-const sampleCards = [
-  {
-    src: '/assets/projects/arena-rubra-board-game/cards/varran.webp',
-    alt: 'Varran Exordium Commander sample card for Arena Rubra tabletop.',
-    label: 'Exordium / Commander',
-    name: 'Varran',
-  },
-  {
-    src: '/assets/projects/arena-rubra-board-game/cards/adepto-fabeot.webp',
-    alt: 'Adepto Fabeot light infantry sample card for Arena Rubra tabletop.',
-    label: 'Fabeot / Light Infantry',
-    name: 'Adepto Fabeot',
-  },
-  {
-    src: '/assets/projects/arena-rubra-board-game/cards/predone-liberto.webp',
-    alt: 'Predone Liberto heavy infantry sample card for Arena Rubra tabletop.',
-    label: 'Liberti / Heavy Infantry',
-    name: 'Predone Liberto',
-  },
+const facts = copy.facts;
+const sampleCardAssets = [
+  { src: '/assets/projects/arena-rubra-board-game/cards/varran.webp' },
+  { src: '/assets/projects/arena-rubra-board-game/cards/adepto-fabeot.webp' },
+  { src: '/assets/projects/arena-rubra-board-game/cards/predone-liberto.webp' },
 ];
-
-const developmentStatus = [
-  ['Status', 'Pre-production tabletop prototype'],
-  ['Ruleset', 'Starter rules substantially defined'],
-  ['Playtesting', 'Hundreds of full test matches'],
-  ['Factions', '5'],
-  ['Deck format', '30 cards'],
-  ['Physical prototype', 'Not yet manufactured'],
-  ['Current focus', 'Balance / usability / component specification'],
-];
+const sampleCards = sampleCardAssets.map((asset, index) => ({
+  ...asset,
+  ...copy.sampleCards[index],
+}));
+const developmentStatus = copy.developmentStatus;
 ---
 
 <BaseLayout
   title={data.title}
   description={data.seoDescription ?? data.summary}
   image={data.socialImage ?? data.cover}
+  locale={locale}
 >
   <div class="tabletop-page">
     <section class="tabletop-hero">
       <Container>
-        <a class="tabletop-back" href="/worlds/">← Worlds</a>
+        <a class="tabletop-back" href={getNavigationPath('/worlds/', locale)}>{copy.back}</a>
 
         <div class="tabletop-hero__head">
           <div class="tabletop-hero__copy">
             <div class="tabletop-kicker">
-              <span>Tabletop project</span>
+              <span>{copy.kicker}</span>
               {data.status && <span>{data.status}</span>}
             </div>
             <h1>Arena Rubra</h1>
             <p>{data.summary}</p>
             <div class="tabletop-actions">
-              <a class="tabletop-action tabletop-action--primary" href="#what-is-arena-rubra">Explore the tabletop system ↓</a>
-              <a class="tabletop-action" href="/projects/arena-rubra-digital/">Digital project ↗</a>
+              <a class="tabletop-action tabletop-action--primary" href="#what-is-arena-rubra">{copy.explore}</a>
+              <a class="tabletop-action" href={getNavigationPath('/projects/arena-rubra-digital/', locale)}>{copy.digitalProject}</a>
             </div>
           </div>
 
-          <aside class="prototype-note" aria-label="Prototype status">
-            <span>Prototype status</span>
-            <strong>Concept visuals, real rules.</strong>
-            <p>The physical edition shown here has not yet been manufactured. Table images visualize the intended component system.</p>
+          <aside class="prototype-note" aria-label={copy.prototypeAria}>
+            <span>{copy.prototypeEyebrow}</span>
+            <strong>{copy.prototypeTitle}</strong>
+            <p>{copy.prototypeBody}</p>
           </aside>
         </div>
 
         {data.heroImage && (
           <figure class="tabletop-hero__media">
             <img src={data.heroImage} alt={data.heroAlt ?? ''} width="1672" height="941" fetchpriority="high" />
-            <figcaption>Tabletop concept visualization — not a photograph of a manufactured prototype.</figcaption>
+            <figcaption>{copy.heroCaption}</figcaption>
           </figure>
         )}
 
-        <div class="tabletop-facts" aria-label="Arena Rubra tabletop quick facts">
+        <div class="tabletop-facts" aria-label={copy.factsAria}>
           {facts.map(([label, value]) => (
             <div>
               <span>{label}</span>
@@ -113,13 +93,13 @@ const developmentStatus = [
       <Container>
         <div class="intro-grid">
           <div>
-            <span class="eyebrow">What is Arena Rubra?</span>
-            <h2>Cards do not replace the battlefield. They enter it.</h2>
+            <span class="eyebrow">{copy.introEyebrow}</span>
+            <h2>{copy.introTitle}</h2>
           </div>
           <div class="intro-copy">
             <p>{arenaRubraUniverse.positioning}</p>
-            <p>Two players lead asymmetric factions across a hexagonal map, deploy units and Structures, contest Strategic Points and convert territorial control into economic and strategic pressure.</p>
-            <p>The deck defines the available options, but positioning determines whether those options matter. A strong card played in the wrong place can accomplish very little. A modest unit holding the right hex can change the entire match.</p>
+            <p>{copy.introBody[0]}</p>
+            <p>{copy.introBody[1]}</p>
           </div>
         </div>
       </Container>
@@ -129,7 +109,7 @@ const developmentStatus = [
       <Container>
         <div class="section-heading">
           <span>Plan / Position / Pressure</span>
-          <h2>Build the force. Shape the battlefield. Make control matter.</h2>
+          <h2>{copy.systemTitle}</h2>
         </div>
         <div class="pillar-grid">
           {arenaRubraCorePrinciples.map((pillar, index) => (
@@ -147,8 +127,8 @@ const developmentStatus = [
     <section class="match-flow section-block">
       <Container>
         <div class="section-heading section-heading--compact">
-          <span>How a match works</span>
-          <h2>Understand the loop in under a minute.</h2>
+          <span>{copy.matchEyebrow}</span>
+          <h2>{copy.matchTitle}</h2>
         </div>
         <div class="flow-grid">
           {arenaRubraMatchFlow.map((item) => (
@@ -165,8 +145,8 @@ const developmentStatus = [
     <section class="systems-section section-block">
       <Container>
         <div class="section-heading">
-          <span>Core mechanics</span>
-          <h2>The system under the cards.</h2>
+          <span>{copy.mechanicsEyebrow}</span>
+          <h2>{copy.mechanicsTitle}</h2>
         </div>
         <div class="systems-grid">
           {arenaRubraSystems.map((system) => (
@@ -183,9 +163,9 @@ const developmentStatus = [
       <Container>
         <div class="tabletop-story__grid">
           <aside class="tabletop-story__aside">
-            <span>Tabletop discipline</span>
-            <strong>Every state must remain visible.</strong>
-            <p>The tabletop branch cannot hide complexity inside code. Deployment, protection, position, economy and victory state must stay readable without invisible automation.</p>
+            <span>{copy.disciplineEyebrow}</span>
+            <strong>{copy.disciplineTitle}</strong>
+            <p>{copy.disciplineBody}</p>
           </aside>
           <article class="tabletop-prose">
             <slot />
@@ -197,10 +177,10 @@ const developmentStatus = [
     <section class="faction-section section-block">
       <Container>
         <div class="section-heading section-heading--compact">
-          <span>The five factions</span>
-          <h2>Five strategic philosophies reading the same board differently.</h2>
+          <span>{copy.factionsEyebrow}</span>
+          <h2>{copy.factionsTitle}</h2>
         </div>
-        <ArenaRubraFactionGrid />
+        <ArenaRubraFactionGrid locale={locale} />
       </Container>
     </section>
 
@@ -212,7 +192,7 @@ const developmentStatus = [
             <span>{arenaRubraTestingSummary.statLabel}</span>
           </div>
           <div class="testing-copy">
-            <span class="eyebrow">Designed by playing it</span>
+            <span class="eyebrow">{copy.testingEyebrow}</span>
             <h2>{arenaRubraTestingSummary.headline}</h2>
             <p>{arenaRubraTestingSummary.body}</p>
             <blockquote>{arenaRubraTestingSummary.principle}</blockquote>
@@ -226,8 +206,8 @@ const developmentStatus = [
     <section class="test-areas section-block">
       <Container>
         <div class="section-heading section-heading--compact">
-          <span>What we test</span>
-          <h2>Winning is only one signal.</h2>
+          <span>{copy.testEyebrow}</span>
+          <h2>{copy.testTitle}</h2>
         </div>
         <div class="test-grid">
           {arenaRubraTestAreas.map(([title, body]) => (
@@ -244,15 +224,15 @@ const developmentStatus = [
       <Container>
         <div class="two-forms__grid">
           <div>
-            <span class="eyebrow">One system, two forms</span>
-            <h2>Digital lab. Physical destination.</h2>
+            <span class="eyebrow">{copy.formsEyebrow}</span>
+            <h2>{copy.formsTitle}</h2>
           </div>
           <div class="two-forms__copy">
             <p>{arenaRubraUniverse.relationship}</p>
-            <p>The goal is not numerical identity between the two versions. The goal is preservation of the same strategic character while each medium is allowed to expose different strengths and different weaknesses.</p>
+            <p>{copy.formsBody}</p>
           </div>
         </div>
-        <ArenaRubraEcosystemLinks currentSlug="arena-rubra-board-game" />
+        <ArenaRubraEcosystemLinks currentSlug="arena-rubra-board-game" locale={locale} />
       </Container>
     </section>
 
@@ -260,10 +240,10 @@ const developmentStatus = [
       <Container>
         <div class="cards-heading">
           <div>
-            <span>Current card language</span>
-            <h2>Cards designed to become pieces on the battlefield.</h2>
+            <span>{copy.cardsEyebrow}</span>
+            <h2>{copy.cardsTitle}</h2>
           </div>
-          <p>These samples are presentation material for the evolving tabletop edition. Artwork and structure are representative; values and wording may still change before a physical prototype is frozen.</p>
+          <p>{copy.cardsBody}</p>
         </div>
         <div class="sample-cards">
           {sampleCards.map((card) => (
@@ -284,7 +264,7 @@ const developmentStatus = [
     {data.gallery.length > 0 && (
       <section class="tabletop-gallery section-block">
         <Container>
-          <ProjectGallery items={data.gallery} />
+          <ProjectGallery items={data.gallery} locale={locale} />
         </Container>
       </section>
     )}
@@ -293,9 +273,9 @@ const developmentStatus = [
       <Container>
         <div class="status-grid">
           <div>
-            <span class="eyebrow">Development status</span>
-            <h2>Past the idea stage. Not yet a manufactured object.</h2>
-            <p>The physical prototype, production specifications, final component counts and manufacturing decisions remain future work. The project is currently focused on balance, usability and component specification.</p>
+            <span class="eyebrow">{copy.statusEyebrow}</span>
+            <h2>{copy.statusTitle}</h2>
+            <p>{copy.statusBody}</p>
           </div>
           <dl>
             {developmentStatus.map(([label, value]) => (

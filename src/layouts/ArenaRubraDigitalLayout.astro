@@ -6,71 +6,49 @@ import ProjectActions from '../components/project/ProjectActions.astro';
 import ProjectGallery from '../components/project/ProjectGallery.astro';
 import ArenaRubraFactionGrid from '../components/arena-rubra/ArenaRubraFactionGrid.astro';
 import ArenaRubraEcosystemLinks from '../components/arena-rubra/ArenaRubraEcosystemLinks.astro';
-import {
-  arenaRubraUniverse,
-  arenaRubraTestingSummary,
-  arenaRubraTestAreas,
-} from '../data/shared/arena-rubra';
+import { getNavigationPath, type Locale } from '../i18n/config';
+import { getProjectView } from '../i18n/projects-it';
+import { getArenaRubraShared, getArenaRubraDigitalCopy } from '../i18n/arena-rubra';
 
-interface Props { project: CollectionEntry<'projects'>; }
-const { project } = Astro.props;
-const { data } = project;
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locale?: Locale;
+}
 
-const digitalSystems = [
-  ['Executable rules', 'The browser build resolves movement, combat, states, targeting, ENE, deployment and victory checks as an executable rules environment rather than a static presentation.'],
-  ['Control Center', 'Play, card tools, maps, analysis, settings, version information and diagnostics are gathered into one operational hub.'],
-  ['Cards & decks', 'A card library, rendered card data and deck-building workflows let the content layer be inspected and changed without losing the rules context.'],
-  ['Maps', 'Official and custom battlefields can be inspected, validated and edited through a dedicated hex-map workflow.'],
-  ['Guided tutorials', 'Structured lessons use narrator overlays, highlights and controlled states to teach rules inside the actual game.'],
-  ['AI opponents', 'Automated players are used both as opponents and as repeatable behavioural test subjects for faction doctrines.'],
-  ['Telemetry & history', 'Match state, seeds, economy, card use and other runtime evidence can be exported and inspected instead of relying only on memory.'],
-  ['Diagnostics', 'Debug, logs, import/export and explicit baseline information make regressions easier to reproduce and compare.'],
-];
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
+const arena = getArenaRubraShared(locale);
+const copy = getArenaRubraDigitalCopy(locale);
 
-const digitalFactionNotes: Record<string, string> = {
-  nexus: 'Digital doctrine work focuses on stable network growth, Strategic Point commitment and converting a mature position into actual offensive projection.',
-  exordium: 'The AI is tested for combined-arms timing, Commander deployment, forward commitments and the ability to turn formation into sustained assault.',
-  liberti: 'Digital tests watch whether numbers and aggression become useful pressure rather than simple clustering or wasteful exposure.',
-  agathoi: 'The rules environment makes it possible to test whether resilience and Structures eventually create movement and counter-pressure instead of permanent passivity.',
-  fabeot: 'Automated play is used to inspect whether economic disruption, denial and conditional effects genuinely alter enemy decisions rather than merely add noise.',
-};
-
-const investigationExamples = [
-  'Faction starvation',
-  'Territorial clustering',
-  'Commander deployment',
-  'Aggression timing',
-  'Strategic Point commitment',
-  'Defensive overcommitment',
-  'Path / occupancy behaviour',
-  'Effective attack value',
-  'Match duration',
-  'Faction asymmetry',
-];
-
-const digitalStrengths = ['Repetition', 'Simulation', 'Telemetry', 'AI testing', 'Edge cases', 'Rapid balancing'];
-const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load', 'Component clarity', 'Human decision flow', 'Manual rule discipline'];
+const arenaRubraUniverse = arena.universe;
+const arenaRubraTestingSummary = arena.testingSummary;
+const arenaRubraTestAreas = arena.testAreas;
+const digitalSystems = copy.systems;
+const digitalFactionNotes = copy.factionNotes;
+const investigationExamples = copy.investigations;
+const digitalStrengths = copy.digitalStrengths;
+const tabletopStrengths = copy.tabletopStrengths;
 ---
 
-<BaseLayout title={data.title} description={data.seoDescription ?? data.summary} image={data.socialImage ?? data.cover}>
+<BaseLayout title={data.title} description={data.seoDescription ?? data.summary} image={data.socialImage ?? data.cover} locale={locale}>
   <div class="digital-page">
     <section class="digital-hero">
       <Container>
-        <a class="digital-back" href="/web-apps/">← Web Apps</a>
+        <a class="digital-back" href={getNavigationPath('/web-apps/', locale)}>{copy.back}</a>
         <div class="digital-hero__head">
           <div class="digital-hero__copy">
             <div class="digital-kicker">
-              <span>Playable browser project</span>
+              <span>{copy.kicker}</span>
               {data.status && <span>{data.status}</span>}
             </div>
             <h1>Arena Rubra</h1>
             <p>{data.summary}</p>
-            <ProjectActions links={data.links} />
+            <ProjectActions links={data.links} locale={locale} />
           </div>
           <aside class="digital-status">
-            <span>Digital branch</span>
-            <strong>Rules that can be played, measured and challenged.</strong>
-            <p>The browser build is both a playable game and a development environment for testing the strategic system.</p>
+            <span>{copy.branch}</span>
+            <strong>{copy.branchTitle}</strong>
+            <p>{copy.branchBody}</p>
           </aside>
         </div>
 
@@ -86,12 +64,12 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
       <Container>
         <div class="split-heading">
           <div>
-            <span class="eyebrow">The Digital Arena</span>
-            <h2>Not simply the tabletop game on a screen.</h2>
+            <span class="eyebrow">{copy.arenaEyebrow}</span>
+            <h2>{copy.arenaTitle}</h2>
           </div>
           <div class="lead-copy">
-            <p>Arena Rubra Digital turns the rules into an environment that can be executed repeatedly, inspected and revised. The visible match is only one part of the application.</p>
-            <p>Deck tools, map authoring, tutorials, AI opponents, history, telemetry and diagnostics make the browser version useful both to players and to the design process itself.</p>
+            <p>{copy.arenaBody[0]}</p>
+            <p>{copy.arenaBody[1]}</p>
           </div>
         </div>
         <div class="systems-grid">
@@ -106,13 +84,13 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
       <Container>
         <div class="evidence-grid">
           <figure>
-            <img src="/assets/projects/arena-rubra/v012/control-center.webp" alt="Arena Rubra Control Center showing play, card, map, analysis and system tools." width="1600" height="900" loading="lazy" decoding="async" />
+            <img src="/assets/projects/arena-rubra/v012/control-center.webp" alt={copy.evidenceAlt} width="1600" height="900" loading="lazy" decoding="async" />
           </figure>
           <div>
-            <span class="eyebrow">A project with instruments</span>
-            <h2>The game carries its workshop with it.</h2>
-            <p>The Control Center exposes the parts normally hidden behind a development build: content, maps, statistics, telemetry, logs, version state, settings, diagnostics and archive operations.</p>
-            <p>That matters because a behavioural problem can be traced through evidence instead of being reduced to “the match felt wrong.”</p>
+            <span class="eyebrow">{copy.evidenceEyebrow}</span>
+            <h2>{copy.evidenceTitle}</h2>
+            <p>{copy.evidenceBody[0]}</p>
+            <p>{copy.evidenceBody[1]}</p>
           </div>
         </div>
       </Container>
@@ -121,11 +99,11 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
     <section class="faction-section section-block">
       <Container>
         <div class="section-heading">
-          <span>The five factions</span>
-          <h2>One canonical identity, expressed through executable doctrine.</h2>
-          <p>The common faction descriptions below come from the shared Arena Rubra data source used by both Digital and Tabletop. The digital branch adds a testing interpretation rather than maintaining a second copy of the canon.</p>
+          <span>{copy.factionsEyebrow}</span>
+          <h2>{copy.factionsTitle}</h2>
+          <p>{copy.factionsBody}</p>
         </div>
-        <ArenaRubraFactionGrid />
+        <ArenaRubraFactionGrid locale={locale} />
         <div class="doctrine-grid">
           {Object.entries(digitalFactionNotes).map(([id, body]) => (
             <article>
@@ -141,10 +119,10 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
       <Container>
         <div class="testing-heading">
           <div>
-            <span class="eyebrow">Testing lab</span>
-            <h2>The game is also its own test lab.</h2>
+            <span class="eyebrow">{copy.testingEyebrow}</span>
+            <h2>{copy.testingTitle}</h2>
           </div>
-          <aside class="testing-volume" aria-label="Arena Rubra testing volume">
+          <aside class="testing-volume" aria-label={copy.testingAria}>
             <strong>{arenaRubraTestingSummary.stat}</strong>
             <span>{arenaRubraTestingSummary.statLabel}</span>
           </aside>
@@ -156,13 +134,13 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
           <code>{arenaRubraTestingSummary.cycle}</code>
         </div>
 
-        <div class="investigation-grid" aria-label="Examples of Arena Rubra investigations">
+        <div class="investigation-grid" aria-label={copy.investigationAria}>
           {investigationExamples.map((item) => <span>{item}</span>)}
         </div>
 
         <figure class="telemetry-media">
-          <img src="/assets/projects/arena-rubra/v012/telemetry.webp" alt="Arena Rubra telemetry panel showing match schema, seed and player data with JSON export controls." width="1600" height="900" loading="lazy" decoding="async" />
-          <figcaption>Telemetry is treated as design evidence, not decoration.</figcaption>
+          <img src="/assets/projects/arena-rubra/v012/telemetry.webp" alt={copy.telemetryAlt} width="1600" height="900" loading="lazy" decoding="async" />
+          <figcaption>{copy.telemetryCaption}</figcaption>
         </figure>
       </Container>
     </section>
@@ -170,8 +148,8 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
     <section class="what-we-test section-block">
       <Container>
         <div class="section-heading section-heading--compact">
-          <span>What we test</span>
-          <h2>Winning is only one signal.</h2>
+          <span>{copy.testEyebrow}</span>
+          <h2>{copy.testTitle}</h2>
         </div>
         <div class="test-grid">
           {arenaRubraTestAreas.map(([title, body]) => (
@@ -185,33 +163,33 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
       <Container>
         <div class="split-heading">
           <div>
-            <span class="eyebrow">One world. Two playable forms.</span>
-            <h2>Digital and Tabletop test different weaknesses.</h2>
+            <span class="eyebrow">{copy.formsEyebrow}</span>
+            <h2>{copy.formsTitle}</h2>
           </div>
           <div class="lead-copy">
             <p>{arenaRubraUniverse.relationship}</p>
-            <p>The goal is not numerical identity between the two versions. The goal is preservation of the same strategic character while each medium is allowed to demand different solutions.</p>
+            <p>{copy.formsBody}</p>
           </div>
         </div>
 
         <div class="medium-grid">
           <article>
-            <span>Digital is good at</span>
+            <span>{copy.digitalGood}</span>
             <div>{digitalStrengths.map((item) => <small>{item}</small>)}</div>
           </article>
           <article>
-            <span>Tabletop is good at</span>
+            <span>{copy.tabletopGood}</span>
             <div>{tabletopStrengths.map((item) => <small>{item}</small>)}</div>
           </article>
         </div>
 
-        <ArenaRubraEcosystemLinks currentSlug="arena-rubra-digital" />
+        <ArenaRubraEcosystemLinks currentSlug="arena-rubra-digital" locale={locale} />
       </Container>
     </section>
 
     {data.gallery.length > 0 && (
       <section class="digital-gallery section-block">
-        <Container><ProjectGallery items={data.gallery} /></Container>
+        <Container><ProjectGallery items={data.gallery} locale={locale} /></Container>
       </section>
     )}
 
@@ -219,9 +197,9 @@ const tabletopStrengths = ['Readability', 'Physical usability', 'Cognitive load'
       <Container>
         <div class="digital-story__grid">
           <aside>
-            <span>Human-directed development</span>
-            <strong>Automation does not choose what deserves to stay.</strong>
-            <p>The build can generate evidence quickly. Requirements, acceptance criteria, interpretation and final design decisions remain human responsibilities.</p>
+            <span>{copy.humanEyebrow}</span>
+            <strong>{copy.humanTitle}</strong>
+            <p>{copy.humanBody}</p>
           </aside>
           <article class="digital-prose"><slot /></article>
         </div>

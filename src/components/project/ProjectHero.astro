@@ -3,26 +3,41 @@ import type { CollectionEntry } from 'astro:content';
 import Container from '../ui/Container.astro';
 import Tag from '../ui/Tag.astro';
 import ProjectActions from './ProjectActions.astro';
+import type { Locale } from '../../i18n/config';
+import { getNavigationPath } from '../../i18n/config';
+import { getProjectView } from '../../i18n/projects-it';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  locale?: Locale;
 }
 
-const { project } = Astro.props;
-const { data } = project;
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
 
-const kindLabels = {
-  'web-app': 'Web App',
-  tool: 'Tool',
-  world: 'World',
-  game: 'Game',
-  experiment: 'Experiment',
-} as const;
+const kindLabels = locale === 'it'
+  ? {
+      'web-app': 'Web App',
+      tool: 'Strumento',
+      world: 'Mondo',
+      game: 'Gioco',
+      experiment: 'Esperimento',
+    }
+  : {
+      'web-app': 'Web App',
+      tool: 'Tool',
+      world: 'World',
+      game: 'Game',
+      experiment: 'Experiment',
+    };
+
+const backLabel = locale === 'it' ? '← Tutti i progetti' : '← All projects';
+const tagsLabel = locale === 'it' ? 'Tag del progetto' : 'Project tags';
 ---
 
 <section class="project-hero">
   <Container>
-    <a class="project-hero__back" href="/projects/">← All projects</a>
+    <a class="project-hero__back" href={getNavigationPath('/projects/', locale)}>{backLabel}</a>
 
     <div class="project-hero__intro">
       <div class="project-hero__copy">
@@ -35,12 +50,12 @@ const kindLabels = {
         <p class="project-hero__summary">{data.summary}</p>
 
         {data.tags.length > 0 && (
-          <div class="project-hero__tags" aria-label="Project tags">
+          <div class="project-hero__tags" aria-label={tagsLabel}>
             {data.tags.map((tag) => <Tag tone="blue">{tag}</Tag>)}
           </div>
         )}
 
-        <ProjectActions links={data.links} />
+        <ProjectActions links={data.links} locale={locale} />
       </div>
 
       {data.logo && (
@@ -82,9 +97,7 @@ const kindLabels = {
     text-transform: uppercase;
   }
 
-  .project-hero__back:hover {
-    color: var(--color-blue-soft);
-  }
+  .project-hero__back:hover { color: var(--color-blue-soft); }
 
   .project-hero__intro {
     display: grid;
@@ -111,9 +124,7 @@ const kindLabels = {
     text-transform: uppercase;
   }
 
-  .project-hero__status {
-    color: var(--color-red-soft);
-  }
+  .project-hero__status { color: var(--color-red-soft); }
 
   h1 {
     margin: 0;
@@ -178,15 +189,10 @@ const kindLabels = {
     height: auto;
   }
 
-  @media (min-width: 60rem) {
+  @media (min-width: 58rem) {
     .project-hero__intro {
       grid-template-columns: minmax(0, 1fr) auto;
-      gap: 4rem;
     }
-
-    .project-hero__mark {
-      justify-self: end;
-      width: 11rem;
-    }
+    .project-hero__mark { justify-self: end; }
   }
 </style>
