@@ -1,0 +1,23 @@
+GVibeDev.cc — ITALIAN PARITY PASS 2A SOURCE AUDIT
+=================================================
+
+Patch files checked: 18
+Issues: 0
+
+PASS
+
+Confirmed at source level:
+- four current project-detail routes leave the V0.20 snapshot bridge;
+- Italian routes reuse the same current layout families as English;
+- English behavior is protected by `locale = 'en'` defaults;
+- project URLs, build hashes, launch/download paths and repository endpoints remain canonical project data rather than duplicated inside the translation layer;
+- no B&W Survivors repository is invented;
+- Arena Rubra Card Composer has six aligned Italian body sections;
+- Manuale LLM has five aligned Italian body sections;
+- Rubra Image Forge has seven aligned Italian body sections plus localized tool metadata/setup data;
+- B&W Survivors has seven aligned Italian body sections and localized gallery/action copy;
+- the cumulative cleanup targets 15 safe legacy Italian HTML snapshots;
+- Arena Rubra Digital, Arena Rubra Board Game and Unum Sunt are deliberately untouched for Pass 2B;
+- analytics/provider configuration and Arena Rubra canonical shared data are untouched.
+
+A real repository `npm run build`, visual EN/IT comparison and route-collision check remain the validation gate.

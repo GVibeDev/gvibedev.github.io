@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+set -eu
+
+echo 'Removing legacy Italian HTML routes already replaced by Astro...'
+rm -f 'src/pages/it/index.html'
+rm -f 'src/pages/it/about/index.html'
+rm -f 'src/pages/it/biggitykot/index.html'
+rm -f 'src/pages/it/contact/index.html'
+rm -f 'src/pages/it/manifesto/index.html'
+rm -f 'src/pages/it/projects/index.html'
+rm -f 'src/pages/it/tools/index.html'
+rm -f 'src/pages/it/web-apps/index.html'
+rm -f 'src/pages/it/worlds/index.html'
+rm -f 'src/pages/it/projects/unum-sunt-sprite-studio/index.html'
+rm -f 'src/pages/it/projects/rubra-packager/index.html'
+rm -f 'src/pages/it/projects/arena-rubra-card-composer/index.html'
+rm -f 'src/pages/it/projects/manuale-llm/index.html'
+rm -f 'src/pages/it/projects/rubra-image-forge/index.html'
+rm -f 'src/pages/it/projects/bw-survivors/index.html'
+echo 'Cleanup complete.'

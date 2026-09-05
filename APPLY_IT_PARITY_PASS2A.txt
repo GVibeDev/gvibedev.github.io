@@ -1,0 +1,83 @@
+GVibeDev.cc — ITALIAN PARITY PASS 2A / PROJECT DETAIL FOUNDATION
+=================================================================
+
+PASS 1 STATUS
+-------------
+Italian Parity Pass 1 is accepted/validated as the current functional baseline.
+The connected GitHub repository still exposes some old generated `index.html`
+files, so this Pass 2A package includes a CUMULATIVE cleanup script that removes
+those safe legacy duplicates together with the detail-page snapshots migrated
+here.
+
+WHAT PASS 2A MIGRATES
+---------------------
+Current English project-detail structure is now reused by Italian routes for:
+
+- Arena Rubra Card Composer
+- Manuale LLM
+- Rubra Image Forge
+- B&W Survivors
+
+The Italian pages no longer use LocalizedContentPage / it-pages.json.
+
+Shared layouts made locale-aware:
+- ProjectLayout
+- ToolProjectLayout
+- BiggityKotProjectLayout
+
+Shared components made locale-aware:
+- ProjectHero
+- ProjectActions
+- ToolProjectHero
+
+New centralized Italian project layer:
+- src/i18n/projects-it.ts
+- src/components/project/LocalizedProjectBody.astro
+
+The English routes keep their existing defaults (`locale = 'en'`).
+
+CLEANUP
+-------
+After overlaying the ZIP, run:
+
+Windows:
+    CLEANUP_IT_PARITY_PASS2A.cmd
+
+macOS/Linux/Git Bash:
+    sh CLEANUP_IT_PARITY_PASS2A.sh
+
+This removes 15 obsolete Italian HTML files:
+- 9 Pass-1 core-page snapshots;
+- 2 snapshots for routes already shared before this pass (Sprite Studio and
+  Rubra Packager);
+- 4 project-detail snapshots migrated in Pass 2A.
+
+BUILD
+-----
+Run:
+
+    npm run build
+
+VALIDATE
+--------
+Check at minimum:
+
+/it/projects/arena-rubra-card-composer/
+/it/projects/manuale-llm/
+/it/projects/rubra-image-forge/
+/it/projects/bw-survivors/
+
+and compare them side by side with the corresponding English routes.
+
+REMAINING FOR PASS 2B
+---------------------
+The three complex project-detail families are intentionally left for the next
+pass:
+
+- Arena Rubra Digital
+- Arena Rubra Board Game
+- Unum Sunt / Radix Machinae
+
+They use large specialised layouts and shared canonical data. They should be
+localized at the shared-data/layout level rather than replaced with another
+snapshot.
