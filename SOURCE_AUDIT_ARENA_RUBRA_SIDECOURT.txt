@@ -1,0 +1,25 @@
+GVibeDev.cc — ARENA RUBRA SIDECOURT PATCH SOURCE AUDIT
+=======================================================
+
+PASS
+
+Repository state checked before preparing the patch:
+- main = 487f29d8b8242026f739d65945a02e55e014786b
+- Italian parity cleanup is present.
+- Arena Rubra Digital uses the current shared `ArenaRubraDigitalLayout.astro`.
+- no existing SideCourt reference was found in the repository.
+
+Patch design:
+- modifies exactly one runtime source file;
+- inserts the note after the hero and before The Digital Arena;
+- uses the exact owner-supplied URL;
+- keeps the supplied English copy verbatim;
+- adds an Italian equivalent only for the existing shared Italian route;
+- adds no logo, badge, remote asset, sponsorship or partnership language;
+- does not touch canonical Arena Rubra data/copy or existing project links;
+- uses flex wrapping and existing CSS variables for responsive behaviour.
+
+The apply transformer is idempotent and refuses to patch if expected layout
+anchors are missing.
+
+A real repository `npm run build` remains the final validation gate.

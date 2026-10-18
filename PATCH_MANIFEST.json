@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "APPLY_ARENA_RUBRA_SIDECOURT.cmd",
+      "bytes": 803,
+      "sha256": "1fbc0d130a37e4e62bce776a733434a4b897fccad8c352b79518c7bfdca5f097"
+    },
+    {
+      "path": "APPLY_ARENA_RUBRA_SIDECOURT.sh",
+      "bytes": 678,
+      "sha256": "82ec5dfc14364c3fa757a5ce9a7f15fbef94938484dfc915aeb67f01f169f007"
+    },
+    {
+      "path": "README_ARENA_RUBRA_SIDECOURT.txt",
+      "bytes": 2060,
+      "sha256": "0181206f467148c33f0f0ddfd4af4c37122ad3de2f77bcb4a934ed3f9f195689"
+    },
+    {
+      "path": "SOURCE_AUDIT_ARENA_RUBRA_SIDECOURT.txt",
+      "bytes": 1071,
+      "sha256": "9313850ea807b05792e4108595f37c86ecf0e9be2953aa06ef8adbd2af66de16"
+    },
+    {
+      "path": "VALIDATION_ARENA_RUBRA_SIDECOURT.md",
+      "bytes": 1426,
+      "sha256": "347ee68b24863f312b4da5b6271d0559c2567d697c51fbc43a78aa640e3f6a6a"
+    },
+    {
+      "path": "scripts/apply-arena-rubra-sidecourt.mjs",
+      "bytes": 4502,
+      "sha256": "a86aa9309a34787593516a59066920a861ebeff4949ac44c5c558e3c53a9b9e2"
+    }
+  ]
+}
