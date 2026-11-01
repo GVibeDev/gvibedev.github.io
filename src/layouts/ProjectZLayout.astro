@@ -1,0 +1,604 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import { getNavigationPath, type Locale } from '../i18n/config';
+import { getProjectView } from '../i18n/projects-it';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  locale?: Locale;
+}
+
+const { project, locale = 'en' } = Astro.props;
+const data = getProjectView(project, locale);
+
+const playUrl = data.links.launchUrl ?? 'https://gvibedev.cc/ProjectZ/';
+const itchUrl =
+  data.links.actions?.find((action) => action.href?.includes('gvibedev.itch.io/projectz'))?.href ??
+  'https://gvibedev.itch.io/projectz';
+const sidecourtUrl =
+  data.links.actions?.find((action) => action.href?.includes('sidecourt.space/work/SCET5BX'))?.href ??
+  'https://sidecourt.space/work/SCET5BX';
+const teaserUrl = 'https://youtu.be/VK_z2je7I_o';
+
+const copy = locale === 'it'
+  ? {
+      back: '← Web App',
+      seoTitle: "Project Z — Shoot 'Em Up Arcade",
+      heroLine: "Uno shoot 'em up arcade gratuito, direttamente nel browser.",
+      play: 'Gioca ora',
+      teaser: 'Guarda il teaser',
+      aboutEyebrow: 'Il gioco',
+      aboutTitle: 'Project Z',
+      intro: [
+        "Project Z è uno shoot 'em up verticale costruito attorno a cinque livelli, potenziamenti e combattimenti contro i boss. Si parte dallo spazio e si scende verso Planet Z, fino a raggiungerne il nucleo.",
+        'Si può giocare da soli o in due, in cooperativa locale.',
+      ],
+      gameplayEyebrow: 'Gameplay',
+      gameplayTitle: 'Cinque livelli, armi, boss e tre difficoltà.',
+      gameplayBody:
+        'Scegli le armi, raccogli i potenziamenti e adattati ai nemici di ogni livello. Ogni boss ha attacchi differenti e le tre difficoltà permettono di trovare il ritmo più adatto.',
+      facts: [
+        ['5', 'Livelli'],
+        ['3', 'Difficoltà'],
+        ['1–2', 'Giocatori locali'],
+        ['⌨', 'Tastiera · Gamepad · Touch'],
+      ],
+      memoriesEyebrow: 'Memories',
+      memoriesTitle: 'Cinque frammenti nascosti nella campagna.',
+      memoriesBody:
+        "Durante la campagna sono nascoste cinque Memories. Puoi raccoglierle e consultare i loro frammenti nell'Archive.",
+      originEyebrow: 'Come è nato',
+      originTitle: 'Un progetto padre e figlio.',
+      originBody: [
+        'Project Z nasce da Mare Sospeso, un piccolo gioco creato da mio figlio. Abbiamo continuato a lavorarci insieme, trasformandolo poco alla volta in un progetto arcade più articolato.',
+        "L'AI ci ha aiutati durante lo sviluppo, ma le decisioni di design, le verifiche e le scelte finali sono rimaste nostre.",
+      ],
+      statusEyebrow: 'Stato attuale',
+      statusTitle: 'Release Candidate 1',
+      statusBody: [
+        'Il gioco è disponibile gratuitamente. Stiamo raccogliendo prime impressioni e segnalazioni di bug prima della pubblicazione definitiva.',
+        'Se qualcosa non funziona come dovrebbe, ci interessa sapere quale browser e dispositivo stavi usando e in quale punto del gioco è successo.',
+      ],
+      itch: 'Gioca su itch.io',
+      sidecourt: 'Vedi su SideCourt',
+      contact: 'Contatti',
+      free: 'Gratuito e giocabile nel browser.',
+      teaserAlt: 'Artwork di Project Z con la nave del giocatore in volo verso Planet Z.',
+      bannerAlt: 'Banner di Project Z con Spear, Dart e Arrow davanti a Planet Z.',
+    }
+  : {
+      back: '← Web Apps',
+      seoTitle: "Project Z — Arcade Shoot 'Em Up",
+      heroLine: "A free arcade shoot 'em up for your browser.",
+      play: 'Play Now',
+      teaser: 'Watch Teaser',
+      aboutEyebrow: 'About the game',
+      aboutTitle: 'Project Z',
+      intro: [
+        "Project Z is a vertical shoot 'em up built around five stages, weapon upgrades and boss fights. The journey begins in space and takes you down through Planet Z, all the way to its core.",
+        'Play on your own or with a second player in local co-op.',
+      ],
+      gameplayEyebrow: 'Gameplay',
+      gameplayTitle: 'Five stages, weapons, bosses and three difficulty settings.',
+      gameplayBody:
+        'Choose your weapons, pick up upgrades and adapt to what each stage throws at you. Every boss has its own attacks, and the three difficulty settings give you some room to find your pace.',
+      facts: [
+        ['5', 'Stages'],
+        ['3', 'Difficulty settings'],
+        ['1–2', 'Local players'],
+        ['⌨', 'Keyboard · Gamepad · Touch'],
+      ],
+      memoriesEyebrow: 'Memories',
+      memoriesTitle: 'Five fragments hidden through the campaign.',
+      memoriesBody:
+        'There are five Memories hidden throughout the campaign. Collect them and revisit their fragments in the Archive.',
+      originEyebrow: 'How it started',
+      originTitle: 'A father-and-son project.',
+      originBody: [
+        'Project Z began as Mare Sospeso, a small game created by my son. We continued working on it together, gradually turning it into a larger arcade project.',
+        'AI helped us throughout development, but the design decisions, testing and final choices remained ours.',
+      ],
+      statusEyebrow: 'Current status',
+      statusTitle: 'Release Candidate 1',
+      statusBody: [
+        "The game is available to play for free. We're collecting first impressions and bug reports before the final release.",
+        "If something doesn't work as expected, let us know which browser and device you're using, and where the problem occurred.",
+      ],
+      itch: 'Play on itch.io',
+      sidecourt: 'View on SideCourt',
+      contact: 'Contact',
+      free: 'Free to play in your browser.',
+      teaserAlt: 'Project Z artwork showing the player ship flying toward Planet Z.',
+      bannerAlt: 'Project Z banner showing Spear, Dart and Arrow in front of Planet Z.',
+    };
+---
+
+<BaseLayout
+  title={copy.seoTitle}
+  description={data.seoDescription ?? data.summary}
+  image={data.socialImage ?? data.heroImage ?? data.cover}
+  locale={locale}
+>
+  <div class="pz-page">
+    <section class="pz-hero">
+      <Container>
+        <a class="pz-back" href={getNavigationPath('/web-apps/', locale)}>{copy.back}</a>
+
+        <div class="pz-hero__head">
+          <div class="pz-hero__copy">
+            <div class="pz-status">
+              <span>PROJECT Z</span>
+              <span>{data.status}</span>
+            </div>
+
+            <h1>Project Z</h1>
+            <p>{copy.heroLine}</p>
+
+            <div class="pz-actions" aria-label={`${data.title} actions`}>
+              <a
+                class="pz-action pz-action--primary"
+                href={playUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.play} <span aria-hidden="true">↗</span>
+              </a>
+              <a
+                class="pz-action"
+                href={teaserUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.teaser} <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {data.heroImage && (
+          <figure class="pz-hero__media">
+            <img
+              src={data.heroImage}
+              alt={data.heroAlt ?? ''}
+              width="1672"
+              height="941"
+              fetchpriority="high"
+            />
+          </figure>
+        )}
+      </Container>
+    </section>
+
+    <section class="pz-section">
+      <Container>
+        <div class="pz-split pz-split--media">
+          <div class="pz-copy">
+            <span class="pz-eyebrow">{copy.aboutEyebrow}</span>
+            <h2>{copy.aboutTitle}</h2>
+            {copy.intro.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+
+          <a
+            class="pz-teaser"
+            href={teaserUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={copy.teaser}
+          >
+            <img
+              src="/assets/projects/project-z/project-z-teaser.webp"
+              alt={copy.teaserAlt}
+              width="800"
+              height="450"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>{copy.teaser} ↗</span>
+          </a>
+        </div>
+      </Container>
+    </section>
+
+    <section class="pz-section pz-section--deep">
+      <Container>
+        <div class="pz-split">
+          <div>
+            <span class="pz-eyebrow">{copy.gameplayEyebrow}</span>
+            <h2>{copy.gameplayTitle}</h2>
+          </div>
+
+          <div class="pz-copy">
+            <p>{copy.gameplayBody}</p>
+          </div>
+        </div>
+
+        <div class="pz-facts">
+          {copy.facts.map(([value, label]) => (
+            <div>
+              <strong>{value}</strong>
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+
+        <figure class="pz-banner">
+          <img
+            src="/assets/projects/project-z/project-z-banner.webp"
+            alt={copy.bannerAlt}
+            width="2048"
+            height="682"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </Container>
+    </section>
+
+    <section class="pz-section">
+      <Container>
+        <div class="pz-split">
+          <div>
+            <span class="pz-eyebrow">{copy.memoriesEyebrow}</span>
+            <h2>{copy.memoriesTitle}</h2>
+          </div>
+          <div class="pz-copy">
+            <p>{copy.memoriesBody}</p>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="pz-section pz-section--deep">
+      <Container>
+        <div class="pz-split">
+          <div>
+            <span class="pz-eyebrow">{copy.originEyebrow}</span>
+            <h2>{copy.originTitle}</h2>
+          </div>
+          <div class="pz-copy">
+            {copy.originBody.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="pz-section pz-status-section">
+      <Container>
+        <div class="pz-split">
+          <div>
+            <span class="pz-eyebrow">{copy.statusEyebrow}</span>
+            <h2>{copy.statusTitle}</h2>
+            <p class="pz-free">{copy.free}</p>
+          </div>
+
+          <div class="pz-copy">
+            {copy.statusBody.map((paragraph) => <p>{paragraph}</p>)}
+
+            <div class="pz-actions pz-actions--closing">
+              <a
+                class="pz-action pz-action--primary"
+                href={playUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {copy.play} <span aria-hidden="true">↗</span>
+              </a>
+
+              {itchUrl && (
+                <a
+                  class="pz-action"
+                  href={itchUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {copy.itch} <span aria-hidden="true">↗</span>
+                </a>
+              )}
+
+              {sidecourtUrl && (
+                <a
+                  class="pz-action"
+                  href={sidecourtUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {copy.sidecourt} <span aria-hidden="true">↗</span>
+                </a>
+              )}
+
+              <a class="pz-action pz-action--text" href={getNavigationPath('/contact/', locale)}>
+                {copy.contact} →
+              </a>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .pz-page {
+    --pz-line: var(--color-border);
+    --pz-blue: var(--color-blue-soft);
+    color: var(--color-text);
+    background: var(--color-bg);
+  }
+
+  .pz-hero {
+    padding-block: clamp(2rem, 5vw, 4.5rem) clamp(3rem, 7vw, 6rem);
+    border-bottom: 1px solid var(--pz-line);
+    background: var(--color-bg-deep);
+  }
+
+  .pz-back {
+    display: inline-flex;
+    margin-bottom: clamp(2rem, 4vw, 3.25rem);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .pz-back:hover,
+  .pz-back:focus-visible {
+    color: var(--pz-blue);
+  }
+
+  .pz-hero__head {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .pz-hero__copy {
+    display: grid;
+    gap: 1.15rem;
+    max-width: 62rem;
+  }
+
+  .pz-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .55rem 1rem;
+    color: var(--pz-blue);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .pz-status span:last-child {
+    color: var(--color-red-soft);
+  }
+
+  .pz-hero h1 {
+    margin: 0;
+    font-size: clamp(3.4rem, 10vw, 8rem);
+    line-height: .86;
+    letter-spacing: -.065em;
+  }
+
+  .pz-hero__copy > p {
+    max-width: 45rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.08rem, 1rem + .45vw, 1.45rem);
+    line-height: 1.65;
+  }
+
+  .pz-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+    margin-top: .25rem;
+  }
+
+  .pz-action {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    padding: .72rem .95rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: var(--color-surface-2);
+    font-family: var(--font-mono);
+    font-size: .73rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .pz-action--primary {
+    border-color: color-mix(in srgb, var(--color-blue-bright) 72%, var(--color-border));
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--color-blue) 76%, #fff 6%), var(--color-blue-deep));
+  }
+
+  .pz-action--text {
+    border-color: transparent;
+    background: transparent;
+    color: var(--pz-blue);
+  }
+
+  .pz-action span {
+    color: var(--color-red-soft);
+  }
+
+  .pz-action:hover,
+  .pz-action:focus-visible {
+    border-color: var(--pz-blue);
+  }
+
+  .pz-hero__media,
+  .pz-banner,
+  .pz-teaser {
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background: #020305;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .pz-hero__media img,
+  .pz-banner img,
+  .pz-teaser img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pz-section {
+    padding-block: var(--section-space);
+    border-bottom: 1px solid var(--pz-line);
+  }
+
+  .pz-section--deep {
+    background: var(--color-bg-deep);
+  }
+
+  .pz-split {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .pz-split > div:first-child,
+  .pz-copy {
+    display: grid;
+    align-content: start;
+    gap: .9rem;
+  }
+
+  .pz-eyebrow {
+    color: var(--pz-blue);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .pz-section h2 {
+    max-width: 16ch;
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4.8rem);
+    line-height: .97;
+    letter-spacing: -.05em;
+  }
+
+  .pz-copy p,
+  .pz-free {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.78;
+  }
+
+  .pz-copy p:first-child {
+    color: var(--color-text);
+  }
+
+  .pz-split--media {
+    align-items: center;
+  }
+
+  .pz-teaser {
+    position: relative;
+    display: block;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .pz-teaser span {
+    position: absolute;
+    right: .8rem;
+    bottom: .8rem;
+    padding: .55rem .7rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-bg-deep) 88%, transparent);
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+
+  .pz-facts {
+    display: grid;
+    gap: .75rem;
+    margin-top: 2rem;
+  }
+
+  .pz-facts > div {
+    display: grid;
+    gap: .3rem;
+    padding: 1rem;
+    border: 1px solid var(--pz-line);
+    background: var(--color-surface-1);
+  }
+
+  .pz-facts strong {
+    font-size: clamp(1.7rem, 4vw, 2.7rem);
+    line-height: 1;
+  }
+
+  .pz-facts span {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+
+  .pz-banner {
+    margin-top: clamp(2rem, 5vw, 4rem);
+  }
+
+  .pz-status-section {
+    border-bottom: 0;
+  }
+
+  .pz-free {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: .76rem;
+  }
+
+  .pz-actions--closing {
+    margin-top: .6rem;
+  }
+
+  @media (min-width: 40rem) {
+    .pz-facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 60rem) {
+    .pz-split {
+      grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+      gap: clamp(3rem, 7vw, 6rem);
+      align-items: start;
+    }
+
+    .pz-split--media {
+      grid-template-columns: minmax(0, .85fr) minmax(24rem, 1.15fr);
+      align-items: center;
+    }
+
+    .pz-facts {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

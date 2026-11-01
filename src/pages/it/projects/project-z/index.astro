@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectZLayout from '../../../../layouts/ProjectZLayout.astro';
+
+const locale = 'it' as const;
+const project = (await getCollection('projects')).find(
+  (entry) => entry.data.slug === 'project-z',
+);
+
+if (!project) {
+  throw new Error('Project Z project data not found.');
+}
+---
+
+<ProjectZLayout project={project} locale={locale} />

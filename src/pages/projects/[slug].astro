@@ -8,6 +8,7 @@ import BoardGameProjectLayout from '../../layouts/BoardGameProjectLayout.astro';
 import ArenaRubraDigitalLayout from '../../layouts/ArenaRubraDigitalLayout.astro';
 import SpriteStudioProjectLayout from '../../layouts/SpriteStudioProjectLayout.astro';
 import RubraPackagerProjectLayout from '../../layouts/RubraPackagerProjectLayout.astro';
+import ProjectZLayout from '../../layouts/ProjectZLayout.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -32,6 +33,8 @@ if (project.data.slug === 'arena-rubra-board-game') {
   Layout = SpriteStudioProjectLayout;
 } else if (project.data.slug === 'rubra-packager') {
   Layout = RubraPackagerProjectLayout;
+} else if (project.data.slug === 'project-z') {
+  Layout = ProjectZLayout;
 } else if (project.data.owner === 'biggitykot') {
   Layout = BiggityKotProjectLayout;
 } else if (project.data.kind === 'tool') {
